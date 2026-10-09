@@ -2,7 +2,7 @@
 
 **Status:** Agreed, implemented (see "Implementation status")
 **Folder:** `tools/gundam_packages/`
-**Backlog item:** IMPROVEMENTS.md > Packages and archetypes
+**Backlog item:** workspace backlog > Packages and archetypes
 
 ## Purpose
 Show how decks are really built. Per-card popularity (what Egman's meta page shows) is misleading in a game where decks are assembled from **packages**: Barbatos Adapt is "in 94% of purple decks" because it's one piece of the Barbatos package, not because it's the best card. This tool organizes decks **first into packages, then into archetypes**, and separates **solo** cards. Questions it answers:
@@ -20,7 +20,7 @@ Three **relations** between cards, all read from the card catalog (never from de
 |----------|---------|---------------------|
 | **Combo** | Must be played together: an ability that only works with another card, names another card, or needs a specific pilot | A Unit's named Link satisfied by a Pilot (`[Mikazuki Augus]`; a Command with a pilot effect counts as a pilot); card text that names another card (`a Unit with "Master Gundam" in its card name`). |
 | **Synergy** | Work better together: similar keywords, similar abilities, or abilities that work together | An ability that **needs other cards** with a trait (Tekkadan); a trait Link; the same effect or native keyword on cards at a **different** level/cost. |
-| **Functional reprint** (becoming **same job**: see the classification plan in IMPROVEMENTS.md) | Cards that do the same job in a deck, so players run some of each. They are redundant, not substitutes: each keeps its own role. | Today: the same or a contained effect, or the same native keyword, at a similar level/cost, plus a same-name/kind/color rule that is a known mistake and is to be replaced by the structural job match. |
+| **Functional reprint** (becoming **same job**: see the classification plan in the workspace backlog) | Cards that do the same job in a deck, so players run some of each. They are redundant, not substitutes: each keeps its own role. | Today: the same or a contained effect, or the same native keyword, at a similar level/cost, plus a same-name/kind/color rule that is a known mistake and is to be replaced by the structural job match. |
 
 *(Superseded by "Same job" below: level and cost no longer decide it; AP/HP, Link, keywords and effect features do.)* **Reprint vs synergy** is decided by level and cost. The same ability at very different levels and costs means the cards aren't substitutes; they're meant to be played together. Tekkadan's "choose 1 of your Units and 1 enemy Unit, deal 1 damage to both" sits on Gusion Rebake (Lv5/cost4), Barbatos Adapt (Lv4/cost2) and Lupus (Lv7/cost6): **synergy**, and they can't carry a deck alone. Darkness Finger (Lv4/cost1) contains Close Combat's (Lv2/cost2) whole effect, but their levels differ by two: **synergy**, not a reprint. Close Combat and Battle of Aces (Lv3/cost2) are **reprints**. "Similar" is each within `SIMILAR_STATS_MAX_DIFF = 1` (a named constant in `functional.py`).
 

@@ -22,7 +22,7 @@ Work is organized as **tools**, each in `tools/<tool_name>/` with a `design.md` 
 
 - `docs/glossary.md`: the shared vocabulary (deck, package, bridge, squad, free floating, trait, Link pair, rates and their symbols Z/Y/YY). Use these names in code, docs and CLI output; add a term there when you introduce one.
 - `docs/commands.md`: the command cheat sheet. `docs/tuning.md`: every tuning constant and why it has its value.
-- `IMPROVEMENTS.md`: backlog of tools and ideas. Check it for context; update it when starting or finishing something.
+- The backlog of tools and ideas is the workspace's `IMPROVEMENTS.md` (one folder up from this repository, not part of it). Check it for context; update it when starting or finishing something.
 - `tools/<tool_name>/design.md`: the spec and source of truth for that tool, including data contracts.
 - `shared/`: code and data used by 2+ tools (e.g. `shared/fetch.py`, the cached fetcher).
 

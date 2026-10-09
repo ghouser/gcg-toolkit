@@ -33,7 +33,7 @@ Create only what a tool needs; don't pre-create empty folders.
 3. **Data contracts live in `design.md`.** Any file one tool writes for another (or for me) has its format (columns/fields, key, units, timestamp) documented there. The producing tool owns it.
 4. **Outputs carry a fetch timestamp** and a stable key (e.g. TCGPlayer `productId`). Re-runs overwrite or update; they don't duplicate.
 5. **Durable over AI-first** (see CLAUDE.md): API, then embedded data, then HTML parsing. Judgment calls stay with the LLM; extraction does not.
-6. **Every tool has a `Status` in `design.md`** (`Draft`, `Agreed`, `Implemented`) and an entry in `IMPROVEMENTS.md` that links to its folder.
+6. **Every tool has a `Status` in `design.md`** (`Draft`, `Agreed`, `Implemented`) and an entry in the workspace backlog (`IMPROVEMENTS.md`, one folder above the repository) that links to its folder.
 7. **Skills wrap tools, not replace them.** A skill in `.claude/skills/<tool_name>/SKILL.md` says when to use the tool and how to run it. The logic stays in the tool.
 
 ## Data Model Conventions
@@ -72,8 +72,8 @@ A convenient joined view (a card with its latest price, a card with its package)
 
 ## Workflow for a new tool
 
-1. Add it to `IMPROVEMENTS.md` (or pick an item from there).
+1. Add it to the workspace backlog (`IMPROVEMENTS.md`, one folder above the repository) or pick an item from there.
 2. Create `tools/<tool_name>/design.md` from `docs/design-template.md`. Discuss with the user; set Status to `Agreed`.
 3. Probe data sources, record findings in the design (source table, endpoints, quirks).
 4. Implement per the design; write tests against saved fixtures.
-5. Verify against the acceptance checks in the design; set Status to `Implemented`; move the item to Done in `IMPROVEMENTS.md`.
+5. Verify against the acceptance checks in the design; set Status to `Implemented`; move the item to Done in the workspace backlog.

@@ -30,6 +30,6 @@ Everything runs from the repository root as `.venv/bin/python -m tools.<tool>.cl
 | `tools/gundam_packages` | packages, bridges, squads, rates |
 | `tools/gundam_collection` | your collection, bands, archetypes, buy and suggest |
 | `shared/` | code and data used by more than one tool |
-| `docs/`, `notes/`, `IMPROVEMENTS.md` | patterns, vocabulary, source notes, backlog |
+| `docs/`, `notes/` | patterns, vocabulary, tuning constants, source notes |
 
 Each tool has a `design.md` that is its spec. Checks: `.venv/bin/python -m pytest` and `.venv/bin/python -m mypy tools shared`.

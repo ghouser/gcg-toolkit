@@ -2,7 +2,7 @@
 
 **Status:** Draft for the planner (`plan`, `export`, the deck report). Built: the collection file and `check`/`template`, `import`, `coverage`, the cross-layer `card` view, and the links they use (`link.py`).
 **Folder:** `tools/gundam_collection/`
-**Backlog item:** IMPROVEMENTS.md > Collection and purchase planning (replaces the TCG Store Recommendation tool and the parked Collection management tool)
+**Backlog item:** workspace backlog > Collection and purchase planning (replaces the TCG Store Recommendation tool and the parked Collection management tool)
 
 ## Goals
 These are the principles the whole tool is built to serve. **Every feature, ranking and default below exists to enforce one of them; if a change would break one, the change is wrong.** They apply to code, to this design, and to anyone (human or Claude) extending the tool.

@@ -2,7 +2,7 @@
 
 **Status:** Draft | Agreed | Implemented
 **Folder:** `tools/<tool_name>/`
-**Backlog item:** IMPROVEMENTS.md > <item>
+**Backlog item:** workspace backlog > <item>
 
 ## Purpose
 One or two sentences: the problem and who/what it serves.

@@ -2,7 +2,7 @@
 
 **Status:** Agreed, partially implemented (see "Implementation status"); the TCGPlayer price sync was agreed and implemented 2026-10-08
 **Folder:** `tools/gundam_cards/`
-**Backlog item:** IMPROVEMENTS.md > Gundam Card Catalog tool
+**Backlog item:** workspace backlog > Gundam Card Catalog tool
 
 ## Purpose
 Build and keep a local, searchable catalog of **every** Gundam Card Game card (not just ones seen in meta lists), scraped directly from Bandai's official English site. It is the single source of card identity and attributes for the other tools: card number to name, kind, color, stats, keywords, factions, text, set, and printings (including alt-art and promo versions), plus set release dates and a mapping to TCGPlayer products.

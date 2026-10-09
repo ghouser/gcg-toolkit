@@ -2,7 +2,7 @@
 
 **Status:** Agreed, implemented (see "Implementation status")
 **Folder:** `tools/gundam_meta/`
-**Backlog item:** IMPROVEMENTS.md > Gundam Meta Data tool
+**Backlog item:** workspace backlog > Gundam Meta Data tool
 
 ## Purpose
 Keep a local copy of what is being played and answer "what's played" questions from it, with no dependency on TCGPlayer. There are three metas, never merged into one score:
@@ -122,7 +122,7 @@ Online **decks** come as **example decks**: per archetype, a set of curated tour
 ## Out of Scope
 - TCGPlayer prices or inventory (the store recommender).
 - Merging online and tournament numbers into one score.
-- Match results, matchup win rates, archetype classification, and "cards played together" (planned next; see IMPROVEMENTS.md). The stored decks and de-duplication are what it needs.
+- Match results, matchup win rates, archetype classification, and "cards played together" (planned next; see the workspace backlog). The stored decks and de-duplication are what it needs.
 
 ## Open Questions
 - **EGM `Official Event` = small official = major**: confirm that includes small events such as a 256-player regional that EGM labels `Official`.
