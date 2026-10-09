@@ -1,0 +1,392 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "82dd246a-b3d6-499c-bc75-d08819a18774",
+  "name": "DXN Outpost’s 1k Tournament",
+  "start_date": "2025-08-19",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 64,
+  "rounds": 6,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD01",
+  "decks": [
+   {
+    "id": "37af46b5-7ac9-476c-8472-a89cd19d59e8",
+    "player_name": "Stevenlekc",
+    "placement": 1,
+    "name": "Cyber-Newtype",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-008",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a288ea3b-e8a8-42ae-883a-ba23581babf1",
+    "player_name": "DirtyDiamondsZ",
+    "placement": 2,
+    "name": "Cyber-Newtype",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-060",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-123",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "ce3a504d-2959-4042-af3e-d82f25e20626",
+    "player_name": "albertoe",
+    "placement": 6,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "7cb5e25e-22ee-4d9d-a4e1-a2274f65e849",
+    "player_name": "dorki3",
+    "placement": 7,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-024",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-029",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-013",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-109",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "2619fdad-85c2-40d5-b1e6-cb98d42846bf",
+    "player_name": "Terax",
+    "placement": 8,
+    "name": "Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-076",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

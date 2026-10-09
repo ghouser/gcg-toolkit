@@ -1,0 +1,629 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "50f1da90-bbb7-4fae-8674-2d38f43c3309",
+  "name": "TAK Games' Sydney Regionals",
+  "start_date": "2026-04-11",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 230,
+  "rounds": 8,
+  "event_type": "large_official",
+  "type_raw": "Large Official Event",
+  "format_label": "ST09",
+  "decks": [
+   {
+    "id": "a7f13d6c-b6ff-4e40-afda-915a7589d5bb",
+    "player_name": "Lam",
+    "placement": 1,
+    "name": "Blue/Purple Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "e8a5f0a4-9a61-41bc-a2d5-18c2fdd321b1",
+    "player_name": "Nikola",
+    "placement": 2,
+    "name": "Blue/White Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-117",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "b365827f-fb8c-485c-a54d-2af2005b5d16",
+    "player_name": "Marc",
+    "placement": 3,
+    "name": "Blue/Purple Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a9e7eb66-63bf-41f6-9d55-b33147860b17",
+    "player_name": "Anthony",
+    "placement": 4,
+    "name": "Blue/Green Zeon Aggro (Unicorn)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "c71874a8-e7f1-4c98-841c-587251b31040",
+    "player_name": "Bosman",
+    "placement": 5,
+    "name": "Blue/Purple Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-050",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "cddb0478-a428-4193-b3fd-28a54d76f335",
+    "player_name": "Ian",
+    "placement": 6,
+    "name": "Blue/White Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-097",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "03db047c-9cb2-40d6-9eb1-bff41986d924",
+    "player_name": "Bowen",
+    "placement": 7,
+    "name": "Blue/Green Dynames Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-026",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST07-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-006",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a0cc6fa9-edb7-4b9a-b224-e4f0742160bc",
+    "player_name": "Saohang",
+    "placement": 8,
+    "name": "Red/White Justice Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-034",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-035",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-092",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,179 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "sc-comicaldo-takasaki-july-2026",
+  "name": "SC Comicaldo Takasaki July 2026",
+  "start_date": "2026-07-05",
+  "end_date": "2026-07-05",
+  "country": "JP",
+  "city": "Takasaki",
+  "players": 21,
+  "rounds": null,
+  "event_type": "store_championship",
+  "type_raw": "8",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "bpUrPDgOQUKGIwTRD7HA2g",
+    "player_name": "ア・スラ",
+    "placement": 1,
+    "name": "B/W Victory Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "fWN0XMAlOUOKU5QCaYsqMw",
+    "player_name": "田中ガンダム",
+    "placement": 5,
+    "name": "B/W Unicorn Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-066",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-005",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-130",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:55:35.382035Z",
+  "warnings": []
+ }
+}

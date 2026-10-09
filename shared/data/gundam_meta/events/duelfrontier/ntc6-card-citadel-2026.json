@@ -1,0 +1,384 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-card-citadel-2026",
+  "name": "NTC6 Card Citadel 2026",
+  "start_date": "2026-05-23",
+  "end_date": "2026-05-23",
+  "country": "AR",
+  "city": "Buenos Aires",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "MzW8ZurZ20yVCG6R006NIg",
+    "player_name": "Alastor",
+    "placement": 1,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "1enZoL54KkGIAz-yYI96JQ",
+    "player_name": "Pan Casero",
+    "placement": 2,
+    "name": "P/W Impulse Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-053",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-093",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "SRpyJdw6j0uwptJyU-EAEw",
+    "player_name": "Fede P",
+    "placement": 3,
+    "name": "B/W Victory",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-006",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-098",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-065",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "lxYHautqT0OPmFwouxjcig",
+    "player_name": "Clouding",
+    "placement": 4,
+    "name": "P/W Impulse Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "fiw5CmpqCUuGXN1rN5shlQ",
+    "player_name": "Avalon",
+    "placement": 5,
+    "name": "B/W Victory",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-006",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-098",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-065",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:56:29.485216Z",
+  "warnings": []
+ }
+}

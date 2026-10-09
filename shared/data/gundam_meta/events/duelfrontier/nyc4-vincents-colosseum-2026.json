@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "nyc4-vincents-colosseum-2026",
+  "name": "NYC4 Vincent's Colosseum 2026",
+  "start_date": "2026-02-22",
+  "end_date": "2026-02-22",
+  "country": "MY",
+  "city": "Miri",
+  "players": 25,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "OrD0iNm4aU-m5OoB3rJP2A",
+    "player_name": "Khai",
+    "placement": 1,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-125",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:28.951845Z",
+  "warnings": []
+ }
+}

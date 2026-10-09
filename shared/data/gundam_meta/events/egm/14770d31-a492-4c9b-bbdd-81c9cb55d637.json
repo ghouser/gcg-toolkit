@@ -1,0 +1,585 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "14770d31-a492-4c9b-bbdd-81c9cb55d637",
+  "name": "TAK Game's Brisbane Regionals",
+  "start_date": "2026-07-20",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 166,
+  "rounds": 8,
+  "event_type": "large_official",
+  "type_raw": "Large Official Event",
+  "format_label": "EB01",
+  "decks": [
+   {
+    "id": "9cd6cbf7-a61f-45b9-90ba-9c60a634e466",
+    "player_name": "Ian",
+    "placement": 1,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 1
+     },
+     {
+      "card_number": "ST10-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "fc3b6ae8-95eb-427e-992a-6da246b5c494",
+    "player_name": "William N.",
+    "placement": 2,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-063",
+      "qty": 3
+     },
+     {
+      "card_number": "ST10-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f9efc188-df8c-4a1d-b12f-f254fd2acf23",
+    "player_name": "William T.",
+    "placement": 3,
+    "name": "Justice Blockers (Neo Zeong)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "EB01-054",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-040",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "0845f471-57e4-4e38-856f-459f9cb8e55e",
+    "player_name": "Mark",
+    "placement": 4,
+    "name": "League Militaire (Banshee Norn)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-098",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-065",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a3d1a214-7f18-40ea-8f80-06da1c0a9ff9",
+    "player_name": "Adam",
+    "placement": 5,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-125",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "db6cbba2-3f67-456a-a534-9f08e4ff4572",
+    "player_name": "Runtao",
+    "placement": 6,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "b6ed9c13-810e-43c8-b7c5-fdff5d2692a4",
+    "player_name": "Ethan",
+    "placement": 7,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "8571546b-47e7-4f7d-8999-72d11ccb7372",
+    "player_name": "James",
+    "placement": 8,
+    "name": "League Militaire",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

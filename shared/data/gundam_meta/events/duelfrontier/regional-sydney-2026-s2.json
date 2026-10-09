@@ -1,0 +1,1181 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "regional-sydney-2026-s2",
+  "name": "Regional Sydney 2026 S2",
+  "start_date": "2026-08-08",
+  "end_date": "2026-08-09",
+  "country": "AU",
+  "city": "Sydney",
+  "players": 207,
+  "rounds": null,
+  "event_type": "regional",
+  "type_raw": "16",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "jrU78FJxcUaRokK-VTzFZQ",
+    "player_name": "Guele",
+    "placement": 1,
+    "name": "B/W Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-123",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "C8Hl-w_FeU-4lDzpuwKO0Q",
+    "player_name": "Frank",
+    "placement": 2,
+    "name": "R/W Shining Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-042",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-076",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-036",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-128",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Ef5ndrdWaEq9w0qytto_mg",
+    "player_name": "JHa",
+    "placement": 4,
+    "name": "B/P Barbatos Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-050",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-060",
+      "qty": 1
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-050",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-114",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-129",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "D42NvNk_70ieDjHyoAv62w",
+    "player_name": "SGF_JuniorRnG",
+    "placement": 4,
+    "name": "B/R Kshatrya Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-109",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "xfzyENHn1EC7iCVVd3HdHg",
+    "player_name": "Hanson",
+    "placement": 5,
+    "name": "B/W Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-077",
+      "qty": 3
+     },
+     {
+      "card_number": "EB01-054",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "OEKr--8F50epLDfayAfcJg",
+    "player_name": "Stephen Iskandar",
+    "placement": 5,
+    "name": "B/P Barbatos Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-050",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-114",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-129",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "MWyFdRc5FEGa1PZnaQ6YAg",
+    "player_name": "Justin Mao",
+    "placement": 5,
+    "name": "B/W Victory Midrange",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "M8kqW74s-Ua5L-qmtBhHPA",
+    "player_name": "VL",
+    "placement": 5,
+    "name": "R/W Shining Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-112",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Fn4SbJOPGk-1BoQBL3Eh_Q",
+    "player_name": "umberduel",
+    "placement": 6,
+    "name": "B/R Victory Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Ar3ukDvtLEuizUbtQGrX1w",
+    "player_name": "Adam",
+    "placement": 6,
+    "name": "R/W Shining Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-042",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-128",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Q9f2EkRvq02sxDo5cj2QJw",
+    "player_name": "ColonyDrop",
+    "placement": 6,
+    "name": "B/W Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-015",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-123",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "wk4xQd6b_EuPBlHdwJzV6Q",
+    "player_name": "KawaiiTsukiko",
+    "placement": 6,
+    "name": "B/G Nu Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-027",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-019",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-017",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-085",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-125",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "CIRVLpc5d0evES8vyOxW_g",
+    "player_name": "Bma",
+    "placement": 6,
+    "name": "B/W Victory Midrange",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "wXgvvBfRuUmzQ-gNpdVg0g",
+    "player_name": "Sabrobin",
+    "placement": 6,
+    "name": "B/W Victory Midrange",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "JPjV9FDsJUiOcd63hIc1qg",
+    "player_name": "Spriggan",
+    "placement": 6,
+    "name": "B/G Nu Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-027",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-019",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-020",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-002",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-017",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-085",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-105",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "RXSE4SqAC0yq7oP5SAj3fw",
+    "player_name": "Chloe",
+    "placement": 6,
+    "name": "B/G Nu Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-027",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-023",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-019",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-017",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-085",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-125",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:54:24.362885Z",
+  "warnings": []
+ }
+}

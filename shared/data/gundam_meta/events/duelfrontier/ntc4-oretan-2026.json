@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-oretan-2026",
+  "name": "NTC4 OreTan 2026",
+  "start_date": "2026-02-23",
+  "end_date": "2026-02-23",
+  "country": "JP",
+  "city": "Fukuoka",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "GdMxVMTc0k6eLPEaXwpl7Q",
+    "player_name": "kmark",
+    "placement": 1,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-026",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:22.893809Z",
+  "warnings": []
+ }
+}

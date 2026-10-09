@@ -1,0 +1,408 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "4ff6077a-f72e-4ef3-a144-286fa1efe723",
+  "name": "Eagle's Nest S6GW10.0 GD05 + ST11-14 Webcam Locals",
+  "start_date": "2026-10-01",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 16,
+  "rounds": 4,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD05 + ST11-14",
+  "decks": [
+   {
+    "id": "694e409d-2b4c-442a-ba40-5130b74580af",
+    "player_name": "xLust",
+    "placement": 1,
+    "name": "GD01-003",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-101",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-109",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-110",
+      "qty": 1
+     },
+     {
+      "card_number": "ST11-016",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "ac7868c5-f0c4-4982-9118-730fd7ab130e",
+    "player_name": "Nate P",
+    "placement": 2,
+    "name": "GD04-050",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST11-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-050",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-015",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "33c4b2a2-2a0f-4eb7-9e54-7ac1f1744b53",
+    "player_name": "ZimZamBlam",
+    "placement": 3,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "62ad2a35-17a5-4b0f-9845-206d68cc421b",
+    "player_name": "Bagelman",
+    "placement": 4,
+    "name": "ST13-006",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "ST13-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "ST13-012",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a6107d7d-48be-4e7d-a4c8-9178d55949a2",
+    "player_name": "andrew h",
+    "placement": 5,
+    "name": "GD05-033",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "ST13-009",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 3
+     },
+     {
+      "card_number": "ST12-002",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-036",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-068",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "ST13-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,585 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "b1e263b4-f893-4379-a522-321b21f9d74b",
+  "name": "Egman Events Triple Win-A-Box",
+  "start_date": "2026-02-04",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 60,
+  "rounds": 6,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD03",
+  "decks": [
+   {
+    "id": "c8b9c2d2-2b02-414d-a589-320a40a40604",
+    "player_name": "Dennis Fajardo",
+    "placement": 1,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-125",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "59f9ec6e-f277-476e-9c39-a6a1c5556dba",
+    "player_name": "Evelynn Franco",
+    "placement": 2,
+    "name": "The-O Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-084",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-002",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "e3e95c4b-66be-40d5-8457-34a9a1467e2a",
+    "player_name": "Zee R",
+    "placement": 3,
+    "name": "Earth Federation Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-007",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-085",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "ee2802b2-0150-4a32-8186-38b3a6acaacd",
+    "player_name": "Jonathan Saeger",
+    "placement": 4,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-125",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-091",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-029",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f7d00b94-75ad-4b30-82be-6c3402d6c67b",
+    "player_name": "Quin Chiapperini",
+    "placement": 5,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "55280b99-8f0e-4a4b-99fb-87e4dbab1cd4",
+    "player_name": "Michael Parrish",
+    "placement": 6,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "80ced83f-bd98-4b9f-86f2-bf85fddba0da",
+    "player_name": "Chase Horton",
+    "placement": 7,
+    "name": "Zeon Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "c22710f7-5196-46fc-b6f3-1cf71837bc86",
+    "player_name": "Jimmy Dao",
+    "placement": 8,
+    "name": "Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

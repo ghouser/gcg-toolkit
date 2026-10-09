@@ -1,0 +1,167 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "wcq-aichi-2025-block-c",
+  "name": "WCQ Aichi 2025 Block C",
+  "start_date": "2025-11-09",
+  "end_date": "2025-11-09",
+  "country": "JP",
+  "city": "Aichi",
+  "players": 64,
+  "rounds": null,
+  "event_type": "world_championship",
+  "type_raw": "64",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "v7UZ2YIdG0OyhuyvOshZFw",
+    "player_name": "アキラ",
+    "placement": 1,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "l82ln9mfqUSjW3CqOhGAgw",
+    "player_name": "MISO",
+    "placement": 4,
+    "name": "B/W Epyon",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-074",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-123",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-005",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T23:00:17.378519Z",
+  "warnings": []
+ }
+}

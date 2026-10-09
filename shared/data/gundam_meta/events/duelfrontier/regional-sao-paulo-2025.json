@@ -1,0 +1,1122 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "regional-sao-paulo-2025",
+  "name": "Regional São Paulo 2025",
+  "start_date": "2025-10-26",
+  "end_date": "2025-10-26",
+  "country": "BR",
+  "city": "São Paulo",
+  "players": 226,
+  "rounds": null,
+  "event_type": "regional",
+  "type_raw": "16",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "ymgC6l7IVkeRljLb6RoerA",
+    "player_name": "MAKOTSUNAMI",
+    "placement": 1,
+    "name": "B/W Tempo",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-085",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "sTNFKOFfL0uXwGRGP6sD-Q",
+    "player_name": "COCINERO",
+    "placement": 2,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-073",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "AevzZFwPE0a5de3wewe3pQ",
+    "player_name": "DARKCANES",
+    "placement": 4,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 1
+     },
+     {
+      "card_number": "ST05-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "adJy7tRdD0i6m-RjHYVPYg",
+    "player_name": "VAZ",
+    "placement": 4,
+    "name": "B/W Freedom",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-123",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "1wc5dPjliUyGYtezLs_3zw",
+    "player_name": "ADAL",
+    "placement": 5,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "mRMWfIy-dkKAQvazWoX5fw",
+    "player_name": "Alastor",
+    "placement": 5,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "bnaxdu-VUUuN1eJ7h8Lt_Q",
+    "player_name": "DRAGOON",
+    "placement": 5,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "wApJATkMtkKWlvlsM6iBSw",
+    "player_name": "ALE",
+    "placement": 5,
+    "name": "B/G Shenlong",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-041",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-091",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "pW8PRjGFTUW7IymCcIgScQ",
+    "player_name": "GUMEDAN",
+    "placement": 6,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-099",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "sP0jtI8DE0eccIWKVttI2w",
+    "player_name": "BINHOP",
+    "placement": 6,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "A2vTKYWj9kaIEwiFNEb4Wg",
+    "player_name": "ORAYO",
+    "placement": 6,
+    "name": "B/W Tempo",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-085",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-001",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "D4nJbb0L4UubHOASJfr-Lw",
+    "player_name": "TOXOPLASMA",
+    "placement": 6,
+    "name": "B/W Unicorn",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-123",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "siULT3sDaE61iNz6MAPfKQ",
+    "player_name": "TSUN",
+    "placement": 6,
+    "name": "B/R Kshatriya Ping",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-099",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-060",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "-Wz4CoE9QEKWw9l2Dz3m5A",
+    "player_name": "Risso",
+    "placement": 6,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Co2l0O7OhEKw1LO8zHKcLQ",
+    "player_name": "CLAYTONSG",
+    "placement": 7,
+    "name": "B/P Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-002",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T23:00:37.013780Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-corgir-yokohama-2026",
+  "name": "NTC4 CORGI-R Yokohama 2026",
+  "start_date": "2026-02-18",
+  "end_date": "2026-02-18",
+  "country": "JP",
+  "city": "Yokohama",
+  "players": 60,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "b9laDTJ_nEKSK-D6TQ9eZg",
+    "player_name": "Rei (レイ)",
+    "placement": 1,
+    "name": "B/R Mafty Ping",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-046",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-036",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:35.027685Z",
+  "warnings": []
+ }
+}

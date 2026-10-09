@@ -1,0 +1,333 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "e683bef3-b8b0-4af8-b5b4-03aff9912033",
+  "name": "Eagle Nest's Webcam Locals 5/6",
+  "start_date": "2026-05-06",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 20,
+  "rounds": 5,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD04",
+  "decks": [
+   {
+    "id": "eeac49ee-9b70-4fd3-925b-90c8b806bfc5",
+    "player_name": "KotyAngeloff",
+    "placement": 1,
+    "name": "The-O Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST08-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-084",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "d5db18c7-1977-4716-9c23-1db88e9b513d",
+    "player_name": "SdotAkuma",
+    "placement": 2,
+    "name": "Destiny Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST09-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-128",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-118",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "70fd943e-f1bd-42db-86d3-7a5e4b2c0090",
+    "player_name": "Jinzo777",
+    "placement": 3,
+    "name": "Neo Zeong",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-127",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-091",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-033",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-033",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-054",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "5599227b-4782-4fc3-86fb-d35c0308b7c0",
+    "player_name": "Michae1",
+    "placement": 4,
+    "name": "Barbatos Rush",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-063",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

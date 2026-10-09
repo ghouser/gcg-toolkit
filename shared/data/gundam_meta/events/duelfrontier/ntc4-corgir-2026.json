@@ -1,0 +1,84 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-corgir-2026",
+  "name": "NTC4 CORGI-R 2026",
+  "start_date": "2026-02-03",
+  "end_date": "2026-02-03",
+  "country": "JP",
+  "city": "Saitama",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "vJ8kVaDo70OqtXb8ZFHoiA",
+    "player_name": "べいだぁ",
+    "placement": 1,
+    "name": "B/R Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-060",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-014",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:59:05.370432Z",
+  "warnings": []
+ }
+}

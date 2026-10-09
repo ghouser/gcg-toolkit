@@ -1,0 +1,321 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "regional-dallas-2025",
+  "name": "Regional Dallas 2025",
+  "start_date": "2025-09-20",
+  "end_date": "2025-09-21",
+  "country": "US",
+  "city": "Dallas",
+  "players": 768,
+  "rounds": null,
+  "event_type": "regional",
+  "type_raw": "16",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "yYNx3zdWu0GHI1-RWzQbnw",
+    "player_name": "Joe Hill",
+    "placement": 1,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "eqZZXo6fsE6X28zRHe-iWw",
+    "player_name": "Michael",
+    "placement": 2,
+    "name": "B/R Kshatriya",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-060",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "TMhzjbyf3UazBQJqj2-6cA",
+    "player_name": "TRXZED",
+    "placement": 4,
+    "name": "R/W Justice",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-006",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-067",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-117",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 1
+     },
+     {
+      "card_number": "ST03-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "wfYgc04iTkSYKag3d-lSeA",
+    "player_name": "Ryan Tan",
+    "placement": 5,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-109",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T23:01:07.062556Z",
+  "warnings": []
+ }
+}

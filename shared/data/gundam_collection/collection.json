@@ -1,0 +1,6127 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-09T18:06:10.402658Z",
+ "source_file": "shared/data/gundam_collection/my_tcg_collection",
+ "data": [
+  {
+   "card_number": "GD01-002",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-005",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-018",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-024",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-025",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-029",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-030",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-035",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-051",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-052",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-065",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-069",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-073",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-076",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-086",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-088",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-090",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-093",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-096",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-100",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-107",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-111",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-118",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-126",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-002",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-003",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-004",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-005",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-006",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-007",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-008",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-011",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-015",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-016",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-017",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-018",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-019",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-020",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-021",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-022",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-023",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-024",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-025",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-026",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-027",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-028",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-029",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-030",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-031",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-032",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-033",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-034",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-035",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-037",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-038",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-039",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-040",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-041",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-042",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-043",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-044",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-045",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-046",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-047",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-048",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-049",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-050",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-051",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-052",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-053",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-054",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-055",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-056",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-057",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-058",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-059",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-060",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-061",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-062",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-063",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-064",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-065",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-066",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-067",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-068",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-070",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-071",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-072",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-073",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-074",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-075",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-076",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-077",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-078",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-079",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-080",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-081",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-082",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-083",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-084",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-085",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-086",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-087",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-088",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-089",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-090",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-091",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-092",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-093",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-094",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-095",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-096",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-097",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-098",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-099",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-100",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-101",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-102",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-103",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-104",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-105",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-106",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-107",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-108",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-109",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-110",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-111",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-112",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-113",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-114",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-115",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-116",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-117",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-118",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-119",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-120",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-121",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-122",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-123",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-124",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-125",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-126",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-127",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-128",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-129",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-130",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-003",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-004",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-005",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-006",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-007",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-008",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-009",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-010",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-011",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-012",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-015",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-016",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-019",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-020",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-021",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-022",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-023",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-024",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-025",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-026",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-027",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-028",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-029",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-030",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-031",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-032",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-033",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-034",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-035",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-036",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-037",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-038",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-039",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-040",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-041",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-042",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-043",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-044",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-045",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-046",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-047",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-048",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-049",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-051",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-052",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-053",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-054",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-055",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-056",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-057",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-058",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-059",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-060",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-061",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-062",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-063",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-064",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-065",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-066",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-067",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-068",
+   "copies": 6,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 6
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-069",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-070",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-071",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-072",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-073",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-074",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-075",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-076",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-077",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-078",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-079",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-080",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-081",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-082",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-083",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-084",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-085",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-086",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-087",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-088",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-089",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-090",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-091",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-092",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-093",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-094",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-095",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-096",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-097",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-098",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-099",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-100",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-101",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-102",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-103",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-104",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-105",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-106",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-107",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-108",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-110",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-111",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-112",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-113",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-114",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-115",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-116",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-117",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-118",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-119",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-120",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-121",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-122",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-123",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-124",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-125",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-126",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-127",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-128",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-129",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-130",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-131",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-132",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-005",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-008",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-009",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-010",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-012",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-015",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-016",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-018",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-020",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-023",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-024",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-025",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-027",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-035",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-036",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-039",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-040",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-042",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-043",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-045",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-046",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-047",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-048",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-049",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-050",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-053",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-056",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-057",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-058",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-059",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-061",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-062",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-063",
+   "copies": 5,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 5
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-064",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-065",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-066",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-068",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-069",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-071",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-073",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-074",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-075",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-077",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-078",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-079",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-080",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-083",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-084",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-085",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-086",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-087",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-088",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-090",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-091",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-092",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-093",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-094",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-095",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-096",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-099",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-100",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-101",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-102",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-103",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-104",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-105",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-107",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-108",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-110",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-111",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-112",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-113",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-114",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-115",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-116",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-118",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-119",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-121",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-122",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-123",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-124",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-127",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-128",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-129",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-130",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-005",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-007",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-009",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-010",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-011",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-014",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-015",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-016",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-018",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-020",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-024",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-025",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-026",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-027",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-028",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-029",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-030",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-031",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-032",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-033",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-036",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-038",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-039",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-042",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-047",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-048",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-049",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-051",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-053",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-056",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-058",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-060",
+   "copies": 5,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 5
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-062",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-063",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-064",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-066",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-067",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-068",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-069",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-070",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-071",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-072",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-073",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-075",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-077",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-078",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-079",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-080",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-084",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-087",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-088",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-089",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-091",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-092",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-093",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-094",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-096",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-097",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-098",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-099",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-100",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-101",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-103",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-104",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-105",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-106",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-108",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-109",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-110",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-111",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-112",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-113",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-114",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-117",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-119",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-120",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-121",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-124",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-125",
+   "copies": 1,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 1
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-126",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-128",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-130",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-010",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-014",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-001",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-004",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-005",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-010",
+   "copies": 7,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 7
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-014",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-015",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-016",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-013",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-015",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-001",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-004",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-005",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-010",
+   "copies": 7,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 7
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-014",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-015",
+   "copies": 5,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 5
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-016",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-001",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-005",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-006",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-007",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-008",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-010",
+   "copies": 6,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 6
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-011",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-014",
+   "copies": 6,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 6
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-015",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-005",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-006",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-008",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-009",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-010",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-011",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-012",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-014",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-015",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-004",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-005",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-006",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-007",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-008",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-011",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-014",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST07-015",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-002",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-003",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-005",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-008",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-009",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-010",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-012",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST08-015",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-002",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-003",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-005",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-007",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-008",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-009",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-012",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-015",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST11-016",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-002",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-004",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-005",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-006",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-009",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-012",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-013",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-015",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST12-016",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-002",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-003",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-004",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-005",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-007",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-009",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-010",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-012",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-014",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-015",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST13-016",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-001",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-002",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-003",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-004",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-005",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-006",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-007",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-008",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-009",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-010",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-011",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-012",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-013",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-014",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-015",
+   "copies": 2,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "ST14-016",
+   "copies": 4,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 4
+    }
+   ]
+  }
+ ]
+}

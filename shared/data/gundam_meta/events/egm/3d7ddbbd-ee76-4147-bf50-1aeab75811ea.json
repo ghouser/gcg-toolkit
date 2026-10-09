@@ -1,0 +1,581 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "3d7ddbbd-ee76-4147-bf50-1aeab75811ea",
+  "name": "Egman Events GD05 Triple Win-A-Box #2",
+  "start_date": "2026-07-28",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 40,
+  "rounds": 5,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD05",
+  "decks": [
+   {
+    "id": "45a93ff6-0602-4045-ba5d-1e9fc3427a11",
+    "player_name": "Jake Grant",
+    "placement": 1,
+    "name": "GD05-017",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-017",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-019",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-027",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-085",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-024",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-125",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "2c0f6612-451e-40ca-9965-22307de6e592",
+    "player_name": "Dakota Angeloff",
+    "placement": 2,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "9dd1b4aa-6b74-4c96-aa58-c878534f651e",
+    "player_name": "Aaron Foster",
+    "placement": 3,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "3588dbdf-c1cf-4aea-8945-4ee26c8f3dbd",
+    "player_name": "Apia Vongnangam",
+    "placement": 4,
+    "name": "GD03-049",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-034",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-090",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-049",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-057",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-038",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-050",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-114",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-109",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a4b3ba31-ed1b-495a-a105-fc461559c968",
+    "player_name": "Spencer Holbrook",
+    "placement": 5,
+    "name": "GD01-003",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a9e4d57b-87cd-4717-8907-db299ab9c890",
+    "player_name": "Ether Aldama",
+    "placement": 6,
+    "name": "GD01-066",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-092",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-035",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "14b0fa05-54d6-4b9e-891e-8c265de959bf",
+    "player_name": "Eddie Felix",
+    "placement": 7,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f8b2ec7a-4b53-4ed0-baee-b5b32c14f497",
+    "player_name": "Michael Parrish",
+    "placement": 8,
+    "name": "GD05-066",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-042",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

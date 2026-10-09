@@ -1,0 +1,88 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "wcq-aichi-2025-block-e",
+  "name": "WCQ Aichi 2025 Block E",
+  "start_date": "2025-11-09",
+  "end_date": "2025-11-09",
+  "country": "JP",
+  "city": "Aichi",
+  "players": 64,
+  "rounds": null,
+  "event_type": "world_championship",
+  "type_raw": "64",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "wK51XJyJ70ysSkaEaANgXw",
+    "player_name": "VRB",
+    "placement": 1,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-104",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T23:00:15.266249Z",
+  "warnings": []
+ }
+}

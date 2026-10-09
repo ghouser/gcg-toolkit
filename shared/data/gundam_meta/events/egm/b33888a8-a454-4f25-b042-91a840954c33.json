@@ -1,0 +1,589 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "b33888a8-a454-4f25-b042-91a840954c33",
+  "name": "Eagle's Nest GD05 MSA Locals",
+  "start_date": "2026-07-23",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 35,
+  "rounds": 5,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD05",
+  "decks": [
+   {
+    "id": "2e738ca0-aa2a-4d2d-80e4-a5195effe1d1",
+    "player_name": "Geicokiller",
+    "placement": 1,
+    "name": "GD05-066",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-042",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-128",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "4aa24c86-db81-43b7-b3f5-1f4d2419df18",
+    "player_name": "ZimZamBlam",
+    "placement": 2,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-004",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-011",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "b19a21e9-ecd2-401f-8102-24a29f1beb59",
+    "player_name": "boomatronic",
+    "placement": 3,
+    "name": "GD05-017",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-027",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-029",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-019",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-017",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-024",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-085",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-125",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "8381547a-f002-4875-ab6b-438edd2b53f8",
+    "player_name": "JayUnderwood3",
+    "placement": 4,
+    "name": "GD01-003",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-101",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "a65f7d3e-dd7a-449c-b633-f04ff281c603",
+    "player_name": "adeluh",
+    "placement": 5,
+    "name": "GD05-067",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-125",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-098",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-067",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "501bb46f-6ac7-41ff-9b98-69b3ccb711bf",
+    "player_name": "SaileRiegan",
+    "placement": 6,
+    "name": "GD03-017",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-088",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-090",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-017",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-017",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-031",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-027",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f1d2cc73-4760-43e3-b2e1-d42ce8580f6a",
+    "player_name": "Donn",
+    "placement": 7,
+    "name": "GD05-066",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-122",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-112",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-120",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-110",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-121",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-089",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-097",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-036",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-035",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-072",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-042",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-066",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-069",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "992c090d-a9cc-4aba-95d0-e5172827e17e",
+    "player_name": "Gbonow",
+    "placement": 8,
+    "name": "GD05-002",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "EB01-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-015",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

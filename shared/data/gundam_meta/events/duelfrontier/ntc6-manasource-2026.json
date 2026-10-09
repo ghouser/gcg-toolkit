@@ -1,0 +1,88 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-manasource-2026",
+  "name": "NTC6 ManaSource 2026",
+  "start_date": "2026-05-04",
+  "end_date": "2026-05-04",
+  "country": "JP",
+  "city": "Wakayama",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "iMoTrw75mUuBol82zl7OMw",
+    "player_name": "Teitaraku",
+    "placement": 1,
+    "name": "G/R Neo-Zeon",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-033",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-038",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-039",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-056",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:08.505626Z",
+  "warnings": []
+ }
+}

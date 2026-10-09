@@ -1,0 +1,420 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-misato-comics-2026",
+  "name": "NTC6 Misato Comics 2026",
+  "start_date": "2026-05-23",
+  "end_date": "2026-05-23",
+  "country": "AR",
+  "city": "Buenos Aires",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "BbONzZPAaEOuIQ52HPqt8g",
+    "player_name": "Gero Sicoli",
+    "placement": 1,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-056",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "3HTK5I45kk6u6b-iApv7XA",
+    "player_name": "Mauri",
+    "placement": 2,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-004",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-125",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "jCsV8jAqZUyu7v83hnksZg",
+    "player_name": "Maximiliano",
+    "placement": 3,
+    "name": "P/R CB Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-063",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD04-038",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-047",
+      "qty": 2
+     },
+     {
+      "card_number": "ST07-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-034",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-063",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-090",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-111",
+      "qty": 1
+     },
+     {
+      "card_number": "ST07-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-125",
+      "qty": 3
+     },
+     {
+      "card_number": "ST07-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-036",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-057",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-037",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-049",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "GLVRC-_cWk--nd1_NybZaw",
+    "player_name": "Dielgoog",
+    "placement": 4,
+    "name": "R/W Neo Zeong Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-092",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-035",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-004",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-033",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "XUFLRDE-wUmAhBwiwISQTQ",
+    "player_name": "Ramoncho",
+    "placement": 5,
+    "name": "G/R Clan",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST06-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST06-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-039",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST06-005",
+      "qty": 2
+     },
+     {
+      "card_number": "ST06-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-092",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-038",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:56:26.461243Z",
+  "warnings": []
+ }
+}

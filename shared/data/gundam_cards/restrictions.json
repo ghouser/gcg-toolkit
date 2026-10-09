@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-09T17:02:03Z",
+ "source_url": "https://www.gundam-gcg.com/en/news/01_279.html",
+ "published": "2026-09-25",
+ "data": {
+  "banned": [
+   "GD01-020"
+  ],
+  "limited": [
+   {
+    "card": "ST02-016",
+    "copies": 2
+   }
+  ],
+  "banned_pairs": [
+   {
+    "a": "ST01-010",
+    "b": "ST05-010"
+   },
+   {
+    "a": "GD01-008",
+    "b": "GD05-015"
+   }
+  ],
+  "vanilla_description": "a Unit card that is Lv.2 with cost 1, 2 AP, and 2 HP, and without effects",
+  "vanilla_group": [
+   "GD01-035",
+   "GD01-060",
+   "GD01-085",
+   "GD02-013",
+   "GD02-080",
+   "GD03-032",
+   "GD03-063",
+   "GD04-078",
+   "GD05-014",
+   "GD05-027",
+   "GD05-042",
+   "GD05-062",
+   "GD05-077",
+   "ST01-005",
+   "ST04-008",
+   "ST05-004",
+   "ST05-009",
+   "ST06-004",
+   "ST09-005",
+   "ST10-005",
+   "ST11-008",
+   "ST12-010"
+  ],
+  "group_max_copies": 4
+ }
+}

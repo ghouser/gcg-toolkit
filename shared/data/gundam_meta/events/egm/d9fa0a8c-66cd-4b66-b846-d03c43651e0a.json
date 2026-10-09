@@ -1,0 +1,818 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "d9fa0a8c-66cd-4b66-b846-d03c43651e0a",
+  "name": "Egman Event’s Triple Win-A-Box",
+  "start_date": "2025-07-28",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 64,
+  "rounds": 6,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "GD01",
+  "decks": [
+   {
+    "id": "eba7b554-c2ce-4469-866d-c76ee3bc95f4",
+    "player_name": "Caleb Albert",
+    "placement": 1,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-107",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-109",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "8cf99eb2-9d96-442d-b5d4-e202ecbfb753",
+    "player_name": "Jan Becker",
+    "placement": 2,
+    "name": "Unicorn Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-005",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "32724154-4cfd-4826-90aa-ec4f73c55520",
+    "player_name": "Henry Lin",
+    "placement": 3,
+    "name": "Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-065",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-002",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "2c88b360-ffbe-4d23-9c91-2692f9f91a1e",
+    "player_name": "Daniel Lücker",
+    "placement": 4,
+    "name": "Unicorn Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-005",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "08589fce-d10f-4794-9f44-679752e7afde",
+    "player_name": "Zuhair Zaidi",
+    "placement": 5,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-107",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-109",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-033",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "12122a30-6507-4d5c-9de9-3389e85dc8ec",
+    "player_name": "Vince lam",
+    "placement": 6,
+    "name": "Freedom Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-065",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "b7c564ca-68d0-468d-a69b-381b059ae57f",
+    "player_name": "Jonathan Covington",
+    "placement": 7,
+    "name": "Cyber-Newtype",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-012",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "e85de7ba-e9ee-41b7-b2f3-ae009100fa16",
+    "player_name": "Fernando Perez",
+    "placement": 8,
+    "name": "Unicorn Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "42dc0a5a-a18c-4fed-b8a5-00fd073a0f65",
+    "player_name": "Steffon A. Bizzell",
+    "placement": 8,
+    "name": "Wing Zero",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-024",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-033",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-025",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-042",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-090",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-109",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "188fe67a-41e4-45f2-af02-6a41b5926b7a",
+    "player_name": "Daniel Ha",
+    "placement": 11,
+    "name": "Zeon Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-039",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-031",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "60ba13fa-057f-4860-b756-a3204117e52d",
+    "player_name": "Apia Vongnangam",
+    "placement": 12,
+    "name": "Cyber-Newtype",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-008",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

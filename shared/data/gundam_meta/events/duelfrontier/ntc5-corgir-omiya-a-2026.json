@@ -1,0 +1,96 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc5-corgir-omiya-a-2026",
+  "name": "NTC5 CORGI-R Omiya A 2026",
+  "start_date": "2026-03-03",
+  "end_date": "2026-03-03",
+  "country": "JP",
+  "city": "Saitama",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "EC94naHS_0W0_LCum1KUpg",
+    "player_name": "テオ",
+    "placement": 1,
+    "name": "P/W Tekkadan",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-001",
+      "qty": 1
+     },
+     {
+      "card_number": "ST05-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-002",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-094",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-058",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-127",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-053",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-114",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-050",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:14.713581Z",
+  "warnings": []
+ }
+}

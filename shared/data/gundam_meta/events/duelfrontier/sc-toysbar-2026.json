@@ -1,0 +1,96 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "sc-toysbar-2026",
+  "name": "SC Toysbar 2026",
+  "start_date": "2026-05-30",
+  "end_date": "2026-05-30",
+  "country": "MY",
+  "city": "Petaling Jaya",
+  "players": 32,
+  "rounds": null,
+  "event_type": "store_championship",
+  "type_raw": "8",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "8oi5OdFOwkeR27Tz0-MEEw",
+    "player_name": "SILVER0829",
+    "placement": 1,
+    "name": "B/G Zeong Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-017",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-105",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:56:19.402062Z",
+  "warnings": []
+ }
+}

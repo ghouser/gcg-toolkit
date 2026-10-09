@@ -1,0 +1,96 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc7-mollys-arena-2026",
+  "name": "NTC7 Molly's Arena 2026",
+  "start_date": "2026-08-09",
+  "end_date": "2026-08-09",
+  "country": "NL",
+  "city": "Amsterdam",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "OSC-PuKj1EyIlwUThzrkoA",
+    "player_name": "AIBO",
+    "placement": 1,
+    "name": "B/W Orb Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-016",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-082",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-123",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-076",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-129",
+      "qty": 2
+     },
+     {
+      "card_number": "GD05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:54:18.905053Z",
+  "warnings": []
+ }
+}

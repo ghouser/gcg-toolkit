@@ -1,0 +1,325 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-voss-media-2026",
+  "name": "NTC6 Voss Media 2026",
+  "start_date": "2026-05-02",
+  "end_date": "2026-05-02",
+  "country": "US",
+  "city": "Michigan",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "IykMVYYl9keAv-ZSRcQ7jA",
+    "player_name": "T Bopp",
+    "placement": 1,
+    "name": "B/G Zeong Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-017",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "V4hKGaZUokalLbXvDr06CA",
+    "player_name": "Neolith",
+    "placement": 2,
+    "name": "G/R Neo-Zeon",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-017",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-040",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-033",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Ta7I49dXM0aavrixP1MApw",
+    "player_name": "Gallon",
+    "placement": 4,
+    "name": "B/R Ping (Mafty)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST08-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-036",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "GjKguCzR6EW0vTUXDGGymg",
+    "player_name": "MKohl40",
+    "placement": 4,
+    "name": "G/W Wing Blockers",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 1
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-024",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-018",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-126",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-125",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:13.557816Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,238 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "regional-bologna-2026",
+  "name": "Regional Bologna 2026",
+  "start_date": "2026-09-13",
+  "end_date": "2026-09-13",
+  "country": "IT",
+  "city": "Bologna",
+  "players": 318,
+  "rounds": null,
+  "event_type": "regional",
+  "type_raw": "16",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "ofNHQ2xXpUm-SsgPlLhSzw",
+    "player_name": "AIBO",
+    "placement": 1,
+    "name": "B/W Freedom Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-082",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-081",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "lZdiSORT_ES0tIvsx_6YTA",
+    "player_name": "tuky91",
+    "placement": 5,
+    "name": "G/P Zeong Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-093",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-050",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-017",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-060",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "Z0BlxomUOEig-_2FZC1f-g",
+    "player_name": "Jacopo Dusk",
+    "placement": 5,
+    "name": "G/P Zeong Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD04-017",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-060",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-023",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-050",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-093",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-016",
+      "qty": 3
+     },
+     {
+      "card_number": "GD05-062",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-049",
+      "qty": 1
+     },
+     {
+      "card_number": "GD05-129",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:53:29.461957Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-tsutaya-2026",
+  "name": "NTC4 TSUTAYA 2026",
+  "start_date": "2026-02-21",
+  "end_date": "2026-02-21",
+  "country": "JP",
+  "city": "Ako",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "a9XG6vQQWEe8wwZy6IyGSw",
+    "player_name": "なり",
+    "placement": 1,
+    "name": "B/R The-O",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-088",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-084",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-037",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-123",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-046",
+      "qty": 3
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:32.986324Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,1707 @@
+{
+ "schema_version": 1,
+ "data": {
+  "generated_at": "2026-10-06T22:32:17.008000Z",
+  "window_start": "2026-09-22T22:32:17.008000Z",
+  "window_end": "2026-10-06T22:32:17.008000Z",
+  "window_days": 14,
+  "eligible_player_games": 84732,
+  "cards_observed": 818,
+  "stale": false,
+  "fetched_at": "2026-10-06T22:52:50.732121Z",
+  "cards": [
+   {
+    "card_number": "GD05-111",
+    "rank": 1,
+    "games_observed": 25551,
+    "appearance_rate_pct": 30.2
+   },
+   {
+    "card_number": "GD05-110",
+    "rank": 2,
+    "games_observed": 24292,
+    "appearance_rate_pct": 28.7
+   },
+   {
+    "card_number": "GD01-118",
+    "rank": 3,
+    "games_observed": 20191,
+    "appearance_rate_pct": 23.8
+   },
+   {
+    "card_number": "GD03-056",
+    "rank": 4,
+    "games_observed": 16315,
+    "appearance_rate_pct": 19.3
+   },
+   {
+    "card_number": "ST03-006",
+    "rank": 5,
+    "games_observed": 16048,
+    "appearance_rate_pct": 18.9
+   },
+   {
+    "card_number": "ST03-008",
+    "rank": 6,
+    "games_observed": 15923,
+    "appearance_rate_pct": 18.8
+   },
+   {
+    "card_number": "ST05-010",
+    "rank": 7,
+    "games_observed": 14773,
+    "appearance_rate_pct": 17.4
+   },
+   {
+    "card_number": "ST03-013",
+    "rank": 8,
+    "games_observed": 13881,
+    "appearance_rate_pct": 16.4
+   },
+   {
+    "card_number": "ST11-009",
+    "rank": 9,
+    "games_observed": 13673,
+    "appearance_rate_pct": 16.1
+   },
+   {
+    "card_number": "GD05-050",
+    "rank": 10,
+    "games_observed": 13571,
+    "appearance_rate_pct": 16.0
+   },
+   {
+    "card_number": "GD02-054",
+    "rank": 11,
+    "games_observed": 13228,
+    "appearance_rate_pct": 15.6
+   },
+   {
+    "card_number": "GD01-093",
+    "rank": 12,
+    "games_observed": 12101,
+    "appearance_rate_pct": 14.3
+   },
+   {
+    "card_number": "GD01-044",
+    "rank": 13,
+    "games_observed": 11518,
+    "appearance_rate_pct": 13.6
+   },
+   {
+    "card_number": "GD04-068",
+    "rank": 14,
+    "games_observed": 11015,
+    "appearance_rate_pct": 13.0
+   },
+   {
+    "card_number": "GD01-030",
+    "rank": 15,
+    "games_observed": 10623,
+    "appearance_rate_pct": 12.5
+   },
+   {
+    "card_number": "ST13-012",
+    "rank": 16,
+    "games_observed": 10445,
+    "appearance_rate_pct": 12.3
+   },
+   {
+    "card_number": "ST13-001",
+    "rank": 17,
+    "games_observed": 10401,
+    "appearance_rate_pct": 12.3
+   },
+   {
+    "card_number": "GD01-100",
+    "rank": 18,
+    "games_observed": 10269,
+    "appearance_rate_pct": 12.1
+   },
+   {
+    "card_number": "ST13-006",
+    "rank": 19,
+    "games_observed": 10082,
+    "appearance_rate_pct": 11.9
+   },
+   {
+    "card_number": "ST13-011",
+    "rank": 20,
+    "games_observed": 9491,
+    "appearance_rate_pct": 11.2
+   },
+   {
+    "card_number": "GD01-086",
+    "rank": 21,
+    "games_observed": 9385,
+    "appearance_rate_pct": 11.1
+   },
+   {
+    "card_number": "GD02-079",
+    "rank": 22,
+    "games_observed": 8472,
+    "appearance_rate_pct": 10.0
+   },
+   {
+    "card_number": "GD05-081",
+    "rank": 23,
+    "games_observed": 8252,
+    "appearance_rate_pct": 9.7
+   },
+   {
+    "card_number": "GD05-097",
+    "rank": 24,
+    "games_observed": 7928,
+    "appearance_rate_pct": 9.4
+   },
+   {
+    "card_number": "GD01-008",
+    "rank": 25,
+    "games_observed": 7918,
+    "appearance_rate_pct": 9.3
+   },
+   {
+    "card_number": "GD05-066",
+    "rank": 26,
+    "games_observed": 7850,
+    "appearance_rate_pct": 9.3
+   },
+   {
+    "card_number": "GD05-002",
+    "rank": 27,
+    "games_observed": 7757,
+    "appearance_rate_pct": 9.2
+   },
+   {
+    "card_number": "ST01-001",
+    "rank": 28,
+    "games_observed": 7622,
+    "appearance_rate_pct": 9.0
+   },
+   {
+    "card_number": "GD05-069",
+    "rank": 29,
+    "games_observed": 7516,
+    "appearance_rate_pct": 8.9
+   },
+   {
+    "card_number": "GD03-109",
+    "rank": 30,
+    "games_observed": 7374,
+    "appearance_rate_pct": 8.7
+   },
+   {
+    "card_number": "GD05-072",
+    "rank": 31,
+    "games_observed": 7329,
+    "appearance_rate_pct": 8.6
+   },
+   {
+    "card_number": "GD04-017",
+    "rank": 32,
+    "games_observed": 7129,
+    "appearance_rate_pct": 8.4
+   },
+   {
+    "card_number": "GD05-089",
+    "rank": 33,
+    "games_observed": 6723,
+    "appearance_rate_pct": 7.9
+   },
+   {
+    "card_number": "ST05-006",
+    "rank": 34,
+    "games_observed": 6693,
+    "appearance_rate_pct": 7.9
+   },
+   {
+    "card_number": "GD05-121",
+    "rank": 35,
+    "games_observed": 6690,
+    "appearance_rate_pct": 7.9
+   },
+   {
+    "card_number": "GD05-033",
+    "rank": 36,
+    "games_observed": 6612,
+    "appearance_rate_pct": 7.8
+   },
+   {
+    "card_number": "T-006",
+    "rank": 37,
+    "games_observed": 6599,
+    "appearance_rate_pct": 7.8
+   },
+   {
+    "card_number": "GD05-093",
+    "rank": 38,
+    "games_observed": 6355,
+    "appearance_rate_pct": 7.5
+   },
+   {
+    "card_number": "ST12-012",
+    "rank": 39,
+    "games_observed": 6293,
+    "appearance_rate_pct": 7.4
+   },
+   {
+    "card_number": "GD01-051",
+    "rank": 40,
+    "games_observed": 5795,
+    "appearance_rate_pct": 6.8
+   },
+   {
+    "card_number": "GD01-035",
+    "rank": 41,
+    "games_observed": 5717,
+    "appearance_rate_pct": 6.7
+   },
+   {
+    "card_number": "ST03-010",
+    "rank": 42,
+    "games_observed": 5532,
+    "appearance_rate_pct": 6.5
+   },
+   {
+    "card_number": "ST12-006",
+    "rank": 43,
+    "games_observed": 5416,
+    "appearance_rate_pct": 6.4
+   },
+   {
+    "card_number": "GD01-026",
+    "rank": 44,
+    "games_observed": 5363,
+    "appearance_rate_pct": 6.3
+   },
+   {
+    "card_number": "ST04-001",
+    "rank": 45,
+    "games_observed": 5262,
+    "appearance_rate_pct": 6.2
+   },
+   {
+    "card_number": "GD02-055",
+    "rank": 46,
+    "games_observed": 5037,
+    "appearance_rate_pct": 5.9
+   },
+   {
+    "card_number": "ST05-004",
+    "rank": 47,
+    "games_observed": 5013,
+    "appearance_rate_pct": 5.9
+   },
+   {
+    "card_number": "T-023",
+    "rank": 48,
+    "games_observed": 4901,
+    "appearance_rate_pct": 5.8
+   },
+   {
+    "card_number": "ST11-007",
+    "rank": 49,
+    "games_observed": 4900,
+    "appearance_rate_pct": 5.8
+   },
+   {
+    "card_number": "GD04-033",
+    "rank": 50,
+    "games_observed": 4839,
+    "appearance_rate_pct": 5.7
+   },
+   {
+    "card_number": "ST13-009",
+    "rank": 51,
+    "games_observed": 4832,
+    "appearance_rate_pct": 5.7
+   },
+   {
+    "card_number": "GD04-040",
+    "rank": 52,
+    "games_observed": 4486,
+    "appearance_rate_pct": 5.3
+   },
+   {
+    "card_number": "GD05-005",
+    "rank": 53,
+    "games_observed": 4447,
+    "appearance_rate_pct": 5.2
+   },
+   {
+    "card_number": "GD01-018",
+    "rank": 54,
+    "games_observed": 4392,
+    "appearance_rate_pct": 5.2
+   },
+   {
+    "card_number": "ST14-009",
+    "rank": 55,
+    "games_observed": 4275,
+    "appearance_rate_pct": 5.0
+   },
+   {
+    "card_number": "GD01-066",
+    "rank": 56,
+    "games_observed": 4055,
+    "appearance_rate_pct": 4.8
+   },
+   {
+    "card_number": "T-011",
+    "rank": 57,
+    "games_observed": 4055,
+    "appearance_rate_pct": 4.8
+   },
+   {
+    "card_number": "GD05-062",
+    "rank": 58,
+    "games_observed": 4048,
+    "appearance_rate_pct": 4.8
+   },
+   {
+    "card_number": "T-005",
+    "rank": 59,
+    "games_observed": 3995,
+    "appearance_rate_pct": 4.7
+   },
+   {
+    "card_number": "GD04-109",
+    "rank": 60,
+    "games_observed": 3973,
+    "appearance_rate_pct": 4.7
+   },
+   {
+    "card_number": "ST11-008",
+    "rank": 61,
+    "games_observed": 3873,
+    "appearance_rate_pct": 4.6
+   },
+   {
+    "card_number": "GD05-027",
+    "rank": 62,
+    "games_observed": 3837,
+    "appearance_rate_pct": 4.5
+   },
+   {
+    "card_number": "GD05-029",
+    "rank": 63,
+    "games_observed": 3643,
+    "appearance_rate_pct": 4.3
+   },
+   {
+    "card_number": "GD05-085",
+    "rank": 64,
+    "games_observed": 3570,
+    "appearance_rate_pct": 4.2
+   },
+   {
+    "card_number": "GD05-049",
+    "rank": 65,
+    "games_observed": 3499,
+    "appearance_rate_pct": 4.1
+   },
+   {
+    "card_number": "T-021",
+    "rank": 66,
+    "games_observed": 3258,
+    "appearance_rate_pct": 3.8
+   },
+   {
+    "card_number": "GD05-120",
+    "rank": 67,
+    "games_observed": 3247,
+    "appearance_rate_pct": 3.8
+   },
+   {
+    "card_number": "GD03-035",
+    "rank": 68,
+    "games_observed": 3206,
+    "appearance_rate_pct": 3.8
+   },
+   {
+    "card_number": "GD04-077",
+    "rank": 69,
+    "games_observed": 3205,
+    "appearance_rate_pct": 3.8
+   },
+   {
+    "card_number": "GD05-025",
+    "rank": 70,
+    "games_observed": 3198,
+    "appearance_rate_pct": 3.8
+   },
+   {
+    "card_number": "GD05-114",
+    "rank": 71,
+    "games_observed": 3072,
+    "appearance_rate_pct": 3.6
+   },
+   {
+    "card_number": "GD04-016",
+    "rank": 72,
+    "games_observed": 2975,
+    "appearance_rate_pct": 3.5
+   },
+   {
+    "card_number": "GD01-111",
+    "rank": 73,
+    "games_observed": 2962,
+    "appearance_rate_pct": 3.5
+   },
+   {
+    "card_number": "ST04-011",
+    "rank": 74,
+    "games_observed": 2888,
+    "appearance_rate_pct": 3.4
+   },
+   {
+    "card_number": "GD05-015",
+    "rank": 75,
+    "games_observed": 2857,
+    "appearance_rate_pct": 3.4
+   },
+   {
+    "card_number": "GD05-060",
+    "rank": 76,
+    "games_observed": 2741,
+    "appearance_rate_pct": 3.2
+   },
+   {
+    "card_number": "GD05-010",
+    "rank": 77,
+    "games_observed": 2729,
+    "appearance_rate_pct": 3.2
+   },
+   {
+    "card_number": "GD05-017",
+    "rank": 78,
+    "games_observed": 2728,
+    "appearance_rate_pct": 3.2
+   },
+   {
+    "card_number": "GD05-019",
+    "rank": 79,
+    "games_observed": 2693,
+    "appearance_rate_pct": 3.2
+   },
+   {
+    "card_number": "GD04-081",
+    "rank": 80,
+    "games_observed": 2545,
+    "appearance_rate_pct": 3.0
+   },
+   {
+    "card_number": "GD04-003",
+    "rank": 81,
+    "games_observed": 2431,
+    "appearance_rate_pct": 2.9
+   },
+   {
+    "card_number": "GD01-073",
+    "rank": 82,
+    "games_observed": 2392,
+    "appearance_rate_pct": 2.8
+   },
+   {
+    "card_number": "ST01-014",
+    "rank": 83,
+    "games_observed": 2384,
+    "appearance_rate_pct": 2.8
+   },
+   {
+    "card_number": "GD01-056",
+    "rank": 84,
+    "games_observed": 2325,
+    "appearance_rate_pct": 2.7
+   },
+   {
+    "card_number": "ST11-011",
+    "rank": 85,
+    "games_observed": 2125,
+    "appearance_rate_pct": 2.5
+   },
+   {
+    "card_number": "ST04-006",
+    "rank": 86,
+    "games_observed": 2096,
+    "appearance_rate_pct": 2.5
+   },
+   {
+    "card_number": "GD04-006",
+    "rank": 87,
+    "games_observed": 1969,
+    "appearance_rate_pct": 2.3
+   },
+   {
+    "card_number": "ST11-001",
+    "rank": 88,
+    "games_observed": 1951,
+    "appearance_rate_pct": 2.3
+   },
+   {
+    "card_number": "ST01-011",
+    "rank": 89,
+    "games_observed": 1925,
+    "appearance_rate_pct": 2.3
+   },
+   {
+    "card_number": "ST13-008",
+    "rank": 90,
+    "games_observed": 1885,
+    "appearance_rate_pct": 2.2
+   },
+   {
+    "card_number": "GD05-018",
+    "rank": 91,
+    "games_observed": 1868,
+    "appearance_rate_pct": 2.2
+   },
+   {
+    "card_number": "GD05-020",
+    "rank": 92,
+    "games_observed": 1746,
+    "appearance_rate_pct": 2.1
+   },
+   {
+    "card_number": "GD01-003",
+    "rank": 93,
+    "games_observed": 1744,
+    "appearance_rate_pct": 2.1
+   },
+   {
+    "card_number": "ST03-007",
+    "rank": 94,
+    "games_observed": 1722,
+    "appearance_rate_pct": 2.0
+   },
+   {
+    "card_number": "ST01-005",
+    "rank": 95,
+    "games_observed": 1688,
+    "appearance_rate_pct": 2.0
+   },
+   {
+    "card_number": "ST03-001",
+    "rank": 96,
+    "games_observed": 1686,
+    "appearance_rate_pct": 2.0
+   },
+   {
+    "card_number": "GD03-034",
+    "rank": 97,
+    "games_observed": 1678,
+    "appearance_rate_pct": 2.0
+   },
+   {
+    "card_number": "GD04-038",
+    "rank": 98,
+    "games_observed": 1657,
+    "appearance_rate_pct": 2.0
+   },
+   {
+    "card_number": "GD01-006",
+    "rank": 99,
+    "games_observed": 1647,
+    "appearance_rate_pct": 1.9
+   },
+   {
+    "card_number": "GD03-001",
+    "rank": 100,
+    "games_observed": 1629,
+    "appearance_rate_pct": 1.9
+   },
+   {
+    "card_number": "ST12-009",
+    "rank": 101,
+    "games_observed": 1627,
+    "appearance_rate_pct": 1.9
+   },
+   {
+    "card_number": "GD05-082",
+    "rank": 102,
+    "games_observed": 1621,
+    "appearance_rate_pct": 1.9
+   },
+   {
+    "card_number": "GD05-003",
+    "rank": 103,
+    "games_observed": 1611,
+    "appearance_rate_pct": 1.9
+   },
+   {
+    "card_number": "GD03-092",
+    "rank": 104,
+    "games_observed": 1436,
+    "appearance_rate_pct": 1.7
+   },
+   {
+    "card_number": "GD04-101",
+    "rank": 105,
+    "games_observed": 1427,
+    "appearance_rate_pct": 1.7
+   },
+   {
+    "card_number": "GD01-023",
+    "rank": 106,
+    "games_observed": 1426,
+    "appearance_rate_pct": 1.7
+   },
+   {
+    "card_number": "ST04-012",
+    "rank": 107,
+    "games_observed": 1420,
+    "appearance_rate_pct": 1.7
+   },
+   {
+    "card_number": "GD05-014",
+    "rank": 108,
+    "games_observed": 1389,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "ST11-004",
+    "rank": 109,
+    "games_observed": 1376,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "GD05-036",
+    "rank": 110,
+    "games_observed": 1374,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "GD04-085",
+    "rank": 111,
+    "games_observed": 1354,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "ST14-012",
+    "rank": 112,
+    "games_observed": 1346,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "GD01-031",
+    "rank": 113,
+    "games_observed": 1343,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "GD04-090",
+    "rank": 114,
+    "games_observed": 1329,
+    "appearance_rate_pct": 1.6
+   },
+   {
+    "card_number": "GD04-034",
+    "rank": 115,
+    "games_observed": 1311,
+    "appearance_rate_pct": 1.5
+   },
+   {
+    "card_number": "ST14-011",
+    "rank": 116,
+    "games_observed": 1279,
+    "appearance_rate_pct": 1.5
+   },
+   {
+    "card_number": "ST02-010",
+    "rank": 117,
+    "games_observed": 1256,
+    "appearance_rate_pct": 1.5
+   },
+   {
+    "card_number": "GD05-022",
+    "rank": 118,
+    "games_observed": 1255,
+    "appearance_rate_pct": 1.5
+   },
+   {
+    "card_number": "GD04-011",
+    "rank": 119,
+    "games_observed": 1226,
+    "appearance_rate_pct": 1.4
+   },
+   {
+    "card_number": "ST02-001",
+    "rank": 120,
+    "games_observed": 1220,
+    "appearance_rate_pct": 1.4
+   },
+   {
+    "card_number": "GD01-088",
+    "rank": 121,
+    "games_observed": 1190,
+    "appearance_rate_pct": 1.4
+   },
+   {
+    "card_number": "ST12-005",
+    "rank": 122,
+    "games_observed": 1187,
+    "appearance_rate_pct": 1.4
+   },
+   {
+    "card_number": "ST07-009",
+    "rank": 123,
+    "games_observed": 1183,
+    "appearance_rate_pct": 1.4
+   },
+   {
+    "card_number": "GD03-084",
+    "rank": 124,
+    "games_observed": 1143,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST13-015",
+    "rank": 125,
+    "games_observed": 1130,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "GD05-108",
+    "rank": 126,
+    "games_observed": 1126,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST13-007",
+    "rank": 127,
+    "games_observed": 1109,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST14-007",
+    "rank": 128,
+    "games_observed": 1099,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "GD05-042",
+    "rank": 129,
+    "games_observed": 1095,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST12-013",
+    "rank": 130,
+    "games_observed": 1094,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "GD03-002",
+    "rank": 131,
+    "games_observed": 1073,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST12-011",
+    "rank": 132,
+    "games_observed": 1060,
+    "appearance_rate_pct": 1.3
+   },
+   {
+    "card_number": "ST11-002",
+    "rank": 133,
+    "games_observed": 1058,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD05-056",
+    "rank": 134,
+    "games_observed": 1042,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD05-016",
+    "rank": 135,
+    "games_observed": 1022,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD04-066",
+    "rank": 136,
+    "games_observed": 1008,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "T-009",
+    "rank": 137,
+    "games_observed": 1005,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD03-003",
+    "rank": 138,
+    "games_observed": 999,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD05-004",
+    "rank": 139,
+    "games_observed": 996,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD03-063",
+    "rank": 140,
+    "games_observed": 996,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "ST11-003",
+    "rank": 141,
+    "games_observed": 981,
+    "appearance_rate_pct": 1.2
+   },
+   {
+    "card_number": "GD04-089",
+    "rank": 142,
+    "games_observed": 951,
+    "appearance_rate_pct": 1.1
+   },
+   {
+    "card_number": "GD05-053",
+    "rank": 143,
+    "games_observed": 922,
+    "appearance_rate_pct": 1.1
+   },
+   {
+    "card_number": "GD03-008",
+    "rank": 144,
+    "games_observed": 875,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "ST12-001",
+    "rank": 145,
+    "games_observed": 867,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "ST09-009",
+    "rank": 146,
+    "games_observed": 865,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "GD05-040",
+    "rank": 147,
+    "games_observed": 856,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "ST12-004",
+    "rank": 148,
+    "games_observed": 852,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "EB01-054",
+    "rank": 149,
+    "games_observed": 836,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "ST05-014",
+    "rank": 150,
+    "games_observed": 829,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "GD02-091",
+    "rank": 151,
+    "games_observed": 827,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "GD01-039",
+    "rank": 152,
+    "games_observed": 817,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "GD02-058",
+    "rank": 153,
+    "games_observed": 813,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "GD01-065",
+    "rank": 154,
+    "games_observed": 811,
+    "appearance_rate_pct": 1.0
+   },
+   {
+    "card_number": "ST09-001",
+    "rank": 155,
+    "games_observed": 801,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "GD01-068",
+    "rank": 156,
+    "games_observed": 792,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "GD05-058",
+    "rank": 157,
+    "games_observed": 782,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "ST06-009",
+    "rank": 158,
+    "games_observed": 760,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "ST07-004",
+    "rank": 159,
+    "games_observed": 759,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "ST14-006",
+    "rank": 160,
+    "games_observed": 741,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "ST09-008",
+    "rank": 161,
+    "games_observed": 737,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "GD04-024",
+    "rank": 162,
+    "games_observed": 725,
+    "appearance_rate_pct": 0.9
+   },
+   {
+    "card_number": "ST06-010",
+    "rank": 163,
+    "games_observed": 709,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "ST09-006",
+    "rank": 164,
+    "games_observed": 696,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "ST08-005",
+    "rank": 165,
+    "games_observed": 695,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD02-094",
+    "rank": 166,
+    "games_observed": 689,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "ST06-008",
+    "rank": 167,
+    "games_observed": 687,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD02-059",
+    "rank": 168,
+    "games_observed": 683,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD05-068",
+    "rank": 169,
+    "games_observed": 664,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "ST06-005",
+    "rank": 170,
+    "games_observed": 662,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD01-005",
+    "rank": 171,
+    "games_observed": 640,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD01-024",
+    "rank": 172,
+    "games_observed": 639,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "GD05-106",
+    "rank": 173,
+    "games_observed": 636,
+    "appearance_rate_pct": 0.8
+   },
+   {
+    "card_number": "ST12-003",
+    "rank": 174,
+    "games_observed": 630,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "ST14-001",
+    "rank": 175,
+    "games_observed": 615,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD04-063",
+    "rank": 176,
+    "games_observed": 613,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "ST09-007",
+    "rank": 177,
+    "games_observed": 605,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD05-067",
+    "rank": 178,
+    "games_observed": 598,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD05-052",
+    "rank": 179,
+    "games_observed": 588,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD05-023",
+    "rank": 180,
+    "games_observed": 583,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD03-049",
+    "rank": 181,
+    "games_observed": 578,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD03-039",
+    "rank": 182,
+    "games_observed": 576,
+    "appearance_rate_pct": 0.7
+   },
+   {
+    "card_number": "GD02-063",
+    "rank": 183,
+    "games_observed": 546,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD02-036",
+    "rank": 184,
+    "games_observed": 535,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "T-001",
+    "rank": 185,
+    "games_observed": 520,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "ST02-002",
+    "rank": 186,
+    "games_observed": 514,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD04-052",
+    "rank": 187,
+    "games_observed": 507,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "T-010",
+    "rank": 188,
+    "games_observed": 504,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD01-071",
+    "rank": 189,
+    "games_observed": 496,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD03-091",
+    "rank": 190,
+    "games_observed": 494,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "ST04-007",
+    "rank": 191,
+    "games_observed": 489,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "ST11-006",
+    "rank": 192,
+    "games_observed": 485,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD02-107",
+    "rank": 193,
+    "games_observed": 485,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "ST14-003",
+    "rank": 194,
+    "games_observed": 483,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "ST14-014",
+    "rank": 195,
+    "games_observed": 483,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD03-096",
+    "rank": 196,
+    "games_observed": 480,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD05-098",
+    "rank": 197,
+    "games_observed": 472,
+    "appearance_rate_pct": 0.6
+   },
+   {
+    "card_number": "GD01-002",
+    "rank": 198,
+    "games_observed": 466,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD03-016",
+    "rank": 199,
+    "games_observed": 460,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD05-077",
+    "rank": 200,
+    "games_observed": 459,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD01-052",
+    "rank": 201,
+    "games_observed": 458,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD05-071",
+    "rank": 202,
+    "games_observed": 458,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST14-005",
+    "rank": 203,
+    "games_observed": 457,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD05-048",
+    "rank": 204,
+    "games_observed": 456,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST06-001",
+    "rank": 205,
+    "games_observed": 455,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD03-033",
+    "rank": 206,
+    "games_observed": 448,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD04-117",
+    "rank": 207,
+    "games_observed": 443,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD02-104",
+    "rank": 208,
+    "games_observed": 443,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD05-079",
+    "rank": 209,
+    "games_observed": 432,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST07-001",
+    "rank": 210,
+    "games_observed": 432,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD05-007",
+    "rank": 211,
+    "games_observed": 431,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD03-057",
+    "rank": 212,
+    "games_observed": 431,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST14-002",
+    "rank": 213,
+    "games_observed": 425,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD01-046",
+    "rank": 214,
+    "games_observed": 402,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD01-107",
+    "rank": 215,
+    "games_observed": 402,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST06-002",
+    "rank": 216,
+    "games_observed": 393,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "GD01-050",
+    "rank": 217,
+    "games_observed": 389,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "ST06-006",
+    "rank": 218,
+    "games_observed": 383,
+    "appearance_rate_pct": 0.5
+   },
+   {
+    "card_number": "T-002",
+    "rank": 219,
+    "games_observed": 373,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD04-037",
+    "rank": 220,
+    "games_observed": 373,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "ST12-002",
+    "rank": 221,
+    "games_observed": 372,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD03-087",
+    "rank": 222,
+    "games_observed": 366,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD04-049",
+    "rank": 223,
+    "games_observed": 364,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "T-008",
+    "rank": 224,
+    "games_observed": 346,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "ST11-013",
+    "rank": 225,
+    "games_observed": 340,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD05-086",
+    "rank": 226,
+    "games_observed": 337,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "ST14-013",
+    "rank": 227,
+    "games_observed": 331,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD04-041",
+    "rank": 228,
+    "games_observed": 329,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD04-098",
+    "rank": 229,
+    "games_observed": 325,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD02-117",
+    "rank": 230,
+    "games_observed": 321,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "ST07-011",
+    "rank": 231,
+    "games_observed": 319,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "ST05-001",
+    "rank": 232,
+    "games_observed": 318,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD01-059",
+    "rank": 233,
+    "games_observed": 311,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD02-065",
+    "rank": 234,
+    "games_observed": 305,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD02-038",
+    "rank": 235,
+    "games_observed": 303,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "T-003",
+    "rank": 236,
+    "games_observed": 301,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "EB01-032",
+    "rank": 237,
+    "games_observed": 300,
+    "appearance_rate_pct": 0.4
+   },
+   {
+    "card_number": "GD01-106",
+    "rank": 238,
+    "games_observed": 291,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST13-002",
+    "rank": 239,
+    "games_observed": 284,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD04-036",
+    "rank": 240,
+    "games_observed": 279,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST07-005",
+    "rank": 241,
+    "games_observed": 276,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-001",
+    "rank": 242,
+    "games_observed": 273,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD04-113",
+    "rank": 243,
+    "games_observed": 273,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "T-007",
+    "rank": 244,
+    "games_observed": 268,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-075",
+    "rank": 245,
+    "games_observed": 266,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD04-065",
+    "rank": 246,
+    "games_observed": 265,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD01-054",
+    "rank": 247,
+    "games_observed": 265,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST12-008",
+    "rank": 248,
+    "games_observed": 264,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST06-007",
+    "rank": 249,
+    "games_observed": 263,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST07-010",
+    "rank": 250,
+    "games_observed": 261,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD04-097",
+    "rank": 251,
+    "games_observed": 259,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST09-005",
+    "rank": 252,
+    "games_observed": 259,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD02-056",
+    "rank": 253,
+    "games_observed": 253,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD02-032",
+    "rank": 254,
+    "games_observed": 248,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-035",
+    "rank": 255,
+    "games_observed": 246,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD04-074",
+    "rank": 256,
+    "games_observed": 240,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD03-048",
+    "rank": 257,
+    "games_observed": 240,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD01-010",
+    "rank": 258,
+    "games_observed": 231,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST11-010",
+    "rank": 259,
+    "games_observed": 231,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST01-009",
+    "rank": 260,
+    "games_observed": 230,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-105",
+    "rank": 261,
+    "games_observed": 221,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-112",
+    "rank": 262,
+    "games_observed": 220,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "ST11-012",
+    "rank": 263,
+    "games_observed": 216,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD03-026",
+    "rank": 264,
+    "games_observed": 215,
+    "appearance_rate_pct": 0.3
+   },
+   {
+    "card_number": "GD05-028",
+    "rank": 265,
+    "games_observed": 210,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD01-060",
+    "rank": 266,
+    "games_observed": 206,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST13-010",
+    "rank": 267,
+    "games_observed": 205,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD02-025",
+    "rank": 268,
+    "games_observed": 203,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD04-094",
+    "rank": 269,
+    "games_observed": 202,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD05-063",
+    "rank": 270,
+    "games_observed": 197,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST14-004",
+    "rank": 271,
+    "games_observed": 192,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD03-069",
+    "rank": 272,
+    "games_observed": 191,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD01-091",
+    "rank": 273,
+    "games_observed": 189,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD01-055",
+    "rank": 274,
+    "games_observed": 188,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD03-098",
+    "rank": 275,
+    "games_observed": 187,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST03-003",
+    "rank": 276,
+    "games_observed": 180,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST07-014",
+    "rank": 277,
+    "games_observed": 173,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD05-046",
+    "rank": 278,
+    "games_observed": 173,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "GD01-105",
+    "rank": 279,
+    "games_observed": 171,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST09-004",
+    "rank": 280,
+    "games_observed": 170,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST07-012",
+    "rank": 281,
+    "games_observed": 170,
+    "appearance_rate_pct": 0.2
+   },
+   {
+    "card_number": "ST07-007",
+    "rank": 282,
+    "games_observed": 170,
+    "appearance_rate_pct": 0.2
+   }
+  ]
+ }
+}

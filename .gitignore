@@ -1,0 +1,16 @@
+# environment and caches
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.DS_Store
+
+# raw fetched responses: rebuildable, large, and not ours to redistribute
+tools/*/data/raw/
+
+# private: how the online data was collected (kept out of the repository on purpose)
+tools/gundam_meta/private/
+notes/private/
+
+# generated output lists
+shared/data/gundam_collection/buy_*.txt

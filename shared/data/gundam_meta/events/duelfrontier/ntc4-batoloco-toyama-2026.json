@@ -1,0 +1,100 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-batoloco-toyama-2026",
+  "name": "NTC4 Batoloco Toyama 2026",
+  "start_date": "2026-02-01",
+  "end_date": "2026-02-01",
+  "country": "JP",
+  "city": "Toyama",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "U1jy7_FZAkWnpvWk4TQFhA",
+    "player_name": "Hata (ハタ)",
+    "placement": 1,
+    "name": "R/W Ping",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-001",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-128",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-036",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-091",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-046",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:59:06.370964Z",
+  "warnings": []
+ }
+}

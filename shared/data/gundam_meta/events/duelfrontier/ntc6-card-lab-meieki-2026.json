@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-card-lab-meieki-2026",
+  "name": "NTC6 Card Lab Meieki 2026",
+  "start_date": "2026-05-25",
+  "end_date": "2026-05-25",
+  "country": "JP",
+  "city": "Nagoya",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "y0M9rxutUEOaMguu4IYwxQ",
+    "player_name": "Heyshu",
+    "placement": 1,
+    "name": "B/R Banshee Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD02-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-038",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-003",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-006",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-081",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-121",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:56:23.436598Z",
+  "warnings": []
+ }
+}

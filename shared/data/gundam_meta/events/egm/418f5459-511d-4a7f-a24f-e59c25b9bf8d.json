@@ -1,0 +1,605 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "egm",
+  "id": "418f5459-511d-4a7f-a24f-e59c25b9bf8d",
+  "name": "Eagle Nest February 26th Gundam Locals",
+  "start_date": "2025-02-27",
+  "end_date": null,
+  "country": null,
+  "city": null,
+  "players": 30,
+  "rounds": 5,
+  "event_type": "unofficial",
+  "type_raw": "Unofficial Event",
+  "format_label": "Beta",
+  "decks": [
+   {
+    "id": "22895efa-8454-43b6-9643-d968bd19ae85",
+    "player_name": "Nick Villegas",
+    "placement": 1,
+    "name": "Blue White Strike Gundam (White Base)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-002",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-075",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "eef32332-d5f0-4ebb-b7d5-9f61b97d940f",
+    "player_name": "Stawicky",
+    "placement": 2,
+    "name": "Blue White Strike Gundam (White Base)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-075",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-002",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-002",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "3b5981e8-2da0-4651-83aa-639494fb6e3f",
+    "player_name": "Zydzen",
+    "placement": 3,
+    "name": "Blue/Green Wing Gundam",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-105",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-002",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-031",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "9d215067-ec33-44a7-864d-8d87f48351c3",
+    "player_name": "AngeloSenpai",
+    "placement": 4,
+    "name": "Blue White Strike Gundam (White Base)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-075",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-007",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-002",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f62f5108-003e-47e1-9aa3-18159c4569f6",
+    "player_name": "Taidana",
+    "placement": 5,
+    "name": "Blue White Strike Gundam (White Base)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-075",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "389b9cc7-9605-40b2-9138-adfa892ce995",
+    "player_name": "abzen",
+    "placement": 6,
+    "name": "Blue White Strike Gundam (White Base)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-075",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-120",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "f32a6993-2802-48f9-86a4-21e833056f9a",
+    "player_name": "KareemZaimere",
+    "placement": 7,
+    "name": "Blue White Strike Gundam (Academy)",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-068",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-076",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-012",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-002",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-013",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   },
+   {
+    "id": "96094fc6-4f7e-4a1c-b154-8f061010af01",
+    "player_name": "Gallet",
+    "placement": 8,
+    "name": "Blue/Green Wing Gundam",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-041",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-026",
+      "qty": 3
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-011",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-031",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-015",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:52:51.997443Z",
+  "warnings": []
+ }
+}

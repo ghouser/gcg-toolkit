@@ -1,0 +1,96 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "wcq-aichi-2025-block-d",
+  "name": "WCQ Aichi 2025 Block D",
+  "start_date": "2025-11-09",
+  "end_date": "2025-11-09",
+  "country": "JP",
+  "city": "Aichi",
+  "players": 64,
+  "rounds": null,
+  "event_type": "world_championship",
+  "type_raw": "64",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "gmfCufUCKkao3UUobRBVNw",
+    "player_name": "Nukesaku",
+    "placement": 1,
+    "name": "B/W Freedom",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-011",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-072",
+      "qty": 1
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-065",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-009",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-074",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-079",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-100",
+      "qty": 1
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T23:00:16.427552Z",
+  "warnings": []
+ }
+}

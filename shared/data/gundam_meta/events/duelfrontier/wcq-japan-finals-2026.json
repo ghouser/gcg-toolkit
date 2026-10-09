@@ -1,0 +1,369 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "wcq-japan-finals-2026",
+  "name": "WCQ Japan Finals 2026",
+  "start_date": "2026-02-14",
+  "end_date": "2026-02-14",
+  "country": "JP",
+  "city": "Tokyo",
+  "players": 64,
+  "rounds": null,
+  "event_type": "world_championship",
+  "type_raw": "64",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "99_z0KAoU0yKMMpOZ4vWIw",
+    "player_name": "FUJI",
+    "placement": 1,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 1
+     }
+    ],
+    "side": [
+     {
+      "card_number": "GD01-123",
+      "qty": 1
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-068",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 1
+     }
+    ],
+    "unresolved": []
+   },
+   {
+    "id": "4gVUJ0vC-EWdMvnsdmwmZA",
+    "player_name": "MOMO (モモ)",
+    "placement": 2,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 4
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-063",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-001",
+      "qty": 2
+     }
+    ],
+    "side": [
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-050",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-013",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-114",
+      "qty": 2
+     }
+    ],
+    "unresolved": []
+   },
+   {
+    "id": "EaoxLhx0V0ikL5Y81zlCIA",
+    "player_name": "Nukesaku",
+    "placement": 3,
+    "name": "B/G Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-030",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-035",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST07-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 1
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-005",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 1
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     }
+    ],
+    "side": [
+     {
+      "card_number": "GD01-004",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-029",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-091",
+      "qty": 2
+     }
+    ],
+    "unresolved": []
+   },
+   {
+    "id": "aA27f8GOUU-BO0X8GfrzEw",
+    "player_name": "山田",
+    "placement": 4,
+    "name": "B/P Barbatos Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST05-001",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-063",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-014",
+      "qty": 3
+     },
+     {
+      "card_number": "ST02-016",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-018",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 3
+     }
+    ],
+    "side": [
+     {
+      "card_number": "ST01-005",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-010",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-095",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-099",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-111",
+      "qty": 2
+     }
+    ],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:49.124409Z",
+  "warnings": []
+ }
+}

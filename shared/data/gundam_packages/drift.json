@@ -1,0 +1,467 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-07T17:09:15.783677Z",
+ "base": {
+  "era": "gd05",
+  "start": "2026-07-24",
+  "end": "2026-09-25",
+  "tiers": [
+   "major",
+   "local"
+  ],
+  "events": 30,
+  "decks": 253,
+  "decks_not_counted": 0
+ },
+ "new": {
+  "era": "gd05_5",
+  "start": "2026-09-25",
+  "end": "2026-10-30",
+  "tiers": [
+   "major",
+   "local"
+  ],
+  "events": 6,
+  "decks": 42,
+  "decks_not_counted": 1
+ },
+ "params": {
+  "min_decks": 3,
+  "mutual_threshold": 0.8,
+  "run_share": 0.75,
+  "bridge_share": 0.5
+ },
+ "packages": [
+  {
+   "package": "pkg:GD05-002",
+   "name": "Kira Strike Freedom",
+   "share_before": 0.43478260869565216,
+   "share_after": 0.5,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": [
+    {
+     "card_number": "GD05-004",
+     "package": "pkg:GD05-002",
+     "decks": 1,
+     "share": 0.047619047619047616,
+     "edges": [
+      {
+       "a": "GD05-004",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package": "pkg:GD01-086",
+   "name": "Kira Aile Strike",
+   "share_before": 0.3715415019762846,
+   "share_after": 0.2857142857142857,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": [
+    {
+     "card_number": "GD05-010",
+     "package": "pkg:GD01-086",
+     "decks": 6,
+     "share": 0.5,
+     "edges": [
+      {
+       "a": "GD05-010",
+       "b": "ST04-010",
+       "kind": "link_pilot",
+       "detail": "Kira Yamato"
+      }
+     ]
+    },
+    {
+     "card_number": "GD05-005",
+     "package": "pkg:GD01-086",
+     "decks": 3,
+     "share": 0.25,
+     "edges": [
+      {
+       "a": "GD01-086",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      },
+      {
+       "a": "GD02-079",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      },
+      {
+       "a": "GD05-005",
+       "b": "ST04-001",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package": "pkg:ST01-001",
+   "name": "Amuro Ray",
+   "share_before": 0.3359683794466403,
+   "share_after": 0.23809523809523808,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD02-054",
+   "name": "Mikazuki Barbatos",
+   "share_before": 0.2134387351778656,
+   "share_after": 0.35714285714285715,
+   "dropped": [],
+   "joined": [
+    {
+     "card_number": "ST13-001",
+     "package": "pkg:GD02-054",
+     "decks": 1,
+     "share": 0.06666666666666667,
+     "edges": [
+      {
+       "a": "GD03-056",
+       "b": "ST13-001",
+       "kind": "similar_ability",
+       "detail": "one effect contains the other"
+      }
+     ]
+    }
+   ],
+   "new_synergy_cards": [
+    {
+     "card_number": "GD05-060",
+     "package": "pkg:GD02-054",
+     "decks": 6,
+     "share": 0.4,
+     "edges": [
+      {
+       "a": "GD05-060",
+       "b": "ST05-010",
+       "kind": "link_trait",
+       "detail": "Tekkadan"
+      }
+     ]
+    },
+    {
+     "card_number": "GD05-051",
+     "package": "pkg:GD02-054",
+     "decks": 1,
+     "share": 0.06666666666666667,
+     "edges": [
+      {
+       "a": "GD05-051",
+       "b": "ST05-010",
+       "kind": "link_pilot",
+       "detail": "Mikazuki Augus"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package": "pkg:GD05-033",
+   "name": "Master Asia",
+   "share_before": 0.16600790513833993,
+   "share_after": 0.07142857142857142,
+   "dropped": [],
+   "joined": [
+    {
+     "card_number": "ST12-002",
+     "package": "pkg:GD05-033",
+     "decks": 1,
+     "share": 0.3333333333333333,
+     "edges": [
+      {
+       "a": "GD05-089",
+       "b": "ST12-002",
+       "kind": "trait_reference",
+       "detail": "MF"
+      }
+     ]
+    }
+   ],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD05-066",
+   "name": "Domon Shining",
+   "share_before": 0.16600790513833993,
+   "share_after": 0.07142857142857142,
+   "dropped": [],
+   "joined": [
+    {
+     "card_number": "ST12-002",
+     "package": "pkg:GD05-066",
+     "decks": 1,
+     "share": 0.3333333333333333,
+     "edges": [
+      {
+       "a": "GD05-066",
+       "b": "ST12-002",
+       "kind": "trait_reference",
+       "detail": "MF"
+      },
+      {
+       "a": "GD05-120",
+       "b": "ST12-002",
+       "kind": "name_reference",
+       "detail": "Shining Gundam"
+      },
+      {
+       "a": "GD05-121",
+       "b": "ST12-002",
+       "kind": "trait_reference",
+       "detail": "MF"
+      },
+      {
+       "a": "ST12-002",
+       "b": "GD05-097",
+       "kind": "link_pilot",
+       "detail": "Domon Kasshu"
+      }
+     ]
+    }
+   ],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD04-003",
+   "name": "Üso V-Dash",
+   "share_before": 0.15019762845849802,
+   "share_after": 0.16666666666666666,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": [
+    {
+     "card_number": "GD05-005",
+     "package": "pkg:GD04-003",
+     "decks": 5,
+     "share": 0.7142857142857143,
+     "edges": [
+      {
+       "a": "GD04-016",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package": "pkg:GD05-017",
+   "name": "Amuro Nu",
+   "share_before": 0.1225296442687747,
+   "share_after": 0.0,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD01-026",
+   "name": "Char Aznable",
+   "share_before": 0.11067193675889328,
+   "share_after": 0.21428571428571427,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD02-055",
+   "name": "Tekkadan",
+   "share_before": 0.09486166007905138,
+   "share_after": 0.07142857142857142,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": [
+    {
+     "card_number": "GD05-005",
+     "package": "pkg:GD02-055",
+     "decks": 3,
+     "share": 1.0,
+     "edges": [
+      {
+       "a": "GD02-055",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package": "pkg:GD01-067",
+   "name": "Suletta Aerial Rebuild",
+   "share_before": 0.04743083003952569,
+   "share_after": 0.023809523809523808,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD01-044",
+   "name": "Marida Kshatriya",
+   "share_before": 0.043478260869565216,
+   "share_after": 0.09523809523809523,
+   "dropped": [],
+   "joined": [
+    {
+     "card_number": "ST12-006",
+     "package": "pkg:GD01-044",
+     "decks": 1,
+     "share": 0.25,
+     "edges": [
+      {
+       "a": "ST12-006",
+       "b": "GD01-093",
+       "kind": "link_pilot",
+       "detail": "Marida Cruz"
+      }
+     ]
+    },
+    {
+     "card_number": "ST12-012",
+     "package": "pkg:GD01-044",
+     "decks": 1,
+     "share": 0.25,
+     "edges": [
+      {
+       "a": "GD01-044",
+       "b": "ST12-012",
+       "kind": "trait_reference",
+       "detail": "Cyber-Newtype"
+      }
+     ]
+    }
+   ],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD03-034",
+   "name": "Nyaan GQuuuuuuX",
+   "share_before": 0.03162055335968379,
+   "share_after": 0.0,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  },
+  {
+   "package": "pkg:GD05-003",
+   "name": "Andrew Waldfeld",
+   "share_before": 0.03162055335968379,
+   "share_after": 0.023809523809523808,
+   "dropped": [],
+   "joined": [],
+   "new_synergy_cards": []
+  }
+ ],
+ "new_cards": [
+  {
+   "card_number": "ST11-009",
+   "introduced": "2026-09-25",
+   "decks": 11,
+   "deck_share": 0.2619047619047619,
+   "package": null
+  },
+  {
+   "card_number": "ST13-012",
+   "introduced": "2026-09-25",
+   "decks": 6,
+   "deck_share": 0.14285714285714285,
+   "package": null
+  },
+  {
+   "card_number": "ST13-006",
+   "introduced": "2026-09-25",
+   "decks": 5,
+   "deck_share": 0.11904761904761904,
+   "package": null
+  },
+  {
+   "card_number": "ST11-016",
+   "introduced": "2026-09-25",
+   "decks": 3,
+   "deck_share": 0.07142857142857142,
+   "package": null
+  },
+  {
+   "card_number": "ST13-009",
+   "introduced": "2026-09-25",
+   "decks": 3,
+   "deck_share": 0.07142857142857142,
+   "package": null
+  },
+  {
+   "card_number": "ST11-007",
+   "introduced": "2026-09-25",
+   "decks": 2,
+   "deck_share": 0.047619047619047616,
+   "package": null
+  },
+  {
+   "card_number": "ST12-013",
+   "introduced": "2026-09-25",
+   "decks": 2,
+   "deck_share": 0.047619047619047616,
+   "package": null
+  }
+ ],
+ "emerging": [
+  {
+   "package": {
+    "id": "pkg:ST13-006",
+    "name": "Suletta Aerial",
+    "members": [
+     {
+      "card_number": "ST13-006",
+      "role": "core",
+      "decks": 5,
+      "share": 1.0
+     },
+     {
+      "card_number": "ST13-012",
+      "role": "core",
+      "decks": 5,
+      "share": 1.0
+     }
+    ],
+    "edges": [
+     {
+      "a": "ST13-006",
+      "b": "ST13-012",
+      "kind": "link_pilot",
+      "detail": "Suletta Mercury"
+     }
+    ],
+    "decks_running": 5,
+    "decks_running_all": 5,
+    "deck_share": 0.11904761904761904,
+    "colors": [
+     "red"
+    ],
+    "variants": [
+     {
+      "optional_members": [],
+      "decks": 5
+     }
+    ]
+   },
+   "new_cards": [
+    "ST13-006",
+    "ST13-012"
+   ],
+   "low_sample": true
+  }
+ ]
+}

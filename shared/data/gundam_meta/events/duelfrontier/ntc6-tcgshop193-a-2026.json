@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-tcgshop193-a-2026",
+  "name": "NTC6 TCGshop193 A 2026",
+  "start_date": "2026-05-02",
+  "end_date": "2026-05-02",
+  "country": "JP",
+  "city": "Nagoya",
+  "players": 64,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "3jZ0BRO9iEKkx9vJk1Eozw",
+    "player_name": "Hinata Hirune",
+    "placement": 1,
+    "name": "P/W Tekkadan",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-050",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-058",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-094",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-114",
+      "qty": 2
+     },
+     {
+      "card_number": "ST05-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-117",
+      "qty": 2
+     },
+     {
+      "card_number": "ST01-014",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:17.089802Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,75 @@
+{
+ "data": {
+  "id": 184,
+  "name": "Regional Milwaukee 2026",
+  "slug": "regional-milwaukee-2026",
+  "startDate": "2026-10-03T00:00:00Z",
+  "endDate": "2026-10-04T00:00:00Z",
+  "country": "US",
+  "city": "Milwaukee, WI",
+  "participants": 500,
+  "type": 16,
+  "players": [
+   {
+    "id": 734,
+    "name": "Taidana",
+    "eventId": 184,
+    "standing": 1,
+    "placeLiteral": 1,
+    "deckSlug": "HpzTfC4PVUyq4esVEg5akg",
+    "deck": {
+     "id": 23679,
+     "name": "B/P Z'Gok Aggro",
+     "slug": "HpzTfC4PVUyq4esVEg5akg",
+     "coverCard": "ST11-001",
+     "isPublic": false,
+     "colors": 5,
+     "tags": 0,
+     "views": 0,
+     "cards": []
+    }
+   },
+   {
+    "id": 735,
+    "name": "Luc",
+    "eventId": 184,
+    "standing": 2,
+    "placeLiteral": 2,
+    "deckSlug": "VsjpJtulV0aSbIlXHooXmg",
+    "deck": {
+     "id": 23680,
+     "name": "B/P Barbatos Control",
+     "slug": "VsjpJtulV0aSbIlXHooXmg",
+     "coverCard": "GD03-050",
+     "isPublic": false,
+     "colors": 5,
+     "tags": 0,
+     "views": 0,
+     "cards": []
+    }
+   },
+   {
+    "id": 736,
+    "name": "Edsel",
+    "eventId": 184,
+    "standing": 4,
+    "placeLiteral": 4,
+    "deckSlug": "lPP8hvB2D06UYRBcJxnZSg",
+    "deck": {
+     "id": 23681,
+     "name": "P/R Banshee Aggro",
+     "slug": "lPP8hvB2D06UYRBcJxnZSg",
+     "coverCard": "ST12-006",
+     "isPublic": false,
+     "colors": 12,
+     "tags": 0,
+     "views": 0,
+     "cards": []
+    }
+   }
+  ],
+  "playerCount": 0
+ },
+ "messages": [],
+ "succeeded": true
+}

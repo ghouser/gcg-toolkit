@@ -1,0 +1,84 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-bookoff-hiroshima-2026",
+  "name": "NTC6 BOOKOFF Hiroshima 2026",
+  "start_date": "2026-05-04",
+  "end_date": "2026-05-04",
+  "country": "JP",
+  "city": "Hiroshima",
+  "players": 31,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "ChRJOkWKL02OBGWcNpnC3Q",
+    "player_name": "AK310",
+    "placement": 1,
+    "name": "B/R Neo Zeong Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-051",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-015",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-005",
+      "qty": 2
+     },
+     {
+      "card_number": "ST03-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-001",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:05.483525Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "schema_version": 1,
+ "data": [
+  {"id": "gd05", "label": "GD05", "anchor_sets": ["GD05"]},
+  {"id": "gd05_5", "label": "GD05.5", "anchor_sets": ["ST11", "ST12", "ST13", "ST14"]},
+  {"id": "gd06", "label": "GD06", "anchor_sets": ["GD06"]}
+ ]
+}

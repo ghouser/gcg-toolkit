@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "sc-japan-tcg-center-2026",
+  "name": "SC Japan TCG Center 2026",
+  "start_date": "2026-05-03",
+  "end_date": "2026-05-03",
+  "country": "JP",
+  "city": "Okinawa",
+  "players": 32,
+  "rounds": null,
+  "event_type": "store_championship",
+  "type_raw": "8",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "FgMa5sx79UyRvZw7IfhsEA",
+    "player_name": "Arinko",
+    "placement": 1,
+    "name": "G/R Clan",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST06-015",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-109",
+      "qty": 2
+     },
+     {
+      "card_number": "ST06-005",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-039",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-032",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-024",
+      "qty": 3
+     },
+     {
+      "card_number": "ST06-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD02-038",
+      "qty": 3
+     },
+     {
+      "card_number": "ST06-002",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-012",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:11.538443Z",
+  "warnings": []
+ }
+}

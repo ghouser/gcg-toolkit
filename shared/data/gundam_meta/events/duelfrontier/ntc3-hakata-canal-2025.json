@@ -1,0 +1,84 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc3-hakata-canal-2025",
+  "name": "NTC3 Hakata Canal 2025",
+  "start_date": "2025-12-22",
+  "end_date": "2025-12-22",
+  "country": "JP",
+  "city": "Fukuoka",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "2QEUaLQjs06ZHffCULGOIw",
+    "player_name": "いずもん",
+    "placement": 1,
+    "name": "B/W Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST01-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST01-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-100",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-020",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-080",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-009",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-129",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-012",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-073",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:59:32.615224Z",
+  "warnings": []
+ }
+}

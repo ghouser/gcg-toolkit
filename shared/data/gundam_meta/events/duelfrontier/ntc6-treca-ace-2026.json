@@ -1,0 +1,88 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-treca-ace-2026",
+  "name": "NTC6 Treca Ace 2026",
+  "start_date": "2026-05-17",
+  "end_date": "2026-05-17",
+  "country": "JP",
+  "city": "Tsukuba",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "6cHrpnwAnEagInz67EIPiw",
+    "player_name": "Charamatsu",
+    "placement": 1,
+    "name": "P/W Impulse Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST09-002",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-130",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-086",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-063",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:56:45.623404Z",
+  "warnings": []
+ }
+}

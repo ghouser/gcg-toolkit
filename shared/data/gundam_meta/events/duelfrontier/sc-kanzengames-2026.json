@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "sc-kanzengames-2026",
+  "name": "SC KanZenGames 2026",
+  "start_date": "2026-06-19",
+  "end_date": "2026-06-19",
+  "country": "CA",
+  "city": "Mississauga",
+  "players": 64,
+  "rounds": null,
+  "event_type": "store_championship",
+  "type_raw": "8",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "OtBic4dSAkqjQQ-M86DBfA",
+    "player_name": "Jerick",
+    "placement": 1,
+    "name": "P/W Destiny Control",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-086",
+      "qty": 2
+     },
+     {
+      "card_number": "GD04-077",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-001",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-001",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-007",
+      "qty": 3
+     },
+     {
+      "card_number": "GD04-050",
+      "qty": 3
+     },
+     {
+      "card_number": "ST09-009",
+      "qty": 2
+     },
+     {
+      "card_number": "ST09-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "ST09-008",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:55:46.972713Z",
+  "warnings": []
+ }
+}

@@ -1,0 +1,384 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-06T22:44:30.185794Z",
+ "data": [
+  {
+   "code": "BASIC",
+   "name": "Basic Cards",
+   "kind": "other",
+   "bandai_package_id": "616801",
+   "release_date": null,
+   "product_category_raw": null,
+   "product_url": null
+  },
+  {
+   "code": "BETA",
+   "name": "Edition Beta",
+   "kind": "beta",
+   "bandai_package_id": "616000",
+   "release_date": "2024-12-07",
+   "product_category_raw": null,
+   "product_url": "https://www.gundam-gcg.com/en/products/limitedbox-beta.html"
+  },
+  {
+   "code": "EB01",
+   "name": "Eternal Nexus",
+   "kind": "extra_booster",
+   "bandai_package_id": "616201",
+   "release_date": "2026-06-26",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/eb01.html"
+  },
+  {
+   "code": "EVX01",
+   "name": "Accessory and Card Set 01 FIRST COMBAT",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-07-03",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/goodsset01.html"
+  },
+  {
+   "code": "EVX02",
+   "name": "Official Playmat and Card Set Suletta & Miorine",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-09-20",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/ev02.html"
+  },
+  {
+   "code": "EVX03",
+   "name": "Official Card Sleeves EX",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-09-20",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/ev03.html"
+  },
+  {
+   "code": "EVX05",
+   "name": "GUNDAM CARD GAME Premium Card Collection",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-12-13",
+   "product_category_raw": "OTHER",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx05.html"
+  },
+  {
+   "code": "EVX06",
+   "name": "Official Matte Sleeves EX02",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-05-29",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx06.html"
+  },
+  {
+   "code": "EVX07",
+   "name": "Storage Box ＆ Resource Card Set",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-05-29",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx07.html"
+  },
+  {
+   "code": "EVX08",
+   "name": "Official Damage Counter Dice - Haro -",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-09-25",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx08.html"
+  },
+  {
+   "code": "EVX09",
+   "name": "Special Booster Bundle 01",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-06-30",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx09.html"
+  },
+  {
+   "code": "EVX11",
+   "name": "Official Playmat and Card Set Athrun & Cagalli",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": null,
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx11.html"
+  },
+  {
+   "code": "EVX12",
+   "name": "Official Card Sleeves EX 03",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": null,
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx12.html"
+  },
+  {
+   "code": "EVX13",
+   "name": "Premium Card Collection 02",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": null,
+   "product_category_raw": "OTHER",
+   "product_url": "https://www.gundam-gcg.com/en/products/evx13.html"
+  },
+  {
+   "code": "GD01",
+   "name": "Newtype Rising",
+   "kind": "booster",
+   "bandai_package_id": "616101",
+   "release_date": "2025-07-25",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd01.html"
+  },
+  {
+   "code": "GD02",
+   "name": "Dual Impact",
+   "kind": "booster",
+   "bandai_package_id": "616102",
+   "release_date": "2025-10-24",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd02.html"
+  },
+  {
+   "code": "GD03",
+   "name": "Steel Requiem",
+   "kind": "booster",
+   "bandai_package_id": "616103",
+   "release_date": "2026-01-30",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd03.html"
+  },
+  {
+   "code": "GD04",
+   "name": "Phantom Aria",
+   "kind": "booster",
+   "bandai_package_id": "616104",
+   "release_date": "2026-04-24",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd04.html"
+  },
+  {
+   "code": "GD05",
+   "name": "Freedom Ascension",
+   "kind": "booster",
+   "bandai_package_id": "616105",
+   "release_date": "2026-07-24",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd05.html"
+  },
+  {
+   "code": "GD06",
+   "name": "Stardust Trails",
+   "kind": "booster",
+   "bandai_package_id": null,
+   "release_date": "2026-10-30",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd06.html"
+  },
+  {
+   "code": "GD07",
+   "name": "Blazing Fist",
+   "kind": "booster",
+   "bandai_package_id": null,
+   "release_date": "2027-01-29",
+   "product_category_raw": "BOOSTER PACK",
+   "product_url": "https://www.gundam-gcg.com/en/products/gd07.html"
+  },
+  {
+   "code": "OTHER",
+   "name": "Other Product Card",
+   "kind": "other",
+   "bandai_package_id": "616701",
+   "release_date": null,
+   "product_category_raw": null,
+   "product_url": null
+  },
+  {
+   "code": "PB01",
+   "name": "Premium Accessory Set -Mobile Suit Gundam Wing-",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-08-20",
+   "product_category_raw": "PREMIUM BANDAI",
+   "product_url": "https://www.gundam-gcg.com/en/products/pb01.html"
+  },
+  {
+   "code": "PB02",
+   "name": "Premium Accessory Set -Mobile Suit Gundam IRON-BLOODED ORPHANS-",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2025-10-10",
+   "product_category_raw": "PREMIUM BANDAI",
+   "product_url": "https://www.gundam-gcg.com/en/products/pb02.html"
+  },
+  {
+   "code": "PC01A",
+   "name": "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam IRON-BLOODED ORPHANS-",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-02-27",
+   "product_category_raw": "OTHER",
+   "product_url": "https://www.gundam-gcg.com/en/products/pc01a.html"
+  },
+  {
+   "code": "PC02A",
+   "name": "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam GQuuuuuuX-",
+   "kind": "other",
+   "bandai_package_id": null,
+   "release_date": "2026-02-27",
+   "product_category_raw": "OTHER",
+   "product_url": "https://www.gundam-gcg.com/en/products/pc02a.html"
+  },
+  {
+   "code": "PROMO",
+   "name": "Promotion card",
+   "kind": "promo",
+   "bandai_package_id": "616901",
+   "release_date": null,
+   "product_category_raw": null,
+   "product_url": null
+  },
+  {
+   "code": "SC01",
+   "name": "Deck Build Box Freedom Ascension",
+   "kind": "deck_build_box",
+   "bandai_package_id": "616301",
+   "release_date": "2026-07-24",
+   "product_category_raw": "ACCESSORIES",
+   "product_url": "https://www.gundam-gcg.com/en/products/deck-build-box.html"
+  },
+  {
+   "code": "ST01",
+   "name": "Heroic Beginnings",
+   "kind": "starter",
+   "bandai_package_id": "616001",
+   "release_date": "2025-07-11",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st01.html"
+  },
+  {
+   "code": "ST02",
+   "name": "Wings of Advance",
+   "kind": "starter",
+   "bandai_package_id": "616002",
+   "release_date": "2025-07-11",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st02.html"
+  },
+  {
+   "code": "ST03",
+   "name": "Zeon's Rush",
+   "kind": "starter",
+   "bandai_package_id": "616003",
+   "release_date": "2025-07-11",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st03.html"
+  },
+  {
+   "code": "ST04",
+   "name": "SEED Strike",
+   "kind": "starter",
+   "bandai_package_id": "616004",
+   "release_date": "2025-07-11",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st04.html"
+  },
+  {
+   "code": "ST05",
+   "name": "Iron Bloom",
+   "kind": "starter",
+   "bandai_package_id": "616005",
+   "release_date": "2025-09-26",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st05.html"
+  },
+  {
+   "code": "ST06",
+   "name": "Clan Unity",
+   "kind": "starter",
+   "bandai_package_id": "616006",
+   "release_date": "2025-10-24",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st06.html"
+  },
+  {
+   "code": "ST07",
+   "name": "Celestial Drive",
+   "kind": "starter",
+   "bandai_package_id": "616007",
+   "release_date": "2026-01-16",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st07.html"
+  },
+  {
+   "code": "ST08",
+   "name": "Flash of Radiance",
+   "kind": "starter",
+   "bandai_package_id": "616008",
+   "release_date": "2026-01-16",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st08.html"
+  },
+  {
+   "code": "ST09",
+   "name": "Destiny Ignition",
+   "kind": "starter",
+   "bandai_package_id": "616009",
+   "release_date": "2026-03-27",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st09.html"
+  },
+  {
+   "code": "ST10",
+   "name": "Generation Pulse",
+   "kind": "starter",
+   "bandai_package_id": "616010",
+   "release_date": "2026-06-26",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st10.html"
+  },
+  {
+   "code": "ST11",
+   "name": "Aquatic Assault",
+   "kind": "starter",
+   "bandai_package_id": "616011",
+   "release_date": "2026-09-25",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st11.html"
+  },
+  {
+   "code": "ST12",
+   "name": "Raging Onslaught",
+   "kind": "starter",
+   "bandai_package_id": "616012",
+   "release_date": "2026-09-25",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st12.html"
+  },
+  {
+   "code": "ST13",
+   "name": "Silent Barrage",
+   "kind": "starter",
+   "bandai_package_id": "616013",
+   "release_date": "2026-09-25",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st13.html"
+  },
+  {
+   "code": "ST14",
+   "name": "Heavy Dominion",
+   "kind": "starter",
+   "bandai_package_id": "616014",
+   "release_date": "2026-09-25",
+   "product_category_raw": "STARTER DECK",
+   "product_url": "https://www.gundam-gcg.com/en/products/st14.html"
+  }
+ ]
+}

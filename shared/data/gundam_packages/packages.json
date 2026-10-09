@@ -1,0 +1,6677 @@
+{
+ "schema_version": 2,
+ "generated_at": "2026-10-09T00:02:13.144784Z",
+ "source": "tournament",
+ "window": {
+  "era": "gd05",
+  "start": "2026-07-24",
+  "end": "2026-09-25",
+  "tiers": [
+   "major",
+   "local"
+  ],
+  "events": 30,
+  "decks": 253,
+  "decks_not_counted": 0
+ },
+ "params": {
+  "min_decks": 6,
+  "mutual_threshold": 0.8,
+  "run_share": 0.75,
+  "bridge_share": 0.5
+ },
+ "packages": [
+  {
+   "id": "pkg:GD05-002",
+   "name": "Kira Strike Freedom",
+   "members": [
+    {
+     "card_number": "GD05-002",
+     "role": "core",
+     "decks": 110,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-081",
+     "role": "core",
+     "decks": 110,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD05-002",
+     "b": "GD05-081",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    }
+   ],
+   "decks_running": 110,
+   "decks_running_all": 110,
+   "deck_share": 0.43478260869565216,
+   "colors": [
+    "blue"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 110
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD01-086",
+   "name": "Kira Aile Strike",
+   "members": [
+    {
+     "card_number": "ST04-010",
+     "role": "core",
+     "decks": 94,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST04-001",
+     "role": "core",
+     "decks": 93,
+     "share": 0.9893617021276596
+    },
+    {
+     "card_number": "GD01-086",
+     "role": "optional",
+     "decks": 83,
+     "share": 0.8829787234042553
+    },
+    {
+     "card_number": "GD02-079",
+     "role": "optional",
+     "decks": 77,
+     "share": 0.8191489361702128
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "GD02-079",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-086",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD02-079",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "ST04-001",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    }
+   ],
+   "decks_running": 94,
+   "decks_running_all": 65,
+   "deck_share": 0.3715415019762846,
+   "colors": [
+    "white"
+   ],
+   "variants": [
+    {
+     "optional_members": [
+      "GD01-086",
+      "GD02-079"
+     ],
+     "decks": 66
+    },
+    {
+     "optional_members": [
+      "GD01-086"
+     ],
+     "decks": 17
+    },
+    {
+     "optional_members": [
+      "GD02-079"
+     ],
+     "decks": 11
+    }
+   ]
+  },
+  {
+   "id": "pkg:ST01-001",
+   "name": "Amuro Ray",
+   "members": [
+    {
+     "card_number": "ST01-001",
+     "role": "core",
+     "decks": 85,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST01-010",
+     "role": "core",
+     "decks": 85,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "ST01-001",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    }
+   ],
+   "decks_running": 85,
+   "decks_running_all": 85,
+   "deck_share": 0.3359683794466403,
+   "colors": [
+    "blue"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 85
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD02-054",
+   "name": "Mikazuki Barbatos",
+   "members": [
+    {
+     "card_number": "GD02-054",
+     "role": "core",
+     "decks": 54,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-056",
+     "role": "core",
+     "decks": 54,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST05-010",
+     "role": "core",
+     "decks": 54,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD02-054",
+     "b": "ST05-010",
+     "kind": "link_pilot",
+     "detail": "Mikazuki Augus"
+    },
+    {
+     "a": "GD03-056",
+     "b": "ST05-010",
+     "kind": "link_pilot",
+     "detail": "Mikazuki Augus"
+    }
+   ],
+   "decks_running": 54,
+   "decks_running_all": 54,
+   "deck_share": 0.2134387351778656,
+   "colors": [
+    "purple"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 54
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD05-033",
+   "name": "Master Asia",
+   "members": [
+    {
+     "card_number": "GD05-033",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-089",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD05-033",
+     "b": "GD05-089",
+     "kind": "link_pilot",
+     "detail": "Master Asia"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ],
+   "decks_running": 42,
+   "decks_running_all": 42,
+   "deck_share": 0.16600790513833993,
+   "colors": [
+    "red"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 42
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD05-066",
+   "name": "Domon Shining",
+   "members": [
+    {
+     "card_number": "GD05-066",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-069",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-072",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-097",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-120",
+     "role": "core",
+     "decks": 42,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-121",
+     "role": "core",
+     "decks": 41,
+     "share": 0.9761904761904762
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-072",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-097",
+     "kind": "link_pilot",
+     "detail": "Domon Kasshu"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-072",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-121",
+     "kind": "link_pilot",
+     "detail": "Chibodee Crocket"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-097",
+     "kind": "link_trait",
+     "detail": "Gundam Fighter"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-121",
+     "kind": "link_trait",
+     "detail": "Gundam Fighter"
+    },
+    {
+     "a": "GD05-097",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-097",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-120",
+     "b": "GD05-066",
+     "kind": "name_reference",
+     "detail": "Shining Gundam"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ],
+   "decks_running": 42,
+   "decks_running_all": 41,
+   "deck_share": 0.16600790513833993,
+   "colors": [
+    "white"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 42
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD04-003",
+   "name": "Üso V-Dash",
+   "members": [
+    {
+     "card_number": "GD04-003",
+     "role": "core",
+     "decks": 38,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-006",
+     "role": "core",
+     "decks": 38,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-081",
+     "role": "core",
+     "decks": 38,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-016",
+     "role": "core",
+     "decks": 37,
+     "share": 0.9736842105263158
+    },
+    {
+     "card_number": "GD04-121",
+     "role": "core",
+     "decks": 37,
+     "share": 0.9736842105263158
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD04-003",
+     "b": "GD04-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD04-003",
+     "b": "GD04-081",
+     "kind": "link_trait",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD04-003",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD04-016",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD04-081",
+     "kind": "link_pilot",
+     "detail": "Üso Ewin"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD04-081",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD04-121",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    }
+   ],
+   "decks_running": 38,
+   "decks_running_all": 36,
+   "deck_share": 0.15019762845849802,
+   "colors": [
+    "blue"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 38
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD05-017",
+   "name": "Amuro Nu",
+   "members": [
+    {
+     "card_number": "GD05-017",
+     "role": "core",
+     "decks": 31,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-019",
+     "role": "core",
+     "decks": 31,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-027",
+     "role": "core",
+     "decks": 31,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-085",
+     "role": "core",
+     "decks": 31,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-029",
+     "role": "core",
+     "decks": 30,
+     "share": 0.967741935483871
+    },
+    {
+     "card_number": "GD05-125",
+     "role": "core",
+     "decks": 29,
+     "share": 0.9354838709677419
+    },
+    {
+     "card_number": "GD05-020",
+     "role": "optional",
+     "decks": 26,
+     "share": 0.8387096774193549
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD05-017",
+     "b": "GD05-019",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-020",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-020",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-027",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-029",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-085",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-017",
+     "b": "GD05-125",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-019",
+     "b": "GD05-029",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD05-019",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-019",
+     "b": "GD05-085",
+     "kind": "link_trait",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-019",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-027",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-029",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-085",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-125",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    }
+   ],
+   "decks_running": 31,
+   "decks_running_all": 23,
+   "deck_share": 0.1225296442687747,
+   "colors": [
+    "green"
+   ],
+   "variants": [
+    {
+     "optional_members": [
+      "GD05-020"
+     ],
+     "decks": 26
+    },
+    {
+     "optional_members": [],
+     "decks": 5
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD01-026",
+   "name": "Char Aznable",
+   "members": [
+    {
+     "card_number": "ST03-006",
+     "role": "core",
+     "decks": 28,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-011",
+     "role": "core",
+     "decks": 28,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-017",
+     "role": "core",
+     "decks": 27,
+     "share": 0.9642857142857143
+    },
+    {
+     "card_number": "GD01-026",
+     "role": "optional",
+     "decks": 24,
+     "share": 0.8571428571428571
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD01-026",
+     "b": "GD04-017",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-026",
+     "b": "ST03-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-026",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD04-017",
+     "b": "ST03-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD04-017",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD04-017",
+     "b": "ST03-011",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    },
+    {
+     "a": "ST03-006",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    }
+   ],
+   "decks_running": 28,
+   "decks_running_all": 23,
+   "deck_share": 0.11067193675889328,
+   "colors": [
+    "green"
+   ],
+   "variants": [
+    {
+     "optional_members": [
+      "GD01-026"
+     ],
+     "decks": 24
+    },
+    {
+     "optional_members": [],
+     "decks": 4
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD02-055",
+   "name": "Tekkadan",
+   "members": [
+    {
+     "card_number": "GD03-050",
+     "role": "core",
+     "decks": 24,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST05-004",
+     "role": "core",
+     "decks": 24,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST05-006",
+     "role": "core",
+     "decks": 24,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-055",
+     "role": "core",
+     "decks": 23,
+     "share": 0.9583333333333334
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "GD02-055",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD03-050",
+     "b": "ST05-004",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD03-050",
+     "b": "ST05-006",
+     "kind": "trait_reference",
+     "detail": "Teiwaz"
+    }
+   ],
+   "decks_running": 24,
+   "decks_running_all": 23,
+   "deck_share": 0.09486166007905138,
+   "colors": [
+    "purple"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 24
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD01-067",
+   "name": "Suletta Aerial Rebuild",
+   "members": [
+    {
+     "card_number": "GD01-067",
+     "role": "core",
+     "decks": 12,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-076",
+     "role": "core",
+     "decks": 12,
+     "share": 1.0
+    },
+    {
+     "card_number": "ST01-011",
+     "role": "core",
+     "decks": 12,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD01-067",
+     "b": "ST01-011",
+     "kind": "link_pilot",
+     "detail": "Suletta Mercury"
+    },
+    {
+     "a": "GD01-076",
+     "b": "ST01-011",
+     "kind": "link_trait",
+     "detail": "Academy"
+    }
+   ],
+   "decks_running": 12,
+   "decks_running_all": 12,
+   "deck_share": 0.04743083003952569,
+   "colors": [
+    "white"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 12
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD01-044",
+   "name": "Marida Kshatriya",
+   "members": [
+    {
+     "card_number": "GD01-044",
+     "role": "core",
+     "decks": 11,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-093",
+     "role": "core",
+     "decks": 11,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD01-044",
+     "b": "GD01-093",
+     "kind": "link_pilot",
+     "detail": "Marida Cruz"
+    },
+    {
+     "a": "GD01-044",
+     "b": "GD01-093",
+     "kind": "trait_reference",
+     "detail": "Cyber-Newtype"
+    }
+   ],
+   "decks_running": 11,
+   "decks_running_all": 11,
+   "deck_share": 0.043478260869565216,
+   "colors": [
+    "red"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 11
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD03-034",
+   "name": "Nyaan GQuuuuuuX",
+   "members": [
+    {
+     "card_number": "GD03-034",
+     "role": "core",
+     "decks": 8,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-035",
+     "role": "core",
+     "decks": 8,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-092",
+     "role": "core",
+     "decks": 8,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD03-034",
+     "b": "GD03-092",
+     "kind": "link_pilot",
+     "detail": "Nyaan"
+    },
+    {
+     "a": "GD03-035",
+     "b": "GD03-092",
+     "kind": "link_pilot",
+     "detail": "Nyaan"
+    },
+    {
+     "a": "GD03-092",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ],
+   "decks_running": 8,
+   "decks_running_all": 8,
+   "deck_share": 0.03162055335968379,
+   "colors": [
+    "red"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 8
+    }
+   ]
+  },
+  {
+   "id": "pkg:GD05-003",
+   "name": "Andrew Waldfeld",
+   "members": [
+    {
+     "card_number": "GD05-003",
+     "role": "core",
+     "decks": 8,
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-082",
+     "role": "core",
+     "decks": 8,
+     "share": 1.0
+    }
+   ],
+   "edges": [
+    {
+     "a": "GD05-003",
+     "b": "GD05-082",
+     "kind": "link_pilot",
+     "detail": "Andrew Waldfeld"
+    }
+   ],
+   "decks_running": 8,
+   "decks_running_all": 8,
+   "deck_share": 0.03162055335968379,
+   "colors": [
+    "blue"
+   ],
+   "variants": [
+    {
+     "optional_members": [],
+     "decks": 8
+    }
+   ]
+  }
+ ],
+ "synergy_cards": [
+  {
+   "card_number": "GD05-093",
+   "package": "pkg:GD01-026",
+   "decks": 20,
+   "share": 0.7142857142857143,
+   "edges": [
+    {
+     "a": "GD01-026",
+     "b": "GD05-093",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD04-017",
+     "b": "GD05-093",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD04-017",
+     "b": "GD05-093",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    },
+    {
+     "a": "ST03-006",
+     "b": "GD05-093",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "ST03-006",
+     "b": "GD05-093",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    },
+    {
+     "a": "GD05-093",
+     "b": "ST03-011",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-023",
+   "package": "pkg:GD01-026",
+   "decks": 17,
+   "share": 0.6071428571428571,
+   "edges": [
+    {
+     "a": "GD01-023",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD01-023",
+     "b": "GD01-026",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-023",
+     "b": "GD04-017",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-023",
+     "b": "ST03-006",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-023",
+     "b": "ST03-011",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-023",
+     "b": "ST03-011",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    },
+    {
+     "a": "GD01-023",
+     "b": "GD01-026",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-023",
+     "b": "GD04-017",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-023",
+     "b": "ST03-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-129",
+   "package": "pkg:GD01-026",
+   "decks": 11,
+   "share": 0.39285714285714285,
+   "edges": [
+    {
+     "a": "ST03-006",
+     "b": "GD05-129",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-049",
+   "package": "pkg:GD01-026",
+   "decks": 9,
+   "share": 0.32142857142857145,
+   "edges": [
+    {
+     "a": "GD05-049",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "ST03-006",
+     "b": "GD05-049",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-062",
+   "package": "pkg:GD01-026",
+   "decks": 7,
+   "share": 0.25,
+   "edges": [
+    {
+     "a": "ST03-006",
+     "b": "GD05-062",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-031",
+   "package": "pkg:GD01-026",
+   "decks": 4,
+   "share": 0.14285714285714285,
+   "edges": [
+    {
+     "a": "GD01-031",
+     "b": "ST03-011",
+     "kind": "link_trait",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-026",
+     "b": "GD01-031",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-031",
+     "b": "GD04-017",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD01-031",
+     "b": "ST03-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-008",
+   "package": "pkg:GD01-026",
+   "decks": 3,
+   "share": 0.10714285714285714,
+   "edges": [
+    {
+     "a": "GD05-008",
+     "b": "ST03-011",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-125",
+   "package": "pkg:GD01-026",
+   "decks": 1,
+   "share": 0.03571428571428571,
+   "edges": [
+    {
+     "a": "GD01-125",
+     "b": "GD01-026",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-125",
+     "b": "GD04-017",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-125",
+     "b": "ST03-006",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    },
+    {
+     "a": "GD01-125",
+     "b": "ST03-011",
+     "kind": "trait_reference",
+     "detail": "Zeon"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-032",
+   "package": "pkg:GD01-026",
+   "decks": 1,
+   "share": 0.03571428571428571,
+   "edges": [
+    {
+     "a": "GD02-032",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "GD01-026",
+     "b": "GD02-032",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD02-032",
+     "b": "GD04-017",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD02-032",
+     "b": "ST03-006",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-052",
+   "package": "pkg:GD01-026",
+   "decks": 1,
+   "share": 0.03571428571428571,
+   "edges": [
+    {
+     "a": "GD05-052",
+     "b": "ST03-011",
+     "kind": "link_pilot",
+     "detail": "Char Aznable"
+    },
+    {
+     "a": "ST03-006",
+     "b": "GD05-052",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    },
+    {
+     "a": "GD04-017",
+     "b": "GD05-052",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-053",
+   "package": "pkg:GD01-026",
+   "decks": 1,
+   "share": 0.03571428571428571,
+   "edges": [
+    {
+     "a": "ST03-006",
+     "b": "GD05-053",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-003",
+   "package": "pkg:GD01-044",
+   "decks": 11,
+   "share": 1.0,
+   "edges": [
+    {
+     "a": "GD01-003",
+     "b": "GD01-093",
+     "kind": "link_pilot",
+     "detail": "Marida Cruz"
+    },
+    {
+     "a": "GD01-003",
+     "b": "GD01-044",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-010",
+   "package": "pkg:GD01-044",
+   "decks": 2,
+   "share": 0.18181818181818182,
+   "edges": [
+    {
+     "a": "GD01-044",
+     "b": "ST03-010",
+     "kind": "trait_reference",
+     "detail": "Cyber-Newtype"
+    },
+    {
+     "a": "ST03-010",
+     "b": "GD01-044",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    },
+    {
+     "a": "ST03-010",
+     "b": "GD01-093",
+     "kind": "trait_reference",
+     "detail": "Neo Zeon"
+    },
+    {
+     "a": "GD01-093",
+     "b": "ST03-010",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-047",
+   "package": "pkg:GD01-044",
+   "decks": 1,
+   "share": 0.09090909090909091,
+   "edges": [
+    {
+     "a": "GD01-047",
+     "b": "GD01-093",
+     "kind": "link_trait",
+     "detail": "Cyber-Newtype"
+    },
+    {
+     "a": "GD01-044",
+     "b": "GD01-047",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-051",
+   "package": "pkg:GD01-044",
+   "decks": 1,
+   "share": 0.09090909090909091,
+   "edges": [
+    {
+     "a": "GD01-051",
+     "b": "GD01-093",
+     "kind": "link_trait",
+     "detail": "Cyber-Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-068",
+   "package": "pkg:GD01-086",
+   "decks": 57,
+   "share": 0.6063829787234043,
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "GD04-068",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD02-079",
+     "b": "GD04-068",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD04-068",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-073",
+   "package": "pkg:GD01-086",
+   "decks": 39,
+   "share": 0.4148936170212766,
+   "edges": [
+    {
+     "a": "GD01-073",
+     "b": "ST04-010",
+     "kind": "link_trait",
+     "detail": "Earth Alliance"
+    },
+    {
+     "a": "GD01-073",
+     "b": "ST04-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-065",
+   "package": "pkg:GD01-086",
+   "decks": 37,
+   "share": 0.39361702127659576,
+   "edges": [
+    {
+     "a": "GD01-065",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD01-065",
+     "b": "GD01-086",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-065",
+     "b": "GD02-079",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-065",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-077",
+   "package": "pkg:GD01-086",
+   "decks": 32,
+   "share": 0.3404255319148936,
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "GD04-077",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD02-079",
+     "b": "GD04-077",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD04-077",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-068",
+   "package": "pkg:GD01-086",
+   "decks": 22,
+   "share": 0.23404255319148937,
+   "edges": [
+    {
+     "a": "GD01-068",
+     "b": "ST04-010",
+     "kind": "link_trait",
+     "detail": "Earth Alliance"
+    },
+    {
+     "a": "GD01-068",
+     "b": "GD01-086",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-068",
+     "b": "GD02-079",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-068",
+     "b": "ST04-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-012",
+   "package": "pkg:GD01-086",
+   "decks": 22,
+   "share": 0.23404255319148937,
+   "edges": [
+    {
+     "a": "ST04-012",
+     "b": "ST04-001",
+     "kind": "trait_reference",
+     "detail": "Earth Alliance"
+    },
+    {
+     "a": "ST04-012",
+     "b": "ST04-010",
+     "kind": "trait_reference",
+     "detail": "Earth Alliance"
+    }
+   ]
+  },
+  {
+   "card_number": "ST09-004",
+   "package": "pkg:GD01-086",
+   "decks": 14,
+   "share": 0.14893617021276595,
+   "edges": [
+    {
+     "a": "ST09-004",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "ST04-001",
+     "b": "ST09-004",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "EB01-054",
+   "package": "pkg:GD01-086",
+   "decks": 9,
+   "share": 0.09574468085106383,
+   "edges": [
+    {
+     "a": "EB01-054",
+     "b": "GD01-086",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "EB01-054",
+     "b": "GD02-079",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "EB01-054",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-011",
+   "package": "pkg:GD01-086",
+   "decks": 7,
+   "share": 0.07446808510638298,
+   "edges": [
+    {
+     "a": "ST04-010",
+     "b": "ST04-011",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-009",
+   "package": "pkg:GD01-086",
+   "decks": 4,
+   "share": 0.0425531914893617,
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "ST01-009",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD02-079",
+     "b": "ST01-009",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "ST01-009",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-076",
+   "package": "pkg:GD01-086",
+   "decks": 3,
+   "share": 0.031914893617021274,
+   "edges": [
+    {
+     "a": "GD02-076",
+     "b": "ST04-010",
+     "kind": "link_trait",
+     "detail": "Coordinator"
+    },
+    {
+     "a": "GD02-076",
+     "b": "ST04-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-072",
+   "package": "pkg:GD01-086",
+   "decks": 2,
+   "share": 0.02127659574468085,
+   "edges": [
+    {
+     "a": "GD01-072",
+     "b": "ST04-010",
+     "kind": "link_trait",
+     "detail": "Earth Alliance"
+    },
+    {
+     "a": "GD01-072",
+     "b": "GD01-086",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-072",
+     "b": "GD02-079",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD01-072",
+     "b": "ST04-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-070",
+   "package": "pkg:GD01-086",
+   "decks": 2,
+   "share": 0.02127659574468085,
+   "edges": [
+    {
+     "a": "GD03-070",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD03-070",
+     "b": "ST04-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST09-006",
+   "package": "pkg:GD01-086",
+   "decks": 2,
+   "share": 0.02127659574468085,
+   "edges": [
+    {
+     "a": "ST09-006",
+     "b": "ST04-010",
+     "kind": "link_trait",
+     "detail": "Coordinator"
+    }
+   ]
+  },
+  {
+   "card_number": "ST09-007",
+   "package": "pkg:GD01-086",
+   "decks": 2,
+   "share": 0.02127659574468085,
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "ST09-007",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD02-079",
+     "b": "ST09-007",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "ST04-001",
+     "b": "ST09-007",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "ST09-008",
+   "package": "pkg:GD01-086",
+   "decks": 2,
+   "share": 0.02127659574468085,
+   "edges": [
+    {
+     "a": "ST04-010",
+     "b": "ST09-008",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "ST04-002",
+   "package": "pkg:GD01-086",
+   "decks": 1,
+   "share": 0.010638297872340425,
+   "edges": [
+    {
+     "a": "ST04-002",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "ST04-001",
+     "b": "ST04-002",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-058",
+   "package": "pkg:GD02-054",
+   "decks": 4,
+   "share": 0.07407407407407407,
+   "edges": [
+    {
+     "a": "GD02-058",
+     "b": "ST05-010",
+     "kind": "link_trait",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD02-054",
+     "b": "GD02-058",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-058",
+   "package": "pkg:GD02-054",
+   "decks": 1,
+   "share": 0.018518518518518517,
+   "edges": [
+    {
+     "a": "GD05-058",
+     "b": "ST05-010",
+     "kind": "link_trait",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD02-054",
+     "b": "GD05-058",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-001",
+   "package": "pkg:GD02-054",
+   "decks": 1,
+   "share": 0.018518518518518517,
+   "edges": [
+    {
+     "a": "ST05-001",
+     "b": "ST05-010",
+     "kind": "link_pilot",
+     "detail": "Mikazuki Augus"
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-002",
+   "package": "pkg:GD02-054",
+   "decks": 1,
+   "share": 0.018518518518518517,
+   "edges": [
+    {
+     "a": "ST05-002",
+     "b": "ST05-010",
+     "kind": "link_pilot",
+     "detail": "Mikazuki Augus"
+    },
+    {
+     "a": "GD03-056",
+     "b": "ST05-002",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-060",
+   "package": "pkg:GD02-055",
+   "decks": 18,
+   "share": 0.75,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "GD05-060",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-015",
+   "package": "pkg:GD02-055",
+   "decks": 10,
+   "share": 0.4166666666666667,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "ST05-015",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-058",
+   "package": "pkg:GD02-055",
+   "decks": 4,
+   "share": 0.16666666666666666,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "GD02-058",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-058",
+   "package": "pkg:GD02-055",
+   "decks": 1,
+   "share": 0.041666666666666664,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "GD05-058",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD02-055",
+     "b": "GD05-058",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-001",
+   "package": "pkg:GD02-055",
+   "decks": 1,
+   "share": 0.041666666666666664,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "ST05-001",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD03-050",
+     "b": "ST05-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST05-002",
+   "package": "pkg:GD02-055",
+   "decks": 1,
+   "share": 0.041666666666666664,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "ST05-002",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-038",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "GD02-038",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "GD02-038",
+     "b": "GD03-034",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-126",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "GD02-126",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-032",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "GD03-032",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-039",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-039",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "GD03-092",
+     "b": "GD03-039",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-001",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-001",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "ST06-001",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-002",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-002",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "ST06-002",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-005",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-005",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-006",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-006",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-007",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-007",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "ST06-007",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-008",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-008",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-009",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-034",
+     "b": "ST06-009",
+     "kind": "link_pilot",
+     "detail": "Amate Yuzuriha (Machu)"
+    },
+    {
+     "a": "GD03-092",
+     "b": "ST06-009",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "GD03-092",
+     "b": "ST06-009",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-010",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-010",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    },
+    {
+     "a": "GD03-092",
+     "b": "ST06-010",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-012",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "ST06-012",
+     "b": "GD03-034",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "ST06-014",
+   "package": "pkg:GD03-034",
+   "decks": 1,
+   "share": 0.125,
+   "edges": [
+    {
+     "a": "GD03-092",
+     "b": "ST06-014",
+     "kind": "trait_reference",
+     "detail": "Clan"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-011",
+   "package": "pkg:GD04-003",
+   "decks": 16,
+   "share": 0.42105263157894735,
+   "edges": [
+    {
+     "a": "GD04-006",
+     "b": "GD04-011",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-011",
+     "b": "GD04-003",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-011",
+     "b": "GD04-016",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-011",
+     "b": "GD04-081",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-011",
+     "b": "GD04-121",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-068",
+   "package": "pkg:GD04-003",
+   "decks": 12,
+   "share": 0.3157894736842105,
+   "edges": [
+    {
+     "a": "GD04-016",
+     "b": "GD04-068",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-065",
+   "package": "pkg:GD04-003",
+   "decks": 10,
+   "share": 0.2631578947368421,
+   "edges": [
+    {
+     "a": "GD01-065",
+     "b": "GD04-016",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-068",
+   "package": "pkg:GD04-003",
+   "decks": 10,
+   "share": 0.2631578947368421,
+   "edges": [
+    {
+     "a": "GD01-068",
+     "b": "GD04-016",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-001",
+   "package": "pkg:GD04-003",
+   "decks": 10,
+   "share": 0.2631578947368421,
+   "edges": [
+    {
+     "a": "GD04-006",
+     "b": "GD05-001",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD05-001",
+     "b": "GD04-081",
+     "kind": "link_pilot",
+     "detail": "Üso Ewin"
+    },
+    {
+     "a": "GD04-003",
+     "b": "GD05-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    },
+    {
+     "a": "GD04-006",
+     "b": "GD05-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-015",
+   "package": "pkg:GD04-003",
+   "decks": 5,
+   "share": 0.13157894736842105,
+   "edges": [
+    {
+     "a": "GD04-006",
+     "b": "GD04-015",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-003",
+     "b": "GD04-015",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-077",
+   "package": "pkg:GD04-003",
+   "decks": 3,
+   "share": 0.07894736842105263,
+   "edges": [
+    {
+     "a": "GD04-016",
+     "b": "GD04-077",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-047",
+   "package": "pkg:GD04-003",
+   "decks": 1,
+   "share": 0.02631578947368421,
+   "edges": [
+    {
+     "a": "GD01-047",
+     "b": "GD04-081",
+     "kind": "link_trait",
+     "detail": "Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-006",
+   "package": "pkg:GD04-003",
+   "decks": 1,
+   "share": 0.02631578947368421,
+   "edges": [
+    {
+     "a": "GD02-006",
+     "b": "GD04-016",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-013",
+   "package": "pkg:GD04-003",
+   "decks": 1,
+   "share": 0.02631578947368421,
+   "edges": [
+    {
+     "a": "GD04-006",
+     "b": "GD04-013",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-013",
+     "b": "GD04-081",
+     "kind": "link_trait",
+     "detail": "League Militaire"
+    },
+    {
+     "a": "GD04-003",
+     "b": "GD04-013",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-014",
+   "package": "pkg:GD04-003",
+   "decks": 1,
+   "share": 0.02631578947368421,
+   "edges": [
+    {
+     "a": "GD04-006",
+     "b": "GD05-014",
+     "kind": "trait_reference",
+     "detail": "League Militaire"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-005",
+   "package": "pkg:GD05-002",
+   "decks": 72,
+   "share": 0.6545454545454545,
+   "edges": [
+    {
+     "a": "GD05-005",
+     "b": "GD05-081",
+     "kind": "link_trait",
+     "detail": "Orb"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-065",
+   "package": "pkg:GD05-002",
+   "decks": 37,
+   "share": 0.33636363636363636,
+   "edges": [
+    {
+     "a": "GD01-065",
+     "b": "GD05-081",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD05-081",
+     "b": "GD01-065",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    },
+    {
+     "a": "GD01-065",
+     "b": "GD05-002",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-066",
+   "package": "pkg:GD05-002",
+   "decks": 27,
+   "share": 0.24545454545454545,
+   "edges": [
+    {
+     "a": "GD05-081",
+     "b": "GD01-066",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-068",
+   "package": "pkg:GD05-002",
+   "decks": 19,
+   "share": 0.17272727272727273,
+   "edges": [
+    {
+     "a": "GD05-081",
+     "b": "GD01-068",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    }
+   ]
+  },
+  {
+   "card_number": "ST09-004",
+   "package": "pkg:GD05-002",
+   "decks": 13,
+   "share": 0.11818181818181818,
+   "edges": [
+    {
+     "a": "ST09-004",
+     "b": "GD05-081",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD05-002",
+     "b": "ST09-004",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-076",
+   "package": "pkg:GD05-002",
+   "decks": 3,
+   "share": 0.02727272727272727,
+   "edges": [
+    {
+     "a": "GD02-076",
+     "b": "GD05-081",
+     "kind": "link_trait",
+     "detail": "Coordinator"
+    },
+    {
+     "a": "GD05-081",
+     "b": "GD02-076",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-070",
+   "package": "pkg:GD05-002",
+   "decks": 2,
+   "share": 0.01818181818181818,
+   "edges": [
+    {
+     "a": "GD03-070",
+     "b": "GD05-081",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD05-081",
+     "b": "GD03-070",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    },
+    {
+     "a": "GD03-070",
+     "b": "GD05-002",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-129",
+   "package": "pkg:GD05-002",
+   "decks": 1,
+   "share": 0.00909090909090909,
+   "edges": [
+    {
+     "a": "GD05-081",
+     "b": "GD01-129",
+     "kind": "trait_reference",
+     "detail": "Triple Ship Alliance"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-010",
+   "package": "pkg:GD05-003",
+   "decks": 6,
+   "share": 0.75,
+   "edges": [
+    {
+     "a": "GD05-010",
+     "b": "GD05-082",
+     "kind": "link_trait",
+     "detail": "Orb"
+    },
+    {
+     "a": "GD05-003",
+     "b": "GD05-010",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-004",
+   "package": "pkg:GD05-003",
+   "decks": 5,
+   "share": 0.625,
+   "edges": [
+    {
+     "a": "GD05-004",
+     "b": "GD05-082",
+     "kind": "link_trait",
+     "detail": "Orb"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-076",
+   "package": "pkg:GD05-003",
+   "decks": 3,
+   "share": 0.375,
+   "edges": [
+    {
+     "a": "GD02-076",
+     "b": "GD05-082",
+     "kind": "link_trait",
+     "detail": "Coordinator"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-005",
+   "package": "pkg:GD05-003",
+   "decks": 3,
+   "share": 0.375,
+   "edges": [
+    {
+     "a": "GD05-005",
+     "b": "GD05-082",
+     "kind": "link_trait",
+     "detail": "Orb"
+    },
+    {
+     "a": "GD05-003",
+     "b": "GD05-005",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-030",
+   "package": "pkg:GD05-017",
+   "decks": 27,
+   "share": 0.8709677419354839,
+   "edges": [
+    {
+     "a": "GD01-030",
+     "b": "GD05-017",
+     "kind": "shared_keyword",
+     "detail": "breach"
+    },
+    {
+     "a": "GD01-030",
+     "b": "GD05-020",
+     "kind": "shared_keyword",
+     "detail": "breach"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-001",
+   "package": "pkg:GD05-017",
+   "decks": 12,
+   "share": 0.3870967741935484,
+   "edges": [
+    {
+     "a": "GD03-001",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-028",
+   "package": "pkg:GD05-017",
+   "decks": 4,
+   "share": 0.12903225806451613,
+   "edges": [
+    {
+     "a": "GD05-017",
+     "b": "GD05-028",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-028",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-028",
+     "b": "GD05-029",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-086",
+   "package": "pkg:GD05-017",
+   "decks": 4,
+   "share": 0.12903225806451613,
+   "edges": [
+    {
+     "a": "GD05-017",
+     "b": "GD05-086",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-019",
+     "b": "GD05-086",
+     "kind": "link_trait",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-086",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-029",
+     "b": "GD05-086",
+     "kind": "link_pilot",
+     "detail": "Kayra Su"
+    },
+    {
+     "a": "GD05-085",
+     "b": "GD05-086",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-016",
+   "package": "pkg:GD05-017",
+   "decks": 3,
+   "share": 0.0967741935483871,
+   "edges": [
+    {
+     "a": "GD01-016",
+     "b": "GD05-017",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-019",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-020",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-027",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-029",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-085",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "GD05-125",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-023",
+   "package": "pkg:GD05-017",
+   "decks": 2,
+   "share": 0.06451612903225806,
+   "edges": [
+    {
+     "a": "GD05-017",
+     "b": "GD05-023",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-020",
+     "b": "GD05-023",
+     "kind": "trait_reference",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-023",
+     "b": "GD05-085",
+     "kind": "link_trait",
+     "detail": "Londo Bell"
+    },
+    {
+     "a": "GD05-023",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-023",
+     "b": "GD05-029",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-024",
+   "package": "pkg:GD05-017",
+   "decks": 2,
+   "share": 0.06451612903225806,
+   "edges": [
+    {
+     "a": "GD05-024",
+     "b": "GD05-017",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-019",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-020",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-027",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-029",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-085",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "GD05-125",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-104",
+   "package": "pkg:GD05-017",
+   "decks": 1,
+   "share": 0.03225806451612903,
+   "edges": [
+    {
+     "a": "GD02-104",
+     "b": "GD05-085",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-110",
+   "package": "pkg:GD05-033",
+   "decks": 42,
+   "share": 1.0,
+   "edges": [
+    {
+     "a": "GD05-033",
+     "b": "GD05-110",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-110",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-110",
+     "b": "GD05-033",
+     "kind": "name_reference",
+     "detail": "Master Gundam"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-042",
+   "package": "pkg:GD05-033",
+   "decks": 20,
+   "share": 0.47619047619047616,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-042",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-036",
+   "package": "pkg:GD05-033",
+   "decks": 19,
+   "share": 0.4523809523809524,
+   "edges": [
+    {
+     "a": "GD05-036",
+     "b": "GD05-089",
+     "kind": "link_pilot",
+     "detail": "Master Asia"
+    },
+    {
+     "a": "GD05-036",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-036",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-033",
+     "b": "GD05-036",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-068",
+   "package": "pkg:GD05-033",
+   "decks": 15,
+   "share": 0.35714285714285715,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-068",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-128",
+   "package": "pkg:GD05-033",
+   "decks": 14,
+   "share": 0.3333333333333333,
+   "edges": [
+    {
+     "a": "GD05-128",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-035",
+   "package": "pkg:GD05-033",
+   "decks": 4,
+   "share": 0.09523809523809523,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-035",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-122",
+   "package": "pkg:GD05-033",
+   "decks": 4,
+   "share": 0.09523809523809523,
+   "edges": [
+    {
+     "a": "GD05-033",
+     "b": "GD05-122",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-122",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-122",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-075",
+   "package": "pkg:GD05-033",
+   "decks": 3,
+   "share": 0.07142857142857142,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-075",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-076",
+   "package": "pkg:GD05-033",
+   "decks": 2,
+   "share": 0.047619047619047616,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-076",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-112",
+   "package": "pkg:GD05-033",
+   "decks": 2,
+   "share": 0.047619047619047616,
+   "edges": [
+    {
+     "a": "GD05-033",
+     "b": "GD05-112",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-112",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-112",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-043",
+   "package": "pkg:GD05-033",
+   "decks": 1,
+   "share": 0.023809523809523808,
+   "edges": [
+    {
+     "a": "GD05-089",
+     "b": "GD05-043",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-110",
+   "package": "pkg:GD05-066",
+   "decks": 42,
+   "share": 1.0,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-110",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-110",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-097",
+     "b": "GD05-110",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-042",
+   "package": "pkg:GD05-066",
+   "decks": 20,
+   "share": 0.47619047619047616,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-042",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-120",
+     "b": "GD05-042",
+     "kind": "name_reference",
+     "detail": "Shining Gundam"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-042",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-036",
+   "package": "pkg:GD05-066",
+   "decks": 19,
+   "share": 0.4523809523809524,
+   "edges": [
+    {
+     "a": "GD05-036",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-036",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-036",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-036",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-036",
+     "b": "GD05-072",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-068",
+   "package": "pkg:GD05-066",
+   "decks": 15,
+   "share": 0.35714285714285715,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-068",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-068",
+     "b": "GD05-097",
+     "kind": "link_pilot",
+     "detail": "Domon Kasshu"
+    },
+    {
+     "a": "GD05-068",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-068",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-120",
+     "b": "GD05-068",
+     "kind": "name_reference",
+     "detail": "Shining Gundam"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-068",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-068",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-014",
+   "package": "pkg:GD05-066",
+   "decks": 15,
+   "share": 0.35714285714285715,
+   "edges": [
+    {
+     "a": "GD05-121",
+     "b": "ST01-014",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-128",
+   "package": "pkg:GD05-066",
+   "decks": 14,
+   "share": 0.3333333333333333,
+   "edges": [
+    {
+     "a": "GD05-128",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-128",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-128",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-035",
+   "package": "pkg:GD05-066",
+   "decks": 4,
+   "share": 0.09523809523809523,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-035",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-035",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-035",
+     "b": "GD05-072",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-122",
+   "package": "pkg:GD05-066",
+   "decks": 4,
+   "share": 0.09523809523809523,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-122",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-122",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-122",
+     "kind": "link_trait",
+     "detail": "Gundam Fighter"
+    },
+    {
+     "a": "GD05-097",
+     "b": "GD05-122",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-122",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-122",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-122",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-120",
+     "b": "GD05-122",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-075",
+   "package": "pkg:GD05-066",
+   "decks": 3,
+   "share": 0.07142857142857142,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-075",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-075",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-076",
+   "package": "pkg:GD05-066",
+   "decks": 2,
+   "share": 0.047619047619047616,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-076",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-076",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-076",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-112",
+   "package": "pkg:GD05-066",
+   "decks": 2,
+   "share": 0.047619047619047616,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-112",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-069",
+     "b": "GD05-112",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-112",
+     "kind": "link_trait",
+     "detail": "Gundam Fighter"
+    },
+    {
+     "a": "GD05-097",
+     "b": "GD05-112",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-112",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-112",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-112",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-043",
+   "package": "pkg:GD05-066",
+   "decks": 1,
+   "share": 0.023809523809523808,
+   "edges": [
+    {
+     "a": "GD05-066",
+     "b": "GD05-043",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-043",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-001",
+   "package": "pkg:ST01-001",
+   "decks": 15,
+   "share": 0.17647058823529413,
+   "edges": [
+    {
+     "a": "GD03-001",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD03-001",
+     "b": "ST01-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-016",
+   "package": "pkg:ST01-001",
+   "decks": 4,
+   "share": 0.047058823529411764,
+   "edges": [
+    {
+     "a": "GD01-016",
+     "b": "ST01-001",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-016",
+     "b": "ST01-010",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-023",
+   "package": "pkg:ST01-001",
+   "decks": 4,
+   "share": 0.047058823529411764,
+   "edges": [
+    {
+     "a": "GD01-023",
+     "b": "ST01-010",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-086",
+   "package": "pkg:ST01-001",
+   "decks": 4,
+   "share": 0.047058823529411764,
+   "edges": [
+    {
+     "a": "GD05-086",
+     "b": "ST01-010",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-002",
+   "package": "pkg:ST01-001",
+   "decks": 3,
+   "share": 0.03529411764705882,
+   "edges": [
+    {
+     "a": "GD03-002",
+     "b": "ST01-001",
+     "kind": "shared_keyword",
+     "detail": "repair"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-084",
+   "package": "pkg:ST01-001",
+   "decks": 3,
+   "share": 0.03529411764705882,
+   "edges": [
+    {
+     "a": "GD03-084",
+     "b": "ST01-010",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-008",
+   "package": "pkg:ST01-001",
+   "decks": 3,
+   "share": 0.03529411764705882,
+   "edges": [
+    {
+     "a": "GD05-008",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-008",
+     "b": "ST01-010",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    },
+    {
+     "a": "GD05-008",
+     "b": "ST01-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-008",
+   "package": "pkg:ST01-001",
+   "decks": 2,
+   "share": 0.023529411764705882,
+   "edges": [
+    {
+     "a": "GD03-008",
+     "b": "ST01-001",
+     "kind": "shared_keyword",
+     "detail": "repair"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-023",
+   "package": "pkg:ST01-001",
+   "decks": 2,
+   "share": 0.023529411764705882,
+   "edges": [
+    {
+     "a": "GD05-023",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-024",
+   "package": "pkg:ST01-001",
+   "decks": 2,
+   "share": 0.023529411764705882,
+   "edges": [
+    {
+     "a": "GD05-024",
+     "b": "ST01-001",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD05-024",
+     "b": "ST01-010",
+     "kind": "trait_reference",
+     "detail": "Earth Federation"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-001",
+   "package": "pkg:ST01-001",
+   "decks": 1,
+   "share": 0.011764705882352941,
+   "edges": [
+    {
+     "a": "GD01-001",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD01-001",
+     "b": "ST01-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-006",
+   "package": "pkg:ST01-001",
+   "decks": 1,
+   "share": 0.011764705882352941,
+   "edges": [
+    {
+     "a": "GD01-006",
+     "b": "ST01-010",
+     "kind": "link_trait",
+     "detail": "Earth Federation"
+    },
+    {
+     "a": "GD01-006",
+     "b": "ST01-001",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-009",
+   "package": "pkg:ST01-001",
+   "decks": 1,
+   "share": 0.011764705882352941,
+   "edges": [
+    {
+     "a": "GD01-009",
+     "b": "ST01-010",
+     "kind": "link_trait",
+     "detail": "White Base Team"
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-047",
+   "package": "pkg:ST01-001",
+   "decks": 1,
+   "share": 0.011764705882352941,
+   "edges": [
+    {
+     "a": "GD01-047",
+     "b": "ST01-010",
+     "kind": "link_trait",
+     "detail": "Newtype"
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-104",
+   "package": "pkg:ST01-001",
+   "decks": 1,
+   "share": 0.011764705882352941,
+   "edges": [
+    {
+     "a": "GD02-104",
+     "b": "ST01-010",
+     "kind": "trait_reference",
+     "detail": "Newtype"
+    }
+   ]
+  }
+ ],
+ "free_floating": [
+  {
+   "card_number": "GD01-100",
+   "decks": 150,
+   "deck_share": 0.5928853754940712,
+   "affinities": [
+    {
+     "package": "pkg:ST01-001",
+     "share": 0.9529411764705882
+    },
+    {
+     "package": "pkg:GD05-017",
+     "share": 0.9354838709677419
+    },
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.9090909090909091
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-118",
+   "decks": 132,
+   "deck_share": 0.5217391304347826,
+   "affinities": [
+    {
+     "package": "pkg:GD01-067",
+     "share": 1.0
+    },
+    {
+     "package": "pkg:GD05-033",
+     "share": 0.9523809523809523
+    },
+    {
+     "package": "pkg:GD05-066",
+     "share": 0.9523809523809523
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-129",
+   "decks": 94,
+   "deck_share": 0.3715415019762846,
+   "affinities": [
+    {
+     "package": "pkg:GD01-067",
+     "share": 0.9166666666666666
+    },
+    {
+     "package": "pkg:GD05-033",
+     "share": 0.7142857142857143
+    },
+    {
+     "package": "pkg:GD05-066",
+     "share": 0.7142857142857143
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-008",
+   "decks": 61,
+   "deck_share": 0.24110671936758893,
+   "affinities": [
+    {
+     "package": "pkg:GD01-026",
+     "share": 1.0
+    },
+    {
+     "package": "pkg:GD05-017",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-111",
+   "decks": 55,
+   "deck_share": 0.21739130434782608,
+   "affinities": [
+    {
+     "package": "pkg:GD01-067",
+     "share": 1.0
+    },
+    {
+     "package": "pkg:GD05-033",
+     "share": 0.9761904761904762
+    },
+    {
+     "package": "pkg:GD05-066",
+     "share": 0.9761904761904762
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-008",
+   "decks": 52,
+   "deck_share": 0.20553359683794467,
+   "affinities": [
+    {
+     "package": "pkg:GD05-017",
+     "share": 0.9354838709677419
+    },
+    {
+     "package": "pkg:ST01-001",
+     "share": 0.5529411764705883
+    }
+   ]
+  },
+  {
+   "card_number": "ST02-016",
+   "decks": 51,
+   "deck_share": 0.2015810276679842,
+   "affinities": [
+    {
+     "package": "pkg:GD05-017",
+     "share": 0.8709677419354839
+    },
+    {
+     "package": "pkg:ST01-001",
+     "share": 0.5529411764705883
+    }
+   ]
+  },
+  {
+   "card_number": "GD04-117",
+   "decks": 34,
+   "deck_share": 0.13438735177865613,
+   "affinities": []
+  },
+  {
+   "card_number": "GD05-050",
+   "decks": 27,
+   "deck_share": 0.1067193675889328,
+   "affinities": [
+    {
+     "package": "pkg:GD01-026",
+     "share": 0.6785714285714286
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-114",
+   "decks": 26,
+   "deck_share": 0.10276679841897234,
+   "affinities": [
+    {
+     "package": "pkg:GD02-055",
+     "share": 0.8333333333333334
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-128",
+   "decks": 22,
+   "deck_share": 0.08695652173913043,
+   "affinities": [
+    {
+     "package": "pkg:GD03-034",
+     "share": 0.75
+    },
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.6363636363636364
+    }
+   ]
+  },
+  {
+   "card_number": "GD05-015",
+   "decks": 22,
+   "deck_share": 0.08695652173913043,
+   "affinities": [
+    {
+     "package": "pkg:GD05-003",
+     "share": 0.625
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-018",
+   "decks": 20,
+   "deck_share": 0.07905138339920949,
+   "affinities": []
+  },
+  {
+   "card_number": "GD01-035",
+   "decks": 20,
+   "deck_share": 0.07905138339920949,
+   "affinities": [
+    {
+     "package": "pkg:GD01-026",
+     "share": 0.7142857142857143
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-013",
+   "decks": 18,
+   "deck_share": 0.07114624505928854,
+   "affinities": [
+    {
+     "package": "pkg:GD03-034",
+     "share": 0.875
+    },
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.8181818181818182
+    }
+   ]
+  },
+  {
+   "card_number": "ST03-016",
+   "decks": 18,
+   "deck_share": 0.07114624505928854,
+   "affinities": [
+    {
+     "package": "pkg:GD01-026",
+     "share": 0.6428571428571429
+    }
+   ]
+  },
+  {
+   "card_number": "GD03-109",
+   "decks": 15,
+   "deck_share": 0.05928853754940711,
+   "affinities": [
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.7272727272727273
+    },
+    {
+     "package": "pkg:GD03-034",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-005",
+   "decks": 11,
+   "deck_share": 0.043478260869565216,
+   "affinities": []
+  },
+  {
+   "card_number": "GD04-109",
+   "decks": 10,
+   "deck_share": 0.039525691699604744,
+   "affinities": [
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.6363636363636364
+    }
+   ]
+  },
+  {
+   "card_number": "ST01-015",
+   "decks": 10,
+   "deck_share": 0.039525691699604744,
+   "affinities": []
+  },
+  {
+   "card_number": "GD04-101",
+   "decks": 9,
+   "deck_share": 0.03557312252964427,
+   "affinities": []
+  },
+  {
+   "card_number": "GD01-111",
+   "decks": 8,
+   "deck_share": 0.03162055335968379,
+   "affinities": [
+    {
+     "package": "pkg:GD01-044",
+     "share": 0.5454545454545454
+    }
+   ]
+  },
+  {
+   "card_number": "GD02-013",
+   "decks": 8,
+   "deck_share": 0.03162055335968379,
+   "affinities": []
+  },
+  {
+   "card_number": "GD02-117",
+   "decks": 8,
+   "deck_share": 0.03162055335968379,
+   "affinities": [
+    {
+     "package": "pkg:GD01-067",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-020",
+   "decks": 7,
+   "deck_share": 0.02766798418972332,
+   "affinities": []
+  },
+  {
+   "card_number": "GD01-039",
+   "decks": 7,
+   "deck_share": 0.02766798418972332,
+   "affinities": []
+  },
+  {
+   "card_number": "GD04-056",
+   "decks": 7,
+   "deck_share": 0.02766798418972332,
+   "affinities": []
+  },
+  {
+   "card_number": "ST03-007",
+   "decks": 6,
+   "deck_share": 0.023715415019762844,
+   "affinities": []
+  },
+  {
+   "card_number": "ST04-006",
+   "decks": 6,
+   "deck_share": 0.023715415019762844,
+   "affinities": []
+  },
+  {
+   "card_number": "ST05-014",
+   "decks": 6,
+   "deck_share": 0.023715415019762844,
+   "affinities": []
+  }
+ ],
+ "archetypes": [
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD05-017"
+   ],
+   "name": "Amuro Ray + Amuro Nu",
+   "decks": 31,
+   "share": 0.1225296442687747,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-030",
+     "share": 0.8709677419354839
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "ST03-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-008",
+     "share": 0.9354838709677419
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.9354838709677419
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 0.8709677419354839
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-033",
+    "pkg:GD05-066"
+   ],
+   "name": "Master Asia + Domon Shining",
+   "decks": 30,
+   "share": 0.11857707509881422,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-110",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-042",
+     "share": 0.6666666666666666
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD05-111",
+     "share": 0.9666666666666667
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 0.9333333333333333
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 0.6333333333333333
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD01-086",
+    "pkg:GD04-003"
+   ],
+   "name": "Kira Strike Freedom + Kira Aile Strike + Üso V-Dash",
+   "decks": 27,
+   "share": 0.1067193675889328,
+   "synergy_cards": [
+    {
+     "card_number": "ST01-014",
+     "share": 0.6296296296296297
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 0.8518518518518519
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.6296296296296297
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD01-086",
+    "pkg:ST01-001"
+   ],
+   "name": "Kira Strike Freedom + Kira Aile Strike + Amuro Ray",
+   "decks": 25,
+   "share": 0.09881422924901186,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-068",
+     "share": 0.84
+    },
+    {
+     "card_number": "ST01-014",
+     "share": 0.72
+    },
+    {
+     "card_number": "GD01-066",
+     "share": 0.64
+    },
+    {
+     "card_number": "GD01-073",
+     "share": 0.6
+    },
+    {
+     "card_number": "GD01-065",
+     "share": 0.52
+    },
+    {
+     "card_number": "GD04-077",
+     "share": 0.52
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 0.96
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD02-054",
+    "pkg:GD01-026"
+   ],
+   "name": "Mikazuki Barbatos + Char Aznable",
+   "decks": 20,
+   "share": 0.07905138339920949,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-093",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-023",
+     "share": 0.65
+    },
+    {
+     "card_number": "GD01-030",
+     "share": 0.55
+    },
+    {
+     "card_number": "GD05-129",
+     "share": 0.55
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "ST03-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-050",
+     "share": 0.95
+    },
+    {
+     "card_number": "ST03-016",
+     "share": 0.8
+    },
+    {
+     "card_number": "GD01-035",
+     "share": 0.65
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD02-054",
+    "pkg:GD02-055"
+   ],
+   "name": "Kira Strike Freedom + Mikazuki Barbatos + Tekkadan",
+   "decks": 19,
+   "share": 0.07509881422924901,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-129",
+     "share": 0.8947368421052632
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 0.8421052631578947
+    },
+    {
+     "card_number": "GD05-060",
+     "share": 0.8421052631578947
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 0.9473684210526315
+    },
+    {
+     "card_number": "GD05-114",
+     "share": 0.9473684210526315
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD01-086"
+   ],
+   "name": "Kira Strike Freedom + Kira Aile Strike",
+   "decks": 17,
+   "share": 0.06719367588932806,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-005",
+     "share": 0.9411764705882353
+    },
+    {
+     "card_number": "GD04-068",
+     "share": 0.8235294117647058
+    },
+    {
+     "card_number": "GD01-065",
+     "share": 0.7647058823529411
+    },
+    {
+     "card_number": "GD01-073",
+     "share": 0.7058823529411765
+    },
+    {
+     "card_number": "GD05-010",
+     "share": 0.6470588235294118
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-117",
+     "share": 0.5294117647058824
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-033",
+    "pkg:GD05-066",
+    "pkg:GD01-067"
+   ],
+   "name": "Master Asia + Domon Shining + Suletta Aerial Rebuild",
+   "decks": 12,
+   "share": 0.04743083003952569,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-110",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-036",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "ST01-014",
+     "share": 0.6666666666666666
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 0.9166666666666666
+    },
+    {
+     "card_number": "GD02-117",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD01-026"
+   ],
+   "name": "Amuro Ray + Char Aznable",
+   "decks": 8,
+   "share": 0.03162055335968379,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-030",
+     "share": 0.75
+    },
+    {
+     "card_number": "GD01-023",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-008",
+     "share": 0.875
+    },
+    {
+     "card_number": "GD01-035",
+     "share": 0.875
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 0.875
+    },
+    {
+     "card_number": "GD01-039",
+     "share": 0.75
+    },
+    {
+     "card_number": "GD01-018",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD01-086",
+    "pkg:GD05-003"
+   ],
+   "name": "Kira Strike Freedom + Kira Aile Strike + Andrew Waldfeld",
+   "decks": 7,
+   "share": 0.02766798418972332,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-010",
+     "share": 0.8571428571428571
+    },
+    {
+     "card_number": "GD05-004",
+     "share": 0.7142857142857143
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 0.7142857142857143
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 0.7142857142857143
+    },
+    {
+     "card_number": "GD05-015",
+     "share": 0.7142857142857143
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.5714285714285714
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD02-054"
+   ],
+   "name": "Amuro Ray + Mikazuki Barbatos",
+   "decks": 7,
+   "share": 0.02766798418972332,
+   "synergy_cards": [],
+   "free_floating": [
+    {
+     "card_number": "GD01-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST01-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-020",
+     "share": 0.8571428571428571
+    },
+    {
+     "card_number": "GD02-013",
+     "share": 0.8571428571428571
+    },
+    {
+     "card_number": "GD04-056",
+     "share": 0.8571428571428571
+    },
+    {
+     "card_number": "GD01-018",
+     "share": 0.5714285714285714
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-086"
+   ],
+   "name": "Kira Aile Strike",
+   "decks": 6,
+   "share": 0.023715415019762844,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-073",
+     "share": 0.8333333333333334
+    },
+    {
+     "card_number": "GD01-066",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "GD04-077",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "ST01-014",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "GD04-068",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST04-012",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-086",
+    "pkg:GD03-034"
+   ],
+   "name": "Kira Aile Strike + Nyaan GQuuuuuuX",
+   "decks": 6,
+   "share": 0.023715415019762844,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-066",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST04-011",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-073",
+     "share": 0.8333333333333334
+    },
+    {
+     "card_number": "GD04-068",
+     "share": 0.8333333333333334
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-128",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-013",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-109",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST04-006",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD01-044"
+   ],
+   "name": "Kira Strike Freedom + Marida Kshatriya",
+   "decks": 6,
+   "share": 0.023715415019762844,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-003",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-110",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-010",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-109",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-109",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-013",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-128",
+     "share": 0.8333333333333334
+    },
+    {
+     "card_number": "GD01-111",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [],
+   "name": "No package",
+   "decks": 5,
+   "share": 0.019762845849802372,
+   "synergy_cards": [],
+   "free_floating": [
+    {
+     "card_number": "GD05-111",
+     "share": 0.6
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-086",
+    "pkg:ST01-001"
+   ],
+   "name": "Kira Aile Strike + Amuro Ray",
+   "decks": 3,
+   "share": 0.011857707509881422,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-129",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-002",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-084",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-077",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-008",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "GD04-068",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "ST01-014",
+     "share": 0.6666666666666666
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD04-003"
+   ],
+   "name": "Kira Strike Freedom + Üso V-Dash",
+   "decks": 3,
+   "share": 0.011857707509881422,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-011",
+     "share": 0.6666666666666666
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 0.6666666666666666
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 0.6666666666666666
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-086",
+    "pkg:ST01-001",
+    "pkg:GD04-003"
+   ],
+   "name": "Kira Aile Strike + Amuro Ray + Üso V-Dash",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-068",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-077",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-015",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST04-012",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST09-004",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD02-054",
+    "pkg:GD02-055"
+   ],
+   "name": "Mikazuki Barbatos + Tekkadan",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-060",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-058",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-049",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-058",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-093",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST04-011",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST05-002",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST05-015",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-111",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD01-128",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-050",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-111",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-114",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD04-003",
+    "pkg:GD01-044"
+   ],
+   "name": "Kira Strike Freedom + Üso V-Dash + Marida Kshatriya",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-003",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-011",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-110",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-001",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD05-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD01-128",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST03-013",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:ST01-001",
+    "pkg:GD04-003"
+   ],
+   "name": "Kira Strike Freedom + Amuro Ray + Üso V-Dash",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-011",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD04-068",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST01-014",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001"
+   ],
+   "name": "Amuro Ray",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-030",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD03-001",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD04-015",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-018",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD01-020",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD02-013",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD04-117",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST01-005",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST01-015",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST03-008",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD02-054",
+    "pkg:GD02-055"
+   ],
+   "name": "Amuro Ray + Mikazuki Barbatos + Tekkadan",
+   "decks": 2,
+   "share": 0.007905138339920948,
+   "synergy_cards": [
+    {
+     "card_number": "ST05-015",
+     "share": 0.5
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-018",
+     "share": 0.5
+    },
+    {
+     "card_number": "GD04-056",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST01-005",
+     "share": 0.5
+    },
+    {
+     "card_number": "ST01-015",
+     "share": 0.5
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-044",
+    "pkg:GD03-034"
+   ],
+   "name": "Marida Kshatriya + Nyaan GQuuuuuuX",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-003",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-110",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-109",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-101",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-109",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST01-015",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-013",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD01-086",
+    "pkg:GD02-054"
+   ],
+   "name": "Kira Aile Strike + Mikazuki Barbatos",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-066",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-068",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST04-012",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST09-006",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST09-007",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST09-008",
+     "share": 1.0
+    }
+   ],
+   "free_floating": []
+  },
+  {
+   "packages": [
+    "pkg:GD02-054"
+   ],
+   "name": "Mikazuki Barbatos",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [],
+   "free_floating": [
+    {
+     "card_number": "GD01-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-013",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-050",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST02-016",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD02-054",
+    "pkg:GD04-003"
+   ],
+   "name": "Mikazuki Barbatos + Üso V-Dash",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-011",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-015",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-001",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-014",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-015",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-050",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD03-034"
+   ],
+   "name": "Nyaan GQuuuuuuX",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD02-038",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-126",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-032",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-039",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-001",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-002",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-006",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-007",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-008",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-009",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-010",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-012",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST06-014",
+     "share": 1.0
+    }
+   ],
+   "free_floating": []
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:GD02-054",
+    "pkg:GD02-055",
+    "pkg:GD05-003"
+   ],
+   "name": "Kira Strike Freedom + Mikazuki Barbatos + Tekkadan + Andrew Waldfeld",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD05-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST05-015",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-114",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:GD05-002",
+    "pkg:ST01-001"
+   ],
+   "name": "Kira Strike Freedom + Amuro Ray",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD04-068",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-077",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-005",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD05-010",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-118",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-129",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD01-044"
+   ],
+   "name": "Amuro Ray + Marida Kshatriya",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-003",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-051",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-001",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-010",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD03-109",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-101",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-013",
+     "share": 1.0
+    }
+   ]
+  },
+  {
+   "packages": [
+    "pkg:ST01-001",
+    "pkg:GD04-003",
+    "pkg:GD01-044"
+   ],
+   "name": "Amuro Ray + Üso V-Dash + Marida Kshatriya",
+   "decks": 1,
+   "share": 0.003952569169960474,
+   "synergy_cards": [
+    {
+     "card_number": "GD01-003",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-047",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD02-006",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD04-011",
+     "share": 1.0
+    },
+    {
+     "card_number": "ST03-010",
+     "share": 1.0
+    }
+   ],
+   "free_floating": [
+    {
+     "card_number": "GD01-100",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-111",
+     "share": 1.0
+    },
+    {
+     "card_number": "GD01-128",
+     "share": 1.0
+    }
+   ]
+  }
+ ],
+ "squads": [
+  {
+   "cards": [
+    {
+     "card_number": "ST01-010",
+     "decks": 104
+    },
+    {
+     "card_number": "GD04-081",
+     "decks": 38
+    },
+    {
+     "card_number": "GD05-085",
+     "decks": 35
+    },
+    {
+     "card_number": "ST03-011",
+     "decks": 28
+    },
+    {
+     "card_number": "GD05-093",
+     "decks": 23
+    },
+    {
+     "card_number": "GD03-092",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 165,
+   "share_with_any": 0.6521739130434783,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD01-100",
+     "decks": 150
+    },
+    {
+     "card_number": "GD02-117",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 158,
+   "share_with_any": 0.6245059288537549,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD01-118",
+     "decks": 132
+    },
+    {
+     "card_number": "GD05-111",
+     "decks": 55
+    }
+   ],
+   "decks_with_any": 147,
+   "share_with_any": 0.5810276679841897,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-081",
+     "decks": 110
+    },
+    {
+     "card_number": "ST04-010",
+     "decks": 95
+    },
+    {
+     "card_number": "ST04-011",
+     "decks": 10
+    },
+    {
+     "card_number": "GD05-082",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 131,
+   "share_with_any": 0.5177865612648221,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST04-001",
+     "decks": 96
+    },
+    {
+     "card_number": "GD05-005",
+     "decks": 72
+    },
+    {
+     "card_number": "GD05-010",
+     "decks": 37
+    },
+    {
+     "card_number": "ST09-004",
+     "decks": 14
+    }
+   ],
+   "decks_with_any": 126,
+   "share_with_any": 0.4980237154150198,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-002",
+     "decks": 111
+    },
+    {
+     "card_number": "GD01-065",
+     "decks": 37
+    },
+    {
+     "card_number": "ST09-004",
+     "decks": 14
+    }
+   ],
+   "decks_with_any": 112,
+   "share_with_any": 0.4426877470355731,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST02-016",
+     "decks": 51
+    },
+    {
+     "card_number": "GD04-121",
+     "decks": 37
+    },
+    {
+     "card_number": "ST03-016",
+     "decks": 18
+    },
+    {
+     "card_number": "ST01-015",
+     "decks": 10
+    }
+   ],
+   "decks_with_any": 111,
+   "share_with_any": 0.43873517786561267,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD02-079",
+     "decks": 78
+    },
+    {
+     "card_number": "GD04-016",
+     "decks": 46
+    },
+    {
+     "card_number": "EB01-054",
+     "decks": 9
+    }
+   ],
+   "decks_with_any": 102,
+   "share_with_any": 0.4031620553359684,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST04-001",
+     "decks": 96
+    },
+    {
+     "card_number": "GD01-073",
+     "decks": 39
+    },
+    {
+     "card_number": "GD05-010",
+     "decks": 37
+    },
+    {
+     "card_number": "GD01-068",
+     "decks": 22
+    }
+   ],
+   "decks_with_any": 102,
+   "share_with_any": 0.4031620553359684,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST04-001",
+     "decks": 96
+    },
+    {
+     "card_number": "GD05-010",
+     "decks": 37
+    },
+    {
+     "card_number": "GD01-068",
+     "decks": 22
+    },
+    {
+     "card_number": "ST09-004",
+     "decks": 14
+    }
+   ],
+   "decks_with_any": 102,
+   "share_with_any": 0.4031620553359684,
+   "kinds": [
+    "functional_effect",
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD01-086",
+     "decks": 86
+    },
+    {
+     "card_number": "GD02-079",
+     "decks": 78
+    },
+    {
+     "card_number": "GD04-077",
+     "decks": 34
+    },
+    {
+     "card_number": "EB01-054",
+     "decks": 9
+    }
+   ],
+   "decks_with_any": 99,
+   "share_with_any": 0.391304347826087,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST01-014",
+     "decks": 70
+    },
+    {
+     "card_number": "GD05-121",
+     "decks": 41
+    }
+   ],
+   "decks_with_any": 96,
+   "share_with_any": 0.3794466403162055,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-005",
+     "decks": 72
+    },
+    {
+     "card_number": "GD05-010",
+     "decks": 37
+    },
+    {
+     "card_number": "GD05-003",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 90,
+   "share_with_any": 0.3557312252964427,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST01-001",
+     "decks": 85
+    },
+    {
+     "card_number": "GD03-001",
+     "decks": 15
+    }
+   ],
+   "decks_with_any": 85,
+   "share_with_any": 0.3359683794466403,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST01-001",
+     "decks": 85
+    },
+    {
+     "card_number": "GD05-020",
+     "decks": 26
+    }
+   ],
+   "decks_with_any": 85,
+   "share_with_any": 0.3359683794466403,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD01-008",
+     "decks": 52
+    },
+    {
+     "card_number": "GD05-015",
+     "decks": 22
+    }
+   ],
+   "decks_with_any": 74,
+   "share_with_any": 0.2924901185770751,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-110",
+     "decks": 54
+    },
+    {
+     "card_number": "ST03-013",
+     "decks": 18
+    },
+    {
+     "card_number": "GD01-111",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 63,
+   "share_with_any": 0.2490118577075099,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-110",
+     "decks": 54
+    },
+    {
+     "card_number": "GD04-101",
+     "decks": 9
+    }
+   ],
+   "decks_with_any": 60,
+   "share_with_any": 0.23715415019762845,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-033",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-036",
+     "decks": 19
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-066",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-068",
+     "decks": 15
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-066",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-072",
+     "decks": 42
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-069",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-072",
+     "decks": 42
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-072",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-036",
+     "decks": 19
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-089",
+     "decks": 42
+    },
+    {
+     "card_number": "GD05-097",
+     "decks": 42
+    }
+   ],
+   "decks_with_any": 42,
+   "share_with_any": 0.16600790513833993,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD04-003",
+     "decks": 38
+    },
+    {
+     "card_number": "GD04-015",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 41,
+   "share_with_any": 0.16205533596837945,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD04-003",
+     "decks": 38
+    },
+    {
+     "card_number": "GD04-006",
+     "decks": 38
+    },
+    {
+     "card_number": "GD05-001",
+     "decks": 10
+    }
+   ],
+   "decks_with_any": 38,
+   "share_with_any": 0.15019762845849802,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-093",
+     "decks": 23
+    },
+    {
+     "card_number": "GD01-093",
+     "decks": 11
+    }
+   ],
+   "decks_with_any": 34,
+   "share_with_any": 0.13438735177865613,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-017",
+     "decks": 32
+    },
+    {
+     "card_number": "GD05-020",
+     "decks": 26
+    }
+   ],
+   "decks_with_any": 32,
+   "share_with_any": 0.12648221343873517,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-019",
+     "decks": 32
+    },
+    {
+     "card_number": "GD05-029",
+     "decks": 31
+    }
+   ],
+   "decks_with_any": 32,
+   "share_with_any": 0.12648221343873517,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST03-006",
+     "decks": 28
+    },
+    {
+     "card_number": "GD04-017",
+     "decks": 27
+    },
+    {
+     "card_number": "GD01-026",
+     "decks": 24
+    },
+    {
+     "card_number": "GD01-023",
+     "decks": 17
+    }
+   ],
+   "decks_with_any": 28,
+   "share_with_any": 0.11067193675889328,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD05-128",
+     "decks": 14
+    },
+    {
+     "card_number": "ST05-015",
+     "decks": 11
+    }
+   ],
+   "decks_with_any": 25,
+   "share_with_any": 0.09881422924901186,
+   "kinds": [
+    "similar_ability"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "ST03-013",
+     "decks": 18
+    },
+    {
+     "card_number": "GD03-109",
+     "decks": 15
+    },
+    {
+     "card_number": "GD01-111",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 21,
+   "share_with_any": 0.08300395256916997,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD03-109",
+     "decks": 15
+    },
+    {
+     "card_number": "GD04-109",
+     "decks": 10
+    },
+    {
+     "card_number": "GD01-111",
+     "decks": 8
+    }
+   ],
+   "decks_with_any": 19,
+   "share_with_any": 0.07509881422924901,
+   "kinds": [
+    "functional_effect"
+   ]
+  },
+  {
+   "cards": [
+    {
+     "card_number": "GD01-003",
+     "decks": 11
+    },
+    {
+     "card_number": "GD01-044",
+     "decks": 11
+    }
+   ],
+   "decks_with_any": 11,
+   "share_with_any": 0.043478260869565216,
+   "kinds": [
+    "similar_ability"
+   ]
+  }
+ ],
+ "package_synergies": [
+  {
+   "package_a": "pkg:GD05-002",
+   "package_b": "pkg:GD01-086",
+   "decks_both": 76,
+   "share_of_a": 0.6909090909090909,
+   "share_of_b": 0.8085106382978723,
+   "edges": [
+    {
+     "a": "GD05-002",
+     "b": "ST04-010",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    },
+    {
+     "a": "GD05-081",
+     "b": "ST04-010",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    },
+    {
+     "a": "ST04-001",
+     "b": "GD05-081",
+     "kind": "link_pilot",
+     "detail": "Kira Yamato"
+    }
+   ],
+   "bridges": [
+    {
+     "card_number": "GD05-005",
+     "decks": 43,
+     "share": 0.5657894736842105,
+     "edges_a": [
+      {
+       "a": "GD05-005",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD01-086",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      },
+      {
+       "a": "GD02-079",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      },
+      {
+       "a": "GD05-005",
+       "b": "ST04-001",
+       "kind": "similar_ability",
+       "detail": "same job, other color"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:GD05-033",
+   "package_b": "pkg:GD05-066",
+   "decks_both": 42,
+   "share_of_a": 1.0,
+   "share_of_b": 1.0,
+   "edges": [
+    {
+     "a": "GD05-033",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-033",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-066",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-072",
+     "b": "GD05-089",
+     "kind": "link_trait",
+     "detail": "Gundam Fighter"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-066",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-069",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-072",
+     "kind": "trait_reference",
+     "detail": "MF"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-097",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-120",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-089",
+     "b": "GD05-121",
+     "kind": "trait_reference",
+     "detail": "Special Move"
+    },
+    {
+     "a": "GD05-121",
+     "b": "GD05-033",
+     "kind": "trait_reference",
+     "detail": "MF"
+    }
+   ],
+   "bridges": [
+    {
+     "card_number": "GD05-110",
+     "decks": 42,
+     "share": 1.0,
+     "edges_a": [
+      {
+       "a": "GD05-033",
+       "b": "GD05-110",
+       "kind": "trait_reference",
+       "detail": "Special Move"
+      },
+      {
+       "a": "GD05-089",
+       "b": "GD05-110",
+       "kind": "trait_reference",
+       "detail": "Special Move"
+      },
+      {
+       "a": "GD05-110",
+       "b": "GD05-033",
+       "kind": "name_reference",
+       "detail": "Master Gundam"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD05-066",
+       "b": "GD05-110",
+       "kind": "trait_reference",
+       "detail": "Special Move"
+      },
+      {
+       "a": "GD05-069",
+       "b": "GD05-110",
+       "kind": "trait_reference",
+       "detail": "Special Move"
+      },
+      {
+       "a": "GD05-097",
+       "b": "GD05-110",
+       "kind": "trait_reference",
+       "detail": "Special Move"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:GD05-002",
+   "package_b": "pkg:GD04-003",
+   "decks_both": 34,
+   "share_of_a": 0.3090909090909091,
+   "share_of_b": 0.8947368421052632,
+   "edges": [],
+   "bridges": [
+    {
+     "card_number": "GD05-005",
+     "decks": 18,
+     "share": 0.5294117647058824,
+     "edges_a": [
+      {
+       "a": "GD05-005",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD04-016",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:ST01-001",
+   "package_b": "pkg:GD05-017",
+   "decks_both": 31,
+   "share_of_a": 0.36470588235294116,
+   "share_of_b": 1.0,
+   "edges": [
+    {
+     "a": "GD05-017",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-019",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-020",
+     "b": "ST01-001",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    },
+    {
+     "a": "GD05-020",
+     "b": "ST01-010",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    },
+    {
+     "a": "GD05-085",
+     "b": "ST01-010",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    },
+    {
+     "a": "ST01-001",
+     "b": "GD05-085",
+     "kind": "link_pilot",
+     "detail": "Amuro Ray"
+    }
+   ],
+   "bridges": []
+  },
+  {
+   "package_a": "pkg:GD01-086",
+   "package_b": "pkg:GD04-003",
+   "decks_both": 29,
+   "share_of_a": 0.30851063829787234,
+   "share_of_b": 0.7631578947368421,
+   "edges": [
+    {
+     "a": "GD01-086",
+     "b": "GD04-016",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    },
+    {
+     "a": "GD02-079",
+     "b": "GD04-016",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    },
+    {
+     "a": "GD04-016",
+     "b": "ST04-001",
+     "kind": "shared_keyword",
+     "detail": "blocker"
+    }
+   ],
+   "bridges": []
+  },
+  {
+   "package_a": "pkg:GD02-054",
+   "package_b": "pkg:GD02-055",
+   "decks_both": 24,
+   "share_of_a": 0.4444444444444444,
+   "share_of_b": 1.0,
+   "edges": [
+    {
+     "a": "GD03-050",
+     "b": "GD02-054",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD03-050",
+     "b": "GD03-056",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    },
+    {
+     "a": "GD03-050",
+     "b": "ST05-010",
+     "kind": "link_pilot",
+     "detail": "Mikazuki Augus"
+    },
+    {
+     "a": "GD03-050",
+     "b": "ST05-010",
+     "kind": "trait_reference",
+     "detail": "Tekkadan"
+    }
+   ],
+   "bridges": [
+    {
+     "card_number": "GD05-060",
+     "decks": 18,
+     "share": 0.75,
+     "edges_a": [
+      {
+       "a": "GD05-060",
+       "b": "ST05-010",
+       "kind": "link_trait",
+       "detail": "Tekkadan"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD03-050",
+       "b": "GD05-060",
+       "kind": "trait_reference",
+       "detail": "Tekkadan"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:GD05-002",
+   "package_b": "pkg:GD02-055",
+   "decks_both": 20,
+   "share_of_a": 0.18181818181818182,
+   "share_of_b": 0.8333333333333334,
+   "edges": [],
+   "bridges": [
+    {
+     "card_number": "GD05-005",
+     "decks": 17,
+     "share": 0.85,
+     "edges_a": [
+      {
+       "a": "GD05-005",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD02-055",
+       "b": "GD05-005",
+       "kind": "shared_keyword",
+       "detail": "blocker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:GD05-002",
+   "package_b": "pkg:GD05-003",
+   "decks_both": 8,
+   "share_of_a": 0.07272727272727272,
+   "share_of_b": 1.0,
+   "edges": [
+    {
+     "a": "GD05-081",
+     "b": "GD05-082",
+     "kind": "functional_effect",
+     "detail": "same job"
+    }
+   ],
+   "bridges": [
+    {
+     "card_number": "GD05-010",
+     "decks": 6,
+     "share": 0.75,
+     "edges_a": [
+      {
+       "a": "GD05-010",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      },
+      {
+       "a": "GD05-010",
+       "b": "GD05-081",
+       "kind": "link_pilot",
+       "detail": "Kira Yamato"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD05-010",
+       "b": "GD05-082",
+       "kind": "link_trait",
+       "detail": "Orb"
+      },
+      {
+       "a": "GD05-003",
+       "b": "GD05-010",
+       "kind": "functional_effect",
+       "detail": "same job"
+      }
+     ]
+    },
+    {
+     "card_number": "GD05-004",
+     "decks": 5,
+     "share": 0.625,
+     "edges_a": [
+      {
+       "a": "GD05-004",
+       "b": "GD05-081",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD05-004",
+       "b": "GD05-082",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "package_a": "pkg:GD01-086",
+   "package_b": "pkg:GD05-003",
+   "decks_both": 7,
+   "share_of_a": 0.07446808510638298,
+   "share_of_b": 0.875,
+   "edges": [
+    {
+     "a": "GD05-082",
+     "b": "ST04-010",
+     "kind": "similar_ability",
+     "detail": "same job, other color"
+    }
+   ],
+   "bridges": [
+    {
+     "card_number": "GD05-010",
+     "decks": 6,
+     "share": 0.8571428571428571,
+     "edges_a": [
+      {
+       "a": "GD05-010",
+       "b": "ST04-010",
+       "kind": "link_pilot",
+       "detail": "Kira Yamato"
+      },
+      {
+       "a": "GD05-010",
+       "b": "ST04-001",
+       "kind": "similar_ability",
+       "detail": "same job, other color"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD05-010",
+       "b": "GD05-082",
+       "kind": "link_trait",
+       "detail": "Orb"
+      },
+      {
+       "a": "GD05-003",
+       "b": "GD05-010",
+       "kind": "functional_effect",
+       "detail": "same job"
+      }
+     ]
+    },
+    {
+     "card_number": "GD05-004",
+     "decks": 5,
+     "share": 0.7142857142857143,
+     "edges_a": [
+      {
+       "a": "GD05-004",
+       "b": "ST04-001",
+       "kind": "similar_ability",
+       "detail": "same job, other color"
+      }
+     ],
+     "edges_b": [
+      {
+       "a": "GD05-004",
+       "b": "GD05-082",
+       "kind": "link_trait",
+       "detail": "Orb"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "rare_cards": 94
+}

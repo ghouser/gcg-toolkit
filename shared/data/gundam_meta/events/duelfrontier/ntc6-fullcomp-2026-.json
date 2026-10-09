@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc6-fullcomp-2026-",
+  "name": "NTC6 FULLCOMP 2026 ",
+  "start_date": "2026-05-03",
+  "end_date": "2026-05-03",
+  "country": "JP",
+  "city": "Sapporo",
+  "players": 32,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "O-6Kpj_U102bnhWuMtBOdw",
+    "player_name": "Kanda",
+    "placement": 1,
+    "name": "G/R Clan",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD03-034",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-038",
+      "qty": 2
+     },
+     {
+      "card_number": "ST06-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST06-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST06-005",
+      "qty": 2
+     },
+     {
+      "card_number": "ST06-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-039",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-008",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-092",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-014",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-126",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-007",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-035",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:57:10.527917Z",
+  "warnings": []
+ }
+}

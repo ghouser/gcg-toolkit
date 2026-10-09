@@ -1,0 +1,100 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc4-saisai-2026",
+  "name": "NTC4 SAISAI 2026",
+  "start_date": "2026-02-15",
+  "end_date": "2026-02-15",
+  "country": "JP",
+  "city": "Kagoshima",
+  "players": 21,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "5bt6WYT6tUCDOeNIQNUl9A",
+    "player_name": "ていさ",
+    "placement": 1,
+    "name": "R/W ZAFT",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-001",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-118",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-007",
+      "qty": 2
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-006",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-049",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-054",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "GD01-050",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-094",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-091",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-127",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-038",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-033",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:39.524887Z",
+  "warnings": []
+ }
+}

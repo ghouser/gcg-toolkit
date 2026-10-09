@@ -1,0 +1,466 @@
+[
+ {
+  "id": "ac89207a-b54d-4be6-bc14-1b8e428b467c",
+  "game_id": "gundam",
+  "tournament_name": "Play!TCG Milwaukee Regionals",
+  "format": "GD05 + ST11-14",
+  "set_group": "GD05",
+  "program_id": null,
+  "start_date": "2026-10-05",
+  "source": null,
+  "player_count": 500,
+  "rounds": 9,
+  "video_label": "Tournament Livestream",
+  "event_type": "Large Official Event",
+  "created_at": "2026-10-05T01:49:25.850055+00:00",
+  "tournament_results": [
+   {
+    "id": "8b94b1aa-be91-4097-b2ff-21274db702f4",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "ST11-001",
+    "placement": 1,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Purple"
+    ],
+    "player_name": "Taidana",
+    "result_order": 1,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=ST11-001:4,ST11-003:4,ST11-009:4,ST11-011:4,ST01-010:4,GD01-100:2,ST02-016:2,ST01-015:1,ST11-007:4,GD01-008:4,GD05-050:4,ST01-001:4,GD03-056:4,ST11-008:4,GD03-001:1&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "ST01-001"
+    ]
+   },
+   {
+    "id": "ef2a8bb2-b818-4c92-9452-074c45db3686",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "ST03-006",
+    "placement": 6,
+    "social_url": null,
+    "deck_colors": [
+     "Green",
+     "Purple"
+    ],
+    "player_name": "Drew F",
+    "result_order": 6,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD01-026:4,ST03-006:4,ST03-008:4,ST03-011:4,GD03-056:4,GD02-054:4,ST05-010:4,GD05-093:2,GD05-062:4,GD04-017:4,ST03-016:3,ST11-009:4,GD05-050:4,GD01-023:1&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD02-054"
+    ]
+   },
+   {
+    "id": "c44b628c-bd12-49c6-a005-37ee20376db7",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD05-002",
+    "placement": 11,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "White"
+    ],
+    "player_name": "JeZZus",
+    "result_order": 11,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-010:4,GD05-081:4,ST04-010:4,ST04-001:4,GD05-002:4,GD03-070:1,ST09-004:1,GD01-086:4,GD02-079:4,ST01-010:4,ST01-001:4,GD01-118:4,ST01-014:2,GD01-100:2,GD02-129:2,GD01-129:2&type=gundam"
+    ],
+    "deck_type_secondary": null
+   }
+  ]
+ },
+ {
+  "id": "62c4c10f-d702-41fd-8a64-91285bd9c7d7",
+  "game_id": "gundam",
+  "tournament_name": "Olli-Baba Dusseldorf Regionals",
+  "format": "GD03",
+  "set_group": "GD03",
+  "program_id": null,
+  "start_date": "2026-03-30",
+  "source": "Olli-Baba",
+  "player_count": 256,
+  "rounds": 8,
+  "video_label": null,
+  "event_type": "Official Event",
+  "created_at": "2026-04-02T23:52:10.841604+00:00",
+  "tournament_results": [
+   {
+    "id": "a2f26611-0509-467a-8976-cd33f2dd54ce",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Barbatos Rush",
+    "placement": 2,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Purple"
+    ],
+    "player_name": "Dave",
+    "result_order": 1,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=ST01-005:4,GD02-013:4,ST05-004:2,GD01-008:4,GD02-054:4,GD01-018:4,ST02-016:4,ST01-001:4,GD01-020:4,GD03-056:4,ST05-010:4,ST01-010:4,GD01-100:4&type=gundam"
+    ],
+    "deck_type_secondary": null
+   },
+   {
+    "id": "7f0bdb1c-1470-45a3-bce9-31a542945307",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Barbatos Rush",
+    "placement": 4,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Purple"
+    ],
+    "player_name": "Johannes",
+    "result_order": 2,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD03-056:4,ST05-010:4,GD02-013:4,GD02-054:4,GD01-008:4,GD01-020:4,GD01-018:2,GD01-100:4,ST05-004:2,ST02-016:4,ST01-001:4,ST01-005:4,ST01-010:4,ST05-006:2&type=gundam"
+    ],
+    "deck_type_secondary": null
+   },
+   {
+    "id": "172a71a0-1483-43df-85c5-cc22e426b391",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Banshee Control",
+    "placement": 4,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Red"
+    ],
+    "player_name": "Yuhater",
+    "result_order": 3,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD03-034:3,GD03-101:4,GD03-109:4,GD02-046:2,GD01-003:2,GD01-008:2,GD01-020:2,GD01-044:4,GD01-093:4,GD01-100:4,GD01-111:3,ST03-013:4,ST03-015:4,ST01-001:4,ST01-010:4&type=gundam"
+    ],
+    "deck_type_secondary": null
+   }
+  ]
+ },
+ {
+  "id": "4d2e59e4-ecd4-4281-b56b-8e17c2b5ccf3",
+  "game_id": "gundam",
+  "tournament_name": "Egman Events GD05 Cup",
+  "format": "GD05 w/ B03 Top Cut",
+  "set_group": "GD05",
+  "program_id": null,
+  "start_date": "2026-08-23",
+  "source": null,
+  "player_count": 44,
+  "rounds": 5,
+  "video_label": "Tournament Livestream",
+  "event_type": "Unofficial Event",
+  "created_at": "2026-08-24T02:48:38.869835+00:00",
+  "tournament_results": [
+   {
+    "id": "4d02a2d4-a110-479a-97ea-d0d8218e62e6",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD05-066",
+    "placement": 1,
+    "social_url": null,
+    "deck_colors": [
+     "White",
+     "Red"
+    ],
+    "player_name": "Steffon A Bizzell",
+    "result_order": 1,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-069:4,GD05-072:3,GD05-066:4,GD05-068:2,GD05-033:4,GD05-097:4,GD05-089:3,GD05-111:3,GD01-118:4,GD05-121:3,GD05-110:4,GD05-120:3,GD05-128:1,GD01-066:2,GD05-042:3,GD02-129:3|GD05-035:3,GD05-112:2,GD04-068:3,GD05-036:1,GD05-128:1&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-033"
+    ]
+   },
+   {
+    "id": "acd5a184-0504-438f-8c74-77290ab335a3",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD02-054",
+    "placement": 2,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Purple"
+    ],
+    "player_name": "Juan Medrano",
+    "result_order": 2,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD01-100:2,ST05-010:4,GD03-050:3,GD03-056:4,GD02-054:4,GD05-002:4,GD05-005:3,GD02-055:4,GD05-081:4,ST05-006:4,ST05-004:4,GD05-060:2,GD05-114:2,GD01-008:2,GD05-129:4|GD01-008:1,ST09-009:2,GD01-100:1,GD02-111:1,ST05-002:3,ST05-001:2&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-002"
+    ]
+   },
+   {
+    "id": "9203196a-d3bc-4c41-b892-086f0c1df267",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD05-066",
+    "placement": 3,
+    "social_url": null,
+    "deck_colors": [
+     "Red",
+     "White"
+    ],
+    "player_name": "Alfonso Gaudino",
+    "result_order": 3,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-042:4,GD05-069:4,GD05-072:4,GD05-066:4,GD05-033:4,GD05-089:3,GD05-097:4,GD05-121:4,GD05-110:4,GD05-120:3,GD05-068:2,GD05-111:2,GD01-118:4,GD01-128:2,GD02-129:2|GD05-036:2,GD05-076:2,GD05-075:3,GD05-122:3&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-033"
+    ]
+   },
+   {
+    "id": "6da1d0de-bee2-4dd4-ad89-ee724f5af6e1",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD01-003",
+    "placement": 3,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Red"
+    ],
+    "player_name": "Jackie Bernal",
+    "result_order": 4,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-005:1,GD05-110:4,GD01-003:3,GD04-101:4,GD03-109:3,GD05-002:4,GD01-044:4,GD04-110:3,GD05-111:4,ST03-013:4,GD01-093:4,ST01-015:2,GD04-109:2,GD01-111:1,GD01-100:2,GD05-081:4,ST03-015:1|GD04-110:1,GD03-109:1,GD04-109:1,ST01-001:4,ST01-010:3&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-002"
+    ]
+   },
+   {
+    "id": "2b64d073-4062-4b05-92d7-4878822be176",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD04-050",
+    "placement": 5,
+    "social_url": null,
+    "deck_colors": [
+     "Purple",
+     "White"
+    ],
+    "player_name": "Koty Angeloff",
+    "result_order": 5,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-050:4,GD05-067:1,GD05-114:2,ST09-001:4,ST09-002:1,ST09-006:4,ST09-007:3,ST09-008:4,GD04-050:4,GD02-129:4,GD01-086:4,GD01-118:4,ST04-001:2,ST04-002:3,ST04-010:4,ST01-014:1,ST04-012:1|GD05-055:1,GD05-114:1,GD05-060:2,GD04-068:2,ST04-012:1,GD02-079:1,ST01-014:1,ST09-002:1&type=gundam"
+    ],
+    "deck_type_secondary": null
+   },
+   {
+    "id": "65472967-24ee-4182-8013-c43f78bd2bae",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD02-054",
+    "placement": 5,
+    "social_url": null,
+    "deck_colors": [
+     "Purple",
+     "Blue"
+    ],
+    "player_name": "Taha Baig",
+    "result_order": 8,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD02-055:4,GD02-054:4,ST05-006:4,GD03-056:4,GD03-050:3,ST05-010:4,GD05-081:4,GD05-002:3,ST05-015:1,GD01-100:2,ST05-004:4,GD05-005:4,ST02-016:2,GD05-060:2,GD05-129:2,ST09-009:2,GD05-114:1|GD05-114:1,GD05-002:1,GD05-015:4,GD05-050:2,GD05-129:1,GD01-018:1&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-002"
+    ]
+   },
+   {
+    "id": "00e9147a-f138-4a42-8a5c-51a04be4ce1a",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "GD05-002",
+    "placement": 5,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "White"
+    ],
+    "player_name": "Eddie Felix",
+    "result_order": 6,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-002:4,ST04-001:4,GD04-068:2,GD02-079:3,GD01-086:3,GD05-081:4,ST04-010:4,ST01-010:3,GD01-100:2,GD01-118:3,ST01-014:2,GD02-129:4,GD01-066:2,ST09-004:1,GD04-016:2,ST01-001:3,GD05-010:1,GD01-073:3|GD01-123:1,GD01-065:2,GD01-068:3,GD05-005:3,GD01-066:1&type=gundam"
+    ],
+    "deck_type_secondary": null
+   }
+  ]
+ },
+ {
+  "id": "4ff6077a-f72e-4ef3-a144-286fa1efe723",
+  "game_id": "gundam",
+  "tournament_name": "Eagle's Nest S6GW10.0 GD05 + ST11-14 Webcam Locals",
+  "format": "GD05 + ST11-14",
+  "set_group": "GD05",
+  "program_id": null,
+  "start_date": "2026-10-01",
+  "source": null,
+  "player_count": 16,
+  "rounds": 4,
+  "video_label": null,
+  "event_type": "Unofficial Event",
+  "created_at": "2026-10-01T02:00:34.899514+00:00",
+  "tournament_results": [
+   {
+    "id": "694e409d-2b4c-442a-ba40-5130b74580af",
+    "ties": 0,
+    "wins": 4,
+    "losses": 0,
+    "deck_type": "GD01-003",
+    "placement": 1,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "Red"
+    ],
+    "player_name": "xLust",
+    "result_order": 1,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD05-010:2,GD05-005:2,GD01-044:4,GD01-003:2,GD05-002:4,GD01-093:4,GD05-081:4,GD05-111:4,ST03-013:4,GD04-101:3,GD03-109:3,GD05-110:4,GD01-100:3,GD04-109:2,GD04-110:1,ST11-016:4&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD05-002"
+    ]
+   },
+   {
+    "id": "33c4b2a2-2a0f-4eb7-9e54-7ac1f1744b53",
+    "ties": 0,
+    "wins": 3,
+    "losses": 1,
+    "deck_type": "GD05-002",
+    "placement": 3,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "White"
+    ],
+    "player_name": "ZimZamBlam",
+    "result_order": 3,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD04-016:4,GD01-086:3,GD02-079:3,GD04-015:2,GD04-003:4,GD05-010:2,ST04-001:2,GD04-068:2,GD04-006:3,GD05-002:4,GD04-081:4,ST04-010:3,GD05-081:3,GD04-121:4,GD01-118:4,ST01-014:1,GD01-100:2&type=gundam"
+    ],
+    "deck_type_secondary": [
+     "GD04-003"
+    ]
+   },
+   {
+    "id": "ac7868c5-f0c4-4982-9118-730fd7ab130e",
+    "ties": 0,
+    "wins": 3,
+    "losses": 1,
+    "deck_type": "GD04-050",
+    "placement": 2,
+    "social_url": null,
+    "deck_colors": [
+     "Purple",
+     "Blue"
+    ],
+    "player_name": "Nate P",
+    "result_order": 2,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=ST11-009:4,GD05-050:4,ST09-005:4,GD05-015:3,GD02-054:4,ST09-001:4,GD03-056:4,ST09-006:2,ST09-007:2,ST09-002:2,GD04-050:3,ST05-010:4,ST09-008:4,ST09-010:2,ST02-016:2,GD01-100:2&type=gundam"
+    ],
+    "deck_type_secondary": null
+   }
+  ]
+ },
+ {
+  "id": "44703181-5930-4290-8c37-9928090890f1",
+  "game_id": "gundam",
+  "tournament_name": "TAK Games’ Oceania Regionals",
+  "format": "GD02",
+  "set_group": "GD02",
+  "program_id": null,
+  "start_date": "2025-11-30",
+  "source": "TAK Games",
+  "player_count": 296,
+  "rounds": 8,
+  "video_label": null,
+  "event_type": "Total Color Breakdown",
+  "created_at": "2026-03-24T23:14:12.843036+00:00",
+  "tournament_results": [
+   {
+    "id": "da2d9a96-daa5-4691-96d0-ce71b55ecf35",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Freedom Blockers",
+    "placement": 11,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "White"
+    ],
+    "player_name": "Justin Mao",
+    "result_order": 10,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD02-079:2,GD01-118:4,ST04-001:4,ST04-012:3,GD01-086:4,GD01-066:4,ST04-010:4,GD01-065:3,GD01-073:3,GD01-100:3,ST01-001:3,ST01-010:4,ST01-011:1,GD01-123:4,ST01-009:4&type=gundam"
+    ],
+    "deck_type_secondary": null
+   },
+   {
+    "id": "44c3d4e7-94a2-47da-8e64-a831ff690799",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Freedom Blockers (Academy)",
+    "placement": 13,
+    "social_url": null,
+    "deck_colors": [
+     "Blue",
+     "White"
+    ],
+    "player_name": "Tazlax",
+    "result_order": 12,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD02-079:4,GD01-118:4,ST04-001:4,ST04-012:3,GD01-086:4,ST04-010:4,GD01-065:3,GD01-100:3,ST01-001:4,ST01-010:4,ST01-011:2,ST01-009:1,GD02-074:2,GD01-067:2,ST04-015:4,ST01-014:2&type=gundam"
+    ],
+    "deck_type_secondary": null
+   },
+   {
+    "id": "43f74aaa-6bce-4e82-b6be-813533a65ea2",
+    "ties": null,
+    "wins": null,
+    "losses": null,
+    "deck_type": "Wing Zero",
+    "placement": 14,
+    "social_url": null,
+    "deck_colors": [
+     "Green",
+     "White"
+    ],
+    "player_name": "Adam",
+    "result_order": 13,
+    "deck_list_url": [
+     "https://deckbuilder.egmanevents.com/?deck=GD02-079:4,GD01-118:4,ST04-001:3,ST04-012:2,GD01-086:3,ST04-010:4,GD01-065:2,ST01-009:4,ST04-015:2,ST01-014:1,GD01-024:4,GD01-126:3,GD01-072:2,ST02-001:4,ST02-010:4,ST05-008:4&type=gundam"
+    ],
+    "deck_type_secondary": null
+   }
+  ]
+ }
+]

@@ -1,0 +1,60 @@
+{
+ "data": [
+  {
+   "id": 184,
+   "name": "Regional Milwaukee 2026",
+   "slug": "regional-milwaukee-2026",
+   "startDate": "2026-10-03T00:00:00Z",
+   "endDate": "2026-10-04T00:00:00Z",
+   "country": "US",
+   "participants": 500,
+   "type": 16,
+   "players": [],
+   "playerCount": 0
+  },
+  {
+   "id": 183,
+   "name": "Regional Düsseldorf 2026 S2",
+   "slug": "regional-dusseldorf-2026-s2",
+   "startDate": "2026-10-03T00:00:00Z",
+   "endDate": "2026-10-04T00:00:00Z",
+   "country": "DE",
+   "participants": 191,
+   "type": 16,
+   "players": [],
+   "playerCount": 0
+  },
+  {
+   "id": 182,
+   "name": "SC Ropis 2026",
+   "slug": "sc-ropis-2026",
+   "startDate": "2026-10-03T00:00:00Z",
+   "endDate": "2026-10-03T00:00:00Z",
+   "country": "JP",
+   "participants": 32,
+   "type": 8,
+   "players": [],
+   "playerCount": 0
+  },
+  {
+   "id": 181,
+   "name": "SC JABURO II 2026",
+   "slug": "sc-jaburo-ii-2026",
+   "startDate": "2026-10-03T00:00:00Z",
+   "endDate": "2026-10-03T00:00:00Z",
+   "country": "JP",
+   "participants": 16,
+   "type": 8,
+   "players": [],
+   "playerCount": 0
+  }
+ ],
+ "currentPage": 1,
+ "totalPages": 46,
+ "totalCount": 184,
+ "pageSize": 4,
+ "hasPreviousPage": false,
+ "hasNextPage": true,
+ "messages": [],
+ "succeeded": true
+}

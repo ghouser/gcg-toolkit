@@ -1,0 +1,2311 @@
+{
+ "data": {
+  "id": 23679,
+  "name": "B/P Z'Gok Aggro",
+  "slug": "HpzTfC4PVUyq4esVEg5akg",
+  "coverCard": "ST11-001",
+  "previewCards": [
+   "ST01-010",
+   "ST11-001",
+   "ST02-016"
+  ],
+  "isPublic": true,
+  "colors": 5,
+  "tags": 0,
+  "views": 981,
+  "creatorId": "ckwQkdlQDkymS71nPmshLQ",
+  "cards": [
+   {
+    "id": 1527890,
+    "card": {
+     "id": 1075,
+     "name": "Kapool",
+     "slug": "kapool",
+     "code": "ST11-009",
+     "types": 1,
+     "status": 4,
+     "level": 1,
+     "cost": 1,
+     "ap": 1,
+     "hp": 1,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Militia",
+       "slug": "militia"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1886,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-009_temp.webp",
+       "series": "∀ Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.56,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527891,
+    "card": {
+     "id": 1075,
+     "name": "Kapool",
+     "slug": "kapool",
+     "code": "ST11-009",
+     "types": 1,
+     "status": 4,
+     "level": 1,
+     "cost": 1,
+     "ap": 1,
+     "hp": 1,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Militia",
+       "slug": "militia"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1886,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-009_temp.webp",
+       "series": "∀ Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.56,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527892,
+    "card": {
+     "id": 1075,
+     "name": "Kapool",
+     "slug": "kapool",
+     "code": "ST11-009",
+     "types": 1,
+     "status": 4,
+     "level": 1,
+     "cost": 1,
+     "ap": 1,
+     "hp": 1,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Militia",
+       "slug": "militia"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1886,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-009_temp.webp",
+       "series": "∀ Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.56,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527893,
+    "card": {
+     "id": 1075,
+     "name": "Kapool",
+     "slug": "kapool",
+     "code": "ST11-009",
+     "types": 1,
+     "status": 4,
+     "level": 1,
+     "cost": 1,
+     "ap": 1,
+     "hp": 1,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Militia",
+       "slug": "militia"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1886,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-009_temp.webp",
+       "series": "∀ Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.56,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527894,
+    "card": {
+     "id": 1161,
+     "name": "Daughseat",
+     "slug": "daughseat",
+     "code": "ST11-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 2,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1997,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-008.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.21,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527895,
+    "card": {
+     "id": 1161,
+     "name": "Daughseat",
+     "slug": "daughseat",
+     "code": "ST11-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 2,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1997,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-008.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.21,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527896,
+    "card": {
+     "id": 1161,
+     "name": "Daughseat",
+     "slug": "daughseat",
+     "code": "ST11-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 2,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1997,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-008.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.21,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527897,
+    "card": {
+     "id": 1161,
+     "name": "Daughseat",
+     "slug": "daughseat",
+     "code": "ST11-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 2,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1997,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-008.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.21,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527898,
+    "card": {
+     "id": 993,
+     "name": "Gundam Exia Repair",
+     "slug": "gundam-exia-repair",
+     "code": "GD05-050",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [
+      "Setsuna F. Seiei"
+     ],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "CB",
+       "slug": "cb"
+      },
+      {
+       "id": 0,
+       "name": "GN Drive",
+       "slug": "gn-drive"
+      }
+     ],
+     "images": [
+      {
+       "id": 1704,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD05-050.webp",
+       "series": "Mobile Suit Gundam 00",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 9.35,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527899,
+    "card": {
+     "id": 993,
+     "name": "Gundam Exia Repair",
+     "slug": "gundam-exia-repair",
+     "code": "GD05-050",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [
+      "Setsuna F. Seiei"
+     ],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "CB",
+       "slug": "cb"
+      },
+      {
+       "id": 0,
+       "name": "GN Drive",
+       "slug": "gn-drive"
+      }
+     ],
+     "images": [
+      {
+       "id": 1704,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD05-050.webp",
+       "series": "Mobile Suit Gundam 00",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 9.35,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527900,
+    "card": {
+     "id": 993,
+     "name": "Gundam Exia Repair",
+     "slug": "gundam-exia-repair",
+     "code": "GD05-050",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [
+      "Setsuna F. Seiei"
+     ],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "CB",
+       "slug": "cb"
+      },
+      {
+       "id": 0,
+       "name": "GN Drive",
+       "slug": "gn-drive"
+      }
+     ],
+     "images": [
+      {
+       "id": 1704,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD05-050.webp",
+       "series": "Mobile Suit Gundam 00",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 9.35,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527901,
+    "card": {
+     "id": 993,
+     "name": "Gundam Exia Repair",
+     "slug": "gundam-exia-repair",
+     "code": "GD05-050",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [
+      "Setsuna F. Seiei"
+     ],
+     "block": 2,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "CB",
+       "slug": "cb"
+      },
+      {
+       "id": 0,
+       "name": "GN Drive",
+       "slug": "gn-drive"
+      }
+     ],
+     "images": [
+      {
+       "id": 1704,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD05-050.webp",
+       "series": "Mobile Suit Gundam 00",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 9.35,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527902,
+    "card": {
+     "id": 31,
+     "name": "Guntank",
+     "slug": "guntank",
+     "code": "GD01-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 1,
+     "hp": 2,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 341,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-008.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.66,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527903,
+    "card": {
+     "id": 31,
+     "name": "Guntank",
+     "slug": "guntank",
+     "code": "GD01-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 1,
+     "hp": 2,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 341,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-008.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.66,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527904,
+    "card": {
+     "id": 31,
+     "name": "Guntank",
+     "slug": "guntank",
+     "code": "GD01-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 1,
+     "hp": 2,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 341,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-008.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.66,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527905,
+    "card": {
+     "id": 31,
+     "name": "Guntank",
+     "slug": "guntank",
+     "code": "GD01-008",
+     "types": 1,
+     "status": 4,
+     "level": 2,
+     "cost": 1,
+     "ap": 1,
+     "hp": 2,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 341,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-008.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.66,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527906,
+    "card": {
+     "id": 1132,
+     "name": "Gundam Leopard",
+     "slug": "gundam-leopard",
+     "code": "ST11-007",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 4,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1964,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-007.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.26,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527907,
+    "card": {
+     "id": 1132,
+     "name": "Gundam Leopard",
+     "slug": "gundam-leopard",
+     "code": "ST11-007",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 4,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1964,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-007.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.26,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527908,
+    "card": {
+     "id": 1132,
+     "name": "Gundam Leopard",
+     "slug": "gundam-leopard",
+     "code": "ST11-007",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 4,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1964,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-007.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.26,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527909,
+    "card": {
+     "id": 1132,
+     "name": "Gundam Leopard",
+     "slug": "gundam-leopard",
+     "code": "ST11-007",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 4,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 4,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Vulture",
+       "slug": "vulture"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1964,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-007.webp",
+       "series": "After War Gundam X",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.26,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527910,
+    "card": {
+     "id": 1117,
+     "name": "Zock",
+     "slug": "zock",
+     "code": "ST11-003",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 3,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1949,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-003.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.2,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527911,
+    "card": {
+     "id": 1117,
+     "name": "Zock",
+     "slug": "zock",
+     "code": "ST11-003",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 3,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1949,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-003.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.2,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527912,
+    "card": {
+     "id": 1117,
+     "name": "Zock",
+     "slug": "zock",
+     "code": "ST11-003",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 3,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1949,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-003.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.2,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527913,
+    "card": {
+     "id": 1117,
+     "name": "Zock",
+     "slug": "zock",
+     "code": "ST11-003",
+     "types": 1,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 3,
+     "hp": 3,
+     "link": [],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1949,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-003.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.2,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527914,
+    "card": {
+     "id": 526,
+     "name": "Gundam Barbatos Adapt",
+     "slug": "gundam-barbatos-adapt",
+     "code": "GD03-056",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 2,
+     "ap": 2,
+     "hp": 4,
+     "link": [
+      "Mikazuki Augus"
+     ],
+     "block": 1,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Tekkadan",
+       "slug": "tekkadan"
+      },
+      {
+       "id": 0,
+       "name": "Gundam Frame",
+       "slug": "gundam-frame"
+      }
+     ],
+     "images": [
+      {
+       "id": 929,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD03-056.webp",
+       "series": "Mobile Suit Gundam IRON-BLOODED ORPHANS",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 8.6,
+     "baseRarity": 7
+    },
+    "section": 0
+   },
+   {
+    "id": 1527915,
+    "card": {
+     "id": 526,
+     "name": "Gundam Barbatos Adapt",
+     "slug": "gundam-barbatos-adapt",
+     "code": "GD03-056",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 2,
+     "ap": 2,
+     "hp": 4,
+     "link": [
+      "Mikazuki Augus"
+     ],
+     "block": 1,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Tekkadan",
+       "slug": "tekkadan"
+      },
+      {
+       "id": 0,
+       "name": "Gundam Frame",
+       "slug": "gundam-frame"
+      }
+     ],
+     "images": [
+      {
+       "id": 929,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD03-056.webp",
+       "series": "Mobile Suit Gundam IRON-BLOODED ORPHANS",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 8.6,
+     "baseRarity": 7
+    },
+    "section": 0
+   },
+   {
+    "id": 1527916,
+    "card": {
+     "id": 526,
+     "name": "Gundam Barbatos Adapt",
+     "slug": "gundam-barbatos-adapt",
+     "code": "GD03-056",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 2,
+     "ap": 2,
+     "hp": 4,
+     "link": [
+      "Mikazuki Augus"
+     ],
+     "block": 1,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Tekkadan",
+       "slug": "tekkadan"
+      },
+      {
+       "id": 0,
+       "name": "Gundam Frame",
+       "slug": "gundam-frame"
+      }
+     ],
+     "images": [
+      {
+       "id": 929,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD03-056.webp",
+       "series": "Mobile Suit Gundam IRON-BLOODED ORPHANS",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 8.6,
+     "baseRarity": 7
+    },
+    "section": 0
+   },
+   {
+    "id": 1527917,
+    "card": {
+     "id": 526,
+     "name": "Gundam Barbatos Adapt",
+     "slug": "gundam-barbatos-adapt",
+     "code": "GD03-056",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 2,
+     "ap": 2,
+     "hp": 4,
+     "link": [
+      "Mikazuki Augus"
+     ],
+     "block": 1,
+     "colors": 4,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Tekkadan",
+       "slug": "tekkadan"
+      },
+      {
+       "id": 0,
+       "name": "Gundam Frame",
+       "slug": "gundam-frame"
+      }
+     ],
+     "images": [
+      {
+       "id": 929,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD03-056.webp",
+       "series": "Mobile Suit Gundam IRON-BLOODED ORPHANS",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 8.6,
+     "baseRarity": 7
+    },
+    "section": 0
+   },
+   {
+    "id": 1527918,
+    "card": {
+     "id": 1069,
+     "name": "Char's Z'Gok",
+     "slug": "chars-zgok",
+     "code": "ST11-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 3,
+     "link": [
+      "Char Aznable"
+     ],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1880,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-001_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.87,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527919,
+    "card": {
+     "id": 1069,
+     "name": "Char's Z'Gok",
+     "slug": "chars-zgok",
+     "code": "ST11-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 3,
+     "link": [
+      "Char Aznable"
+     ],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1880,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-001_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.87,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527920,
+    "card": {
+     "id": 1069,
+     "name": "Char's Z'Gok",
+     "slug": "chars-zgok",
+     "code": "ST11-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 3,
+     "link": [
+      "Char Aznable"
+     ],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1880,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-001_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.87,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527921,
+    "card": {
+     "id": 1069,
+     "name": "Char's Z'Gok",
+     "slug": "chars-zgok",
+     "code": "ST11-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 3,
+     "link": [
+      "Char Aznable"
+     ],
+     "block": 2,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Marine",
+       "slug": "marine"
+      }
+     ],
+     "images": [
+      {
+       "id": 1880,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-001_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.87,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527922,
+    "card": {
+     "id": 1,
+     "name": "Gundam",
+     "slug": "gundam",
+     "code": "ST01-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 4,
+     "link": [
+      "Amuro Ray"
+     ],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 213,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-001.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 5.77,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527923,
+    "card": {
+     "id": 1,
+     "name": "Gundam",
+     "slug": "gundam",
+     "code": "ST01-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 4,
+     "link": [
+      "Amuro Ray"
+     ],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 213,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-001.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 5.77,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527924,
+    "card": {
+     "id": 1,
+     "name": "Gundam",
+     "slug": "gundam",
+     "code": "ST01-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 4,
+     "link": [
+      "Amuro Ray"
+     ],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 213,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-001.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 5.77,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527925,
+    "card": {
+     "id": 1,
+     "name": "Gundam",
+     "slug": "gundam",
+     "code": "ST01-001",
+     "types": 1,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "ap": 3,
+     "hp": 4,
+     "link": [
+      "Amuro Ray"
+     ],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      }
+     ],
+     "images": [
+      {
+       "id": 213,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-001.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 5.77,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527926,
+    "card": {
+     "id": 492,
+     "name": "Gundam NT-1",
+     "slug": "gundam-nt1",
+     "code": "GD03-001",
+     "types": 1,
+     "status": 4,
+     "level": 5,
+     "cost": 4,
+     "ap": 4,
+     "hp": 4,
+     "link": [
+      "Christina Mackenzie",
+      "Amuro Ray"
+     ],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      }
+     ],
+     "images": [
+      {
+       "id": 888,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD03-001.webp",
+       "series": "Mobile Suit Gundam 0080: War in the Pocket",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 7.14,
+     "baseRarity": 10
+    },
+    "section": 0
+   },
+   {
+    "id": 1527927,
+    "card": {
+     "id": 6,
+     "name": "Amuro Ray",
+     "slug": "amuro-ray",
+     "code": "ST01-010",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Amuro Ray",
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 227,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-010.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.17,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527928,
+    "card": {
+     "id": 6,
+     "name": "Amuro Ray",
+     "slug": "amuro-ray",
+     "code": "ST01-010",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Amuro Ray",
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 227,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-010.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.17,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527929,
+    "card": {
+     "id": 6,
+     "name": "Amuro Ray",
+     "slug": "amuro-ray",
+     "code": "ST01-010",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Amuro Ray",
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 227,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-010.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.17,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527930,
+    "card": {
+     "id": 6,
+     "name": "Amuro Ray",
+     "slug": "amuro-ray",
+     "code": "ST01-010",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Amuro Ray",
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 227,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-010.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 1.17,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527931,
+    "card": {
+     "id": 1070,
+     "name": "Char Aznable",
+     "slug": "char-aznable",
+     "code": "ST11-011",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Char Aznable",
+     "block": 2,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 1881,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-011_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.24,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527932,
+    "card": {
+     "id": 1070,
+     "name": "Char Aznable",
+     "slug": "char-aznable",
+     "code": "ST11-011",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Char Aznable",
+     "block": 2,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 1881,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-011_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.24,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527933,
+    "card": {
+     "id": 1070,
+     "name": "Char Aznable",
+     "slug": "char-aznable",
+     "code": "ST11-011",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Char Aznable",
+     "block": 2,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 1881,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-011_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.24,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527934,
+    "card": {
+     "id": 1070,
+     "name": "Char Aznable",
+     "slug": "char-aznable",
+     "code": "ST11-011",
+     "types": 2,
+     "status": 4,
+     "level": 4,
+     "cost": 1,
+     "ap": 2,
+     "hp": 1,
+     "link": [],
+     "pilot": "Char Aznable",
+     "block": 2,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Zeon",
+       "slug": "zeon"
+      },
+      {
+       "id": 0,
+       "name": "Newtype",
+       "slug": "newtype"
+      }
+     ],
+     "images": [
+      {
+       "id": 1881,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST11-011_temp.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.24,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527935,
+    "card": {
+     "id": 57,
+     "name": "A Show of Resolve",
+     "slug": "a-show-of-resolve",
+     "code": "GD01-100",
+     "types": 4,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [],
+     "images": [
+      {
+       "id": 383,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-100.webp",
+       "series": "Mobile Suit Gundam Unicorn",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 2.04,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527936,
+    "card": {
+     "id": 57,
+     "name": "A Show of Resolve",
+     "slug": "a-show-of-resolve",
+     "code": "GD01-100",
+     "types": 4,
+     "status": 4,
+     "level": 4,
+     "cost": 3,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 0,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [],
+     "images": [
+      {
+       "id": 383,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/GD01-100.webp",
+       "series": "Mobile Suit Gundam Unicorn",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 2.04,
+     "baseRarity": 4
+    },
+    "section": 0
+   },
+   {
+    "id": 1527937,
+    "card": {
+     "id": 10,
+     "name": "White Base",
+     "slug": "white-base",
+     "code": "ST01-015",
+     "types": 8,
+     "status": 4,
+     "level": 3,
+     "cost": 2,
+     "ap": 0,
+     "hp": 5,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 3,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "Earth Federation",
+       "slug": "earth-federation"
+      },
+      {
+       "id": 0,
+       "name": "White Base Team",
+       "slug": "white-base-team"
+      },
+      {
+       "id": 0,
+       "name": "Warship",
+       "slug": "warship"
+      }
+     ],
+     "images": [
+      {
+       "id": 237,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST01-015.webp",
+       "series": "Mobile Suit Gundam",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 0.74,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527938,
+    "card": {
+     "id": 122,
+     "name": "Corsica Base",
+     "slug": "corsica-base",
+     "code": "ST02-016",
+     "types": 8,
+     "status": 2,
+     "level": 3,
+     "cost": 3,
+     "ap": 0,
+     "hp": 5,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "OZ",
+       "slug": "oz"
+      },
+      {
+       "id": 0,
+       "name": "Stronghold",
+       "slug": "stronghold"
+      }
+     ],
+     "images": [
+      {
+       "id": 162,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST02-016.webp",
+       "series": "Mobile Suit Gundam Wing",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 6.54,
+     "baseRarity": 1
+    },
+    "section": 0
+   },
+   {
+    "id": 1527939,
+    "card": {
+     "id": 122,
+     "name": "Corsica Base",
+     "slug": "corsica-base",
+     "code": "ST02-016",
+     "types": 8,
+     "status": 2,
+     "level": 3,
+     "cost": 3,
+     "ap": 0,
+     "hp": 5,
+     "link": [],
+     "block": 1,
+     "colors": 1,
+     "zones": 2,
+     "keywords": 0,
+     "effectType": 0,
+     "traits": [
+      {
+       "id": 0,
+       "name": "OZ",
+       "slug": "oz"
+      },
+      {
+       "id": 0,
+       "name": "Stronghold",
+       "slug": "stronghold"
+      }
+     ],
+     "images": [
+      {
+       "id": 162,
+       "cardId": 0,
+       "imageUrl": "https://duelfrontier.blob.core.windows.net/images/cards/ST02-016.webp",
+       "series": "Mobile Suit Gundam Wing",
+       "isPrimary": false
+      }
+     ],
+     "currentPrice": 6.54,
+     "baseRarity": 1
+    },
+    "section": 0
+   }
+  ],
+  "createdOn": "2026-10-05T08:17:29.011272Z",
+  "lastModifiedOn": "2026-10-05T08:18:14.037031Z"
+ },
+ "messages": [],
+ "succeeded": true
+}

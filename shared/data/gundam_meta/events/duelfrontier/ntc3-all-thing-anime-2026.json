@@ -1,0 +1,92 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc3-all-thing-anime-2026",
+  "name": "NTC3 All Thing Anime 2026",
+  "start_date": "2026-01-03",
+  "end_date": "2026-01-03",
+  "country": "US",
+  "city": "Sacramento, CA",
+  "players": 17,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "SCv-kh9Ta0-r6Bir-f-AeA",
+    "player_name": "Falconian",
+    "placement": 1,
+    "name": "R/W Gjallarhorn Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "ST04-007",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-009",
+      "qty": 4
+     },
+     {
+      "card_number": "ST06-004",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-082",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-055",
+      "qty": 3
+     },
+     {
+      "card_number": "ST05-007",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-073",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-037",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-046",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-066",
+      "qty": 3
+     },
+     {
+      "card_number": "ST04-011",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-012",
+      "qty": 4
+     },
+     {
+      "card_number": "ST04-016",
+      "qty": 4
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:59:31.602742Z",
+  "warnings": []
+ }
+}

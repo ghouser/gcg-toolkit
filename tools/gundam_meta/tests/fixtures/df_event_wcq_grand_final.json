@@ -1,0 +1,38 @@
+{
+ "data": {
+  "id": 104,
+  "name": "WCQ GRAND FINAL 25-26",
+  "slug": "wcq-grand-final-2526",
+  "startDate": "2026-03-14T00:00:00Z",
+  "endDate": "2026-03-15T00:00:00Z",
+  "country": "JP",
+  "city": "Tokyo",
+  "participants": 32,
+  "type": 64,
+  "players": [
+   {
+    "id": 254,
+    "name": "J",
+    "country": "JP",
+    "eventId": 104,
+    "standing": 1,
+    "placeLiteral": 1,
+    "deckSlug": "4tfGATm__Ey0XOnUmuW-7Q",
+    "deck": {
+     "id": 6970,
+     "name": "B/P Barbatos Aggro",
+     "slug": "4tfGATm__Ey0XOnUmuW-7Q",
+     "coverCard": "GD02-054",
+     "isPublic": false,
+     "colors": 5,
+     "tags": 0,
+     "views": 0,
+     "cards": []
+    }
+   }
+  ],
+  "playerCount": 0
+ },
+ "messages": [],
+ "succeeded": true
+}

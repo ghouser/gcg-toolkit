@@ -1,0 +1,88 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "sc-ropis-2026",
+  "name": "SC Ropis 2026",
+  "start_date": "2026-10-03",
+  "end_date": "2026-10-03",
+  "country": "JP",
+  "city": "Ebetsu",
+  "players": 32,
+  "rounds": null,
+  "event_type": "store_championship",
+  "type_raw": "8",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "1VGN6a9DLEW7rO52r1Hnwg",
+    "player_name": "U10",
+    "placement": 1,
+    "name": "G/P Qubeley Aggro",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD05-049",
+      "qty": 4
+     },
+     {
+      "card_number": "GD04-017",
+      "qty": 2
+     },
+     {
+      "card_number": "GD03-056",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-006",
+      "qty": 4
+     },
+     {
+      "card_number": "ST03-008",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-093",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-010",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-129",
+      "qty": 3
+     },
+     {
+      "card_number": "ST13-001",
+      "qty": 3
+     },
+     {
+      "card_number": "ST13-011",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-054",
+      "qty": 4
+     },
+     {
+      "card_number": "ST05-006",
+      "qty": 4
+     },
+     {
+      "card_number": "GD02-055",
+      "qty": 4
+     },
+     {
+      "card_number": "GD05-060",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:53:16.332121Z",
+  "warnings": []
+ }
+}

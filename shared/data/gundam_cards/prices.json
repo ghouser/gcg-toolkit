@@ -1,0 +1,8263 @@
+{
+ "schema_version": 2,
+ "generated_at": "2026-10-08T18:06:43Z",
+ "source_updated_at": "2026-10-07T20:06:09Z",
+ "data": [
+  {
+   "card_number": "EB01-001",
+   "price_cents": 71,
+   "product_id": 700909,
+   "name": "Gundam Astray Red Frame Custom (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-002",
+   "price_cents": 100,
+   "product_id": 700910,
+   "name": "Hi-Nu Gundam (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-003",
+   "price_cents": 13,
+   "product_id": 700911,
+   "name": "Narrative Gundam A-Packs (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-004",
+   "price_cents": 23,
+   "product_id": 700912,
+   "name": "Gundam Barbatos Lupus Rex (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-005",
+   "price_cents": 18,
+   "product_id": 700913,
+   "name": "Zeta Gundam III P2 Type",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-006",
+   "price_cents": 11,
+   "product_id": 700914,
+   "name": "Gundam Astray Gold Frame Amatsu",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-007",
+   "price_cents": 9,
+   "product_id": 700915,
+   "name": "Gundam TR-1 \"Hazel-Rah\"",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-008",
+   "price_cents": 12,
+   "product_id": 700916,
+   "name": "Gundam Delta Kai",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-009",
+   "price_cents": 12,
+   "product_id": 700917,
+   "name": "Gundam Full Armor (Thunderbolt) (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-010",
+   "price_cents": 12,
+   "product_id": 700918,
+   "name": "Gundam Barbatos 6th Form",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-011",
+   "price_cents": 18,
+   "product_id": 700919,
+   "name": "Beginning Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-012",
+   "price_cents": 11,
+   "product_id": 700920,
+   "name": "Dom Bein Nichts",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-013",
+   "price_cents": 12,
+   "product_id": 700921,
+   "name": "Red Gundam(0085)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-014",
+   "price_cents": 19,
+   "product_id": 700922,
+   "name": "Gouf Vijayanta",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-015",
+   "price_cents": 15,
+   "product_id": 700923,
+   "name": "Prototype Asshimar TR-3 \"Kehaar\"",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-016",
+   "price_cents": 12,
+   "product_id": 700924,
+   "name": "Tornado Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-017",
+   "price_cents": 18,
+   "product_id": 700925,
+   "name": "Haro",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-018",
+   "price_cents": 14,
+   "product_id": 700926,
+   "name": "Gundam Astray Blue Frame Second L",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-019",
+   "price_cents": 12,
+   "product_id": 700927,
+   "name": "Gundam Pixy",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-020",
+   "price_cents": 16,
+   "product_id": 700928,
+   "name": "Gundam Mk-III",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-021",
+   "price_cents": 60,
+   "product_id": 700929,
+   "name": "Build Strike Gundam (Full Package) (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-022",
+   "price_cents": 97,
+   "product_id": 700930,
+   "name": "Gundam Exia (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-023",
+   "price_cents": 14,
+   "product_id": 700931,
+   "name": "Le Cygne (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-024",
+   "price_cents": 19,
+   "product_id": 700932,
+   "name": "GQuuuuuuX (Omega Psycommu)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-025",
+   "price_cents": 23,
+   "product_id": 700933,
+   "name": "Tallgeese II",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-026",
+   "price_cents": 9,
+   "product_id": 700934,
+   "name": "Gundam Astaroth Origin",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-027",
+   "price_cents": 11,
+   "product_id": 700935,
+   "name": "Tallgeese",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-028",
+   "price_cents": 12,
+   "product_id": 700936,
+   "name": "Gundam Plutone",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-029",
+   "price_cents": 12,
+   "product_id": 700937,
+   "name": "Gundam Astaroth Rinascimento (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-030",
+   "price_cents": 11,
+   "product_id": 700938,
+   "name": "Big-Rang",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-031",
+   "price_cents": 12,
+   "product_id": 700939,
+   "name": "Oggo",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-032",
+   "price_cents": 179,
+   "product_id": 700940,
+   "name": "Gundam Ez8 High Mobility Custom",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-033",
+   "price_cents": 14,
+   "product_id": 700941,
+   "name": "Taurus (Sanc Kingdom)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-034",
+   "price_cents": 17,
+   "product_id": 700942,
+   "name": "Gundam Lfrith Ur",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-035",
+   "price_cents": 19,
+   "product_id": 700943,
+   "name": "Gundam Lfrith Thorn",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-036",
+   "price_cents": 13,
+   "product_id": 700944,
+   "name": "Darilbalde",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-037",
+   "price_cents": 14,
+   "product_id": 700945,
+   "name": "Zudah Unit 1",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-038",
+   "price_cents": 22,
+   "product_id": 700946,
+   "name": "G-Self",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-039",
+   "price_cents": 13,
+   "product_id": 700947,
+   "name": "Rising Freedom Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-040",
+   "price_cents": 13,
+   "product_id": 700948,
+   "name": "Gundam Epyon",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-041",
+   "price_cents": 101,
+   "product_id": 700949,
+   "name": "Strike Freedom Gundam (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-042",
+   "price_cents": 215,
+   "product_id": 700950,
+   "name": "Psycho Haro (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-043",
+   "price_cents": 19,
+   "product_id": 700951,
+   "name": "Blue Destiny Unit-1 (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-044",
+   "price_cents": 21,
+   "product_id": 700952,
+   "name": "Justice Gundam (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-045",
+   "price_cents": 20,
+   "product_id": 700953,
+   "name": "Psycho Zaku (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-046",
+   "price_cents": 11,
+   "product_id": 700954,
+   "name": "Striker Custom (EX)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-047",
+   "price_cents": 14,
+   "product_id": 700955,
+   "name": "Casval's Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-048",
+   "price_cents": 37,
+   "product_id": 700956,
+   "name": "S Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-049",
+   "price_cents": 9,
+   "product_id": 700957,
+   "name": "Pale Rider (Ground Heavy Equipment Type)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-050",
+   "price_cents": 10,
+   "product_id": 700958,
+   "name": "Saikoro Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-051",
+   "price_cents": 12,
+   "product_id": 700959,
+   "name": "Ze'Gok",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-052",
+   "price_cents": 10,
+   "product_id": 700960,
+   "name": "Hildolfr",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-053",
+   "price_cents": 11,
+   "product_id": 700961,
+   "name": "Gundam GP00",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-054",
+   "price_cents": 198,
+   "product_id": 700962,
+   "name": "Gaplant TR-5 \"Hrairoo\" Unit 1",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-055",
+   "price_cents": 12,
+   "product_id": 700963,
+   "name": "Dom Gross Beil",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-056",
+   "price_cents": 78,
+   "product_id": 700964,
+   "name": "Gundam Geminass 01",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-057",
+   "price_cents": 10,
+   "product_id": 700965,
+   "name": "Gundam Geminass 02",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-058",
+   "price_cents": 10,
+   "product_id": 700966,
+   "name": "Extreme Gundam",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-059",
+   "price_cents": 12,
+   "product_id": 700967,
+   "name": "Psycho Zaku",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-060",
+   "price_cents": 10,
+   "product_id": 700968,
+   "name": "Gundam Aquarius",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-061",
+   "price_cents": 11,
+   "product_id": 700969,
+   "name": "Ellis Claude",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-062",
+   "price_cents": 9,
+   "product_id": 700970,
+   "name": "Jona Basta",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-063",
+   "price_cents": 14,
+   "product_id": 700971,
+   "name": "Io Fleming",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-064",
+   "price_cents": 15,
+   "product_id": 700972,
+   "name": "Rondo Gina Sahaku",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-065",
+   "price_cents": 21,
+   "product_id": 700973,
+   "name": "Meir Siva",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-066",
+   "price_cents": 15,
+   "product_id": 700974,
+   "name": "Reiji",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-067",
+   "price_cents": 14,
+   "product_id": 700975,
+   "name": "Asuna Elmarit",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-068",
+   "price_cents": 16,
+   "product_id": 700976,
+   "name": "Chall Acustica",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-069",
+   "price_cents": 18,
+   "product_id": 700977,
+   "name": "Beside Pain",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-070",
+   "price_cents": 15,
+   "product_id": 700978,
+   "name": "Daryl Lorenz",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-071",
+   "price_cents": 15,
+   "product_id": 700979,
+   "name": "Ittou Tsurugi",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-072",
+   "price_cents": 13,
+   "product_id": 700980,
+   "name": "Yuu Kajima",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-073",
+   "price_cents": 15,
+   "product_id": 700981,
+   "name": "Character Requests",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-074",
+   "price_cents": 25,
+   "product_id": 700982,
+   "name": "Eternal Road",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-075",
+   "price_cents": 9,
+   "product_id": 700983,
+   "name": "Fierce Enemy Assault",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-076",
+   "price_cents": 11,
+   "product_id": 700984,
+   "name": "Gerbera Straight",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-077",
+   "price_cents": 18,
+   "product_id": 700985,
+   "name": "Master League Begins",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-078",
+   "price_cents": 12,
+   "product_id": 700986,
+   "name": "Premium Unit Assembly",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-079",
+   "price_cents": 11,
+   "product_id": 700987,
+   "name": "Modification",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-080",
+   "price_cents": 16,
+   "product_id": 700988,
+   "name": "Sturm Faust",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-081",
+   "price_cents": 20,
+   "product_id": 700989,
+   "name": "MAP Weapon",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-082",
+   "price_cents": 15,
+   "product_id": 700990,
+   "name": "Warship Cruise",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-083",
+   "price_cents": 13,
+   "product_id": 700991,
+   "name": "SP Conversion Chips",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-084",
+   "price_cents": 12,
+   "product_id": 700992,
+   "name": "30cm Cannon (APFSDS Round)",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-085",
+   "price_cents": 16,
+   "product_id": 700993,
+   "name": "Kudelia Aina Bernstein & Isaribi",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-086",
+   "price_cents": 11,
+   "product_id": 700994,
+   "name": "Kycilia Zabi & Gwazine",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-087",
+   "price_cents": 8,
+   "product_id": 700995,
+   "name": "Marina Ismail & Ptolemaios 2",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-088",
+   "price_cents": 17,
+   "product_id": 700996,
+   "name": "Miorine Rembran & Academy Ship",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-089",
+   "price_cents": 15,
+   "product_id": 700997,
+   "name": "Lacus Clyne & Eternal",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EB01-090",
+   "price_cents": 12,
+   "product_id": 700998,
+   "name": "Tiffa Adill & Freeden",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXB-001",
+   "price_cents": 9,
+   "product_id": 707244,
+   "name": "EX Base",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXB-002",
+   "price_cents": 25,
+   "product_id": 684024,
+   "name": "EX Base (EXB-002)",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXB-003",
+   "price_cents": 48,
+   "product_id": 701023,
+   "name": "EX Base (EXB-003)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXR-001",
+   "price_cents": 13,
+   "product_id": 643301,
+   "name": "EX Resource",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXR-002",
+   "price_cents": 71,
+   "product_id": 684025,
+   "name": "EX Resource (EXR-002)",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "EXR-003",
+   "price_cents": 578,
+   "product_id": 701021,
+   "name": "EX Resource (EXR-003)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-001",
+   "price_cents": 237,
+   "product_id": 643150,
+   "name": "Gundam (GD01-001)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-002",
+   "price_cents": 20,
+   "product_id": 705669,
+   "name": "Unicorn Gundam (Destroy Mode)",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-003",
+   "price_cents": 1018,
+   "product_id": 643152,
+   "name": "Unicorn Gundam 02 Banshee (Destroy Mode)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-004",
+   "price_cents": 17,
+   "product_id": 705670,
+   "name": "Guncannon",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-005",
+   "price_cents": 13,
+   "product_id": 705696,
+   "name": "Unicorn Gundam (Unicorn Mode)",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-006",
+   "price_cents": 323,
+   "product_id": 643155,
+   "name": "Delta Plus",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-007",
+   "price_cents": 20,
+   "product_id": 643156,
+   "name": "Noin's Aries",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-008",
+   "price_cents": 25,
+   "product_id": 705671,
+   "name": "Guntank",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-009",
+   "price_cents": 14,
+   "product_id": 643158,
+   "name": "G-Fighter",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-010",
+   "price_cents": 53,
+   "product_id": 643159,
+   "name": "Unicorn Gundam 02 Banshee (Unicorn Mode)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-011",
+   "price_cents": 7,
+   "product_id": 643160,
+   "name": "Loto",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-012",
+   "price_cents": 13,
+   "product_id": 643161,
+   "name": "Zechs' Leo",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-013",
+   "price_cents": 12,
+   "product_id": 643162,
+   "name": "Gundam (GD01-013)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-014",
+   "price_cents": 9,
+   "product_id": 643163,
+   "name": "G-Sky Easy",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-015",
+   "price_cents": 12,
+   "product_id": 643164,
+   "name": "Ball",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-016",
+   "price_cents": 13,
+   "product_id": 643165,
+   "name": "Jegan",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-017",
+   "price_cents": 13,
+   "product_id": 643166,
+   "name": "Stark Jegan",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-018",
+   "price_cents": 152,
+   "product_id": 643167,
+   "name": "ReZEL",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-019",
+   "price_cents": 7,
+   "product_id": 643168,
+   "name": "Byarlant Custom",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-020",
+   "price_cents": 33,
+   "product_id": 643169,
+   "name": "Anksha",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-021",
+   "price_cents": 10,
+   "product_id": 643170,
+   "name": "Pisces",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-022",
+   "price_cents": 14,
+   "product_id": 643171,
+   "name": "Cancer",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-023",
+   "price_cents": 597,
+   "product_id": 643172,
+   "name": "Char's Gelgoog",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-024",
+   "price_cents": 1734,
+   "product_id": 643173,
+   "name": "Wing Gundam Zero",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-025",
+   "price_cents": 41,
+   "product_id": 705672,
+   "name": "Gundam Deathscythe",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-026",
+   "price_cents": 152,
+   "product_id": 643175,
+   "name": "Char's Zaku II",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-027",
+   "price_cents": 73,
+   "product_id": 643176,
+   "name": "Big Zam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-028",
+   "price_cents": 28,
+   "product_id": 643177,
+   "name": "Gundam Sandrock",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-029",
+   "price_cents": 18,
+   "product_id": 705673,
+   "name": "Shenlong Gundam",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-030",
+   "price_cents": 39,
+   "product_id": 705674,
+   "name": "Rick Dom",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-031",
+   "price_cents": 32,
+   "product_id": 643180,
+   "name": "Gelgoog",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-032",
+   "price_cents": 34,
+   "product_id": 643181,
+   "name": "Gyan",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-033",
+   "price_cents": 17,
+   "product_id": 643182,
+   "name": "Gundam Deathscythe (GD01-033)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-034",
+   "price_cents": 16,
+   "product_id": 643183,
+   "name": "Gundam Heavyarms",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-035",
+   "price_cents": 20,
+   "product_id": 705675,
+   "name": "Zaku II",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-036",
+   "price_cents": 15,
+   "product_id": 643185,
+   "name": "Gouf",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-037",
+   "price_cents": 10,
+   "product_id": 643186,
+   "name": "Gogg",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-038",
+   "price_cents": 9,
+   "product_id": 643187,
+   "name": "Adzam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-039",
+   "price_cents": 18,
+   "product_id": 643188,
+   "name": "Dopp",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-040",
+   "price_cents": 13,
+   "product_id": 643189,
+   "name": "Wing Gundam (GD01-040)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-041",
+   "price_cents": 16,
+   "product_id": 643190,
+   "name": "Shenlong Gundam (GD01-041)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-042",
+   "price_cents": 13,
+   "product_id": 643191,
+   "name": "Duo's Leo",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-043",
+   "price_cents": 9,
+   "product_id": 643192,
+   "name": "Rasid's Maganac",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-044",
+   "price_cents": 4429,
+   "product_id": 643193,
+   "name": "Kshatriya (GD01-044)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-045",
+   "price_cents": 74,
+   "product_id": 643194,
+   "name": "Duel Gundam (Assault Shroud)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-046",
+   "price_cents": 129,
+   "product_id": 643195,
+   "name": "Buster Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-047",
+   "price_cents": 25,
+   "product_id": 643196,
+   "name": "Shamblo",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-048",
+   "price_cents": 46,
+   "product_id": 643197,
+   "name": "Zaku I Sniper Type",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-049",
+   "price_cents": 18,
+   "product_id": 643198,
+   "name": "Blitz Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-050",
+   "price_cents": 75,
+   "product_id": 643199,
+   "name": "LaGOWE",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-051",
+   "price_cents": 11,
+   "product_id": 705676,
+   "name": "Kshatriya",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-052",
+   "price_cents": 9,
+   "product_id": 705677,
+   "name": "Geara Zulu (Guards Type)",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-053",
+   "price_cents": 16,
+   "product_id": 643202,
+   "name": "Geara Doga (Heavy Armed Type)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-054",
+   "price_cents": 16,
+   "product_id": 684018,
+   "name": "Duel Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-055",
+   "price_cents": 13,
+   "product_id": 643204,
+   "name": "BuCUE",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-056",
+   "price_cents": 13,
+   "product_id": 643205,
+   "name": "Geara Doga (Sleeves)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-057",
+   "price_cents": 9,
+   "product_id": 643206,
+   "name": "Dreissen (Sleeves)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-058",
+   "price_cents": 9,
+   "product_id": 643207,
+   "name": "Galluss-K",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-059",
+   "price_cents": 18,
+   "product_id": 643208,
+   "name": "Zee Zulu",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-060",
+   "price_cents": 18,
+   "product_id": 643209,
+   "name": "Zaku Mariner",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-061",
+   "price_cents": 10,
+   "product_id": 643210,
+   "name": "ZuOOT",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-062",
+   "price_cents": 12,
+   "product_id": 643211,
+   "name": "GOOhN",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-063",
+   "price_cents": 8,
+   "product_id": 643212,
+   "name": "ZnO",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-064",
+   "price_cents": 10,
+   "product_id": 643213,
+   "name": "DINN",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-065",
+   "price_cents": 50,
+   "product_id": 705678,
+   "name": "Freedom Gundam",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-066",
+   "price_cents": 2399,
+   "product_id": 643215,
+   "name": "Justice Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-067",
+   "price_cents": 1345,
+   "product_id": 643216,
+   "name": "Gundam Aerial Rebuild",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-068",
+   "price_cents": 219,
+   "product_id": 643217,
+   "name": "Perfect Strike Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-069",
+   "price_cents": 9,
+   "product_id": 705679,
+   "name": "Strike Rouge",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-070",
+   "price_cents": 21,
+   "product_id": 643219,
+   "name": "Gundam Aerial",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-071",
+   "price_cents": 146,
+   "product_id": 643220,
+   "name": "Gundam Pharact",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-072",
+   "price_cents": 33,
+   "product_id": 643221,
+   "name": "Launcher Strike Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-073",
+   "price_cents": 92,
+   "product_id": 643222,
+   "name": "Sword Strike Gundam",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-074",
+   "price_cents": 34,
+   "product_id": 643223,
+   "name": "Chuchu's Demi Trainer",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-075",
+   "price_cents": 13,
+   "product_id": 643224,
+   "name": "Darilbalde",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-076",
+   "price_cents": 25,
+   "product_id": 643225,
+   "name": "Michaelis",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-077",
+   "price_cents": 11,
+   "product_id": 643226,
+   "name": "Strike Gundam (GD01-077)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-078",
+   "price_cents": 7,
+   "product_id": 643227,
+   "name": "Mistral",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-079",
+   "price_cents": 7,
+   "product_id": 643228,
+   "name": "Skygrasper",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-080",
+   "price_cents": 6,
+   "product_id": 643229,
+   "name": "Cagalli's Skygrasper",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-081",
+   "price_cents": 11,
+   "product_id": 643230,
+   "name": "M1 Astray",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-082",
+   "price_cents": 14,
+   "product_id": 643231,
+   "name": "Gundam Aerial (Mirasoul Flight Unit)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-083",
+   "price_cents": 5,
+   "product_id": 643232,
+   "name": "Guel's Dilanza",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-084",
+   "price_cents": 6,
+   "product_id": 643233,
+   "name": "Beguir-Pente",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-085",
+   "price_cents": 14,
+   "product_id": 643234,
+   "name": "Demi Garrison",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-086",
+   "price_cents": 64,
+   "product_id": 705680,
+   "name": "Gundam Lfrith",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-087",
+   "price_cents": 36,
+   "product_id": 643236,
+   "name": "Sayla Mass",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-088",
+   "price_cents": 13,
+   "product_id": 705681,
+   "name": "Banagher Links",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-089",
+   "price_cents": 13,
+   "product_id": 643238,
+   "name": "Riddhe Marcenas",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-090",
+   "price_cents": 19,
+   "product_id": 705682,
+   "name": "Duo Maxwell",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-091",
+   "price_cents": 28,
+   "product_id": 643240,
+   "name": "Chang Wufei",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-092",
+   "price_cents": 13,
+   "product_id": 643241,
+   "name": "M'Quve",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-093",
+   "price_cents": 45,
+   "product_id": 705683,
+   "name": "Marida Cruz",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-094",
+   "price_cents": 15,
+   "product_id": 643243,
+   "name": "Yzak Jule",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-095",
+   "price_cents": 11,
+   "product_id": 643244,
+   "name": "Dearka Elthman",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-096",
+   "price_cents": 21,
+   "product_id": 705684,
+   "name": "Cagalli Yula Athha",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-097",
+   "price_cents": 7,
+   "product_id": 643246,
+   "name": "Guel Jeturk",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-098",
+   "price_cents": 10,
+   "product_id": 643247,
+   "name": "Elan Ceres (Enhanced Person Number 4)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-099",
+   "price_cents": 25,
+   "product_id": 643248,
+   "name": "Intercept Orders",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-100",
+   "price_cents": 140,
+   "product_id": 705685,
+   "name": "A Show of Resolve",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-101",
+   "price_cents": 36,
+   "product_id": 643250,
+   "name": "Deep Devotion",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-102",
+   "price_cents": 10,
+   "product_id": 643251,
+   "name": "Securing the Supply Line",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-103",
+   "price_cents": 8,
+   "product_id": 643252,
+   "name": "The Stubborn Cog",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-104",
+   "price_cents": 14,
+   "product_id": 643253,
+   "name": "Signs of a Revolution",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-105",
+   "price_cents": 49,
+   "product_id": 643254,
+   "name": "Citizens, Take a Stand!",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-106",
+   "price_cents": 68,
+   "product_id": 643255,
+   "name": "Fortress Defense",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-107",
+   "price_cents": 12,
+   "product_id": 705686,
+   "name": "First Contact",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-108",
+   "price_cents": 8,
+   "product_id": 643257,
+   "name": "Strategic Arms",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-109",
+   "price_cents": 16,
+   "product_id": 643258,
+   "name": "The Path to Victory or Defeat",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-110",
+   "price_cents": 11,
+   "product_id": 643259,
+   "name": "Rasid's Orders",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-111",
+   "price_cents": 21,
+   "product_id": 705687,
+   "name": "Battle of Aces",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-112",
+   "price_cents": 26,
+   "product_id": 643261,
+   "name": "Extreme Hatred",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-113",
+   "price_cents": 14,
+   "product_id": 643262,
+   "name": "The Desert Tiger",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-114",
+   "price_cents": 7,
+   "product_id": 643263,
+   "name": "Assault on Torrington Base",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-115",
+   "price_cents": 11,
+   "product_id": 643264,
+   "name": "Zeon Remnant Forces",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-116",
+   "price_cents": 8,
+   "product_id": 643265,
+   "name": "Stealth Stratagem",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-117",
+   "price_cents": 79,
+   "product_id": 643266,
+   "name": "The Witch and the Bride",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-118",
+   "price_cents": 120,
+   "product_id": 705688,
+   "name": "Overflowing Affection",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-119",
+   "price_cents": 58,
+   "product_id": 643268,
+   "name": "Iron-Fisted Discipline",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-120",
+   "price_cents": 16,
+   "product_id": 643269,
+   "name": "Naval Bombardment",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-121",
+   "price_cents": 14,
+   "product_id": 643270,
+   "name": "Midair Modifications",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-122",
+   "price_cents": 8,
+   "product_id": 643271,
+   "name": "Covert Operative",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-123",
+   "price_cents": 15,
+   "product_id": 643272,
+   "name": "Nahel Argama",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-124",
+   "price_cents": 8,
+   "product_id": 643273,
+   "name": "Side 7",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-125",
+   "price_cents": 21,
+   "product_id": 643274,
+   "name": "Zanzibar",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-126",
+   "price_cents": 21,
+   "product_id": 705689,
+   "name": "Underground Desert Base",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-127",
+   "price_cents": 18,
+   "product_id": 643276,
+   "name": "Gamow",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-128",
+   "price_cents": 245,
+   "product_id": 643277,
+   "name": "Mining Asteroid Palau",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-129",
+   "price_cents": 14,
+   "product_id": 643278,
+   "name": "Kusanagi",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD01-130",
+   "price_cents": 8,
+   "product_id": 643279,
+   "name": "13th Tactical Testing Sector",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-001",
+   "price_cents": 90,
+   "product_id": 659246,
+   "name": "Psycho Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-002",
+   "price_cents": 731,
+   "product_id": 655155,
+   "name": "Gundam Epyon",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-003",
+   "price_cents": 23,
+   "product_id": 652316,
+   "name": "Gundam Mk-II (Titans)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-004",
+   "price_cents": 17,
+   "product_id": 659250,
+   "name": "Byarlant",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-005",
+   "price_cents": 53,
+   "product_id": 659251,
+   "name": "Tallgeese",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-006",
+   "price_cents": 24,
+   "product_id": 659253,
+   "name": "Forbidden Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-007",
+   "price_cents": 11,
+   "product_id": 653260,
+   "name": "Psycho Gundam (MA Mode)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-008",
+   "price_cents": 8,
+   "product_id": 659254,
+   "name": "Gabthley",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-009",
+   "price_cents": 30,
+   "product_id": 652324,
+   "name": "Calamity Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-010",
+   "price_cents": 9,
+   "product_id": 659255,
+   "name": "Raider Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-011",
+   "price_cents": 9,
+   "product_id": 655156,
+   "name": "Moebius (Peacemaker Team)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-012",
+   "price_cents": 7,
+   "product_id": 651157,
+   "name": "Core Booster",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-013",
+   "price_cents": 12,
+   "product_id": 659256,
+   "name": "Hizack",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-014",
+   "price_cents": 7,
+   "product_id": 659257,
+   "name": "Galbaldy Beta",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-015",
+   "price_cents": 8,
+   "product_id": 659258,
+   "name": "Marasai",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-016",
+   "price_cents": 7,
+   "product_id": 659259,
+   "name": "Barzam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-017",
+   "price_cents": 12,
+   "product_id": 659260,
+   "name": "Delta Plus (Waverider Mode)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-018",
+   "price_cents": 10,
+   "product_id": 651155,
+   "name": "Taurus",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-019",
+   "price_cents": 10,
+   "product_id": 659261,
+   "name": "Raider Gundam (MA Mode)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-020",
+   "price_cents": 40,
+   "product_id": 655157,
+   "name": "Elmeth",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-021",
+   "price_cents": 195,
+   "product_id": 651156,
+   "name": "Gundam AGE-1 Normal",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-022",
+   "price_cents": 16,
+   "product_id": 653378,
+   "name": "G-Exes",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-023",
+   "price_cents": 13,
+   "product_id": 659264,
+   "name": "Gundam AGE-1 Spallow",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-024",
+   "price_cents": 58,
+   "product_id": 659265,
+   "name": "Red Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-025",
+   "price_cents": 15,
+   "product_id": 651153,
+   "name": "Gundam Heavyarms",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-026",
+   "price_cents": 11,
+   "product_id": 659267,
+   "name": "Genoace Custom",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-027",
+   "price_cents": 11,
+   "product_id": 659268,
+   "name": "Gundam AGE-1 Titus (GD02-027)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-028",
+   "price_cents": 10,
+   "product_id": 652367,
+   "name": "Abdul's Maganac",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-029",
+   "price_cents": 9,
+   "product_id": 655158,
+   "name": "Gundam AGE-1 Normal (GD02-029)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-030",
+   "price_cents": 9,
+   "product_id": 659269,
+   "name": "Genoace",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-031",
+   "price_cents": 10,
+   "product_id": 652368,
+   "name": "Gundam AGE-1 Titus",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-032",
+   "price_cents": 11,
+   "product_id": 659270,
+   "name": "White Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-033",
+   "price_cents": 8,
+   "product_id": 659271,
+   "name": "Kikeroga (MA Mode) (GQ)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-034",
+   "price_cents": 9,
+   "product_id": 659272,
+   "name": "GQuuuuuuX",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-035",
+   "price_cents": 8,
+   "product_id": 652369,
+   "name": "Police Zaku (Armored RRU Type)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-036",
+   "price_cents": 296,
+   "product_id": 659273,
+   "name": "Qubeley",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-037",
+   "price_cents": 27,
+   "product_id": 659275,
+   "name": "Gundam Virsago",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-038",
+   "price_cents": 217,
+   "product_id": 659277,
+   "name": "GQuuuuuuX (Omega Psycommu)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-039",
+   "price_cents": 15,
+   "product_id": 659280,
+   "name": "Haman Karn's Gaza C",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-040",
+   "price_cents": 18,
+   "product_id": 659281,
+   "name": "Gundam Ashtaron",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-041",
+   "price_cents": 22,
+   "product_id": 659282,
+   "name": "Sugai's Gelgoog (GQ)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-042",
+   "price_cents": 9,
+   "product_id": 652371,
+   "name": "Gundam Ashtaron (MA Mode)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-043",
+   "price_cents": 6,
+   "product_id": 659284,
+   "name": "Daughtress Weapon",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-044",
+   "price_cents": 6,
+   "product_id": 659285,
+   "name": "Daughtress Command",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-045",
+   "price_cents": 6,
+   "product_id": 652372,
+   "name": "GINN Long-Range Reconnaissance Type",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-046",
+   "price_cents": 10,
+   "product_id": 659286,
+   "name": "Sayla's Light-Type Guncannon",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-047",
+   "price_cents": 6,
+   "product_id": 652419,
+   "name": "Gaza C",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-048",
+   "price_cents": 9,
+   "product_id": 651152,
+   "name": "Zaku III (Sleeves)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-049",
+   "price_cents": 7,
+   "product_id": 652420,
+   "name": "Daughtress",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-050",
+   "price_cents": 9,
+   "product_id": 659287,
+   "name": "Ga-Zowmn (Sleeves)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-051",
+   "price_cents": 8,
+   "product_id": 659288,
+   "name": "01 Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-052",
+   "price_cents": 7,
+   "product_id": 652650,
+   "name": "Guncannon (GQ)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-053",
+   "price_cents": 67,
+   "product_id": 651159,
+   "name": "Gundam X (GD02-053)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-054",
+   "price_cents": 4344,
+   "product_id": 659290,
+   "name": "Gundam Barbatos 1st Form",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-055",
+   "price_cents": 61,
+   "product_id": 705691,
+   "name": "Gundam Gusion Rebake",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-056",
+   "price_cents": 17,
+   "product_id": 652423,
+   "name": "Gundam X (GD02-056)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-057",
+   "price_cents": 17,
+   "product_id": 659295,
+   "name": "Zedas",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-058",
+   "price_cents": 16,
+   "product_id": 705692,
+   "name": "Ryusei-Go (Graze Custom II)",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-059",
+   "price_cents": 15,
+   "product_id": 655159,
+   "name": "Gundam Airmaster",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-060",
+   "price_cents": 10,
+   "product_id": 655160,
+   "name": "Gundam Leopard",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-061",
+   "price_cents": 11,
+   "product_id": 659299,
+   "name": "Hyakuri",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-062",
+   "price_cents": 9,
+   "product_id": 659300,
+   "name": "Amida's Hyakuren",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-063",
+   "price_cents": 11,
+   "product_id": 659301,
+   "name": "Gundam Airmaster (Fighter Mode)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-064",
+   "price_cents": 8,
+   "product_id": 659302,
+   "name": "Gundam Leopard (GD02-064)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-065",
+   "price_cents": 11,
+   "product_id": 659303,
+   "name": "Jenice Custom",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-066",
+   "price_cents": 8,
+   "product_id": 659304,
+   "name": "Gafran",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-067",
+   "price_cents": 7,
+   "product_id": 659305,
+   "name": "Baqto",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-068",
+   "price_cents": 13,
+   "product_id": 659306,
+   "name": "Gundam Barbatos 3rd Form",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-069",
+   "price_cents": 66,
+   "product_id": 651158,
+   "name": "Zeta Gundam",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-070",
+   "price_cents": 45,
+   "product_id": 659308,
+   "name": "Gundam Kimaris",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-071",
+   "price_cents": 26,
+   "product_id": 659310,
+   "name": "Gundam Mk-II (AEUG)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-072",
+   "price_cents": 18,
+   "product_id": 655161,
+   "name": "Hyaku-Shiki",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-073",
+   "price_cents": 18,
+   "product_id": 659312,
+   "name": "Carta's Graze Ritter (Ground Type)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-074",
+   "price_cents": 61,
+   "product_id": 652425,
+   "name": "Gundam Aerial Rebuild",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-075",
+   "price_cents": 9,
+   "product_id": 652426,
+   "name": "Rick Dias (Red)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-076",
+   "price_cents": 13,
+   "product_id": 684021,
+   "name": "Buster Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-077",
+   "price_cents": 10,
+   "product_id": 659314,
+   "name": "Ein's Schwalbe Graze",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-078",
+   "price_cents": 9,
+   "product_id": 659315,
+   "name": "Gundam Pharact",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-079",
+   "price_cents": 145,
+   "product_id": 652647,
+   "name": "Rick Dias",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-080",
+   "price_cents": 8,
+   "product_id": 659316,
+   "name": "Nemo",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-081",
+   "price_cents": 8,
+   "product_id": 659317,
+   "name": "Methuss",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-082",
+   "price_cents": 10,
+   "product_id": 659318,
+   "name": "Gaelio's Schwalbe Graze",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-083",
+   "price_cents": 9,
+   "product_id": 659319,
+   "name": "Graze Ritter (Ground Type)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-084",
+   "price_cents": 8,
+   "product_id": 659320,
+   "name": "Lauda's Dilanza",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-085",
+   "price_cents": 49,
+   "product_id": 659321,
+   "name": "Four Murasame",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-086",
+   "price_cents": 9,
+   "product_id": 659323,
+   "name": "Jerid Messa",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-087",
+   "price_cents": 10,
+   "product_id": 659324,
+   "name": "Orga, Crot, and Shani",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-088",
+   "price_cents": 27,
+   "product_id": 655162,
+   "name": "Flit Asuno",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-089",
+   "price_cents": 14,
+   "product_id": 655163,
+   "name": "Lalah Sune",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-090",
+   "price_cents": 9,
+   "product_id": 652428,
+   "name": "Challia Bull (GQ)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-091",
+   "price_cents": 97,
+   "product_id": 659326,
+   "name": "Haman Karn",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-092",
+   "price_cents": 7,
+   "product_id": 659328,
+   "name": "Shagia Frost",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-093",
+   "price_cents": 6,
+   "product_id": 659329,
+   "name": "Olba Frost",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-094",
+   "price_cents": 67,
+   "product_id": 652430,
+   "name": "Garrod Ran & Tiffa Adill",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-095",
+   "price_cents": 13,
+   "product_id": 655164,
+   "name": "Lafter Frankland",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-096",
+   "price_cents": 5,
+   "product_id": 659331,
+   "name": "Desil Galette",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-097",
+   "price_cents": 42,
+   "product_id": 655165,
+   "name": "Kamille Bidan",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-098",
+   "price_cents": 14,
+   "product_id": 655166,
+   "name": "Quattro Bajeena",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-099",
+   "price_cents": 9,
+   "product_id": 659333,
+   "name": "Gaelio Bauduin",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-100",
+   "price_cents": 26,
+   "product_id": 659334,
+   "name": "Dramatic Turnabout",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-101",
+   "price_cents": 9,
+   "product_id": 652433,
+   "name": "Beneath the Mask",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-102",
+   "price_cents": 9,
+   "product_id": 659336,
+   "name": "Mouar's Determination",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-103",
+   "price_cents": 21,
+   "product_id": 659337,
+   "name": "AGE Device",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-104",
+   "price_cents": 13,
+   "product_id": 652314,
+   "name": "Turning Point of History",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-105",
+   "price_cents": 9,
+   "product_id": 659339,
+   "name": "Valedictorian",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-106",
+   "price_cents": 7,
+   "product_id": 655167,
+   "name": "White Wolf",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-107",
+   "price_cents": 69,
+   "product_id": 659340,
+   "name": "All-Range Attack",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-108",
+   "price_cents": 10,
+   "product_id": 659341,
+   "name": "That One Looks A Lot Stronger?",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-109",
+   "price_cents": 9,
+   "product_id": 659342,
+   "name": "Undying Persistence",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-110",
+   "price_cents": 25,
+   "product_id": 684022,
+   "name": "Awakened Power",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-111",
+   "price_cents": 33,
+   "product_id": 659343,
+   "name": "Decisive Last Resort",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-112",
+   "price_cents": 27,
+   "product_id": 655169,
+   "name": "Momentary Respite",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-113",
+   "price_cents": 10,
+   "product_id": 659345,
+   "name": "Sisterly Care",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-114",
+   "price_cents": 11,
+   "product_id": 659346,
+   "name": "It's Name is Ryusei-Go",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-115",
+   "price_cents": 6,
+   "product_id": 659347,
+   "name": "Familial Devotion",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-116",
+   "price_cents": 8,
+   "product_id": 659348,
+   "name": "Comrades Come First",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-117",
+   "price_cents": 32,
+   "product_id": 655170,
+   "name": "A New Sign",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-118",
+   "price_cents": 9,
+   "product_id": 659349,
+   "name": "Heart Set on Revenge",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-119",
+   "price_cents": 9,
+   "product_id": 659350,
+   "name": "Persistent and Fortudinous",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-120",
+   "price_cents": 10,
+   "product_id": 659351,
+   "name": "Aspiring Pilot",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-121",
+   "price_cents": 10,
+   "product_id": 655171,
+   "name": "Dominion",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-122",
+   "price_cents": 10,
+   "product_id": 659352,
+   "name": "Alexandria",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-123",
+   "price_cents": 17,
+   "product_id": 659353,
+   "name": "Sodon",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-124",
+   "price_cents": 9,
+   "product_id": 659354,
+   "name": "Diva",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-125",
+   "price_cents": 25,
+   "product_id": 659355,
+   "name": "Gwadan",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-126",
+   "price_cents": 13,
+   "product_id": 659356,
+   "name": "Shuji's Hideout",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-127",
+   "price_cents": 10,
+   "product_id": 655172,
+   "name": "Freeden",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-128",
+   "price_cents": 7,
+   "product_id": 659357,
+   "name": "Hammerhead",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-129",
+   "price_cents": 1502,
+   "product_id": 655173,
+   "name": "Argama",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD02-130",
+   "price_cents": 8,
+   "product_id": 659359,
+   "name": "Sleipnir",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-001",
+   "price_cents": 705,
+   "product_id": 670488,
+   "name": "Gundam NT-1",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-002",
+   "price_cents": 131,
+   "product_id": 670489,
+   "name": "The-O",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-003",
+   "price_cents": 39,
+   "product_id": 670490,
+   "name": "Messala",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-004",
+   "price_cents": 12,
+   "product_id": 670491,
+   "name": "Hambrabi",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-005",
+   "price_cents": 16,
+   "product_id": 670492,
+   "name": "Kshatriya Besserung",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-006",
+   "price_cents": 15,
+   "product_id": 670493,
+   "name": "Penelope (Middle Form)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-007",
+   "price_cents": 8,
+   "product_id": 673452,
+   "name": "Gundam NT-1 Full Armor",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-008",
+   "price_cents": 10,
+   "product_id": 673453,
+   "name": "Bolinoak Sammahn",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-009",
+   "price_cents": 8,
+   "product_id": 673454,
+   "name": "Palace Athene",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-010",
+   "price_cents": 9,
+   "product_id": 673455,
+   "name": "Full Armor Unicorn Gundam (Destroy Mode)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-011",
+   "price_cents": 6,
+   "product_id": 673456,
+   "name": "GM Sniper II",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-012",
+   "price_cents": 6,
+   "product_id": 673457,
+   "name": "Messala (MA Mode)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-013",
+   "price_cents": 8,
+   "product_id": 673458,
+   "name": "Hizack",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-014",
+   "price_cents": 6,
+   "product_id": 670494,
+   "name": "Hizack Custom",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-015",
+   "price_cents": 8,
+   "product_id": 670495,
+   "name": "Baund Doc",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-016",
+   "price_cents": 12,
+   "product_id": 670496,
+   "name": "Full Armor Unicorn Gundam (Unicorn Mode)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-017",
+   "price_cents": 76,
+   "product_id": 673459,
+   "name": "Kampfer",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-018",
+   "price_cents": 128,
+   "product_id": 670497,
+   "name": "Altron Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-019",
+   "price_cents": 53,
+   "product_id": 673460,
+   "name": "Gundam AGE-2 Normal",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-020",
+   "price_cents": 21,
+   "product_id": 670498,
+   "name": "Zaku II FZ",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-021",
+   "price_cents": 30,
+   "product_id": 670499,
+   "name": "Gundam Deathscythe Hell",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-022",
+   "price_cents": 31,
+   "product_id": 670500,
+   "name": "Gundam Kyrios",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-023",
+   "price_cents": 13,
+   "product_id": 670501,
+   "name": "G-Bouncer",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-024",
+   "price_cents": 7,
+   "product_id": 673461,
+   "name": "Hy-Gogg",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-025",
+   "price_cents": 7,
+   "product_id": 670502,
+   "name": "Gundam Sandrock Custom",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-026",
+   "price_cents": 18,
+   "product_id": 673462,
+   "name": "Gundam Dynames",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-027",
+   "price_cents": 9,
+   "product_id": 673463,
+   "name": "Z'Gok E",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-028",
+   "price_cents": 8,
+   "product_id": 670503,
+   "name": "Auda's Maganac",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-029",
+   "price_cents": 6,
+   "product_id": 673464,
+   "name": "Gundam Heavyarms Custom",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-030",
+   "price_cents": 9,
+   "product_id": 670504,
+   "name": "Gundam Kyrios (Tail Unit Flight Mode)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-031",
+   "price_cents": 9,
+   "product_id": 670505,
+   "name": "Gundam AGE-1 Flat",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-032",
+   "price_cents": 11,
+   "product_id": 673465,
+   "name": "Zaku (Four Snake Eyes') [YETI] (GQ)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-033",
+   "price_cents": 78,
+   "product_id": 673466,
+   "name": "Providence Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-034",
+   "price_cents": 622,
+   "product_id": 673467,
+   "name": "GQuuuuuuX (Omega Psycommu)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-035",
+   "price_cents": 564,
+   "product_id": 670506,
+   "name": "GFreD",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-036",
+   "price_cents": 20,
+   "product_id": 670507,
+   "name": "Xi Gundam (Flight Form)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-037",
+   "price_cents": 10,
+   "product_id": 673468,
+   "name": "Bertigo",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-038",
+   "price_cents": 21,
+   "product_id": 673469,
+   "name": "GuAIZ (Commander Type)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-039",
+   "price_cents": 62,
+   "product_id": 670508,
+   "name": "Red Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-040",
+   "price_cents": 8,
+   "product_id": 673470,
+   "name": "Gundam Virsago & Gundam Ashtaron",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-041",
+   "price_cents": 5,
+   "product_id": 670509,
+   "name": "Patulia",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-042",
+   "price_cents": 8,
+   "product_id": 670510,
+   "name": "Duel Gundam (Assault Shroud) (GD03-042)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-043",
+   "price_cents": 8,
+   "product_id": 673471,
+   "name": "Messer Type-F02",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-044",
+   "price_cents": 5,
+   "product_id": 670511,
+   "name": "Daughtress Flyer",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-045",
+   "price_cents": 5,
+   "product_id": 670512,
+   "name": "Balient",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-046",
+   "price_cents": 5,
+   "product_id": 673472,
+   "name": "CGUE",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-047",
+   "price_cents": 8,
+   "product_id": 673473,
+   "name": "DINN (Commander Type)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-048",
+   "price_cents": 10,
+   "product_id": 673474,
+   "name": "GFreD (GD03-048)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-049",
+   "price_cents": 628,
+   "product_id": 670513,
+   "name": "Gundam Exia (Trans-Am)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-050",
+   "price_cents": 664,
+   "product_id": 670514,
+   "name": "Gundam Barbatos Lupus",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-051",
+   "price_cents": 22,
+   "product_id": 673475,
+   "name": "Gundam X Divider",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-052",
+   "price_cents": 20,
+   "product_id": 673476,
+   "name": "Gundam Virtue",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-053",
+   "price_cents": 28,
+   "product_id": 673477,
+   "name": "Gundam Gusion Rebake Full City",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-054",
+   "price_cents": 15,
+   "product_id": 673478,
+   "name": "Zeydra",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-055",
+   "price_cents": 12,
+   "product_id": 673479,
+   "name": "Gundam Hajiroboshi (2nd Form)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-056",
+   "price_cents": 916,
+   "product_id": 673480,
+   "name": "Gundam Barbatos Adapt",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-057",
+   "price_cents": 16,
+   "product_id": 673481,
+   "name": "GN Armor (Type-E)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-058",
+   "price_cents": 10,
+   "product_id": 673482,
+   "name": "Farsia",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-059",
+   "price_cents": 6,
+   "product_id": 670515,
+   "name": "Zedas R",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-060",
+   "price_cents": 6,
+   "product_id": 670516,
+   "name": "CGS Mobile Worker (Commander Type)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-061",
+   "price_cents": 11,
+   "product_id": 670517,
+   "name": "Gundam Barbatos 6th Form",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-062",
+   "price_cents": 7,
+   "product_id": 673483,
+   "name": "GX-Bit",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-063",
+   "price_cents": 16,
+   "product_id": 673484,
+   "name": "0 Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-064",
+   "price_cents": 6,
+   "product_id": 670518,
+   "name": "Defurse",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-065",
+   "price_cents": 6,
+   "product_id": 673485,
+   "name": "Zedas M",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-066",
+   "price_cents": 8,
+   "product_id": 673486,
+   "name": "Gundam Barbatos 5th Form (Ground Type)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-067",
+   "price_cents": 7,
+   "product_id": 670519,
+   "name": "Rouei",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-068",
+   "price_cents": 5,
+   "product_id": 673487,
+   "name": "Gundam Hajiroboshi",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-069",
+   "price_cents": 75,
+   "product_id": 670520,
+   "name": "Graham's Union Flag Custom",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-070",
+   "price_cents": 54,
+   "product_id": 670521,
+   "name": "Freedom Gundam (GD03-070)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-071",
+   "price_cents": 17,
+   "product_id": 673488,
+   "name": "Z Gundam (Biosensor)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-072",
+   "price_cents": 21,
+   "product_id": 670522,
+   "name": "Aile Strike Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-073",
+   "price_cents": 13,
+   "product_id": 673489,
+   "name": "Graze Ein",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-074",
+   "price_cents": 12,
+   "product_id": 670523,
+   "name": "Tieren Taozi",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-075",
+   "price_cents": 6,
+   "product_id": 670524,
+   "name": "Super Gundam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-076",
+   "price_cents": 11,
+   "product_id": 670525,
+   "name": "Freedom Gundam (Meteor)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-077",
+   "price_cents": 13,
+   "product_id": 673490,
+   "name": "Justice Gundam (METEOR)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-078",
+   "price_cents": 6,
+   "product_id": 670526,
+   "name": "Tieren High Mobility Type",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-079",
+   "price_cents": 5,
+   "product_id": 670527,
+   "name": "G-Defenser",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-080",
+   "price_cents": 7,
+   "product_id": 670528,
+   "name": "Gundam Kimaris Trooper (Trooper Mode)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-081",
+   "price_cents": 5,
+   "product_id": 670529,
+   "name": "AEU Enact Demonstration Color",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-082",
+   "price_cents": 6,
+   "product_id": 673491,
+   "name": "Union Flag",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-083",
+   "price_cents": 7,
+   "product_id": 673492,
+   "name": "AEU Hellion",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-084",
+   "price_cents": 58,
+   "product_id": 670530,
+   "name": "Paptimus Scirocco",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-085",
+   "price_cents": 8,
+   "product_id": 670531,
+   "name": "Christina Mackenzie",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-086",
+   "price_cents": 6,
+   "product_id": 670532,
+   "name": "Yazan Gable",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-087",
+   "price_cents": 8,
+   "product_id": 670533,
+   "name": "Sarah Zabiarov",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-088",
+   "price_cents": 28,
+   "product_id": 673493,
+   "name": "Asemu Asuno",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-089",
+   "price_cents": 7,
+   "product_id": 670534,
+   "name": "Bernard Wiseman",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-090",
+   "price_cents": 8,
+   "product_id": 673494,
+   "name": "Mikhail Kaminsky",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-091",
+   "price_cents": 46,
+   "product_id": 673495,
+   "name": "Rau Le Creuset",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-092",
+   "price_cents": 15,
+   "product_id": 670535,
+   "name": "Nyaan",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-093",
+   "price_cents": 6,
+   "product_id": 673496,
+   "name": "Carris Nautilus",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-094",
+   "price_cents": 37,
+   "product_id": 673497,
+   "name": "Zeheart Galette",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-095",
+   "price_cents": 9,
+   "product_id": 670536,
+   "name": "Azee Gurumin",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-096",
+   "price_cents": 7,
+   "product_id": 670537,
+   "name": "Jamil Neate",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-097",
+   "price_cents": 7,
+   "product_id": 673498,
+   "name": "Wistario Afam",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-098",
+   "price_cents": 28,
+   "product_id": 670538,
+   "name": "Graham Aker",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-099",
+   "price_cents": 6,
+   "product_id": 673499,
+   "name": "Emma Sheen",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-100",
+   "price_cents": 5,
+   "product_id": 673500,
+   "name": "Soma Peries",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-101",
+   "price_cents": 53,
+   "product_id": 673501,
+   "name": "A Healthy Curiosity",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-102",
+   "price_cents": 6,
+   "product_id": 673502,
+   "name": "Privileged Position",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-103",
+   "price_cents": 7,
+   "product_id": 673503,
+   "name": "Field Directive",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-104",
+   "price_cents": 8,
+   "product_id": 673504,
+   "name": "Reccoa's Shadow",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-105",
+   "price_cents": 23,
+   "product_id": 670539,
+   "name": "Bridge Crew",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-106",
+   "price_cents": 8,
+   "product_id": 673505,
+   "name": "M.A.V. Tactics",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-107",
+   "price_cents": 8,
+   "product_id": 673506,
+   "name": "Over the River and Through the Woods",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-108",
+   "price_cents": 8,
+   "product_id": 673507,
+   "name": "How Many Miles to the Battlefield?",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-109",
+   "price_cents": 1083,
+   "product_id": 673508,
+   "name": "Improved Technique",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-110",
+   "price_cents": 8,
+   "product_id": 670540,
+   "name": "Eliminate Target",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-111",
+   "price_cents": 8,
+   "product_id": 673509,
+   "name": "Infiltrator Present",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-112",
+   "price_cents": 6,
+   "product_id": 670541,
+   "name": "Warped Intent",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-113",
+   "price_cents": 9,
+   "product_id": 670542,
+   "name": "Human Karma",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-114",
+   "price_cents": 39,
+   "product_id": 670543,
+   "name": "Look of Determination",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-115",
+   "price_cents": 5,
+   "product_id": 673510,
+   "name": "Distant Reunion",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-116",
+   "price_cents": 7,
+   "product_id": 673511,
+   "name": "Towards Destiny",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-117",
+   "price_cents": 6,
+   "product_id": 670544,
+   "name": "Orga's Order",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-118",
+   "price_cents": 28,
+   "product_id": 670545,
+   "name": "Awakened Potential",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-119",
+   "price_cents": 6,
+   "product_id": 670546,
+   "name": "Awkward Approach",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-120",
+   "price_cents": 6,
+   "product_id": 670547,
+   "name": "Immortal Colasour",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-121",
+   "price_cents": 5,
+   "product_id": 670548,
+   "name": "Unheralded Attack",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-122",
+   "price_cents": 9,
+   "product_id": 673512,
+   "name": "Veteran Tactics",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-123",
+   "price_cents": 21,
+   "product_id": 673513,
+   "name": "Jupitris",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-124",
+   "price_cents": 8,
+   "product_id": 673514,
+   "name": "Ribo Colony",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-125",
+   "price_cents": 17,
+   "product_id": 673515,
+   "name": "Peacemillion",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-126",
+   "price_cents": 9,
+   "product_id": 670549,
+   "name": "Cyclops Team",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-127",
+   "price_cents": 9,
+   "product_id": 673516,
+   "name": "Jachin Due",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-128",
+   "price_cents": 6,
+   "product_id": 673517,
+   "name": "Doritea",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-129",
+   "price_cents": 7,
+   "product_id": 673518,
+   "name": "Hotarubi",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-130",
+   "price_cents": 5,
+   "product_id": 673519,
+   "name": "Downes",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-131",
+   "price_cents": 17,
+   "product_id": 673520,
+   "name": "Eternal",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD03-132",
+   "price_cents": 5,
+   "product_id": 673521,
+   "name": "Radish",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-001",
+   "price_cents": 64,
+   "product_id": 684547,
+   "name": "Gundam (GD04-001)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-002",
+   "price_cents": 26,
+   "product_id": 689646,
+   "name": "Penelope (Flight Form)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-003",
+   "price_cents": 441,
+   "product_id": 689647,
+   "name": "Victory Gundam (GD04-003)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-004",
+   "price_cents": 18,
+   "product_id": 689648,
+   "name": "Psycho Gundam Mk-II",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-005",
+   "price_cents": 8,
+   "product_id": 689649,
+   "name": "GM III",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-006",
+   "price_cents": 69,
+   "product_id": 689650,
+   "name": "V-Dash Gundam",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-007",
+   "price_cents": 14,
+   "product_id": 689651,
+   "name": "Victory Gundam Hexa",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-008",
+   "price_cents": 10,
+   "product_id": 689652,
+   "name": "Gundam (GD04-008)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-009",
+   "price_cents": 12,
+   "product_id": 689653,
+   "name": "Guncannon (108) & Guncannon (109)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-010",
+   "price_cents": 8,
+   "product_id": 689654,
+   "name": "Gaplant",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-011",
+   "price_cents": 9,
+   "product_id": 689655,
+   "name": "Victory Gundam (GD04-011)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-012",
+   "price_cents": 8,
+   "product_id": 689656,
+   "name": "Core Booster (005) & Core Booster (006)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-013",
+   "price_cents": 8,
+   "product_id": 689657,
+   "name": "Core Fighter",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-014",
+   "price_cents": 8,
+   "product_id": 689658,
+   "name": "Shokew",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-015",
+   "price_cents": 9,
+   "product_id": 689659,
+   "name": "Gun EZ",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-016",
+   "price_cents": 18,
+   "product_id": 689660,
+   "name": "Zoloat (League Militaire)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-017",
+   "price_cents": 764,
+   "product_id": 684548,
+   "name": "Zeong",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-018",
+   "price_cents": 50,
+   "product_id": 689661,
+   "name": "Gundam Pharact",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-019",
+   "price_cents": 21,
+   "product_id": 689662,
+   "name": "GN Armor Type-D (Trans-Am)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-020",
+   "price_cents": 22,
+   "product_id": 689663,
+   "name": "Gundam Lfrith Ur",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-021",
+   "price_cents": 20,
+   "product_id": 689664,
+   "name": "Gundam Lfrith Thorn",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-022",
+   "price_cents": 14,
+   "product_id": 689665,
+   "name": "Kikeroga (MS Mode) (GQ)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-023",
+   "price_cents": 8,
+   "product_id": 689666,
+   "name": "Gundam Kyrios (Tail Booster)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-024",
+   "price_cents": 14,
+   "product_id": 689667,
+   "name": "Gundam Aerial Rebuild",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-025",
+   "price_cents": 10,
+   "product_id": 689668,
+   "name": "Gundvolva",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-026",
+   "price_cents": 6,
+   "product_id": 689669,
+   "name": "Garma's Dopp",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-027",
+   "price_cents": 6,
+   "product_id": 689670,
+   "name": "Bigro",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-028",
+   "price_cents": 7,
+   "product_id": 689671,
+   "name": "Zakrello",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-029",
+   "price_cents": 13,
+   "product_id": 689672,
+   "name": "Gundam Dynames (GN Full Shield)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-030",
+   "price_cents": 8,
+   "product_id": 689673,
+   "name": "Chuchu's Demi Trainer",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-031",
+   "price_cents": 7,
+   "product_id": 689674,
+   "name": "Heindree",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-032",
+   "price_cents": 7,
+   "product_id": 689675,
+   "name": "Xavier's Gyan Hakuji-Packs (GQ)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-033",
+   "price_cents": 153,
+   "product_id": 689676,
+   "name": "Neo Zeong",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-034",
+   "price_cents": 287,
+   "product_id": 689677,
+   "name": "Gundam Kyrios",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-035",
+   "price_cents": 15,
+   "product_id": 689678,
+   "name": "Xi Gundam",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-036",
+   "price_cents": 21,
+   "product_id": 689679,
+   "name": "Gundam Throne Eins",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-037",
+   "price_cents": 30,
+   "product_id": 689680,
+   "name": "Gundam Kyrios (Trans-Am)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-038",
+   "price_cents": 106,
+   "product_id": 689681,
+   "name": "Gundam Exia (GD04-038)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-039",
+   "price_cents": 9,
+   "product_id": 689682,
+   "name": "Rozen Zulu",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-040",
+   "price_cents": 10,
+   "product_id": 689683,
+   "name": "Schuzrum-Galluss",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-041",
+   "price_cents": 10,
+   "product_id": 689684,
+   "name": "Gundam Throne Drei",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-042",
+   "price_cents": 9,
+   "product_id": 689685,
+   "name": "Psycho Gundam (GQ)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-043",
+   "price_cents": 9,
+   "product_id": 689686,
+   "name": "Zssa (Sleeves)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-044",
+   "price_cents": 7,
+   "product_id": 689687,
+   "name": "Gadeel",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-045",
+   "price_cents": 10,
+   "product_id": 689688,
+   "name": "Gundam Throne Zwei",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-046",
+   "price_cents": 9,
+   "product_id": 689689,
+   "name": "Gundam Dynames",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-047",
+   "price_cents": 10,
+   "product_id": 689690,
+   "name": "Gundam Virtue",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-048",
+   "price_cents": 6,
+   "product_id": 689691,
+   "name": "Hambrabi (GQ)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-049",
+   "price_cents": 44,
+   "product_id": 689692,
+   "name": "Gundam DX",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-050",
+   "price_cents": 214,
+   "product_id": 689693,
+   "name": "Destiny Gundam",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-051",
+   "price_cents": 9,
+   "product_id": 689694,
+   "name": "Gundam Airmaster Burst",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-052",
+   "price_cents": 16,
+   "product_id": 689695,
+   "name": "Gundam Leopard Destroy",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-053",
+   "price_cents": 20,
+   "product_id": 689696,
+   "name": "Rey's Blaze Zaku Phantom",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-054",
+   "price_cents": 19,
+   "product_id": 689697,
+   "name": "Gundam Virtue (Trans-Am)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-055",
+   "price_cents": 10,
+   "product_id": 689698,
+   "name": "Heine's Gouf Ignited",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-056",
+   "price_cents": 12,
+   "product_id": 689699,
+   "name": "Sword Impulse Gundam",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-057",
+   "price_cents": 8,
+   "product_id": 689700,
+   "name": "Gundam Nadleeh",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-058",
+   "price_cents": 6,
+   "product_id": 689701,
+   "name": "Jamil's Gundam X",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-059",
+   "price_cents": 9,
+   "product_id": 689702,
+   "name": "Daughtress High Mobility Command Wise Wallaby",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-060",
+   "price_cents": 6,
+   "product_id": 689703,
+   "name": "Esperansa",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-061",
+   "price_cents": 9,
+   "product_id": 689704,
+   "name": "G-Falcon",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-062",
+   "price_cents": 13,
+   "product_id": 689705,
+   "name": "Lunamaria's Gunner Zaku Warrior",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-063",
+   "price_cents": 9,
+   "product_id": 689706,
+   "name": "GN Armor Type-E",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-064",
+   "price_cents": 10,
+   "product_id": 689707,
+   "name": "Gundam Exia (GD04-064)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-065",
+   "price_cents": 74,
+   "product_id": 685544,
+   "name": "Unicorn Gundam 02 Banshee Norn (Destroy Mode)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-066",
+   "price_cents": 127,
+   "product_id": 689708,
+   "name": "Unicorn Gundam (Awakened)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-067",
+   "price_cents": 50,
+   "product_id": 689709,
+   "name": "Turn A Gundam (GD04-067)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-068",
+   "price_cents": 576,
+   "product_id": 689710,
+   "name": "Silver Bullet",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-069",
+   "price_cents": 19,
+   "product_id": 689711,
+   "name": "Turn A Gundam (GD04-069)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-070",
+   "price_cents": 11,
+   "product_id": 689712,
+   "name": "Al-Saachez's AEU Enact Custom Moralia Development Experiment Type",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-071",
+   "price_cents": 16,
+   "product_id": 689713,
+   "name": "Graham's Union Flag Custom II (GN Flag)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-072",
+   "price_cents": 8,
+   "product_id": 689714,
+   "name": "Unicorn Gundam 02 Banshee Norn (Unicorn Mode)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-073",
+   "price_cents": 6,
+   "product_id": 689715,
+   "name": "Turn A Gundam (GD04-073)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-074",
+   "price_cents": 5,
+   "product_id": 689716,
+   "name": "Kapool",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-075",
+   "price_cents": 6,
+   "product_id": 689717,
+   "name": "GN-X",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-076",
+   "price_cents": 6,
+   "product_id": 689718,
+   "name": "Hipheavy",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-077",
+   "price_cents": 34,
+   "product_id": 689719,
+   "name": "Flat (Militia)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-078",
+   "price_cents": 8,
+   "product_id": 689720,
+   "name": "Borjarnon",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-079",
+   "price_cents": 6,
+   "product_id": 689721,
+   "name": "Agrissa",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-080",
+   "price_cents": 5,
+   "product_id": 689722,
+   "name": "Alvatore",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-081",
+   "price_cents": 78,
+   "product_id": 689723,
+   "name": "Uso Ewin",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-082",
+   "price_cents": 9,
+   "product_id": 689724,
+   "name": "Rosamia Badam",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-083",
+   "price_cents": 8,
+   "product_id": 689725,
+   "name": "Marbet Fingerhat",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-084",
+   "price_cents": 6,
+   "product_id": 689726,
+   "name": "Sleggar Law",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-085",
+   "price_cents": 40,
+   "product_id": 689727,
+   "name": "Suletta Mercury",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-086",
+   "price_cents": 7,
+   "product_id": 689728,
+   "name": "Garma Zabi",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-087",
+   "price_cents": 7,
+   "product_id": 689729,
+   "name": "Elan Ceres (Enhanced Person Number 5)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-088",
+   "price_cents": 7,
+   "product_id": 689730,
+   "name": "Tokwan",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-089",
+   "price_cents": 33,
+   "product_id": 689731,
+   "name": "Nena Trinity",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-090",
+   "price_cents": 14,
+   "product_id": 689732,
+   "name": "Hallelujah Haptism",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-091",
+   "price_cents": 9,
+   "product_id": 689733,
+   "name": "Deux Murasame",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-092",
+   "price_cents": 7,
+   "product_id": 689734,
+   "name": "Michael Trinity",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-093",
+   "price_cents": 17,
+   "product_id": 689735,
+   "name": "Rey Za Burrel",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-094",
+   "price_cents": 7,
+   "product_id": 689736,
+   "name": "Pala Sys",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-095",
+   "price_cents": 14,
+   "product_id": 689737,
+   "name": "Lunamaria Hawke",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-096",
+   "price_cents": 6,
+   "product_id": 689738,
+   "name": "Ennil El",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-097",
+   "price_cents": 23,
+   "product_id": 689739,
+   "name": "Loran Cehack",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-098",
+   "price_cents": 10,
+   "product_id": 689740,
+   "name": "Riddhe Marcenas",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-099",
+   "price_cents": 6,
+   "product_id": 689741,
+   "name": "Ali al-Saachez",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-100",
+   "price_cents": 8,
+   "product_id": 689742,
+   "name": "Sochie Heim",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-101",
+   "price_cents": 41,
+   "product_id": 689743,
+   "name": "Kindhearted",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-102",
+   "price_cents": 10,
+   "product_id": 689744,
+   "name": "Moment of Rest",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-103",
+   "price_cents": 7,
+   "product_id": 689745,
+   "name": "Spiritual Support",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-104",
+   "price_cents": 6,
+   "product_id": 689746,
+   "name": "Shrike Team's Bulwark",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-105",
+   "price_cents": 21,
+   "product_id": 689747,
+   "name": "Encounter",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-106",
+   "price_cents": 11,
+   "product_id": 689748,
+   "name": "Indiscriminate Violence",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-107",
+   "price_cents": 10,
+   "product_id": 689749,
+   "name": "Destined Battle",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-108",
+   "price_cents": 13,
+   "product_id": 689750,
+   "name": "Witches from Earth",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-109",
+   "price_cents": 299,
+   "product_id": 689751,
+   "name": "Overwhelming Pressure",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-110",
+   "price_cents": 8,
+   "product_id": 689752,
+   "name": "Financier",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-111",
+   "price_cents": 11,
+   "product_id": 689753,
+   "name": "Trinity",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-112",
+   "price_cents": 7,
+   "product_id": 689754,
+   "name": "Inspector",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-113",
+   "price_cents": 31,
+   "product_id": 689755,
+   "name": "Damage Control",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-114",
+   "price_cents": 8,
+   "product_id": 689756,
+   "name": "Reformationist",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-115",
+   "price_cents": 8,
+   "product_id": 689757,
+   "name": "Backup",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-116",
+   "price_cents": 9,
+   "product_id": 689758,
+   "name": "Reliable Big Brother",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-117",
+   "price_cents": 94,
+   "product_id": 689759,
+   "name": "Graceful Demeanor",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-118",
+   "price_cents": 7,
+   "product_id": 689760,
+   "name": "World Distortion",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-119",
+   "price_cents": 4,
+   "product_id": 689761,
+   "name": "Fighting Alone",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-120",
+   "price_cents": 4,
+   "product_id": 689762,
+   "name": "Machine Doll Squad",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-121",
+   "price_cents": 58,
+   "product_id": 689763,
+   "name": "Reineforce Jr.",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-122",
+   "price_cents": 8,
+   "product_id": 689764,
+   "name": "Jaburo",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-123",
+   "price_cents": 10,
+   "product_id": 689765,
+   "name": "A Baoa Qu",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-124",
+   "price_cents": 9,
+   "product_id": 689766,
+   "name": "9th Tactical Testing Sector",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-125",
+   "price_cents": 10,
+   "product_id": 689767,
+   "name": "Trinity Warship",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-126",
+   "price_cents": 7,
+   "product_id": 689768,
+   "name": "Izuma Colony",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-127",
+   "price_cents": 8,
+   "product_id": 689769,
+   "name": "Freeden II",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-128",
+   "price_cents": 9,
+   "product_id": 689770,
+   "name": "Armory One",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-129",
+   "price_cents": 17,
+   "product_id": 689771,
+   "name": "Willgem",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD04-130",
+   "price_cents": 7,
+   "product_id": 689772,
+   "name": "Industrial 7",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-001",
+   "price_cents": 41,
+   "product_id": 705537,
+   "name": "V2 Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-002",
+   "price_cents": 760,
+   "product_id": 705538,
+   "name": "Strike Freedom Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-003",
+   "price_cents": 16,
+   "product_id": 705539,
+   "name": "Waldfeld's Murasame",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-004",
+   "price_cents": 26,
+   "product_id": 705540,
+   "name": "Akatsuki (Oowashi)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-005",
+   "price_cents": 41,
+   "product_id": 705541,
+   "name": "Strike Rouge (Ootori)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-006",
+   "price_cents": 14,
+   "product_id": 705542,
+   "name": "Hashmal",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-007",
+   "price_cents": 8,
+   "product_id": 705543,
+   "name": "Asshimar",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-008",
+   "price_cents": 7,
+   "product_id": 705544,
+   "name": "Dijeh",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-009",
+   "price_cents": 7,
+   "product_id": 705545,
+   "name": "Gun Blaster",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-010",
+   "price_cents": 14,
+   "product_id": 705546,
+   "name": "Kira's Strike Rouge",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-011",
+   "price_cents": 8,
+   "product_id": 705547,
+   "name": "Calamity Gundam & Raider Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-012",
+   "price_cents": 6,
+   "product_id": 705548,
+   "name": "Forbidden Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-013",
+   "price_cents": 9,
+   "product_id": 705549,
+   "name": "Gun EZ",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-014",
+   "price_cents": 12,
+   "product_id": 705550,
+   "name": "Javelin",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-015",
+   "price_cents": 11,
+   "product_id": 705551,
+   "name": "M1 Astray Shrike",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-016",
+   "price_cents": 12,
+   "product_id": 705552,
+   "name": "Murasame",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-017",
+   "price_cents": 169,
+   "product_id": 705553,
+   "name": "Nu Gundam (GD05-017)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-018",
+   "price_cents": 82,
+   "product_id": 705554,
+   "name": "Gundam Calibarn",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-019",
+   "price_cents": 35,
+   "product_id": 705555,
+   "name": "Re-GZ",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-020",
+   "price_cents": 57,
+   "product_id": 705556,
+   "name": "Nu Gundam (GD05-020)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-021",
+   "price_cents": 12,
+   "product_id": 705557,
+   "name": "Gundam AGE-2 Double Bullet",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-022",
+   "price_cents": 28,
+   "product_id": 705558,
+   "name": "Gundam Schwarzette",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-023",
+   "price_cents": 12,
+   "product_id": 705559,
+   "name": "Re-GZ BWS",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-024",
+   "price_cents": 11,
+   "product_id": 705560,
+   "name": "Gundam AGE-2 Normal (SP Ver.)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-025",
+   "price_cents": 10,
+   "product_id": 705561,
+   "name": "Demi Barding",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-026",
+   "price_cents": 9,
+   "product_id": 705562,
+   "name": "Gundam Aerial Rebuild",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-027",
+   "price_cents": 15,
+   "product_id": 705563,
+   "name": "Jegan",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-028",
+   "price_cents": 10,
+   "product_id": 705564,
+   "name": "Kayra's Jegan",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-029",
+   "price_cents": 13,
+   "product_id": 705565,
+   "name": "Kayra's Re-GZ",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-030",
+   "price_cents": 7,
+   "product_id": 705566,
+   "name": "Michaelis",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-031",
+   "price_cents": 10,
+   "product_id": 705567,
+   "name": "Guel's Dilanza",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-032",
+   "price_cents": 9,
+   "product_id": 705568,
+   "name": "Desultor",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-033",
+   "price_cents": 129,
+   "product_id": 705569,
+   "name": "Master Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-034",
+   "price_cents": 25,
+   "product_id": 705570,
+   "name": "Gaia Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-035",
+   "price_cents": 28,
+   "product_id": 705571,
+   "name": "Dragon Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-036",
+   "price_cents": 16,
+   "product_id": 705572,
+   "name": "Haow Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-037",
+   "price_cents": 17,
+   "product_id": 705573,
+   "name": "Destroy Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-038",
+   "price_cents": 18,
+   "product_id": 705574,
+   "name": "Gundam Throne Eins (GN High Mega Launcher)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-039",
+   "price_cents": 9,
+   "product_id": 705575,
+   "name": "Chaos Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-040",
+   "price_cents": 8,
+   "product_id": 705576,
+   "name": "Abyss Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-041",
+   "price_cents": 9,
+   "product_id": 705577,
+   "name": "Gaia Gundam (MA Mode)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-042",
+   "price_cents": 12,
+   "product_id": 705578,
+   "name": "Shining Gundam (GD05-042)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-043",
+   "price_cents": 9,
+   "product_id": 705579,
+   "name": "Neros Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-044",
+   "price_cents": 11,
+   "product_id": 705580,
+   "name": "Gundam Rose",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-045",
+   "price_cents": 7,
+   "product_id": 705581,
+   "name": "Chaos Gundam (MA Mode)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-046",
+   "price_cents": 9,
+   "product_id": 705582,
+   "name": "Abyss Gundam (MA Mode)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-047",
+   "price_cents": 8,
+   "product_id": 705583,
+   "name": "Exass",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-048",
+   "price_cents": 8,
+   "product_id": 705584,
+   "name": "Gundam Kyrios (Flight Mode)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-049",
+   "price_cents": 125,
+   "product_id": 705585,
+   "name": "Sazabi (GD05-049)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-050",
+   "price_cents": 811,
+   "product_id": 705586,
+   "name": "Gundam Exia Repair",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-051",
+   "price_cents": 45,
+   "product_id": 705587,
+   "name": "Gundam Barbatos Lupus Rex",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-052",
+   "price_cents": 24,
+   "product_id": 705588,
+   "name": "Sazabi (GD05-052)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-053",
+   "price_cents": 20,
+   "product_id": 705589,
+   "name": "Quess's Jagd Doga",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-054",
+   "price_cents": 14,
+   "product_id": 705590,
+   "name": "Alpha Azieru",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-055",
+   "price_cents": 20,
+   "product_id": 705591,
+   "name": "Destiny Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-056",
+   "price_cents": 10,
+   "product_id": 705592,
+   "name": "Rezin's Geara Doga",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-057",
+   "price_cents": 11,
+   "product_id": 705593,
+   "name": "Gyunei's Jagd Doga (GD05-057)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-058",
+   "price_cents": 13,
+   "product_id": 705594,
+   "name": "Shiden Custom (Ryusei-Go)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-059",
+   "price_cents": 9,
+   "product_id": 705595,
+   "name": "Gundam Barbatos Lupus",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-060",
+   "price_cents": 14,
+   "product_id": 705596,
+   "name": "Gundam Flauros (Ryusei-Go)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-061",
+   "price_cents": 9,
+   "product_id": 705597,
+   "name": "Geara Doga",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-062",
+   "price_cents": 11,
+   "product_id": 705598,
+   "name": "Hobby Hizack",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-063",
+   "price_cents": 9,
+   "product_id": 705599,
+   "name": "Gyunei's Jagd Doga (GD05-063)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-064",
+   "price_cents": 11,
+   "product_id": 705600,
+   "name": "Force Impulse Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-065",
+   "price_cents": 10,
+   "product_id": 705601,
+   "name": "Landman Rodi",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-066",
+   "price_cents": 219,
+   "product_id": 705602,
+   "name": "Shining Gundam (GD05-066)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-067",
+   "price_cents": 141,
+   "product_id": 705603,
+   "name": "Wing Gundam Zero (EW)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-068",
+   "price_cents": 30,
+   "product_id": 705604,
+   "name": "Shining Gundam (Super Mode)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-069",
+   "price_cents": 88,
+   "product_id": 705605,
+   "name": "Gundam Maxter",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-070",
+   "price_cents": 16,
+   "product_id": 705606,
+   "name": "Tallgeese III",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-071",
+   "price_cents": 17,
+   "product_id": 705607,
+   "name": "Gundam Sandrock Custom (EW)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-072",
+   "price_cents": 15,
+   "product_id": 705608,
+   "name": "Rising Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-073",
+   "price_cents": 11,
+   "product_id": 705609,
+   "name": "Altron Gundam (EW)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-074",
+   "price_cents": 10,
+   "product_id": 705610,
+   "name": "Noin's Taurus",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-075",
+   "price_cents": 11,
+   "product_id": 705611,
+   "name": "Royal Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-076",
+   "price_cents": 11,
+   "product_id": 705612,
+   "name": "Bolt Gundam",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-077",
+   "price_cents": 12,
+   "product_id": 705613,
+   "name": "Leo",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-078",
+   "price_cents": 12,
+   "product_id": 705614,
+   "name": "Gundam Deathscythe Hell (EW)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-079",
+   "price_cents": 10,
+   "product_id": 705615,
+   "name": "Gundam Heavyarms Custom (EW)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-080",
+   "price_cents": 6,
+   "product_id": 705616,
+   "name": "Gavane's Borjarnon",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-081",
+   "price_cents": 144,
+   "product_id": 705617,
+   "name": "Kira Yamato",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-082",
+   "price_cents": 10,
+   "product_id": 705618,
+   "name": "Andrew Waldfeld",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-083",
+   "price_cents": 12,
+   "product_id": 705619,
+   "name": "Cagalli Yula Athha",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-084",
+   "price_cents": 6,
+   "product_id": 705620,
+   "name": "Odelo Henrik",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-085",
+   "price_cents": 102,
+   "product_id": 705621,
+   "name": "Amuro Ray",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-086",
+   "price_cents": 9,
+   "product_id": 705622,
+   "name": "Kayra Su",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-087",
+   "price_cents": 8,
+   "product_id": 705623,
+   "name": "Lauda Neill",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-088",
+   "price_cents": 8,
+   "product_id": 705624,
+   "name": "Prospera Mercury",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-089",
+   "price_cents": 128,
+   "product_id": 705625,
+   "name": "Master Asia",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-090",
+   "price_cents": 19,
+   "product_id": 705626,
+   "name": "Stellar Loussier",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-091",
+   "price_cents": 8,
+   "product_id": 705627,
+   "name": "Sting Oakley",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-092",
+   "price_cents": 8,
+   "product_id": 705628,
+   "name": "Auel Neider",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-093",
+   "price_cents": 68,
+   "product_id": 705629,
+   "name": "Char Aznable",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-094",
+   "price_cents": 11,
+   "product_id": 705630,
+   "name": "Quess Paraya",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-095",
+   "price_cents": 8,
+   "product_id": 705631,
+   "name": "Gyunei Guss",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-096",
+   "price_cents": 8,
+   "product_id": 705632,
+   "name": "Chad Chadan",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-097",
+   "price_cents": 67,
+   "product_id": 705633,
+   "name": "Domon Kasshu",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-098",
+   "price_cents": 31,
+   "product_id": 705634,
+   "name": "Heero Yuy",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-099",
+   "price_cents": 12,
+   "product_id": 705635,
+   "name": "Trowa Barton",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-100",
+   "price_cents": 12,
+   "product_id": 705636,
+   "name": "Quatre Raberba Winner",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-101",
+   "price_cents": 7,
+   "product_id": 705637,
+   "name": "Gavane Goonny",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-102",
+   "price_cents": 19,
+   "product_id": 705638,
+   "name": "Wings of Light",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-103",
+   "price_cents": 8,
+   "product_id": 705639,
+   "name": "Not with Scattershot!",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-104",
+   "price_cents": 9,
+   "product_id": 705640,
+   "name": "At the Risk of One's Life",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-105",
+   "price_cents": 12,
+   "product_id": 705641,
+   "name": "Exclusively Defense-Oriented Policy",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-106",
+   "price_cents": 18,
+   "product_id": 705642,
+   "name": "Mutual Attraction",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-107",
+   "price_cents": 9,
+   "product_id": 705643,
+   "name": "Interwoven Blessings",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-108",
+   "price_cents": 11,
+   "product_id": 705644,
+   "name": "Overcoming Hardships",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-109",
+   "price_cents": 7,
+   "product_id": 705645,
+   "name": "Felsi's Plea",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-110",
+   "price_cents": 791,
+   "product_id": 705646,
+   "name": "Darkness Finger",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-111",
+   "price_cents": 99,
+   "product_id": 705647,
+   "name": "Airframe Seizure",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-112",
+   "price_cents": 11,
+   "product_id": 705648,
+   "name": "Hoka Kyoten Juzetsujin",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-113",
+   "price_cents": 12,
+   "product_id": 705649,
+   "name": "Rose Screamer",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-114",
+   "price_cents": 35,
+   "product_id": 705650,
+   "name": "Widespread Annihilation",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-115",
+   "price_cents": 8,
+   "product_id": 705651,
+   "name": "Newtype Labs Director",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-116",
+   "price_cents": 7,
+   "product_id": 705652,
+   "name": "Veteran's Pride",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-117",
+   "price_cents": 8,
+   "product_id": 705653,
+   "name": "Become a Shield",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-118",
+   "price_cents": 9,
+   "product_id": 705654,
+   "name": "Incendiary Spark",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-119",
+   "price_cents": 15,
+   "product_id": 705655,
+   "name": "A Wind Against Fires",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-120",
+   "price_cents": 16,
+   "product_id": 705656,
+   "name": "Shining Finger (GD05-120)",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-121",
+   "price_cents": 14,
+   "product_id": 705657,
+   "name": "Cyclone Punch",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-122",
+   "price_cents": 10,
+   "product_id": 705658,
+   "name": "Graviton Hammer",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-123",
+   "price_cents": 12,
+   "product_id": 705659,
+   "name": "Archangel",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-124",
+   "price_cents": 8,
+   "product_id": 705660,
+   "name": "White Ark",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-125",
+   "price_cents": 13,
+   "product_id": 705661,
+   "name": "Ra Cailum",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-126",
+   "price_cents": 11,
+   "product_id": 705662,
+   "name": "Quiet Zero",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-127",
+   "price_cents": 9,
+   "product_id": 705663,
+   "name": "Girty Lue",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-128",
+   "price_cents": 15,
+   "product_id": 705664,
+   "name": "Gundam Fight",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-129",
+   "price_cents": 68,
+   "product_id": 705665,
+   "name": "Axis",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "GD05-130",
+   "price_cents": 8,
+   "product_id": 705666,
+   "name": "Presidential Office",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-001",
+   "price_cents": 9,
+   "product_id": 643291,
+   "name": "Resource",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-002",
+   "price_cents": 27,
+   "product_id": 643292,
+   "name": "Resource (R-002)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-003",
+   "price_cents": 28,
+   "product_id": 643293,
+   "name": "Resource (R-003)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-004",
+   "price_cents": 40,
+   "product_id": 643294,
+   "name": "Resource (R-004)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-005",
+   "price_cents": 55,
+   "product_id": 643295,
+   "name": "Resource (R-005)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-006",
+   "price_cents": 25,
+   "product_id": 643296,
+   "name": "Resource (R-006)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-007",
+   "price_cents": 19,
+   "product_id": 643297,
+   "name": "Resource (R-007)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-008",
+   "price_cents": 27,
+   "product_id": 643298,
+   "name": "Resource (R-008)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-009",
+   "price_cents": 32,
+   "product_id": 643299,
+   "name": "Resource (R-009)",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-010",
+   "price_cents": 16,
+   "product_id": 659361,
+   "name": "Resource (R-010)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-011",
+   "price_cents": 25,
+   "product_id": 659363,
+   "name": "Resource (R-011)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-012",
+   "price_cents": 17,
+   "product_id": 659365,
+   "name": "Resource (R-012)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-013",
+   "price_cents": 17,
+   "product_id": 659367,
+   "name": "Resource (R-013)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-014",
+   "price_cents": 18,
+   "product_id": 659369,
+   "name": "Resource (R-014)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-015",
+   "price_cents": 23,
+   "product_id": 659371,
+   "name": "Resource (R-015)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-016",
+   "price_cents": 17,
+   "product_id": 659374,
+   "name": "Resource (R-016)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-017",
+   "price_cents": 26,
+   "product_id": 659376,
+   "name": "Resource (R-017)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-018",
+   "price_cents": 22,
+   "product_id": 659378,
+   "name": "Resource (R-018)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-019",
+   "price_cents": 15,
+   "product_id": 659380,
+   "name": "Resource (R-019)",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-020",
+   "price_cents": 13,
+   "product_id": 673522,
+   "name": "Resource (R-020)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-021",
+   "price_cents": 17,
+   "product_id": 673523,
+   "name": "Resource (R-021)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-022",
+   "price_cents": 16,
+   "product_id": 673524,
+   "name": "Resource (R-022)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-023",
+   "price_cents": 17,
+   "product_id": 673525,
+   "name": "Resource (R-023)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-024",
+   "price_cents": 16,
+   "product_id": 673526,
+   "name": "Resource (R-024)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-025",
+   "price_cents": 16,
+   "product_id": 673527,
+   "name": "Resource (R-025)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-026",
+   "price_cents": 16,
+   "product_id": 673528,
+   "name": "Resource (R-026)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-027",
+   "price_cents": 14,
+   "product_id": 673529,
+   "name": "Resource (R-027)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-028",
+   "price_cents": 16,
+   "product_id": 673530,
+   "name": "Resource (R-028)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-029",
+   "price_cents": 12,
+   "product_id": 673531,
+   "name": "Resource (R-029)",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-030",
+   "price_cents": 14,
+   "product_id": 684023,
+   "name": "Resource (R-030)",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-031",
+   "price_cents": 14,
+   "product_id": 689777,
+   "name": "Resource (R-031)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-032",
+   "price_cents": 16,
+   "product_id": 689778,
+   "name": "Resource (R-032)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-033",
+   "price_cents": 13,
+   "product_id": 689779,
+   "name": "Resource (R-033)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-034",
+   "price_cents": 12,
+   "product_id": 689780,
+   "name": "Resource (R-034)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-035",
+   "price_cents": 16,
+   "product_id": 689781,
+   "name": "Resource (R-035)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-036",
+   "price_cents": 15,
+   "product_id": 689782,
+   "name": "Resource (R-036)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-037",
+   "price_cents": 15,
+   "product_id": 689783,
+   "name": "Resource (R-037)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-038",
+   "price_cents": 13,
+   "product_id": 689784,
+   "name": "Resource (R-038)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-039",
+   "price_cents": 14,
+   "product_id": 689785,
+   "name": "Resource (R-039)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-040",
+   "price_cents": 17,
+   "product_id": 689786,
+   "name": "Resource (R-040)",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "R-041",
+   "price_cents": 19,
+   "product_id": 701022,
+   "name": "Resource (R-041)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-001",
+   "price_cents": 342,
+   "product_id": 705699,
+   "name": "Gundam",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-002",
+   "price_cents": 12,
+   "product_id": 641437,
+   "name": "Gundam (MA Form)",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-003",
+   "price_cents": 12,
+   "product_id": 641438,
+   "name": "Guncannon",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-004",
+   "price_cents": 14,
+   "product_id": 641439,
+   "name": "Guntank",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-005",
+   "price_cents": 63,
+   "product_id": 641440,
+   "name": "GM",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-006",
+   "price_cents": 62,
+   "product_id": 641441,
+   "name": "Gundam Aerial (Permet Score Six)",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-007",
+   "price_cents": 14,
+   "product_id": 641442,
+   "name": "Gundam Aerial (Bit on Form)",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-008",
+   "price_cents": 17,
+   "product_id": 641443,
+   "name": "Demi Trainer",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-009",
+   "price_cents": 99,
+   "product_id": 641444,
+   "name": "Zowort",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-010",
+   "price_cents": 61,
+   "product_id": 705700,
+   "name": "Amuro Ray",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-011",
+   "price_cents": 118,
+   "product_id": 641446,
+   "name": "Suletta Mercury",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-012",
+   "price_cents": 21,
+   "product_id": 616606,
+   "name": "Thoroughly Damaged",
+   "set_code": "GD01_b",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-013",
+   "price_cents": 17,
+   "product_id": 641448,
+   "name": "Kai's Resolve",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-014",
+   "price_cents": 19,
+   "product_id": 684010,
+   "name": "Unforeseen Incident",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-015",
+   "price_cents": 80,
+   "product_id": 641450,
+   "name": "White Base",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST01-016",
+   "price_cents": 22,
+   "product_id": 641451,
+   "name": "Asticassia School of Technology, Earth House",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-001",
+   "price_cents": 47,
+   "product_id": 705702,
+   "name": "Wing Gundam",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-002",
+   "price_cents": 55,
+   "product_id": 641469,
+   "name": "Wing Gundam (Bird Mode)",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-003",
+   "price_cents": 14,
+   "product_id": 641470,
+   "name": "Gundam Heavyarms",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-004",
+   "price_cents": 16,
+   "product_id": 641471,
+   "name": "Gundam Sandrock",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-005",
+   "price_cents": 18,
+   "product_id": 641472,
+   "name": "Maganac",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-006",
+   "price_cents": 63,
+   "product_id": 641473,
+   "name": "Tallgeese",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-007",
+   "price_cents": 14,
+   "product_id": 641474,
+   "name": "Leo",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-008",
+   "price_cents": 17,
+   "product_id": 641475,
+   "name": "Aries",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-009",
+   "price_cents": 20,
+   "product_id": 641476,
+   "name": "Tragos",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-010",
+   "price_cents": 13,
+   "product_id": 705703,
+   "name": "Heero Yuy",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-011",
+   "price_cents": 44,
+   "product_id": 641478,
+   "name": "Zechs Merquise",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-012",
+   "price_cents": 25,
+   "product_id": 641479,
+   "name": "Simultaneous Fire",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-013",
+   "price_cents": 25,
+   "product_id": 641480,
+   "name": "Peaceful Timbre",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-014",
+   "price_cents": 34,
+   "product_id": 671948,
+   "name": "Siege Ploy",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-015",
+   "price_cents": 20,
+   "product_id": 641482,
+   "name": "Saint Gabriel Institute",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST02-016",
+   "price_cents": 659,
+   "product_id": 641483,
+   "name": "Corsica Base",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-001",
+   "price_cents": 33,
+   "product_id": 705704,
+   "name": "Sinanju",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-002",
+   "price_cents": 9,
+   "product_id": 641501,
+   "name": "Angelo's Geara Zulu",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-003",
+   "price_cents": 17,
+   "product_id": 641502,
+   "name": "Geara Zulu",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-004",
+   "price_cents": 13,
+   "product_id": 641503,
+   "name": "Gaza D (Sleeves)",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-005",
+   "price_cents": 13,
+   "product_id": 641504,
+   "name": "Dra-C (Sleeves)",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-006",
+   "price_cents": 1053,
+   "product_id": 641505,
+   "name": "Char's Zaku II",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-007",
+   "price_cents": 26,
+   "product_id": 641506,
+   "name": "Zaku I",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-008",
+   "price_cents": 688,
+   "product_id": 616619,
+   "name": "Zaku II",
+   "set_code": "GD01_b",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-009",
+   "price_cents": 21,
+   "product_id": 641508,
+   "name": "Gouf",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-010",
+   "price_cents": 19,
+   "product_id": 705705,
+   "name": "Full Frontal",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-011",
+   "price_cents": 109,
+   "product_id": 641510,
+   "name": "Char Aznable",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-012",
+   "price_cents": 16,
+   "product_id": 641511,
+   "name": "Indignation",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-013",
+   "price_cents": 119,
+   "product_id": 641512,
+   "name": "Close Combat",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-014",
+   "price_cents": 24,
+   "product_id": 641513,
+   "name": "The Blue Giant",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-015",
+   "price_cents": 23,
+   "product_id": 705707,
+   "name": "Rewloola",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST03-016",
+   "price_cents": 42,
+   "product_id": 641515,
+   "name": "Falmel",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-001",
+   "price_cents": 129,
+   "product_id": 705708,
+   "name": "Aile Strike Gundam",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-002",
+   "price_cents": 14,
+   "product_id": 684011,
+   "name": "Strike Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-003",
+   "price_cents": 10,
+   "product_id": 641534,
+   "name": "Moebius Zero",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-004",
+   "price_cents": 15,
+   "product_id": 641535,
+   "name": "Moebius",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-005",
+   "price_cents": 11,
+   "product_id": 641536,
+   "name": "Strike Dagger",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-006",
+   "price_cents": 184,
+   "product_id": 641537,
+   "name": "Aegis Gundam",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-007",
+   "price_cents": 13,
+   "product_id": 684012,
+   "name": "Aegis Gundam (MA Mode)",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-008",
+   "price_cents": 32,
+   "product_id": 641539,
+   "name": "Ginn",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-009",
+   "price_cents": 12,
+   "product_id": 641540,
+   "name": "Miguel's Ginn",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-010",
+   "price_cents": 15,
+   "product_id": 705709,
+   "name": "Kira Yamato",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-011",
+   "price_cents": 19,
+   "product_id": 684014,
+   "name": "Athrun Zala",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-012",
+   "price_cents": 197,
+   "product_id": 641543,
+   "name": "Striker Pack",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-013",
+   "price_cents": 26,
+   "product_id": 641544,
+   "name": "Hawk of Endymion",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-014",
+   "price_cents": 18,
+   "product_id": 641545,
+   "name": "The Magic Bullet of Dusk",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-015",
+   "price_cents": 12,
+   "product_id": 705710,
+   "name": "Archangel",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST04-016",
+   "price_cents": 17,
+   "product_id": 684016,
+   "name": "Vesalius",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-001",
+   "price_cents": 28,
+   "product_id": 705711,
+   "name": "Gundam Barbatos 4th Form",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-002",
+   "price_cents": 14,
+   "product_id": 651165,
+   "name": "Gundam Barbatos 2nd Form",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-003",
+   "price_cents": 16,
+   "product_id": 651161,
+   "name": "CGS Mobile Worker",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-004",
+   "price_cents": 49,
+   "product_id": 653631,
+   "name": "Graze Custom",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-005",
+   "price_cents": 15,
+   "product_id": 653632,
+   "name": "Gundam Gusion Rebake",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-006",
+   "price_cents": 161,
+   "product_id": 652658,
+   "name": "Hyakuren",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-007",
+   "price_cents": 25,
+   "product_id": 652309,
+   "name": "McGillis' Schwalbe Graze",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-008",
+   "price_cents": 17,
+   "product_id": 653162,
+   "name": "Graze Commander Type",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-009",
+   "price_cents": 24,
+   "product_id": 651162,
+   "name": "Graze",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-010",
+   "price_cents": 20,
+   "product_id": 705712,
+   "name": "Mikazuki Augus",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-011",
+   "price_cents": 22,
+   "product_id": 653633,
+   "name": "Akihiro Altland",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-012",
+   "price_cents": 21,
+   "product_id": 652311,
+   "name": "McGillis Fareed",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-013",
+   "price_cents": 32,
+   "product_id": 651163,
+   "name": "With Iron and Blood",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-014",
+   "price_cents": 18,
+   "product_id": 705713,
+   "name": "Fatal Strike",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST05-015",
+   "price_cents": 21,
+   "product_id": 653634,
+   "name": "Isaribi",
+   "set_code": "ST05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-001",
+   "price_cents": 58,
+   "product_id": 659093,
+   "name": "GQuuuuuuX (Omega Psycommu) (LR)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-002",
+   "price_cents": 14,
+   "product_id": 659095,
+   "name": "GQuuuuuuX (Omega Psycommu) (C)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-003",
+   "price_cents": 13,
+   "product_id": 659097,
+   "name": "Gaia's Rick Dom (GQ)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-004",
+   "price_cents": 25,
+   "product_id": 660489,
+   "name": "Gelgoog (GQ)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-005",
+   "price_cents": 46,
+   "product_id": 651166,
+   "name": "Red Gundam",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-006",
+   "price_cents": 20,
+   "product_id": 659100,
+   "name": "Red Gundam (C)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-007",
+   "price_cents": 13,
+   "product_id": 659102,
+   "name": "Ortega's Rick Dom (GQ)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-008",
+   "price_cents": 13,
+   "product_id": 659104,
+   "name": "Sugai's Gelgoog (GQ)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-009",
+   "price_cents": 19,
+   "product_id": 659106,
+   "name": "Amate Yuzuriha (Machu)",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-010",
+   "price_cents": 15,
+   "product_id": 651167,
+   "name": "Shuji Ito",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-011",
+   "price_cents": 16,
+   "product_id": 659109,
+   "name": "Ruthless Tactics",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-012",
+   "price_cents": 14,
+   "product_id": 659111,
+   "name": "Schoolgirl and Smuggler",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-013",
+   "price_cents": 17,
+   "product_id": 659113,
+   "name": "Fierce Unity",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-014",
+   "price_cents": 25,
+   "product_id": 659115,
+   "name": "Clan Battle",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST06-015",
+   "price_cents": 29,
+   "product_id": 659117,
+   "name": "Kaneban Co., Ltd.",
+   "set_code": "ST06",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-001",
+   "price_cents": 64,
+   "product_id": 670563,
+   "name": "Gundam Exia (ST07-001)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-002",
+   "price_cents": 13,
+   "product_id": 670564,
+   "name": "Gundam Exia (ST07-002)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-003",
+   "price_cents": 10,
+   "product_id": 670565,
+   "name": "Gundam Virtue (ST07-003)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-004",
+   "price_cents": 22,
+   "product_id": 670566,
+   "name": "Gundam Virtue (ST07-004)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-005",
+   "price_cents": 63,
+   "product_id": 671914,
+   "name": "Gundam Dynames (LR)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-006",
+   "price_cents": 14,
+   "product_id": 670567,
+   "name": "Gundam Dynames (ST07-006)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-007",
+   "price_cents": 19,
+   "product_id": 670568,
+   "name": "Gundam Kyrios (ST07-007)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-008",
+   "price_cents": 13,
+   "product_id": 670569,
+   "name": "Gundam Kyrios (Flight Mode)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-009",
+   "price_cents": 20,
+   "product_id": 670570,
+   "name": "Setsuna F. Seiei",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-010",
+   "price_cents": 18,
+   "product_id": 670562,
+   "name": "Tieria Erde",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-011",
+   "price_cents": 40,
+   "product_id": 671918,
+   "name": "Lockon Stratos (Neil)",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-012",
+   "price_cents": 18,
+   "product_id": 670571,
+   "name": "Allelujah Haptism",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-013",
+   "price_cents": 23,
+   "product_id": 671920,
+   "name": "Armed Intervention",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-014",
+   "price_cents": 16,
+   "product_id": 670572,
+   "name": "Tactical Visionary",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST07-015",
+   "price_cents": 13,
+   "product_id": 671925,
+   "name": "Ptolemaios",
+   "set_code": "ST07",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-001",
+   "price_cents": 45,
+   "product_id": 670551,
+   "name": "Xi Gundam (ST08-001)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-002",
+   "price_cents": 11,
+   "product_id": 670552,
+   "name": "Xi Gundam (ST08-002)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-003",
+   "price_cents": 15,
+   "product_id": 670553,
+   "name": "Messer (Type-F Naked) (Commander Type)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-004",
+   "price_cents": 11,
+   "product_id": 670554,
+   "name": "Messer Type-F01",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-005",
+   "price_cents": 28,
+   "product_id": 670555,
+   "name": "Messer Type-F02 Minelayer",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-006",
+   "price_cents": 57,
+   "product_id": 671951,
+   "name": "Penelope (LR)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-007",
+   "price_cents": 16,
+   "product_id": 670556,
+   "name": "Penelope (ST08-007)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-008",
+   "price_cents": 13,
+   "product_id": 671956,
+   "name": "Gustav Karl Type-00",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-009",
+   "price_cents": 14,
+   "product_id": 670557,
+   "name": "Jegan Ground Type-A (Man Hunter)",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-010",
+   "price_cents": 14,
+   "product_id": 670558,
+   "name": "Hathaway Noa",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-011",
+   "price_cents": 16,
+   "product_id": 671960,
+   "name": "Lane Aim",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-012",
+   "price_cents": 12,
+   "product_id": 671963,
+   "name": "Words for Hathaway",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-013",
+   "price_cents": 13,
+   "product_id": 670559,
+   "name": "Lady Luck",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-014",
+   "price_cents": 14,
+   "product_id": 670560,
+   "name": "Valiant",
+   "set_code": "ST08",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST08-015",
+   "price_cents": 25,
+   "product_id": 705714,
+   "name": "Davao",
+   "set_code": "SC01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-001",
+   "price_cents": 368,
+   "product_id": 684000,
+   "name": "Impulse Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-002",
+   "price_cents": 150,
+   "product_id": 684001,
+   "name": "Force Impulse Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-003",
+   "price_cents": 75,
+   "product_id": 684002,
+   "name": "Saviour Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-004",
+   "price_cents": 250,
+   "product_id": 684003,
+   "name": "Freedom Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-005",
+   "price_cents": 20,
+   "product_id": 684004,
+   "name": "Zaku Warrior",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-006",
+   "price_cents": 17,
+   "product_id": 684005,
+   "name": "Sword Impulse Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-007",
+   "price_cents": 17,
+   "product_id": 684006,
+   "name": "Blast Impulse Gundam",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-008",
+   "price_cents": 23,
+   "product_id": 684007,
+   "name": "Shinn Asuka",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-009",
+   "price_cents": 302,
+   "product_id": 684008,
+   "name": "Giant Killing",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST09-010",
+   "price_cents": 81,
+   "product_id": 684009,
+   "name": "Minerva",
+   "set_code": "ST09",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-001",
+   "price_cents": 104,
+   "product_id": 701003,
+   "name": "Zeta Gundam (EX)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-002",
+   "price_cents": 23,
+   "product_id": 701004,
+   "name": "Zeta Gundam",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-003",
+   "price_cents": 18,
+   "product_id": 701005,
+   "name": "Gundam Mk-II (AEUG)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-004",
+   "price_cents": 20,
+   "product_id": 701006,
+   "name": "Super Gundam",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-005",
+   "price_cents": 30,
+   "product_id": 701007,
+   "name": "Nemo",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-006",
+   "price_cents": 82,
+   "product_id": 701008,
+   "name": "Phoenix Gundam (Power Unleashed) (EX)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-007",
+   "price_cents": 20,
+   "product_id": 701009,
+   "name": "Gundam Barbatos 4th Form",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-008",
+   "price_cents": 19,
+   "product_id": 701010,
+   "name": "Gundam Barbatos 1st Form",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-009",
+   "price_cents": 22,
+   "product_id": 701011,
+   "name": "Graze Duel Type",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-010",
+   "price_cents": 20,
+   "product_id": 701012,
+   "name": "Mobile Worker (Tekkadan)",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-011",
+   "price_cents": 25,
+   "product_id": 701013,
+   "name": "Kamille Bidan",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-012",
+   "price_cents": 37,
+   "product_id": 701014,
+   "name": "Mark Guilder",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-013",
+   "price_cents": 18,
+   "product_id": 701015,
+   "name": "Tactical Training",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-014",
+   "price_cents": 152,
+   "product_id": 701016,
+   "name": "Unlocking the Development Diagram",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-015",
+   "price_cents": 22,
+   "product_id": 701017,
+   "name": "Diffuse Beam Cannon",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST10-016",
+   "price_cents": 15,
+   "product_id": 701018,
+   "name": "Luna Mana & Carry Base",
+   "set_code": "ST10",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-001",
+   "price_cents": 182,
+   "product_id": 716364,
+   "name": "Char's Z'Gok",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-002",
+   "price_cents": 19,
+   "product_id": 716365,
+   "name": "Acguy",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-003",
+   "price_cents": 19,
+   "product_id": 716366,
+   "name": "Zock",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-004",
+   "price_cents": 20,
+   "product_id": 716367,
+   "name": "ZnO",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-005",
+   "price_cents": 14,
+   "product_id": 716368,
+   "name": "Ash",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-006",
+   "price_cents": 98,
+   "product_id": 716369,
+   "name": "Shamblo",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-007",
+   "price_cents": 26,
+   "product_id": 716370,
+   "name": "Gundam Leopard",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-008",
+   "price_cents": 21,
+   "product_id": 716371,
+   "name": "Daughseat",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-009",
+   "price_cents": 60,
+   "product_id": 716372,
+   "name": "Kapool",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-010",
+   "price_cents": 24,
+   "product_id": 716373,
+   "name": "Abyss Gundam",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-011",
+   "price_cents": 25,
+   "product_id": 716374,
+   "name": "Char Aznable",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-012",
+   "price_cents": 20,
+   "product_id": 716375,
+   "name": "Loni Garvey",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-013",
+   "price_cents": 33,
+   "product_id": 716376,
+   "name": "Poorly Planned Offensive",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-014",
+   "price_cents": 15,
+   "product_id": 716377,
+   "name": "The Orca of Red Sea",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-015",
+   "price_cents": 21,
+   "product_id": 716378,
+   "name": "A Twinkle from the Abyss",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST11-016",
+   "price_cents": 12,
+   "product_id": 716379,
+   "name": "Mad Angler",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-001",
+   "price_cents": 195,
+   "product_id": 716380,
+   "name": "Gundam Epyon",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-002",
+   "price_cents": 20,
+   "product_id": 716381,
+   "name": "Shining Gundam",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-003",
+   "price_cents": 15,
+   "product_id": 716382,
+   "name": "Tallgeese III",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-004",
+   "price_cents": 20,
+   "product_id": 716383,
+   "name": "Gundam Exia",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-005",
+   "price_cents": 28,
+   "product_id": 716384,
+   "name": "GQuuuuuuX (Omega Psycommu)",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-006",
+   "price_cents": 149,
+   "product_id": 716385,
+   "name": "Unicorn Gundam 02 Banshee (Destroy Mode)",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-007",
+   "price_cents": 14,
+   "product_id": 716386,
+   "name": "Gyan",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-008",
+   "price_cents": 18,
+   "product_id": 716387,
+   "name": "Efreet Schneid",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-009",
+   "price_cents": 18,
+   "product_id": 716388,
+   "name": "Unicorn Gundam 02 Banshee (Unicorn Mode)",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-010",
+   "price_cents": 21,
+   "product_id": 716389,
+   "name": "Slash Zaku Phantom",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-011",
+   "price_cents": 26,
+   "product_id": 716390,
+   "name": "Milliardo Peacecraft",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-012",
+   "price_cents": 21,
+   "product_id": 716391,
+   "name": "Ple-Twelve",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-013",
+   "price_cents": 39,
+   "product_id": 716392,
+   "name": "The Final Victor",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-014",
+   "price_cents": 14,
+   "product_id": 716393,
+   "name": "Wise Leader's Pride",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-015",
+   "price_cents": 24,
+   "product_id": 716394,
+   "name": "Two Unicorns",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST12-016",
+   "price_cents": 14,
+   "product_id": 716395,
+   "name": "Libra",
+   "set_code": "ST12",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-001",
+   "price_cents": 121,
+   "product_id": 716396,
+   "name": "Qubeley",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-002",
+   "price_cents": 12,
+   "product_id": 716397,
+   "name": "Elmeth",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-003",
+   "price_cents": 16,
+   "product_id": 716398,
+   "name": "Bertigo",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-004",
+   "price_cents": 13,
+   "product_id": 716399,
+   "name": "GX-Bit",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-005",
+   "price_cents": 13,
+   "product_id": 716400,
+   "name": "GFreD",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-006",
+   "price_cents": 186,
+   "product_id": 716401,
+   "name": "Gundam Aerial",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-007",
+   "price_cents": 28,
+   "product_id": 716402,
+   "name": "Gyunei's Jagd Doga",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-008",
+   "price_cents": 33,
+   "product_id": 716403,
+   "name": "Gundam Throne Zwei",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-009",
+   "price_cents": 14,
+   "product_id": 716404,
+   "name": "Gundam Pharact",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-010",
+   "price_cents": 12,
+   "product_id": 716405,
+   "name": "Red Gundam (0079)",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-011",
+   "price_cents": 15,
+   "product_id": 716406,
+   "name": "Haman Karn",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-012",
+   "price_cents": 32,
+   "product_id": 716407,
+   "name": "Suletta Mercury",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-013",
+   "price_cents": 15,
+   "product_id": 716408,
+   "name": "I'm a Newtype",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-014",
+   "price_cents": 30,
+   "product_id": 716409,
+   "name": "Final Duty",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-015",
+   "price_cents": 26,
+   "product_id": 716410,
+   "name": "Operation to Intercept Solomon",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST13-016",
+   "price_cents": 19,
+   "product_id": 716411,
+   "name": "Sodon",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-001",
+   "price_cents": 66,
+   "product_id": 716412,
+   "name": "The-O",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-002",
+   "price_cents": 20,
+   "product_id": 716413,
+   "name": "Gundam NT-1 Full Armor",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-003",
+   "price_cents": 16,
+   "product_id": 716414,
+   "name": "Palace Athene",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-004",
+   "price_cents": 19,
+   "product_id": 716415,
+   "name": "Geara Doga (Heavy Armed Type)",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-005",
+   "price_cents": 22,
+   "product_id": 716416,
+   "name": "G-Falcon DX",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-006",
+   "price_cents": 66,
+   "product_id": 716417,
+   "name": "Full Armor Unicorn Gundam (Destroy Mode)",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-007",
+   "price_cents": 20,
+   "product_id": 716418,
+   "name": "Full Armor Unicorn Gundam (Unicorn Mode)",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-008",
+   "price_cents": 18,
+   "product_id": 716419,
+   "name": "Gundam Heavyarms Custom (EW)",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-009",
+   "price_cents": 19,
+   "product_id": 716420,
+   "name": "Duel Gundam (Assault Shroud)",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-010",
+   "price_cents": 21,
+   "product_id": 716421,
+   "name": "Perfect Strike Gundam",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-011",
+   "price_cents": 23,
+   "product_id": 716422,
+   "name": "Paptimus Scirocco",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-012",
+   "price_cents": 32,
+   "product_id": 716423,
+   "name": "Banagher Links",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-013",
+   "price_cents": 49,
+   "product_id": 716424,
+   "name": "Natural Talent",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-014",
+   "price_cents": 28,
+   "product_id": 716425,
+   "name": "Blazing Mobile Suit Rider",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-015",
+   "price_cents": 22,
+   "product_id": 716426,
+   "name": "Battlefield Emotions",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "ST14-016",
+   "price_cents": 14,
+   "product_id": 716427,
+   "name": "Gryphios 2",
+   "set_code": "ST14",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-001",
+   "price_cents": 56,
+   "product_id": 643280,
+   "name": "Gundam (T-001) Token",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-002",
+   "price_cents": 41,
+   "product_id": 643281,
+   "name": "Guncannon (T-002) Token",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-003",
+   "price_cents": 70,
+   "product_id": 643282,
+   "name": "Guntank (T-003) Token",
+   "set_code": "ST01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-004",
+   "price_cents": 188,
+   "product_id": 643283,
+   "name": "Leo (T-004) Token",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-005",
+   "price_cents": 102,
+   "product_id": 643284,
+   "name": "Tallgeese (T-005) Token",
+   "set_code": "ST02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-006",
+   "price_cents": 28,
+   "product_id": 643285,
+   "name": "Char's Zaku II (T-006) Token",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-007",
+   "price_cents": 20,
+   "product_id": 643286,
+   "name": "Zaku II (T-007) Token",
+   "set_code": "ST03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-008",
+   "price_cents": 110,
+   "product_id": 643287,
+   "name": "Aile Strike Gundam (T-008) Token",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-009",
+   "price_cents": 118,
+   "product_id": 643288,
+   "name": "Launcher Strike Gundam (T-009) Token",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-010",
+   "price_cents": 116,
+   "product_id": 643289,
+   "name": "Sword Strike Gundam (T-010) Token",
+   "set_code": "ST04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-011",
+   "price_cents": 175,
+   "product_id": 643290,
+   "name": "Fatum-00 (T-011) Token",
+   "set_code": "GD01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-012",
+   "price_cents": 10,
+   "product_id": 659360,
+   "name": "Daughtress (T-012) Token",
+   "set_code": "GD02",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-013",
+   "price_cents": 263,
+   "product_id": 673532,
+   "name": "Hy-Gogg (T-013) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-014",
+   "price_cents": 112,
+   "product_id": 670550,
+   "name": "Ad Balloon (T-014) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-015",
+   "price_cents": 21,
+   "product_id": 673533,
+   "name": "CGS Mobile Worker (T-015) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-016",
+   "price_cents": 22,
+   "product_id": 673534,
+   "name": "Graze Custom (T-016) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-017",
+   "price_cents": 19,
+   "product_id": 673535,
+   "name": "Gundam Barbatos 4th Form (T-017) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-018",
+   "price_cents": 24,
+   "product_id": 673536,
+   "name": "Red Gundam (T-018) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-019",
+   "price_cents": 25,
+   "product_id": 673537,
+   "name": "GQuuuuuuX (Omega Psycommu) (T-019) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-020",
+   "price_cents": 33,
+   "product_id": 673538,
+   "name": "GFreD (T-020) Token",
+   "set_code": "GD03",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-021",
+   "price_cents": 95,
+   "product_id": 689773,
+   "name": "Parts (T-021) Token",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-022",
+   "price_cents": 153,
+   "product_id": 689774,
+   "name": "Wire-Guided Arm (T-022) Token",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-023",
+   "price_cents": 38,
+   "product_id": 689775,
+   "name": "Zeong (Head) (T-023) Token",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-024",
+   "price_cents": 11,
+   "product_id": 689776,
+   "name": "Alvaaron (T-024) Token",
+   "set_code": "GD04",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-025",
+   "price_cents": 31,
+   "product_id": 701025,
+   "name": "Gundam Exia (T-025) Token",
+   "set_code": "EB01",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-026",
+   "price_cents": 24,
+   "product_id": 705667,
+   "name": "Gundnode (T-026) Token",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-027",
+   "price_cents": 23,
+   "product_id": 705668,
+   "name": "Pluma (T-027) Token",
+   "set_code": "GD05",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-028",
+   "price_cents": 20,
+   "product_id": 721037,
+   "name": "GOOhN (T-028) Token",
+   "set_code": "ST11",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  },
+  {
+   "card_number": "T-029",
+   "price_cents": 25,
+   "product_id": 721038,
+   "name": "Bit / Funnel (T-029) Token",
+   "set_code": "ST13",
+   "fetched_at": "2026-10-08T18:06:43Z"
+  }
+ ]
+}

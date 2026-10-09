@@ -1,0 +1,100 @@
+{
+ "schema_version": 1,
+ "data": {
+  "source": "duelfrontier",
+  "id": "ntc5-sekihobby-2026",
+  "name": "NTC5 SekiHobby 2026",
+  "start_date": "2026-03-08",
+  "end_date": "2026-03-08",
+  "country": "JP",
+  "city": "Ichinoseki",
+  "players": 24,
+  "rounds": null,
+  "event_type": "newtype_challenge",
+  "type_raw": "128",
+  "format_label": null,
+  "decks": [
+   {
+    "id": "pFbioaEpvkSj3SMN56AgQw",
+    "player_name": "Dotman",
+    "placement": 1,
+    "name": "B/R Kshatriya Ping",
+    "available": true,
+    "main": [
+     {
+      "card_number": "GD01-100",
+      "qty": 3
+     },
+     {
+      "card_number": "ST03-013",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-127",
+      "qty": 1
+     },
+     {
+      "card_number": "GD01-003",
+      "qty": 2
+     },
+     {
+      "card_number": "GD01-093",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-044",
+      "qty": 4
+     },
+     {
+      "card_number": "GD01-111",
+      "qty": 4
+     },
+     {
+      "card_number": "ST08-002",
+      "qty": 3
+     },
+     {
+      "card_number": "ST08-010",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-033",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-091",
+      "qty": 3
+     },
+     {
+      "card_number": "GD03-127",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-109",
+      "qty": 4
+     },
+     {
+      "card_number": "GD03-036",
+      "qty": 2
+     },
+     {
+      "card_number": "ST08-001",
+      "qty": 1
+     },
+     {
+      "card_number": "GD03-034",
+      "qty": 2
+     },
+     {
+      "card_number": "GD02-010",
+      "qty": 2
+     }
+    ],
+    "side": [],
+    "unresolved": []
+   }
+  ],
+  "fetched_at": "2026-10-06T22:58:07.647473Z",
+  "warnings": []
+ }
+}
