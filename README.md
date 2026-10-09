@@ -4,6 +4,8 @@ Tools for the **Gundam Card Game**: a card catalog with prices, tournament and o
 
 Everything is deterministic and explained: the tools write lists, and you paste them into TCGPlayer yourself. Nothing is bought or scraped on your behalf.
 
+**User guide with sample output: <https://github.com/ghouser/gcg-toolkit/wiki/User-Guide>**
+
 ## Set up
 
 Needs Python 3.14+.
@@ -31,5 +33,7 @@ Everything runs from the repository root as `.venv/bin/python -m tools.<tool>.cl
 | `tools/gundam_collection` | your collection, bands, archetypes, buy and suggest |
 | `shared/` | code and data used by more than one tool |
 | `docs/`, `notes/` | patterns, vocabulary, tuning constants, source notes |
+
+The wiki pages are generated from `docs/wiki/*.md` (templates with `{{run ...}}` lines): `.venv/bin/python docs/wiki/build.py OUT_DIR` renders them with real, truncated command output into a clone of the wiki.
 
 Each tool has a `design.md` that is its spec. Checks: `.venv/bin/python -m pytest` and `.venv/bin/python -m mypy tools shared`.
