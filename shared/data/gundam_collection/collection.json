@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_at": "2026-10-09T18:06:10.402658Z",
+ "generated_at": "2026-10-14T19:27:00.209933Z",
  "source_file": "shared/data/gundam_collection/my_tcg_collection",
  "data": [
   {
@@ -60,6 +60,16 @@
     {
      "art": "base",
      "copies": 2
+    }
+   ]
+  },
+  {
+   "card_number": "GD01-020",
+   "copies": 3,
+   "printings": [
+    {
+     "art": "base",
+     "copies": 3
     }
    ]
   },
@@ -4355,11 +4365,11 @@
   },
   {
    "card_number": "GD05-110",
-   "copies": 3,
+   "copies": 4,
    "printings": [
     {
      "art": "base",
-     "copies": 3
+     "copies": 4
     }
    ]
   },
