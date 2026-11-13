@@ -1,0 +1,10 @@
+{
+  "setup": [
+    {"name": "bootstrap", "argv": ["./bootstrap.sh", "--no-test"]}
+  ],
+  "checks": [
+    {"name": "tests", "argv": [".venv/bin/python", "-m", "pytest", "-q"]},
+    {"name": "types", "argv": [".venv/bin/python", "-m", "mypy", "tools", "shared"]}
+  ],
+  "timeout": 1800
+}
