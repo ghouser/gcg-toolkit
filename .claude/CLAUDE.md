@@ -3,9 +3,13 @@
 Tools for researching, collecting and planning around the **Gundam Card Game**: the card catalog and prices, meta data, deck packages, a collection, and a planner for what to buy and build.
 
 ## How work happens here
-- Every change goes through the workspace workflow: a spec in `claude-workspace/specs/`, then a design in `.claude/feature-design/<feature>.md` (committed with the feature), then code and tests, then a PR.
-- The repo's own checks are declared in `.claude/checks.json` and are the definition of "tests pass".
-- Rules for working in this repo are in `.claude/rules/`. Read them before changing code.
+A simple flow, self-contained in this repo:
+1. **Design** - write `.claude/feature-design/<feature>.md` (Approach, Files and interfaces, Tests, Risks), committed first.
+2. **Build** - code and tests in small commits; every change has a test or a stated way to check it.
+3. **Check** - `.claude/checks.json` declares setup and checks; passing them is what "tests pass" means.
+4. **Review** - open a PR; merge after review.
+
+Rules for working here are in `.claude/rules/` - read them first. (When driven by the external PersonalClaude workspace, that workflow adds the spec and gates around this same flow; nothing in this repo depends on it.)
 
 ## Core Principle: Durable Over "AI-First"
 
