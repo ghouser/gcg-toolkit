@@ -2,6 +2,15 @@
 
 Tools for researching, collecting and planning around the **Gundam Card Game**: the card catalog and prices, meta data, deck packages, a collection, and a planner for what to buy and build.
 
+## How work happens here
+A simple flow, self-contained in this repo:
+1. **Design** - write `.claude/feature-design/<feature>.md` (Approach, Files and interfaces, Tests, Risks), committed first.
+2. **Build** - code and tests in small commits; every change has a test or a stated way to check it.
+3. **Check** - `.claude/checks.json` declares setup and checks; passing them is what "tests pass" means.
+4. **Review** - open a PR; merge after review.
+
+Rules for working here are in `.claude/rules/` - read them first. (When driven by the external PersonalClaude workspace, that workflow adds the spec and gates around this same flow; nothing in this repo depends on it.)
+
 ## Core Principle: Durable Over "AI-First"
 
 Prefer building reusable tools over doing work by hand in the conversation.
@@ -22,7 +31,6 @@ Work is organized as **tools**, each in `tools/<tool_name>/` with a `design.md` 
 
 - `docs/glossary.md`: the shared vocabulary (deck, package, bridge, squad, free floating, trait, Link pair, rates and their symbols Z/Y/YY). Use these names in code, docs and CLI output; add a term there when you introduce one.
 - `docs/commands.md`: the command cheat sheet. `docs/tuning.md`: every tuning constant and why it has its value.
-- The backlog of tools and ideas is the workspace's `IMPROVEMENTS.md` (one folder up from this repository, not part of it). Check it for context; update it when starting or finishing something.
 - `tools/<tool_name>/design.md`: the spec and source of truth for that tool, including data contracts.
 - `shared/`: code and data used by 2+ tools (e.g. `shared/fetch.py`, the cached fetcher).
 
