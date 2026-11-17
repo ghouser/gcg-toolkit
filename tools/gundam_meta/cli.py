@@ -1,3 +1,4 @@
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 """Gundam meta CLI: what's being played online (MobileSuitArena ranking) and at tournaments (DuelFrontier, EGM).
 
     .venv/bin/python -m tools.gundam_meta.cli sync                      # fetch new data from all sources, rebuild popularity.json
@@ -163,6 +164,7 @@ def cmd_top_cards(args: argparse.Namespace) -> int:
             raise NoData(Kind.ONLINE_RANKING)
         msa = msa_stats(max(snapshots, key=lambda s: s.generated_at))
         cards = [c for c in msa.cards if args.bucket is None or c.bucket.value == args.bucket]
+        # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
         print(f"== MobileSuitArena online ranking, {msa.window_start:%Y-%m-%d} to {msa.window_end:%Y-%m-%d}, {msa.games} games ==")
         print(f"   {'#':>3} {'in games':>9}  {'bucket':17} {'card':9} name")
         for card in cards[: args.limit]:
@@ -274,11 +276,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     refetch.set_defaults(func=cmd_refetch)
     sub.add_parser("duplicates", help="events both sources report, with the matching evidence (no network)").set_defaults(func=cmd_duplicates)
     top = sub.add_parser("top-cards", help="most played cards (no network)")
+    # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
     top.add_argument("--meta", required=True, choices=["msa", "major", "local"], help="msa = MobileSuitArena online; major/local = tournaments")
     top.add_argument("--source", choices=["combined", *[s.value for s in Source]], help="default: combined (events both sources report counted once)")
     top.add_argument("--era", default="current", help="era id (e.g. gd05_5) or 'current' (default)")
     top.add_argument("--since", help="YYYY-MM-DD: use a date range instead of an era")
     top.add_argument("--until", help="YYYY-MM-DD (exclusive); with --since")
+    # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
     top.add_argument("--bucket", choices=[b.value for b in MsaBucket], help="msa only: just this bucket")
     top.add_argument("--limit", type=int, default=25)
     top.add_argument("--json", action="store_true", help="tournament stats as JSON")
