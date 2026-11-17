@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import re
+from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
@@ -161,3 +163,31 @@ def test_events_report_the_newest_collection_date_wherever_it_sorts(tmp_path: Pa
         write_event(e, tmp_path / "gundam_meta")
     assert load_events(tmp_path / "gundam_meta")[-1].id == "z-last"
     assert dict(as_of_report(tmp_path))[Kind.EVENTS] == newest.date()
+
+
+def _first(folder: Path) -> Path:
+    return sorted(folder.rglob("*.json"))[0]
+
+
+BROKEN: list[tuple[str, Callable[[Path], Path], str, str]] = [  # what is broken, which file, what it holds, the error it gives
+    ("an event", lambda old: _first(old / "gundam_meta" / "events"), "{not json", "EventFile"),
+    ("a ranking snapshot", lambda old: _first(old / "gundam_meta" / "online_rankings"), "{not json", "SnapshotFile"),
+    ("an example-deck snapshot", lambda old: _first(old / "gundam_meta" / "example_decks"), '{"schema_version": 1}', "DecksSnapshotFile"),
+    ("a vocabulary", lambda old: old / "gundam_cards" / "traits.json", "[]", "TraitsFile"),
+    ("the prices", lambda old: old / "gundam_cards" / "prices.json", "{not json", "PriceFile"),
+    ("the catalog's JSON", lambda old: old / "gundam_cards" / "cards.json", "{not json", "Expecting property name"),
+    ("a catalog not in schema 1", lambda old: old / "gundam_cards" / "cards.json",
+     '{"schema_version": 2, "generated_at": "2026-10-08T12:00:00Z", "data": [], "records": []}', "expected a schema 1 cards.json, got schema 2"),
+]  # fmt: skip
+
+
+@pytest.mark.parametrize(("what", "which", "text", "error"), BROKEN, ids=[b[0] for b in BROKEN])
+def test_a_legacy_file_that_does_not_parse_stops_the_migration_before_anything_is_written(
+    tmp_path: Path, what: str, which: Callable[[Path], Path], text: str, error: str
+) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    which(legacy / "shared" / "data").write_text(text, encoding="utf-8")
+    ds = tmp_path / "ds"
+    with pytest.raises(ValueError, match=re.escape(error)):  # pydantic's ValidationError and json's JSONDecodeError are ValueErrors
+        migrate_legacy(legacy, ds)
+    assert not ds.exists() or not any(p.is_file() for p in ds.rglob("*"))  # the dataset stays empty
