@@ -130,3 +130,9 @@ def test_without_a_folder_the_store_writes_into_the_dataset(tmp_path: Path, monk
     write_snapshot(ranking(T1))
     write_event(event("a", T1))
     assert (tmp_path / "ds" / "gundam_meta" / "online_rankings").is_dir() and (tmp_path / "ds" / "gundam_meta" / "events" / "egm" / "a.json").is_file()
+
+
+def test_example_decks_report_the_newest_of_several_snapshots(tmp_path: Path) -> None:
+    write_decks_snapshot(decks(T1), tmp_path)
+    write_decks_snapshot(decks(T2, season="s2"), tmp_path)
+    assert decks_as_of(tmp_path) == T2.date()  # not the oldest
