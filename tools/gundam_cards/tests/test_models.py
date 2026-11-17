@@ -9,7 +9,7 @@ from pydantic import ValidationError
 
 from shared.basetypes import PilotName, PrintingId, Trait
 from tools.gundam_cards.build import SourcePage, build_card
-from tools.gundam_cards.models import Block, CardModel, CardsFile, Keyword, LinkCondition, PilotNameLink, TraitLink
+from tools.gundam_cards.models import Block, CardModel, CardRecord, CardsFile, Keyword, LinkCondition, PilotNameLink, TraitLink
 
 IDS = ["ST01-001", "ST01-010", "ST01-015", "GD05-111", "EB01-076", "T-001", "R-002", "EXR-002", "EXB-002", "GD01-047"]
 TRAITS = frozenset(Trait(t) for t in ("Earth Federation", "White Base Team", "Newtype", "Cyber-Newtype", "G Generation"))
@@ -20,7 +20,10 @@ def _cards(page: Callable[[str], SourcePage]) -> list[CardModel]:
 
 
 def test_cards_file_round_trips_through_json(page: Callable[[str], SourcePage]) -> None:
-    original = CardsFile(generated_at=datetime(2026, 10, 6, tzinfo=UTC), data=tuple(_cards(page)))
+    when = datetime(2026, 10, 6, tzinfo=UTC)
+    cards = tuple(_cards(page))
+    records = tuple(CardRecord(number=c.number, first_recorded=when, no_longer_listed=False) for c in cards)
+    original = CardsFile(generated_at=when, data=cards, records=records)
     text = original.model_dump_json()
     assert CardsFile.model_validate_json(text) == original  # discriminated union, enums, frozensets all survive
     assert CardsFile.model_validate_json(text).model_dump_json() == text  # deterministic

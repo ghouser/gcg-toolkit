@@ -1,4 +1,4 @@
-"""Whole-dataset checks against the real synced data (skipped when it isn't present).
+"""Whole-dataset checks against the real synced data (run only with GCG_TEST_REAL_DATA=1; skipped when the dataset is empty).
 
 These pin facts of the 2026-10-06 sync (184 DuelFrontier events, 83 EGM events). Update deliberately when data is added.
 """
@@ -10,17 +10,16 @@ from pathlib import Path
 
 import pytest
 
-from tools.gundam_cards.models import CardsFile
-from tools.gundam_cards.store import OUT_DIR as CARDS_DIR
+from tools.gundam_cards.store import load_catalog
 from tools.gundam_meta import egm
 from tools.gundam_meta.dedupe import combined_events, find_duplicate_groups
 from tools.gundam_meta.models import PopularityFile, Source, Tier
 from tools.gundam_meta.redo import reparse_duelfrontier, same_content
-from tools.gundam_meta.store import OUT_DIR, RAW_DIR, load_events, load_snapshots
+from tools.gundam_meta.store import OUT_DIR, RAW_DIR, data_out_dir, load_events, load_snapshots
 
 pytestmark = pytest.mark.corpus
 needs_data = pytest.mark.skipif(
-    not (OUT_DIR / "events" / "duelfrontier").is_dir() or not (CARDS_DIR / "cards.json").is_file(),
+    not (data_out_dir() / "events" / "duelfrontier").is_dir() or load_catalog() is None,
     reason="synced meta data or card catalog not present",
 )
 
@@ -37,7 +36,9 @@ def test_stored_event_counts() -> None:
 
 @needs_data
 def test_every_deck_card_is_in_the_card_catalog() -> None:
-    known = {c.number for c in CardsFile.model_validate_json((CARDS_DIR / "cards.json").read_text(encoding="utf-8")).data}
+    catalog = load_catalog()
+    assert catalog is not None
+    known = {c.number for c in catalog.data}
     used = {c.card_number for e in load_events() for d in e.decks for c in (*d.main, *d.side)}
     assert used <= known, sorted(map(str, used - known))
 

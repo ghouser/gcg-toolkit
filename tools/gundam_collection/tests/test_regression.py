@@ -9,7 +9,7 @@ from collections.abc import Iterator
 
 import pytest
 
-from tools.gundam_cards.store import OUT_DIR as CARDS_DIR
+from tools.gundam_cards.store import load_catalog
 from tools.gundam_collection import cli
 from tools.gundam_collection.decks import Deck, is_played
 from tools.gundam_collection.store import COLLECTION_PATH
@@ -21,7 +21,7 @@ BARBATOS_CHAR = "GD02-054+ST11-001"  # Mikazuki Barbatos + Char Aznable: a pilot
 STRIKE_FREEDOM = "GD05-002"  # Kira Strike Freedom: the tournament favorite (about 43% of top-cut decks)
 
 pytestmark = pytest.mark.skipif(
-    not (CARDS_DIR / "cards.json").is_file() or not COLLECTION_PATH.is_file(), reason="card catalog and collection not present"
+    load_catalog() is None or not COLLECTION_PATH.is_file(), reason="real-data test: run with GCG_TEST_REAL_DATA=1 and a card catalog in the dataset"
 )
 
 
