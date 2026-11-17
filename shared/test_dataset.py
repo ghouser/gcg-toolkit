@@ -1,12 +1,20 @@
 """The dataset location and the shared snapshot rule (AC-2)."""
 from __future__ import annotations
 
+import os
 from datetime import UTC, datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 
+from shared.basetypes import CardNumber, ProductId
 from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
+from tools.gundam_cards import store as cards_store
+from tools.gundam_cards.build import CatalogResult
+from tools.gundam_cards.models import CardPrice, PriceFile
+from tools.gundam_meta import store as meta_store
+from tools.gundam_meta.tests.test_store_history import T1, decks, event, ranking
+from tools.gundam_packages.tests.helpers import unit
 
 
 def test_the_dataset_is_gcg_data_dir_when_set(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -56,3 +64,40 @@ def test_a_second_store_on_the_same_utc_day_adds_nothing_even_with_other_data(tm
 
 def test_no_data_names_the_source() -> None:
     assert str(NoData(Kind.PRICES)).startswith("no data: prices")
+
+
+# ---- every writer, called without a folder, stores into the dataset and leaves the repository as it was ----------------
+_SKIP = {".git", ".venv", "__pycache__", ".mypy_cache", ".pytest_cache"}
+
+
+def _repository_files(root: Path, skip: set[Path]) -> dict[str, tuple[int, int]]:
+    """Every file under the repository folder with its size and modification time (caches and fetched responses left out)."""
+    found: dict[str, tuple[int, int]] = {}
+    for folder, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in _SKIP and Path(folder, d) not in skip]
+        for name in files:
+            st = Path(folder, name).stat()
+            found[str(Path(folder, name).relative_to(root))] = (st.st_size, st.st_mtime_ns)
+    return found
+
+
+def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchanged(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    ds = tmp_path / "ds"
+    monkeypatch.setenv("GCG_DATA_DIR", str(ds))
+    skip = {cards_store.RAW_DIR, meta_store.RAW_DIR}
+    before = _repository_files(cards_store.REPO_ROOT, skip)
+
+    pulled = datetime(2026, 10, 9, 21, 0, tzinfo=UTC)
+    row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=25, product_id=ProductId(7), fetched_at=pulled)
+    price_path = cards_store.write_prices(PriceFile(generated_at=pulled, source_updated_at=pulled, data=(row,)))
+    cards_store.write_catalog(CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()), pulled)
+    decks_path = meta_store.write_decks_snapshot(decks(T1))
+    assert meta_store.write_snapshot(ranking(T1))
+    assert meta_store.write_event(event("a", T1))
+
+    assert price_path == ds / "gundam_cards" / "prices" / "2026-10-09T210000Z.json" and price_path.is_file()
+    assert {p.name for p in (ds / "gundam_cards").glob("*.json")} == {"cards.json", "traits.json", "source_titles.json"}
+    assert decks_path.parent == ds / "gundam_meta" / "example_decks" and decks_path.is_file()
+    assert len(list((ds / "gundam_meta" / "online_rankings").glob("*.json"))) == 1
+    assert (ds / "gundam_meta" / "events" / "egm" / "a.json").is_file()
+    assert _repository_files(cards_store.REPO_ROOT, skip) == before  # nothing written under the repository folder
