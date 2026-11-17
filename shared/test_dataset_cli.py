@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -12,7 +12,9 @@ from shared.dataset import Kind, snapshot_key
 from shared.dataset_cli import as_of_report, main, migrate_legacy
 from tools.gundam_cards import store as cards_store
 from tools.gundam_cards.models import CardPrice, PriceFile, SourceTitlesFile, TraitsFile
-from tools.gundam_cards.store import load_catalog, load_cards_with_prices, load_prices, write_prices
+from tools.gundam_cards.build import CatalogResult
+from tools.gundam_cards.store import load_catalog, load_cards_with_prices, load_prices, write_catalog, write_prices
+from tools.gundam_meta.models import Source
 from tools.gundam_meta.store import load_decks_snapshot, load_events, load_snapshots, write_decks_snapshot, write_event, write_snapshot
 from tools.gundam_meta.tests.test_store_history import T1, T2, decks, event, ranking
 from tools.gundam_packages.tests.helpers import unit
@@ -135,3 +137,27 @@ def test_migration_takes_only_the_current_prices_and_backfills_none(tmp_path: Pa
     snapshots = sorted((ds / "gundam_cards" / "prices").iterdir())
     assert [p.read_bytes() for p in snapshots] == [(legacy / "shared" / "data" / "gundam_cards" / "prices.json").read_bytes()]
     assert load_prices(ds / "gundam_cards") == _prices()
+
+
+def test_the_catalog_reports_its_latest_refresh(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    monkeypatch.setenv("GCG_DATA_DIR", str(tmp_path))
+    build = CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset())
+    write_catalog(build, T1)
+    write_catalog(CatalogResult(cards=(unit("GD01-002", "Two"),), issues=(), trait_vocabulary=frozenset()), T2)  # a second refresh
+    assert dict(as_of_report())[Kind.CATALOG] == T2.date()  # not when the first card was recorded
+    assert main(["status"]) == 0
+    line = next(x for x in capsys.readouterr().out.splitlines() if Kind.CATALOG.value in x)
+    assert str(T2.date()) in line and str(T1.date()) not in line
+
+
+def test_events_report_the_newest_collection_date_wherever_it_sorts(tmp_path: Path) -> None:
+    newest = T2 + timedelta(days=3)
+    stored = (  # in the order written; loading sorts by start date, then source, then id
+        event("a-first", newest).model_copy(update={"start_date": date(2026, 9, 1)}),  # newest collection: first in sort and written first
+        event("m-middle", T1).model_copy(update={"source": Source.DUELFRONTIER, "start_date": date(2026, 10, 5)}),
+        event("z-last", T2).model_copy(update={"start_date": date(2026, 10, 20)}),  # last in sort and last written
+    )
+    for e in stored:
+        write_event(e, tmp_path / "gundam_meta")
+    assert load_events(tmp_path / "gundam_meta")[-1].id == "z-last"
+    assert dict(as_of_report(tmp_path))[Kind.EVENTS] == newest.date()
