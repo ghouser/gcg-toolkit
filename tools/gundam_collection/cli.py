@@ -24,7 +24,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber
-from shared.dataset import Kind, NoData
+from shared.dataset import NoData
 from tools.gundam_cards.models import CardModel, PricedCard, color_of, cost_of, level_of
 from tools.gundam_cards.legality import Rules
 from tools.gundam_cards.store import load_catalog_or_fail

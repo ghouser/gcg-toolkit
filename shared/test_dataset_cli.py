@@ -1,0 +1,115 @@
+"""AC-3 ("data as of" for each source) and AC-4 (data in the old in-repository layout moves into the dataset with no loss)."""
+from __future__ import annotations
+
+import json
+from datetime import UTC, datetime
+from pathlib import Path
+
+import pytest
+
+from shared.basetypes import CardNumber, ProductId
+from shared.dataset import Kind
+from shared.dataset_cli import as_of_report, main, migrate_legacy
+from tools.gundam_cards.models import CardPrice, PriceFile, SourceTitlesFile, TraitsFile
+from tools.gundam_cards.store import load_catalog, load_cards_with_prices, load_prices, write_prices
+from tools.gundam_meta.store import load_decks_snapshot, load_events, load_snapshots, write_decks_snapshot, write_event, write_snapshot
+from tools.gundam_meta.tests.test_store_history import T1, T2, decks, event, ranking
+from tools.gundam_packages.tests.helpers import unit
+
+CATALOG_AT = datetime(2026, 10, 8, 12, 0, tzinfo=UTC)
+PULLED = datetime(2026, 10, 9, 21, 0, tzinfo=UTC)
+
+
+def _prices() -> PriceFile:
+    row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=25, product_id=ProductId(7), fetched_at=PULLED)
+    return PriceFile(generated_at=PULLED, source_updated_at=PULLED, data=(row,))
+
+
+def _legacy(root: Path) -> Path:
+    """A small repository in the old layout: everything under shared/data/."""
+    cards, meta = root / "shared" / "data" / "gundam_cards", root / "shared" / "data" / "gundam_meta"
+    cards.mkdir(parents=True)
+    old_catalog = {"schema_version": 1, "generated_at": "2026-10-08T12:00:00Z",
+                   "data": [json.loads(unit(n, n).model_dump_json()) for n in ("GD01-001", "GD01-002")]}  # fmt: skip
+    (cards / "cards.json").write_text(json.dumps(old_catalog, indent=1) + "\n", encoding="utf-8")
+    (cards / "traits.json").write_text(TraitsFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
+    (cards / "source_titles.json").write_text(SourceTitlesFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
+    (cards / "prices.json").write_text(_prices().model_dump_json(indent=1), encoding="utf-8")
+    write_event(event("a", T1), meta)
+    write_event(event("b", T2), meta)
+    write_snapshot(ranking(T1), meta)
+    write_decks_snapshot(decks(T1), meta)
+    return root
+
+
+def _bytes(folder: Path) -> dict[str, bytes]:
+    return {str(p.relative_to(folder)): p.read_bytes() for p in sorted(folder.rglob("*.json"))}
+
+
+# ---- AC-3 -----------------------------------------------------------------------------------------------------------
+def test_an_empty_dataset_reports_no_data_for_every_source(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    assert as_of_report(tmp_path) == [(k, None) for k in Kind]
+    assert main(["status"]) == 0
+    out = capsys.readouterr().out
+    assert all(f"{k.value}" in out for k in Kind) and out.count("no data") == 5
+
+
+def test_each_source_reports_its_newest_date(tmp_path: Path) -> None:
+    migrate_legacy(_legacy(tmp_path / "repo"), tmp_path / "ds")
+    later = PULLED.replace(day=20)
+    write_prices(_prices().model_copy(update={"generated_at": later, "source_updated_at": later}), tmp_path / "ds" / "gundam_cards")
+    assert dict(as_of_report(tmp_path / "ds")) == {
+        Kind.CATALOG: CATALOG_AT.date(),  # when it was last refreshed
+        Kind.PRICES: later.date(),
+        Kind.ONLINE_RANKING: T1.date(),
+        Kind.EXAMPLE_DECKS: T1.date(),
+        Kind.EVENTS: T2.date(),  # the newest collection date
+    }
+
+
+# ---- AC-4 -----------------------------------------------------------------------------------------------------------
+def test_migration_keeps_every_file_and_date(tmp_path: Path) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    old_meta = _bytes(legacy / "shared" / "data" / "gundam_meta")
+    old_cards = legacy / "shared" / "data" / "gundam_cards"
+    old_files = _bytes(old_cards)
+    ds = tmp_path / "ds"
+
+    report = migrate_legacy(legacy, ds)
+
+    assert report.conflicts == ()
+    assert report.copied == {Kind.CATALOG: 3, Kind.PRICES: 1, Kind.ONLINE_RANKING: 1, Kind.EXAMPLE_DECKS: 1, Kind.EVENTS: 2}
+    assert _bytes(ds / "gundam_meta") == old_meta  # events and snapshots: byte for byte, dates kept
+    for name in ("traits.json", "source_titles.json"):
+        assert (ds / "gundam_cards" / name).read_bytes() == old_files[name]
+    assert (ds / "gundam_cards" / "prices" / "2026-10-09T210000Z.json").read_bytes() == old_files["prices.json"]  # the first entry
+    assert load_prices(ds / "gundam_cards") == _prices()
+    catalog = load_catalog(ds / "gundam_cards")
+    assert catalog is not None and catalog.generated_at == CATALOG_AT
+    assert [str(c.number) for c in catalog.data] == ["GD01-001", "GD01-002"] and catalog.data[0] == unit("GD01-001", "GD01-001")
+    assert {(str(r.number), r.first_recorded, r.no_longer_listed) for r in catalog.records} == {
+        ("GD01-001", CATALOG_AT, False), ("GD01-002", CATALOG_AT, False)}  # fmt: skip
+    assert [p.latest_tcg_price for p in load_cards_with_prices(ds / "gundam_cards")] == [_prices().data[0], None]
+    assert len(load_events(ds / "gundam_meta")) == 2 and len(load_snapshots(ds / "gundam_meta")) == 1
+    assert load_decks_snapshot(ds / "gundam_meta") == decks(T1)
+    assert _bytes(old_cards) == old_files  # the source files are left as they were
+
+
+def test_migration_refuses_to_overwrite_and_writes_nothing(tmp_path: Path) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    ds = tmp_path / "ds"
+    migrate_legacy(legacy, ds)
+    before = _bytes(ds)
+    (legacy / "shared" / "data" / "gundam_cards" / "traits.json").write_text(
+        TraitsFile(generated_at=T2, data=()).model_dump_json(), encoding="utf-8")  # fmt: skip
+    again = migrate_legacy(legacy, ds)
+    assert again.conflicts and sum(again.copied.values()) == 0
+    assert _bytes(ds) == before
+
+
+def test_migrate_command_uses_gcg_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    monkeypatch.setenv("GCG_DATA_DIR", str(tmp_path / "ds"))
+    assert main(["migrate", "--from", str(legacy)]) == 0
+    assert (tmp_path / "ds" / "gundam_cards" / "cards.json").is_file()
+    assert main(["migrate", "--from", str(legacy)]) == 2
