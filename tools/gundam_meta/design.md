@@ -32,14 +32,14 @@ python3 -m tools.gundam_meta.cli refetch --source duelfrontier --event <slug>   
 
 ## Inputs
 - Network, only during `sync`/`refetch`: DuelFrontier, EGM Events. The online ranking and the example decks are stored data (collected out of band, not by this repository's commands).
-- `shared/data/gundam_cards/sets.json` (release dates, for eras) and `cards.json` (card kinds, to exclude resources, EX cards and tokens, and to name cards).
+- `shared/data/gundam_cards/sets.json` (release dates, for eras) and the catalog `cards.json` (dataset) (card kinds, to exclude resources, EX cards and tokens, and to name cards).
 
 ## Outputs
-Shared dataset `shared/data/gundam_meta/`, owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py`. Raw responses are cached in `tools/gundam_meta/data/raw/`.
+Owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py` and `store.py`. Events and snapshots live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_meta/` (default `~/.gcg/data`, see `shared/dataset.py`); `popularity.json` is tracked in `shared/data/gundam_meta/`. A snapshot is never rewritten, and one with the same data as the newest adds nothing. Raw responses are cached in `tools/gundam_meta/data/raw/`.
 
 | File | Contents | Notes |
 |------|----------|-------|
-| `events/<source>/<id>.json` | `EventFile` | **Immutable once written.** Only completed events are stored. Replaced only by `reparse`/`refetch`. |
+| `events/<source>/<id>.json` | `EventFile` | **Immutable once written.** Only completed events are stored; each is one snapshot dated by its `fetched_at` (collection date). Replaced only by `reparse`/`refetch`. |
 | `online_rankings/<generated_at>.json` | `SnapshotFile` | One per distinct snapshot of the rolling 14-day ranking. |
 | `example_decks/<fetched_at>.json` | `DecksSnapshotFile` | The weighted example decks (below). |
 | `popularity.json` | `PopularityFile` | Derived. Latest MobileSuitArena ranking with buckets, plus part-over-whole tournament shares per era, tier, and source (and combined). |
@@ -115,7 +115,7 @@ Online **decks** come as **example decks**: per archetype, a set of curated tour
 
 **Weights.** A list's weight is `archetype games / all archetypes' games x list share`; per archetype the list shares add up to 1.0, so the example decks cover whole archetypes. A list with no share has no weight and is not used.
 
-**Data contract.** `shared/data/gundam_meta/example_decks/<fetched_at>.json` (envelope `{schema_version, data}`): `ExampleDecksSnapshot` = `fetched_at`, `window_days`, `season`, `archetypes[ExampleArchetype(slug, name, games, sides_analyzed, lists[ExampleList(url, cards, share)])]`, `slugs_without_archetype`, `unresolved_lists`. Nothing is guessed: a list link that does not parse into a main deck is reported in `unresolved_lists`. The newest snapshot is the one used (`store.load_decks_snapshot`).
+**Data contract.** `example_decks/<fetched_at>.json` in the dataset (envelope `{schema_version, data}`): `ExampleDecksSnapshot` = `fetched_at`, `window_days`, `season`, `archetypes[ExampleArchetype(slug, name, games, sides_analyzed, lists[ExampleList(url, cards, share)])]`, `slugs_without_archetype`, `unresolved_lists`. Nothing is guessed: a list link that does not parse into a main deck is reported in `unresolved_lists`. The newest snapshot is the one used (`store.load_decks_snapshot`).
 
 **Used by** `gundam_packages build --source online` (see its design, "Online example decks").
 

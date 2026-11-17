@@ -44,7 +44,8 @@ The full version, with how each is enforced, is the top of `tools/gundam_collect
 ## Script Conventions
 
 - **Language:** Python 3.14 in the project virtualenv: run everything from the repository root as `.venv/bin/python -m ...` (`./bootstrap.sh` creates it). Standard library first for runtime code (`urllib`, `json`, `csv`, `argparse`, `sqlite3`); add a dependency only when it clearly earns it and record it in `requirements.txt`. Models are typed (pydantic v2 + `mypy --strict`, see `docs/tool-pattern.md`); tests use pytest. Check with `.venv/bin/python -m mypy tools shared` and `.venv/bin/python -m pytest`.
-- **Portable:** no absolute or machine-specific paths in code or data (roots come from `Path(__file__)`; stored paths are repo-relative). The repository must clone and run on any machine.
+- **Portable:** no absolute or machine-specific paths in code or data (roots come from `Path(__file__)`; stored paths are repo-relative). The repository runs on any machine after a refresh (the online ranking additionally needs separate access), and tests use small fixtures, not the real data.
+- **Raw data lives outside git** in the local dataset: `$GCG_DATA_DIR`, default `~/.gcg/data` (`shared/dataset.py`). The catalog is append-only; prices, the online ranking, example decks and events are dated snapshots, added and never rewritten. Analysis stays derived from it. `python -m shared.dataset_cli status` reports how old each source is.
 - **Never name a module after a stdlib module** (`http.py`, `types.py`, `json.py`, ...): it shadows the standard library when its folder is on `sys.path`.
 - Every script is a CLI with `argparse` and a `--help` that explains it. Takes inputs via args, writes outputs to `data/`, prints a short summary.
 - **Be a good web citizen:** set a descriptive User-Agent, rate-limit requests, honor robots.txt/ToS, and cache raw responses in `data/<domain>/raw/` (git-ignored) so re-runs don't re-hit the site.

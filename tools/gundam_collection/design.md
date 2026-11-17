@@ -99,8 +99,8 @@ python3 -m tools.gundam_collection.cli export --format massentry   # the plan as
 | Input | From | Used for |
 |---|---|---|
 | `shared/data/gundam_collection/my_tcg_collection` | me (hand-maintained) | what I own |
-| `shared/data/gundam_cards/cards.json` | `gundam_cards` | card identity, names, printings, kinds |
-| `shared/data/gundam_cards/prices.json` | `gundam_cards sync-tcgplayer`, built on tcgcsv (Gundam is `categoryId` 86; market price per product; no per-seller or per-condition data) | per card: latest price in cents, the product it came from, the date pulled; read joined onto the card (`load_cards_with_prices`) |
+| `cards.json` (local dataset) | `gundam_cards` | card identity, names, printings, kinds |
+| the newest price snapshot (local dataset) | `gundam_cards sync-tcgplayer`, built on tcgcsv (Gundam is `categoryId` 86; market price per product; no per-seller or per-condition data) | per card: latest price in cents, the product it came from, the date pulled; read joined onto the card (`load_cards_with_prices`) |
 | `shared/data/gundam_packages/packages.json`, `rates.json` | `gundam_packages` | packages, members and roles, bridges, reprint groups, appearance rates |
 | `tools/gundam_collection/preferences.json` | me (optional) | pinned home packages |
 

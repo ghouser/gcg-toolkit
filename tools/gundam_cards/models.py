@@ -426,7 +426,7 @@ class CardPrice(FrozenModel):
 
 
 class PriceFile(FrozenModel):
-    """`shared/data/gundam_cards/prices.json`: one row per priced card, sorted by card number. A card with no buyable product has no row."""
+    """`prices/<generated_at>.json` in the dataset: one dated price snapshot, one row per priced card, sorted by card number. A card with no buyable product has no row."""
 
     schema_version: Literal[2] = 2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
     generated_at: datetime
@@ -453,7 +453,7 @@ class SourceTitleStat(FrozenModel):
 
 
 class SourceTitlesFile(FrozenModel):
-    """`shared/data/gundam_cards/source_titles.json`: the generated vocabulary of series/games cards come from."""
+    """`source_titles.json` in the dataset: the generated vocabulary of series/games cards come from."""
 
     schema_version: Literal[1] = 1
     generated_at: datetime
@@ -461,7 +461,7 @@ class SourceTitlesFile(FrozenModel):
 
 
 class TraitsFile(FrozenModel):
-    """`shared/data/gundam_cards/traits.json`: the generated trait vocabulary."""
+    """`traits.json` in the dataset: the generated trait vocabulary."""
 
     schema_version: Literal[1] = 1
     generated_at: datetime

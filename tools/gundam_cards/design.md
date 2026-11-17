@@ -30,13 +30,13 @@ python3 -m tools.gundam_cards.cli price GD05-002 [--explain] # a card's latest p
 - Network (only during sync): Bandai card site and product list; tcgcsv.com (a community export of TCGPlayer's catalog) for the TCGPlayer product mapping and market prices. TCGPlayer's own sites and APIs are never contacted (their terms forbid it; see `notes/source-terms.md`).
 
 ## Outputs
-Shared dataset in `shared/data/gundam_cards/` (owned by this tool; other tools read these files per the contracts below, through the shared models, and never import this tool's parsing code). Raw HTML is cached in `tools/gundam_cards/data/raw/`.
+Owned by this tool; other tools read these files per the contracts below, through the shared models and `store.py`, and never import this tool's parsing code. `sets.json` and `restrictions.json` are tracked in `shared/data/gundam_cards/`. The catalog, its vocabularies and the prices live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_cards/` (default `~/.gcg/data`, see `shared/dataset.py`). Raw HTML is cached in `tools/gundam_cards/data/raw/`.
 
 | File | Format | Key | Fields | Consumers |
 |------|--------|-----|--------|-----------|
-| `cards.json` | JSON (envelope, see tool pattern) | card number | `Card` union below, including `printings` and `faq` | all tools |
+| `cards.json` | JSON (envelope, schema 2) | card number | `Card` union below, including `printings` and `faq`, plus `records`: per card `first_recorded` and `no_longer_listed`. **Append-only**: a refresh replaces a card's data (latest only, no earlier versions) and never removes a card; one the source dropped is kept and marked. `generated_at` is the last refresh. | all tools |
 | `sets.json` | JSON | set code | `CardSet` below | `gundam_meta` (eras), recommender |
-| `prices.json` | JSON (envelope) | card number | `PriceFile` below: per card the **latest TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. Latest only; replaced whole on each sync, never edited by hand. Joined onto the card model on read (`PricedCard`). | `gundam_collection` |
+| `prices/<generated_at>.json` | JSON (envelope) | card number | `PriceFile` below: per card the **TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. One dated snapshot per pull; a snapshot is never rewritten, and a pull with the same prices as the newest adds nothing. The newest is the latest price, joined onto the card model on read (`PricedCard`). | `gundam_collection` |
 | `traits.json` | JSON | trait | generated vocabulary of traits (factions): name, card count, card numbers | parser (validation), search |
 | `source_titles.json` | JSON | source title | generated vocabulary: TV series / game names, counts | parser (validation), search |
 
@@ -291,7 +291,7 @@ Done: `mypy --strict` clean, tests passing (the whole repo: 252), full sync run 
 - `models.py`, `parse_detail.py`, `build.py`: typed cards, keywords, links, text versions, issue reporting.
 - `sets.py` (package filter + product list -> `sets.json`, 42 sets), `printings.py` (list pages -> printing ids -> fetch only missing pages; `refetch`), `search.py` (typed local filters), `store.py`, `cli.py`.
 - CLI: `sync` (sets, lists, missing printing pages, then rebuild), `sync --only sets|printings`, `refetch --card|--package|--all`, `sets`, `reparse`, `show`, `search`.
-- Outputs in `shared/data/gundam_cards/`: `cards.json`, `sets.json`, `traits.json`, `source_titles.json`.
+- Outputs: `sets.json` (tracked, `shared/data/gundam_cards/`); `cards.json`, `traits.json`, `source_titles.json` (the local dataset).
 
 Done 2026-10-08: `tcgcsv.py` (fetch, parse, choose), `sync-tcgplayer`, `reparse-tcgplayer`, `price [--explain]`, `prices.json`, and the `PricedCard` join (`store.load_cards_with_prices`); 14 tests. They replace the earlier plan to read TCGPlayer's search API (see `notes/tcgcsv.md`).
 
