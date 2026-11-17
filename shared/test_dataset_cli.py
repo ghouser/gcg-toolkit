@@ -2,14 +2,15 @@
 from __future__ import annotations
 
 import json
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
 
 from shared.basetypes import CardNumber, ProductId
-from shared.dataset import Kind
+from shared.dataset import Kind, snapshot_key
 from shared.dataset_cli import as_of_report, main, migrate_legacy
+from tools.gundam_cards import store as cards_store
 from tools.gundam_cards.models import CardPrice, PriceFile, SourceTitlesFile, TraitsFile
 from tools.gundam_cards.store import load_catalog, load_cards_with_prices, load_prices, write_prices
 from tools.gundam_meta.store import load_decks_snapshot, load_events, load_snapshots, write_decks_snapshot, write_event, write_snapshot
@@ -113,3 +114,24 @@ def test_migrate_command_uses_gcg_data_dir(tmp_path: Path, monkeypatch: pytest.M
     assert main(["migrate", "--from", str(legacy)]) == 0
     assert (tmp_path / "ds" / "gundam_cards" / "cards.json").is_file()
     assert main(["migrate", "--from", str(legacy)]) == 2
+
+
+def test_migration_takes_only_the_current_prices_and_backfills_none(tmp_path: Path) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    older = _prices().model_copy(update={"generated_at": PULLED - timedelta(days=30), "source_updated_at": PULLED - timedelta(days=30)})
+    decoys = (  # older price files elsewhere in the old repository: none of them may become a snapshot
+        legacy / cards_store.RAW_DIR.relative_to(cards_store.REPO_ROOT) / "older" / "prices.json",  # the saved dumps' folder
+        legacy / "shared" / "data" / "gundam_cards" / "prices" / f"{snapshot_key(older.generated_at)}.json",
+        legacy / "shared" / "data" / "gundam_cards" / "prices_old.json",
+    )
+    for path in decoys:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(older.model_dump_json(indent=1), encoding="utf-8")
+    ds = tmp_path / "ds"
+
+    report = migrate_legacy(legacy, ds)
+
+    assert report.copied[Kind.PRICES] == 1
+    snapshots = sorted((ds / "gundam_cards" / "prices").iterdir())
+    assert [p.read_bytes() for p in snapshots] == [(legacy / "shared" / "data" / "gundam_cards" / "prices.json").read_bytes()]
+    assert load_prices(ds / "gundam_cards") == _prices()
