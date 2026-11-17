@@ -40,7 +40,7 @@ Owned by this tool; other tools read it through the models in `tools/gundam_meta
 | File | Contents | Notes |
 |------|----------|-------|
 | `events/<source>/<id>.json` | `EventFile` | **Immutable once written.** Only completed events are stored; each is one snapshot dated by its `fetched_at` (collection date). Replaced only by `reparse`/`refetch`. |
-| `online_rankings/<generated_at>.json` | `SnapshotFile` | One per distinct snapshot of the rolling 14-day ranking. |
+| `online_rankings/<generated_at>.json` | `SnapshotFile` | At most one per UTC day (the first stored that day), and only when the ranking differs from the newest one. |
 | `example_decks/<fetched_at>.json` | `DecksSnapshotFile` | The weighted example decks (below). |
 | `popularity.json` | `PopularityFile` | Derived. Latest MobileSuitArena ranking with buckets, plus part-over-whole tournament shares per era, tier, and source (and combined). |
 
@@ -96,7 +96,7 @@ Non-overlapping windows `[start, next start)` defined in `eras.json` by the sets
 - Qualifiers (WCQ events) count as **major**. Sideboard cards are counted. Top-cut-only data is accepted.
 - An event is stored 2 days after it ends.
 - EGM mapping: large and small official -> **major**; unofficial -> **local**.
-- The online ranking is stored as dated snapshots, one per distinct `generated_at`.
+- The online ranking is stored as dated snapshots: at most one per UTC day of `generated_at`, and none when it matches the newest.
 - Cutoffs for MobileSuitArena buckets as above; unranked stays unranked.
 - **De-duplicate events that DuelFrontier and EGM both report.**
 - **EGM's `A|B` list slot** (25 decks, best-of-3 events) is the **boundary between the main deck and the sideboard**: in every one, the entries up to `A` total exactly 50 and `B` plus the rest total exactly 10. Accepted only when that arithmetic holds; otherwise the deck stays unresolved.
