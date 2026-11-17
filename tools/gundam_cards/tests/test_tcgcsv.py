@@ -222,3 +222,13 @@ def test_two_price_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_ad
     second = write_prices(_prices(next_day, 99), tmp_path)
     assert second is not None and first.read_bytes() == before
     assert load_prices(tmp_path) == _prices(next_day, 99)
+
+
+def test_prices_identical_to_the_newest_on_a_later_day_add_nothing(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    later = PULLED + timedelta(days=3, hours=2)  # another UTC day: only the content comparison can refuse it
+    assert write_prices(_prices(later, 25), tmp_path) is None  # same prices, new generated_at and row fetched_at
+    assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+    assert write_prices(_prices(later, 26), tmp_path) is not None  # a changed price that day is added
