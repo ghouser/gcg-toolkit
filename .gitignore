@@ -14,3 +14,13 @@ notes/private/
 
 # generated output lists
 shared/data/gundam_collection/buy_*.txt
+
+# source data lives in the local dataset ($GCG_DATA_DIR, default ~/.gcg/data), not in git
+shared/data/gundam_cards/cards.json
+shared/data/gundam_cards/traits.json
+shared/data/gundam_cards/source_titles.json
+shared/data/gundam_cards/prices.json
+shared/data/gundam_cards/prices/
+shared/data/gundam_meta/events/
+shared/data/gundam_meta/online_rankings/
+shared/data/gundam_meta/example_decks/
