@@ -29,7 +29,7 @@ from shared.dataset import Kind, NoData
 from shared.samejob.pilots import is_pilot
 from tools.gundam_cards.models import CardModel, UnitCard, color_of, names_of
 from tools.gundam_cards.store import load_catalog_or_fail
-from tools.gundam_cards.store import load_cards_with_prices, load_sets, release_dates
+from tools.gundam_cards.store import load_cards_with_prices, load_sets, prices_as_of, release_dates
 from tools.gundam_meta.dedupe import combined_events
 from tools.gundam_meta.eras import EraError, find_era, load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, Event, Tier
@@ -236,6 +236,8 @@ def cmd_pairs(args: argparse.Namespace) -> int:
     from tools.gundam_packages.pairing import pilots_for, rates_with, units_for
 
     priced = {p.card.number: p for p in load_cards_with_prices()}
+    if prices_as_of() is None:
+        print(f"{NoData(Kind.PRICES)}; every card shows as unpriced", file=sys.stderr)
     cards = {n: p.card for n, p in priced.items()}
     number = CardNumber(args.card)
     card = cards.get(number)

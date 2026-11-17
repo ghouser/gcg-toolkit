@@ -132,7 +132,10 @@ def _events() -> tuple[Event, ...]:
 
 def cmd_popularity(_: argparse.Namespace) -> int:
     catalog = Catalog()
-    build = build_popularity(_events(), load_snapshots(), catalog.kinds, _eras(), _today(), datetime.now(tz=UTC))
+    events, snapshots = _events(), load_snapshots()
+    if not snapshots:
+        print(f"{NoData(Kind.ONLINE_RANKING)}; built from events only", file=sys.stderr)
+    build = build_popularity(events, snapshots, catalog.kinds, _eras(), _today(), datetime.now(tz=UTC))
     path = write_popularity(build.popularity)
     print(f"popularity: {len(build.popularity.tournaments)} tournament window(s), msa={'yes' if build.popularity.msa else 'no'} -> {path}")
     if build.unknown_cards:
