@@ -1,7 +1,7 @@
 """The local dataset: where the raw inputs and their dated history live, outside git.
 
 The folder is `$GCG_DATA_DIR`, or `~/.gcg/data` when it is unset; it is resolved on every call, never at import.
-History rules shared by the stores: a dated snapshot is added once and never rewritten (see `add_snapshot`).
+History rules shared by the stores: a dated snapshot is added at most once per UTC day and never rewritten (see `add_snapshot`).
 """
 from __future__ import annotations
 
@@ -66,11 +66,16 @@ def newest_snapshot(folder: Path) -> Path | None:
     return paths[-1] if paths else None
 
 
+def entry_on_day(folder: Path, key: str) -> Path | None:
+    """The stored entry dated on the same UTC calendar day as `key` (keys start with the UTC date), or None."""
+    return next((p for p in snapshot_paths(folder) if p.stem[:10] == key[:10]), None)
+
+
 def add_snapshot(folder: Path, key: str, text: str, same_as: Callable[[str], bool]) -> Path | None:
-    """Store `<key>.json` as a new dated entry. Nothing is written (None) when an entry with that key exists already, or when
-    `same_as(text of the newest entry)` says it holds the same data. Existing entries are never rewritten."""
+    """Store `<key>.json` as a new dated entry. Nothing is written (None) when an entry on the same UTC day exists already (even with
+    different data), or when `same_as(text of the newest entry)` says it holds the same data. Existing entries are never rewritten."""
     path = folder / f"{key}.json"
-    if path.exists():
+    if entry_on_day(folder, key) is not None:
         return None
     newest = newest_snapshot(folder)
     if newest is not None and same_as(newest.read_text(encoding="utf-8")):

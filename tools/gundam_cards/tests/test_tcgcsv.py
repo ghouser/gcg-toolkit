@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -209,3 +209,16 @@ def test_same_prices_or_same_date_add_nothing(tmp_path: Path) -> None:
     assert write_prices(_prices(PULLED, 99), tmp_path) is None  # the same date again: not rewritten
     assert write_prices(_prices(PULLED.replace(hour=PULLED.hour + 1), 25), tmp_path) is None  # same prices, pulled later
     assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+
+
+def test_two_price_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_adds_one(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    same_day = PULLED.replace(hour=23, minute=59)
+    assert write_prices(_prices(same_day, 99), tmp_path) is None  # other prices, same UTC day: nothing added
+    assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+    next_day = PULLED + timedelta(days=1)
+    second = write_prices(_prices(next_day, 99), tmp_path)
+    assert second is not None and first.read_bytes() == before
+    assert load_prices(tmp_path) == _prices(next_day, 99)

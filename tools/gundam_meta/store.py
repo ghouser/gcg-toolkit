@@ -14,7 +14,7 @@ import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import add_snapshot, data_dir, newest_snapshot, snapshot_paths
+from shared.dataset import add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -100,7 +100,7 @@ def snapshot_path(generated_at: datetime, out_dir: Path | None = None) -> Path:
 
 
 def write_snapshot(snapshot: OnlineRankingSnapshot, out_dir: Path | None = None, *, replace: bool = False) -> bool:
-    """Add a dated ranking snapshot. False (writing nothing) when that date is stored already or the newest snapshot holds the same
+    """Add a dated ranking snapshot. False (writing nothing) when that UTC day is stored already or the newest snapshot holds the same
     ranking. `replace` is the deliberate redo of one stored snapshot from its raw response."""
     path = snapshot_path(snapshot.generated_at, out_dir)
     text = pretty(SnapshotFile(data=snapshot).model_dump_json())
@@ -134,14 +134,14 @@ def decks_snapshot_path(fetched_at: datetime, out_dir: Path | None = None) -> Pa
 
 
 def write_decks_snapshot(snapshot: ExampleDecksSnapshot, out_dir: Path | None = None) -> Path:
-    """Add a dated example-deck snapshot, unless that date is stored already or the newest snapshot holds the same lists (an existing
-    entry is never rewritten). Returns the entry that holds it: the new one, the one of that date, or the identical newest one."""
+    """Add a dated example-deck snapshot, unless that UTC day is stored already or the newest snapshot holds the same lists (an existing
+    entry is never rewritten). Returns the entry that holds it: the new one, the one of that day, or the identical newest one."""
     path = decks_snapshot_path(snapshot.fetched_at, out_dir)
     same = snapshot.model_copy(update={"fetched_at": None})
     added = add_snapshot(path.parent, path.stem, pretty(DecksSnapshotFile(data=snapshot).model_dump_json()),
                          lambda old: DecksSnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same)
     newest = newest_snapshot(path.parent)
-    return added or (path if path.exists() or newest is None else newest)
+    return added or entry_on_day(path.parent, path.stem) or (path if newest is None else newest)
 
 
 def load_decks_snapshot(out_dir: Path | None = None) -> ExampleDecksSnapshot | None:

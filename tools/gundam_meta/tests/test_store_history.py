@@ -67,6 +67,34 @@ def test_ranking_identical_or_same_date_adds_nothing(tmp_path: Path) -> None:
     assert _files(tmp_path / "online_rankings") == before
 
 
+def test_two_ranking_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_adds_one(tmp_path: Path) -> None:
+    assert write_snapshot(ranking(T1), tmp_path)
+    before = _files(tmp_path / "online_rankings")
+    assert not write_snapshot(ranking(T1.replace(hour=1), rank=5), tmp_path)  # other ranking, same UTC day
+    assert _files(tmp_path / "online_rankings") == before
+    assert write_snapshot(ranking(T1 + timedelta(days=1), rank=5), tmp_path)
+    after = _files(tmp_path / "online_rankings")
+    assert len(after) == 2 and {k: after[k] for k in before} == before
+
+
+def test_two_deck_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_adds_one(tmp_path: Path) -> None:
+    first = write_decks_snapshot(decks(T1), tmp_path)
+    before = first.read_bytes()
+    assert write_decks_snapshot(decks(T1.replace(hour=1), season="other"), tmp_path) == first  # other lists, same UTC day
+    assert first.read_bytes() == before and len(_files(tmp_path / "example_decks")) == 1
+    second = write_decks_snapshot(decks(T1 + timedelta(days=1), season="other"), tmp_path)
+    assert second != first and first.read_bytes() == before and len(_files(tmp_path / "example_decks")) == 2
+
+
+def test_events_collected_on_one_day_are_each_their_own_entry(tmp_path: Path) -> None:
+    assert write_event(event("a", T1), tmp_path)
+    path = tmp_path / "events" / "egm" / "a.json"
+    before = path.read_bytes()
+    assert write_event(event("b", T1.replace(hour=1)), tmp_path)  # another event on the same day: its own entry
+    assert not write_event(event("a", T1.replace(hour=1)), tmp_path)  # the same event again that day: nothing added
+    assert path.read_bytes() == before and len(list((tmp_path / "events" / "egm").glob("*.json"))) == 2
+
+
 def test_example_deck_snapshots_are_added_never_rewritten_or_duplicated(tmp_path: Path) -> None:
     first = write_decks_snapshot(decks(T1), tmp_path)
     before = first.read_bytes()

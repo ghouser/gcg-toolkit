@@ -176,7 +176,7 @@ def _price_content(file: PriceFile) -> object:
 
 
 def write_prices(file: PriceFile, out_dir: Path | None = None) -> Path | None:
-    """Add a dated price snapshot (`prices/<generated_at>.json`). None, writing nothing, when that date is stored already or the
+    """Add a dated price snapshot (`prices/<generated_at>.json`). None, writing nothing, when that UTC day is stored already or the
     newest snapshot has the same prices."""
     folder = (out_dir or data_out_dir()) / "prices"
     same = _price_content(file)

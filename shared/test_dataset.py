@@ -1,11 +1,12 @@
 """The dataset location and the shared snapshot rule (AC-2)."""
 from __future__ import annotations
 
+from datetime import UTC, datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
 
 
 def test_the_dataset_is_gcg_data_dir_when_set(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -39,6 +40,18 @@ def test_data_identical_to_the_newest_adds_nothing(tmp_path: Path) -> None:
     add_snapshot(tmp_path, "2026-10-01T000000Z", "same\n", lambda old: False)
     assert add_snapshot(tmp_path, "2026-10-02T000000Z", "same\n", lambda old: old == "same\n") is None
     assert [p.name for p in tmp_path.iterdir()] == ["2026-10-01T000000Z.json"]
+
+
+def test_a_second_store_on_the_same_utc_day_adds_nothing_even_with_other_data(tmp_path: Path) -> None:
+    never_same = lambda old: False  # noqa: E731
+    morning = datetime(2026, 10, 1, 1, 0, tzinfo=UTC)
+    first = add_snapshot(tmp_path, snapshot_key(morning), "one\n", never_same)
+    assert first is not None
+    assert add_snapshot(tmp_path, snapshot_key(morning.replace(hour=23, minute=59)), "other\n", never_same) is None
+    late_west = datetime(2026, 10, 1, 19, 0, tzinfo=timezone(timedelta(hours=-5)))  # Oct 2, 00:00 in UTC: the next UTC day
+    second = add_snapshot(tmp_path, snapshot_key(late_west), "two\n", never_same)
+    assert second is not None and second.name == "2026-10-02T000000Z.json"
+    assert sorted(p.name for p in tmp_path.iterdir()) == [first.name, second.name] and first.read_text() == "one\n"
 
 
 def test_no_data_names_the_source() -> None:
