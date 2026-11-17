@@ -11,7 +11,7 @@ import pytest
 
 from shared.basetypes import CardNumber, ProductId
 from shared.dataset import Kind, snapshot_key
-from shared.dataset_cli import as_of_report, main, migrate_legacy
+from shared.dataset_cli import as_of_report, main, migrate_legacy, plan_migration
 from tools.gundam_cards import store as cards_store
 from tools.gundam_cards.models import CardPrice, PriceFile, SourceTitlesFile, TraitsFile
 from tools.gundam_cards.build import CatalogResult
@@ -173,7 +173,8 @@ BROKEN: list[tuple[str, Callable[[Path], Path], str, str]] = [  # what is broken
     ("an event", lambda old: _first(old / "gundam_meta" / "events"), "{not json", "EventFile"),
     ("a ranking snapshot", lambda old: _first(old / "gundam_meta" / "online_rankings"), "{not json", "SnapshotFile"),
     ("an example-deck snapshot", lambda old: _first(old / "gundam_meta" / "example_decks"), '{"schema_version": 1}', "DecksSnapshotFile"),
-    ("a vocabulary", lambda old: old / "gundam_cards" / "traits.json", "[]", "TraitsFile"),
+    ("the trait vocabulary", lambda old: old / "gundam_cards" / "traits.json", "[]", "TraitsFile"),
+    ("the source-title vocabulary", lambda old: old / "gundam_cards" / "source_titles.json", "[]", "SourceTitlesFile"),
     ("the prices", lambda old: old / "gundam_cards" / "prices.json", "{not json", "PriceFile"),
     ("the catalog's JSON", lambda old: old / "gundam_cards" / "cards.json", "{not json", "Expecting property name"),
     ("a catalog not in schema 1", lambda old: old / "gundam_cards" / "cards.json",
@@ -191,3 +192,17 @@ def test_a_legacy_file_that_does_not_parse_stops_the_migration_before_anything_i
     with pytest.raises(ValueError, match=re.escape(error)):  # pydantic's ValidationError and json's JSONDecodeError are ValueErrors
         migrate_legacy(legacy, ds)
     assert not ds.exists() or not any(p.is_file() for p in ds.rglob("*"))  # the dataset stays empty
+
+
+def _kind_of(path: Path, old: Path) -> str:
+    """A file the migration copies, as a kind: its name under gundam_cards, its folder under gundam_meta."""
+    rel = path.relative_to(old)
+    return "/".join(rel.parts[:2])
+
+
+def test_every_kind_of_file_the_migration_copies_has_a_broken_case(tmp_path: Path) -> None:
+    legacy = _legacy(tmp_path / "repo")
+    old = legacy / "shared" / "data"
+    moves, _ = plan_migration(legacy, tmp_path / "ds")
+    copied = {_kind_of(m.source, old) for ms in moves.values() for m in ms}
+    assert copied == {_kind_of(which(old), old) for _, which, _, _ in BROKEN}
