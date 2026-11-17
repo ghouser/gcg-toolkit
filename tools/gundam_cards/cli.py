@@ -270,6 +270,8 @@ def cmd_restrictions(args: argparse.Namespace) -> int:
         print("no restrictions.json yet; run `sync-restrictions` first", file=sys.stderr)
         return 2
     stored = load_catalog()
+    if stored is None:
+        print(f"{NoData(Kind.CATALOG)}; card names are left out", file=sys.stderr)
     names = {c.number: c.name for c in stored.data} if stored else {}
 
     def nm(n: CardNumber) -> str:
