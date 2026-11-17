@@ -1,0 +1,58 @@
+# data-store-and-history: design
+
+Spec: `claude-workspace/specs/gcg-toolkit/data-store-and-history/spec.md` (PersonalClaude workspace)
+
+## Approach
+The raw inputs move out of git into a local **dataset** folder: `$GCG_DATA_DIR`, or `~/.gcg/data` when unset. It keeps the old layout under one root, so each tool's store keeps its file names and only its root changes:
+
+```
+$GCG_DATA_DIR/
+  gundam_cards/cards.json, traits.json, source_titles.json   the catalog (append-only) and its vocabularies
+  gundam_cards/prices/<YYYY-MM-DDTHHMMSSZ>.json              price snapshots, keyed by when they were pulled
+  gundam_meta/events/<source>/<id>.json                      one file per in-person event, dated by its fetched_at
+  gundam_meta/online_rankings/<key>.json                     the online ranking snapshots (unchanged)
+  gundam_meta/example_decks/<key>.json                       the example-deck snapshots (unchanged)
+```
+
+What stays in the repository: the set list and the restrictions file (`shared/data/gundam_cards/sets.json`, `restrictions.json`), the collection, and the committed analysis outputs (packages, rates, drift, the meta report, `popularity.json`). Each store gets a second root: `OUT_DIR` keeps meaning the repository folder (tracked files), and `data_out_dir()` resolves the tool's dataset folder **at call time** (so tests can point `GCG_DATA_DIR` at a temp dir). Store functions that read or write dataset files take `out_dir: Path | None = None` and fall back to `data_out_dir()`; callers that pass a folder (tests, redo) work unchanged.
+
+**History rules.**
+- *Catalog (append-only).* `CardsFile` becomes schema 2 with `records`: one `CardRecord(number, first_recorded, no_longer_listed)` per card. `write_catalog` merges the new build into the stored catalog: a card in the build replaces its old data (latest only, no versions) and keeps its `first_recorded`; a stored card the build lacks is kept with `no_longer_listed=True`; a new card gets `first_recorded = generated_at`. The vocabularies are derived from the merged catalog. The card itself (`Card`) is untouched, so `show`/`search --json` output does not change.
+- *Snapshots (prices, online ranking, example decks).* One shared helper, `shared.dataset.add_snapshot(folder, key, text, same_as)`: writes `<key>.json` only when no entry has that key and the newest entry does not hold the same data; it never rewrites an existing file. "Same data" ignores only the store-time stamps (prices: `generated_at` and each row's `fetched_at`; ranking and decks: `fetched_at`). `load_prices` returns the newest price snapshot. The writers keep their signatures (`write_snapshot` -> bool, `write_decks_snapshot` -> the entry's path) so other callers keep working.
+- *Events.* Already one immutable file per event (`write_event` refuses to overwrite); its snapshot date is its `fetched_at`. Unchanged.
+
+**Data as of.** Each store reports `*_as_of(out_dir=None) -> date | None`: catalog = `generated_at` of `cards.json` (last refresh); prices, online ranking, example decks = the newest snapshot's date; events = the newest `fetched_at`. `python -m shared.dataset_cli status` prints one line per source, `no data` when a source is empty.
+
+**No data instead of crashing.** `shared.dataset.NoData(source)` is raised by the readers the commands depend on (catalog via a new `load_catalog_or_fail`, `load_cards_with_prices`); each CLI `main` catches it and prints `no data: <source> (dataset <dir>)`, exit 2. Commands that need events, ranking or decks check for an empty result and print the same message.
+
+**Migration (AC-4).** `python -m shared.dataset_cli migrate --from <repo root>` copies the legacy files from `<root>/shared/data/` into the dataset: events, ranking and deck snapshots byte for byte; `traits.json` and `source_titles.json` byte for byte; `prices.json` byte for byte as the first price snapshot keyed by its `generated_at`; `cards.json` as schema 2 with every card `first_recorded` = the file's `generated_at`. It refuses (writes nothing) when any target already exists. No price backfill from raw dumps.
+
+**Tests never see the real data.** A root `conftest.py` sets `GCG_DATA_DIR` to an empty temp folder for the whole session and per test. The real-data ("corpus") tests then skip unless `GCG_TEST_REAL_DATA=1`, which leaves `GCG_DATA_DIR` alone.
+
+Why this over the obvious alternative (a new layout or SQLite): the spec keeps dated JSON; mirroring the layout keeps every reader's file names, keeps the diff small, and makes the migration a copy that can be checked with checksums.
+
+## Files and interfaces
+- `shared/dataset.py` (new): `data_dir() -> Path`, `snapshot_key(datetime) -> str`, `newest_snapshot(folder) -> Path | None`, `add_snapshot(folder, key, text, same_as: Callable[[str], bool]) -> Path | None`, `write_atomic`, `class Kind(StrEnum)` (the five sources), `class NoData(Exception)`.
+- `shared/dataset_cli.py` (new): `status`, `migrate --from PATH`; `migrate_legacy(legacy_root, data_dir) -> MigrationReport`, `as_of_report(data_dir) -> list[tuple[Kind, date | None]]`.
+- `tools/gundam_cards/models.py`: `CardRecord`; `CardsFile` schema 2 with `records`.
+- `tools/gundam_cards/store.py`: `data_out_dir()`, merging `write_catalog`, `load_catalog(out_dir=None) -> CardsFile | None`, `load_catalog_or_fail`, prices as snapshots (`write_prices -> Path | None`, `load_prices` = newest), `catalog_as_of`, `prices_as_of`.
+- `tools/gundam_meta/store.py`: `data_out_dir()`; events/ranking/decks default to it; decks and ranking written through `add_snapshot`; `events_as_of`, `rankings_as_of`, `decks_as_of`.
+- `tools/gundam_cards/cli.py`, `tools/gundam_meta/cli.py`, `tools/gundam_packages/cli.py`, `tools/gundam_collection/cli.py`: read the catalog through the store; catch `NoData` in `main`.
+- `conftest.py` (new, repo root); the corpus/regression tests' skip conditions.
+- `.gitignore`: the moved paths under `shared/data/` (so the copies left on disk stay untracked).
+- `.claude/CLAUDE.md`: the portability rule reworded as the spec requires; where the dataset lives.
+- Docs that name the moved paths: the tools' `design.md`, `docs/commands.md`, `docs/tool-pattern.md` (paths only).
+
+## Tests
+- AC-1: `tools/gundam_cards/tests/test_catalog_history.py`: two catalog writes where the second build drops one card, changes one and adds one; every earlier card is still present, the count did not drop, the dropped card is `no_longer_listed`, the changed card has only its new data and its original `first_recorded`, the new card is dated by the second write; a card that comes back loses the mark.
+- AC-2: `shared/test_dataset.py` and `tools/gundam_meta/tests/test_store_history.py`, `tools/gundam_cards/tests/test_tcgcsv.py`: for prices, ranking, decks and events, a new entry is added and earlier files are byte-identical; identical data and a repeated key add nothing; `data_dir()` follows `GCG_DATA_DIR` and defaults to `~/.gcg/data`; with no `out_dir`, stores write under `GCG_DATA_DIR`. Stated check: after a store, `git status` in the repo shows nothing.
+- AC-3: `shared/test_dataset_cli.py`: `status` on an empty dataset prints `no data` for all five; with one entry per source each reports the right date.
+- AC-4: `shared/test_dataset_cli.py`: migrating a small legacy tree keeps every event, snapshot and vocabulary byte-identical, prices become the first snapshot, cards keep their data and get `first_recorded` = the old `generated_at`; a second migrate refuses. Stated check (real data, by hand): file counts and SHA-256 of every copied file match; the read commands give identical output before (repo layout, on `main`) and after (dataset).
+- AC-5: `shared/test_empty_dataset.py`: each read command of the four CLIs, run against an empty dataset, exits with `no data` and no traceback. Stated check: `git ls-files` no longer lists the moved files; sets, restrictions and the analysis outputs are still tracked and unchanged (`git diff main -- <those paths>` empty).
+
+## Risks
+- **Losing data in the move.** Mitigated by the order: migrate, verify counts and checksums and command output, and only then `git rm --cached` (which keeps the files on disk).
+- **Code outside this change that writes the ranking or deck snapshots** passing an explicit folder would still write into the repository folder. The writers keep their signatures and default to the dataset; noticed by `status` showing no new snapshot.
+- **`reparse`/`refetch` of events replace a stored event on purpose** (a repair from the raw cache, not new data). This is the existing redo path and is left as is; refreshing is out of scope.
+- **Repairing a price snapshot** with `reparse-tcgplayer` no longer overwrites it (same key = no new entry). Acceptable under AC-2; it says so instead of writing.
+- **Corpus tests now opt-in** (`GCG_TEST_REAL_DATA=1`) so a default run never reads the real data.
