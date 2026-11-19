@@ -249,7 +249,7 @@ Single-deck play rates are all small (the best is 12% and only 8 decks reach 5%)
 First run on the real data (164 cards, 535 copies, all the starter decks typed so far): Kira Aile Strike is complete (8 of 8 critical copies, the ST04 deck), Amuro Ray 5 of 8, Mikazuki Barbatos 4 of 12 and $210 to complete (Gundam Barbatos 1st Form alone is $43.44), Marida Kshatriya $179 (Kshatriya $44.29).
 
 ## Price analyzer: `value` (2026-10-08)
-`python3 -m tools.gundam_collection.cli value [--bands 0.5,1,5,10] [--limit N] [--bulk]`: what my collection is worth, from `collection.json` and the latest `prices.json` (no network). Each card is valued at its latest TCGPlayer market price times my copies. **Bands are contiguous, in whole cents:** `under $0.50` (bulk, counted but not listed unless `--bulk`), `$0.50 to under $1`, `$1 to under $5`, `$5 to under $10`, and `$10 or more`. Edge rule (changed 2026-10-08): **every threshold opens the band above it**, so a card priced at exactly a threshold is in the higher band (a card at $0.50 is "$0.50 and above"); the header also shows the value with the bulk ignored (cards of $0.50 or more, the ones worth selling) and the bulk's own value.
+`python3 -m tools.gundam_collection.cli value [--bands 0.5,1,5,10] [--limit N] [--bulk]`: what my collection is worth, from `collection.json` and the newest price snapshot (no network). Each card is valued at its latest TCGPlayer market price times my copies. **Bands are contiguous, in whole cents:** `under $0.50` (bulk, counted but not listed unless `--bulk`), `$0.50 to under $1`, `$1 to under $5`, `$5 to under $10`, and `$10 or more`. Edge rule (changed 2026-10-08): **every threshold opens the band above it**, so a card priced at exactly a threshold is in the higher band (a card at $0.50 is "$0.50 and above"); the header also shows the value with the bulk ignored (cards of $0.50 or more, the ones worth selling) and the bulk's own value.
 
 ## Deck report: `decks` and `deck` (agreed 2026-10-09; built)
 **Purpose.** Show which decks my collection supports, which it is close to supporting, and for one deck exactly which cards to get next. It **never produces a 50-card list**: its job is to grow the collection, so it reports gaps and picks (what to buy, how many, what it costs, why), under the goals at the top of this file.
@@ -304,7 +304,7 @@ Each pick says: copies to buy, unit and line price, why ("core of Tekkadan", "br
 
 **Both sources.** The default is both: a slot is critical if it is critical in either source, at the larger copy count (goal 1: never miss a critical card); each line says which source needs it. `--source tournament|online` restricts to one.
 
-**Outputs.** Read-only views (no new files). All numbers come from `collection.json`, `prices.json`, `packages*.json` and `rates*.json`.
+**Outputs.** Read-only views (no new files). All numbers come from `collection.json`, the newest price snapshot, `packages*.json` and `rates*.json`.
 
 **Acceptance checks (a first list).**
 - Every core copy of a deck's packages, and the bridges of each pair, appear in its core section (goals 1 and 2); the Mikazuki Barbatos + Tekkadan deck lists the three Barbatos cards, the four Tekkadan cards and the bridge Gundam Flauros.
