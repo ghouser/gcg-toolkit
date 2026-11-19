@@ -137,8 +137,11 @@ def write_decks_snapshot(snapshot: ExampleDecksSnapshot, out_dir: Path | None = 
     same = snapshot.model_copy(update={"fetched_at": None})
     added = add_snapshot(path.parent, path.stem, pretty(DecksSnapshotFile(data=snapshot).model_dump_json()),
                          lambda old: DecksSnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same)
-    newest = newest_snapshot(path.parent)
-    return added or entry_on_day(path.parent, path.stem) or (path if newest is None else newest)
+    if added is not None:
+        return added
+    kept = entry_on_day(path.parent, path.stem) or newest_snapshot(path.parent)  # nothing added: that day's entry, or the identical newest
+    assert kept is not None
+    return kept
 
 
 def load_decks_snapshot(out_dir: Path | None = None) -> ExampleDecksSnapshot | None:
