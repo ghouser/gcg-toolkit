@@ -100,6 +100,12 @@ The plan axis is `beatdown = mean(curve, pressure, 10 - interaction, 10 - advant
 | `BUCKET_CUTOFFS` | 10 / 3 / 1 / 0.4 % | Online appearance-rate buckets: core meta, often, played, sometimes; below is niche | judgment, expected to be tuned |
 | `EXPECTED_MAIN_DECK`, `MAX_SIDEBOARD` | 50, 10 | Deck sections | rule |
 
+## Catalog refresh (`tools/gundam_cards/refresh.py`)
+
+| Constant | Value | Meaning | Basis |
+|---|---|---|---|
+| `ANOMALY_SHARE` | 0.10 | A refresh is refused when more than this share of existing cards (not marked no longer listed) would be dropped (missed) or changed (anything but printings and fetch time); `--allow-anomaly` overrides | judgment: a normal refresh drops and changes almost nothing, since cached pages are never re-fetched |
+
 ## Legality (`tools/gundam_cards/legality.py`)
 
 `MAX_COPIES` = 4 and the banned and restricted lists are rules from Bandai's announcement, not tuning (see `notes/` and `sync-restrictions`).
