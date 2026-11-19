@@ -14,7 +14,7 @@ import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -82,6 +82,14 @@ def load_events(out_dir: Path | None = None, source: Source | None = None) -> tu
         for path in sorted((out_dir / "events" / src.value).glob("*.json")):
             events.append(EventFile.model_validate_json(path.read_text(encoding="utf-8")).data)
     return tuple(sorted(events, key=lambda e: (e.start_date, e.source.value, str(e.id))))
+
+
+def load_events_or_fail(out_dir: Path | None = None) -> tuple[Event, ...]:
+    """Every stored event; raises `NoData` when there are none."""
+    events = load_events(out_dir)
+    if not events:
+        raise NoData(Kind.EVENTS)
+    return events
 
 
 def stored_event_ids(source: Source, out_dir: Path | None = None) -> frozenset[EventId]:

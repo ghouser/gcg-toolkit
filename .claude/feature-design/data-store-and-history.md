@@ -23,7 +23,7 @@ What stays in the repository: the set list and the restrictions file (`shared/da
 
 **Data as of.** Each store reports `*_as_of(out_dir=None) -> date | None`: catalog = `generated_at` of `cards.json` (last refresh); prices, online ranking, example decks = the newest snapshot's date; events = the newest `fetched_at`. `python -m shared.dataset_cli status` prints one line per source, `no data` when a source is empty.
 
-**No data instead of crashing.** `shared.dataset.NoData(source)` is raised by the readers the commands depend on (catalog via a new `load_catalog_or_fail`, `load_cards_with_prices`); each CLI `main` catches it and prints `no data: <source> (dataset <dir>)`, exit 2. Commands that need events, ranking or decks check for an empty result and print the same message.
+**No data instead of crashing.** `shared.dataset.NoData(source)` is raised by the readers the commands depend on (catalog via a new `load_catalog_or_fail`, `load_cards_with_prices`; events via a new `load_events_or_fail` in the meta store, shared by the meta and packages CLIs); each CLI `main` catches it and prints `no data: <source> (dataset <dir>)`, exit 2. Commands that need events, ranking or decks check for an empty result and print the same message.
 
 **Tests never see the real data.** A root `conftest.py` sets `GCG_DATA_DIR` to an empty temp folder for the whole session and per test. The real-data ("corpus") tests then skip unless `GCG_TEST_REAL_DATA=1`, which leaves `GCG_DATA_DIR` alone.
 
@@ -34,7 +34,7 @@ Why this over the obvious alternative (a new layout or SQLite): the spec keeps d
 - `shared/dataset_cli.py` (new): `status`; `as_of_report(data_dir) -> list[tuple[Kind, date | None]]`.
 - `tools/gundam_cards/models.py`: `CardRecord`; `CardsFile` schema 2 with `records`.
 - `tools/gundam_cards/store.py`: `data_out_dir()`, merging `write_catalog`, `load_catalog(out_dir=None) -> CardsFile | None`, `load_catalog_or_fail`, prices as snapshots (`write_prices -> Path | None`, `load_prices` = newest), `catalog_as_of`, `prices_as_of`.
-- `tools/gundam_meta/store.py`: `data_out_dir()`; events/ranking/decks default to it; decks and ranking written through `add_snapshot`; `events_as_of`, `rankings_as_of`, `decks_as_of`.
+- `tools/gundam_meta/store.py`: `data_out_dir()`; events/ranking/decks default to it; decks and ranking written through `add_snapshot`; `load_events_or_fail`; `events_as_of`, `rankings_as_of`, `decks_as_of`.
 - `tools/gundam_cards/cli.py`, `tools/gundam_meta/cli.py`, `tools/gundam_packages/cli.py`, `tools/gundam_collection/cli.py`: read the catalog through the store; catch `NoData` in `main`.
 - `conftest.py` (new, repo root); the corpus/regression tests' skip conditions.
 - `.gitignore`: the moved paths under `shared/data/` (so the copies left on disk stay untracked).

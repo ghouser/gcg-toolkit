@@ -32,7 +32,7 @@ from tools.gundam_meta.common import is_complete
 from tools.gundam_meta.dedupe import combined_events, find_duplicate_groups
 from tools.gundam_meta.egm import egm_raw_path
 from tools.gundam_meta.eras import EraError, current_era, find_era, load_era_defs, resolve_eras
-from tools.gundam_meta.models import Era, EraId, Event, EventId, MsaBucket, Source, Tier, TournamentStats
+from tools.gundam_meta.models import Era, EraId, EventId, MsaBucket, Source, Tier, TournamentStats
 from tools.gundam_meta.redo import RedoReport, refetch_duelfrontier, refetch_egm, reparse_all
 from tools.gundam_meta.stats import build_popularity, compute_stats, events_in_window, msa_stats
 from tools.gundam_meta.store import (
@@ -40,6 +40,7 @@ from tools.gundam_meta.store import (
     RAW_DIR,
     known_snapshot_times,
     load_events,
+    load_events_or_fail,
     load_snapshots,
     snapshot_key,
     stored_event_ids,
@@ -122,17 +123,9 @@ def cmd_sync(args: argparse.Namespace) -> int:
     return 0 if ok else 1
 
 
-def _events() -> tuple[Event, ...]:
-    """Every stored event; raises `NoData` when there are none."""
-    events = load_events()
-    if not events:
-        raise NoData(Kind.EVENTS)
-    return events
-
-
 def cmd_popularity(_: argparse.Namespace) -> int:
     catalog = Catalog()
-    events, snapshots = _events(), load_snapshots()
+    events, snapshots = load_events_or_fail(), load_snapshots()
     if not snapshots:
         print(f"{NoData(Kind.ONLINE_RANKING)}; built from events only", file=sys.stderr)
     build = build_popularity(events, snapshots, catalog.kinds, _eras(), _today(), datetime.now(tz=UTC))
@@ -176,7 +169,7 @@ def cmd_top_cards(args: argparse.Namespace) -> int:
         return 0
 
     tier = Tier(args.meta)
-    events = _events()
+    events = load_events_or_fail()
     if args.since:
         era_id: EraId | None = None
         start, end, label = date.fromisoformat(args.since), (date.fromisoformat(args.until) if args.until else None), "date range"
@@ -237,7 +230,7 @@ def cmd_refetch(args: argparse.Namespace) -> int:
 
 
 def cmd_duplicates(_: argparse.Namespace) -> int:
-    groups = find_duplicate_groups(_events())
+    groups = find_duplicate_groups(load_events_or_fail())
     for g in groups:
         other = g.others[0]
         print(f"{g.canonical.start_date}  kept {g.canonical.source.value}: {g.canonical.name}\n"

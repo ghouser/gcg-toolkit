@@ -32,8 +32,8 @@ from tools.gundam_cards.store import load_catalog_or_fail
 from tools.gundam_cards.store import load_cards_with_prices, load_sets, prices_as_of, release_dates
 from tools.gundam_meta.dedupe import combined_events
 from tools.gundam_meta.eras import EraError, find_era, load_era_defs, resolve_eras
-from tools.gundam_meta.models import Era, EraId, Event, Tier
-from tools.gundam_meta.store import load_decks_snapshot, load_events
+from tools.gundam_meta.models import Era, EraId, Tier
+from tools.gundam_meta.store import load_decks_snapshot, load_events_or_fail
 from tools.gundam_packages.build import (
     ALL_TIERS,
     ONLINE_PARAMS,
@@ -67,14 +67,6 @@ def _eras() -> dict[EraId, Era]:
     if not sets:
         raise SystemExit("no sets.json; run `python -m tools.gundam_cards.cli sync --only sets` first")
     return {e.id: e for e in resolve_eras(load_era_defs(), release_dates(sets))}
-
-
-def _events() -> tuple[Event, ...]:
-    """Every stored event; raises `NoData` when there are none."""
-    events = load_events()
-    if not events:
-        raise NoData(Kind.EVENTS)
-    return events
 
 
 def _tiers(value: str) -> tuple[Tier, ...]:
@@ -139,7 +131,7 @@ def cmd_build(args: argparse.Namespace) -> int:
     except KeyError:
         print(f"unknown era {args.era!r} (known: {', '.join(map(str, eras))})", file=sys.stderr)
         return 2
-    events = combined_events(_events())
+    events = combined_events(load_events_or_fail())
     file, _ = build_packages(events, cards, era, _tiers(args.tier), overrides=load_name_overrides(), generated_at=datetime.now(UTC))
     path = write_packages(file)
     listed, _ = copy_decks(window_events(events, era, _tiers(args.tier)), cards)
@@ -461,7 +453,7 @@ def cmd_card(args: argparse.Namespace) -> int:
 
 def _drift_for(base: PackagesFile, new_era: Era, cards: dict[CardNumber, CardModel]) -> tuple[DriftFile, list[Deck]]:
     release = release_dates(load_sets())
-    events = window_events(combined_events(_events()), new_era, ALL_TIERS)
+    events = window_events(combined_events(load_events_or_fail()), new_era, ALL_TIERS)
     decks, not_counted = deck_sets(events, cards)
     graph = build_graph(list(cards.values()))
     drift = compute_drift(base, decks, make_window(new_era, ALL_TIERS, events, len(decks), not_counted), graph,
@@ -490,7 +482,7 @@ def cmd_report(args: argparse.Namespace) -> int:
     base, new_era = picked
     drift, new_decks = _drift_for(base, new_era, cards)
     base_era = _eras()[EraId(args.base)]
-    base_decks, _ = deck_sets(window_events(combined_events(_events()), base_era, ALL_TIERS), cards)
+    base_decks, _ = deck_sets(window_events(combined_events(load_events_or_fail()), base_era, ALL_TIERS), cards)
     text = render_report(base, base_decks, drift, new_decks, cards, datetime.now().astimezone())
     out = Path(args.out) if args.out else OUT_DIR / f"{args.base}_meta_report.md"
     out.write_text(text, encoding="utf-8")
