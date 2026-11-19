@@ -16,7 +16,6 @@ from shared.fetch import FetchError, TextFetcher
 from tools.gundam_meta import duelfrontier, egm
 from tools.gundam_meta.models import Event, EventId, OnlineRankingSnapshot, Source
 from tools.gundam_meta.store import (
-    OUT_DIR,
     load_events,
     load_snapshots,
     write_atomic,
@@ -43,7 +42,7 @@ def same_content(a: Event, b: Event) -> bool:
     return a.model_copy(update={"fetched_at": b.fetched_at}) == b
 
 
-def _store(new: Event, old: Event | None, out_dir: Path) -> bool:
+def _store(new: Event, old: Event | None, out_dir: Path | None) -> bool:
     """Replace the stored event if its content differs. Returns True if it changed (or is new)."""
     if old is not None and same_content(old, new):
         return False
@@ -56,7 +55,7 @@ def _label(event: Event) -> str:
 
 
 # ---- reparse: no network ---------------------------------------------------------------------------------------
-def reparse_duelfrontier(raw_dir: Path, out_dir: Path = OUT_DIR) -> RedoReport:
+def reparse_duelfrontier(raw_dir: Path, out_dir: Path | None = None) -> RedoReport:
     stored = {e.id: e for e in load_events(out_dir, Source.DUELFRONTIER)}
     report = EMPTY
     for path in sorted((raw_dir / "duelfrontier" / "events").glob("*.json")):
@@ -80,7 +79,7 @@ def reparse_duelfrontier(raw_dir: Path, out_dir: Path = OUT_DIR) -> RedoReport:
     return report
 
 
-def reparse_egm(raw_dir: Path, out_dir: Path = OUT_DIR) -> RedoReport:
+def reparse_egm(raw_dir: Path, out_dir: Path | None = None) -> RedoReport:
     """Re-parse each stored EGM event from the raw response it was originally stored from (named by its fetched_at)."""
     report = EMPTY
     parsed_by_time: dict[datetime, dict[EventId, Event]] = {}
@@ -101,7 +100,7 @@ def reparse_egm(raw_dir: Path, out_dir: Path = OUT_DIR) -> RedoReport:
     return report
 
 
-def reparse_all(raw_dir: Path, out_dir: Path = OUT_DIR) -> RedoReport:
+def reparse_all(raw_dir: Path, out_dir: Path | None = None) -> RedoReport:
     return reparse_duelfrontier(raw_dir, out_dir) + reparse_egm(raw_dir, out_dir)
 
 

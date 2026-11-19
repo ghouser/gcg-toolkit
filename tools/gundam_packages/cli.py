@@ -25,14 +25,15 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber
+from shared.dataset import Kind, NoData
 from shared.samejob.pilots import is_pilot
-from tools.gundam_cards.models import CardModel, CardsFile, UnitCard, color_of, names_of
-from tools.gundam_cards.store import OUT_DIR as CARDS_DIR
-from tools.gundam_cards.store import load_cards_with_prices, load_sets, release_dates
+from tools.gundam_cards.models import CardModel, UnitCard, color_of, names_of
+from tools.gundam_cards.store import load_catalog_or_fail
+from tools.gundam_cards.store import load_cards_with_prices, load_sets, prices_as_of, release_dates
 from tools.gundam_meta.dedupe import combined_events
 from tools.gundam_meta.eras import EraError, find_era, load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, Tier
-from tools.gundam_meta.store import load_decks_snapshot, load_events
+from tools.gundam_meta.store import load_decks_snapshot, load_events_or_fail
 from tools.gundam_packages.build import (
     ALL_TIERS,
     ONLINE_PARAMS,
@@ -58,10 +59,7 @@ from tools.gundam_packages.synergy import build_graph
 
 
 def _cards() -> dict[CardNumber, CardModel]:
-    path = CARDS_DIR / "cards.json"
-    if not path.is_file():
-        raise SystemExit(f"{path} not found; run `python -m tools.gundam_cards.cli sync` first")
-    return {c.number: c for c in CardsFile.model_validate_json(path.read_text(encoding="utf-8")).data}
+    return {c.number: c for c in load_catalog_or_fail().data}
 
 
 def _eras() -> dict[EraId, Era]:
@@ -106,7 +104,9 @@ def _pct(x: float) -> str:
 def _build_online(args: argparse.Namespace) -> int:
     snapshot = load_decks_snapshot()
     if snapshot is None or not any(a.sides_analyzed is not None for a in snapshot.archetypes):
-        print("no weighted example decks stored (shared/data/gundam_meta/example_decks/ is missing or has no weights)", file=sys.stderr)
+        if snapshot is None:
+            raise NoData(Kind.EXAMPLE_DECKS)
+        print("the stored example decks have no weights", file=sys.stderr)
         return 2
     cards = _cards()
     decks, lists_used = online_copy_decks(snapshot, cards)
@@ -131,7 +131,7 @@ def cmd_build(args: argparse.Namespace) -> int:
     except KeyError:
         print(f"unknown era {args.era!r} (known: {', '.join(map(str, eras))})", file=sys.stderr)
         return 2
-    events = combined_events(load_events())
+    events = combined_events(load_events_or_fail())
     file, _ = build_packages(events, cards, era, _tiers(args.tier), overrides=load_name_overrides(), generated_at=datetime.now(UTC))
     path = write_packages(file)
     listed, _ = copy_decks(window_events(events, era, _tiers(args.tier)), cards)
@@ -228,6 +228,8 @@ def cmd_pairs(args: argparse.Namespace) -> int:
     from tools.gundam_packages.pairing import pilots_for, rates_with, units_for
 
     priced = {p.card.number: p for p in load_cards_with_prices()}
+    if prices_as_of() is None:
+        print(f"{NoData(Kind.PRICES)}; every card shows as unpriced", file=sys.stderr)
     cards = {n: p.card for n, p in priced.items()}
     number = CardNumber(args.card)
     card = cards.get(number)
@@ -451,7 +453,7 @@ def cmd_card(args: argparse.Namespace) -> int:
 
 def _drift_for(base: PackagesFile, new_era: Era, cards: dict[CardNumber, CardModel]) -> tuple[DriftFile, list[Deck]]:
     release = release_dates(load_sets())
-    events = window_events(combined_events(load_events()), new_era, ALL_TIERS)
+    events = window_events(combined_events(load_events_or_fail()), new_era, ALL_TIERS)
     decks, not_counted = deck_sets(events, cards)
     graph = build_graph(list(cards.values()))
     drift = compute_drift(base, decks, make_window(new_era, ALL_TIERS, events, len(decks), not_counted), graph,
@@ -480,7 +482,7 @@ def cmd_report(args: argparse.Namespace) -> int:
     base, new_era = picked
     drift, new_decks = _drift_for(base, new_era, cards)
     base_era = _eras()[EraId(args.base)]
-    base_decks, _ = deck_sets(window_events(combined_events(load_events()), base_era, ALL_TIERS), cards)
+    base_decks, _ = deck_sets(window_events(combined_events(load_events_or_fail()), base_era, ALL_TIERS), cards)
     text = render_report(base, base_decks, drift, new_decks, cards, datetime.now().astimezone())
     out = Path(args.out) if args.out else OUT_DIR / f"{args.base}_meta_report.md"
     out.write_text(text, encoding="utf-8")
@@ -575,7 +577,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     report.add_argument("--out", help="output path (default shared/data/gundam_packages/<from>_meta_report.md)")
     report.set_defaults(func=cmd_report)
     args = parser.parse_args(argv)
-    code: int = args.func(args)
+    try:
+        code: int = args.func(args)
+    except NoData as e:
+        print(e, file=sys.stderr)
+        return 2
     return code
 
 

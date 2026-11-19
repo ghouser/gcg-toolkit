@@ -390,12 +390,27 @@ class SetsFile(FrozenModel):
     data: tuple[CardSet, ...]
 
 
-class CardsFile(FrozenModel):
-    """`shared/data/gundam_cards/cards.json`."""
+class CardRecord(FrozenModel):
+    """When a card entered the catalog, and whether the source still lists it. The catalog is append-only: a card is never removed."""
 
-    schema_version: Literal[1] = 1
-    generated_at: datetime
+    number: CardNumber
+    first_recorded: datetime  # the catalog refresh that first saw it
+    no_longer_listed: bool  # the source dropped it; its last known data is kept
+
+
+class CardsFile(FrozenModel):
+    """`cards.json` in the dataset (`gundam_cards/`): every card ever seen, latest data only, with one record per card (same order)."""
+
+    schema_version: Literal[2] = 2  # 2: adds `records` (first recorded, no longer listed)
+    generated_at: datetime  # the last refresh
     data: tuple[Card, ...]
+    records: tuple[CardRecord, ...]
+
+    @model_validator(mode="after")
+    def _one_record_per_card(self) -> CardsFile:
+        if [r.number for r in self.records] != [c.number for c in self.data]:
+            raise ValueError("records must list the same card numbers as data, in the same order")
+        return self
 
 
 # ---- prices (tcgcsv) ----------------------------------------------------------------------------------------------
@@ -411,7 +426,7 @@ class CardPrice(FrozenModel):
 
 
 class PriceFile(FrozenModel):
-    """`shared/data/gundam_cards/prices.json`: one row per priced card, sorted by card number. A card with no buyable product has no row."""
+    """`prices/<generated_at>.json` in the dataset: one dated price snapshot, one row per priced card, sorted by card number. A card with no buyable product has no row."""
 
     schema_version: Literal[2] = 2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
     generated_at: datetime
@@ -438,7 +453,7 @@ class SourceTitleStat(FrozenModel):
 
 
 class SourceTitlesFile(FrozenModel):
-    """`shared/data/gundam_cards/source_titles.json`: the generated vocabulary of series/games cards come from."""
+    """`source_titles.json` in the dataset: the generated vocabulary of series/games cards come from."""
 
     schema_version: Literal[1] = 1
     generated_at: datetime
@@ -446,7 +461,7 @@ class SourceTitlesFile(FrozenModel):
 
 
 class TraitsFile(FrozenModel):
-    """`shared/data/gundam_cards/traits.json`: the generated trait vocabulary."""
+    """`traits.json` in the dataset: the generated trait vocabulary."""
 
     schema_version: Literal[1] = 1
     generated_at: datetime

@@ -24,11 +24,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber
-from tools.gundam_cards.models import CardModel, CardsFile, PricedCard, color_of, cost_of, level_of
+from shared.dataset import Kind, NoData
+from tools.gundam_cards.models import CardModel, PricedCard, color_of, cost_of, level_of
 from tools.gundam_cards.legality import Rules
-from tools.gundam_cards.store import OUT_DIR as CARDS_DIR
+from tools.gundam_cards.store import load_catalog_or_fail
 from tools.gundam_cards.store import load_restrictions
-from tools.gundam_cards.store import load_cards_with_prices
+from tools.gundam_cards.store import load_cards_with_prices, prices_as_of
 from tools.gundam_collection.alternatives import candidates, owned_alternatives
 from tools.gundam_collection.bands import BANDS, THRESHOLDS, Band, NextBand
 from tools.gundam_collection.check import build_collection, catalog_info, check_lines, set_template
@@ -71,10 +72,7 @@ from tools.gundam_packages.store import load_packages, load_rates
 
 
 def _cards() -> list[CardModel]:
-    path = CARDS_DIR / "cards.json"
-    if not path.is_file():
-        raise SystemExit(f"{path} not found; run `python -m tools.gundam_cards.cli sync` first")
-    return list(CardsFile.model_validate_json(path.read_text(encoding="utf-8")).data)
+    return list(load_catalog_or_fail().data)
 
 
 def _print_report(report: CheckReport, quiet: bool) -> None:
@@ -175,6 +173,8 @@ def _layers() -> Layers:
     priced = load_cards_with_prices()
     cards = {p.card.number: p for p in priced}
     prices = {n: p.latest_tcg_price.price_cents for n, p in cards.items() if p.latest_tcg_price is not None}
+    if prices_as_of() is None:
+        print(f"{NoData(Kind.PRICES)}; every card counts as unpriced", file=sys.stderr)
     _refresh_collection(cards)
     collection = load_collection()
     return Layers(cards, prices, owned_copies(collection), collection is not None)
@@ -992,7 +992,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     val.add_argument("--bulk", action="store_true", help="also list the cards in the lowest band")
     val.set_defaults(func=cmd_value)
     args = parser.parse_args(argv)
-    code: int = args.func(args)
+    try:
+        code: int = args.func(args)
+    except NoData as e:
+        print(e, file=sys.stderr)
+        return 2
     return code
 
 

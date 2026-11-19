@@ -1,4 +1,4 @@
-"""Whole-catalog checks against the saved Bandai pages (skipped when the raw cache isn't present).
+"""Whole-catalog checks against the saved Bandai pages (real data: run only with GCG_TEST_REAL_DATA=1, and skipped when the raw cache isn't present).
 
 These pin the facts of the 2026-10-06 sync: 2,011 printing pages. If Bandai's data changes, or a rule here
 changes, they fail on purpose; update the expectations deliberately.
@@ -6,6 +6,7 @@ changes, they fail on purpose; update the expectations deliberately.
 from __future__ import annotations
 
 import collections
+import os
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -16,7 +17,10 @@ from tools.gundam_cards.models import CardKind, CardsFile, CommandCard, Keyword,
 from tools.gundam_cards.store import RAW_DIR, load_source_pages, release_dates, load_sets, write_catalog
 
 pytestmark = pytest.mark.corpus
-needs_raw = pytest.mark.skipif(not (RAW_DIR / "detail").is_dir(), reason="raw Bandai crawl not present")
+needs_raw = pytest.mark.skipif(
+    os.environ.get("GCG_TEST_REAL_DATA") != "1" or not (RAW_DIR / "detail").is_dir(),
+    reason="real-data test (set GCG_TEST_REAL_DATA=1) and the raw Bandai crawl must be present",
+)
 
 
 @pytest.fixture(scope="module")

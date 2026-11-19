@@ -21,7 +21,7 @@ python3 -m tools.gundam_cards.cli traits                     # trait (faction) v
 python3 -m tools.gundam_cards.cli refetch --card ST01-001    # or --package / --all, when data is suspect
 python3 -m tools.gundam_cards.cli reparse                    # rebuild from saved raw HTML, no network
 python3 -m tools.gundam_cards.cli sync-tcgplayer [--force]   # latest TCGPlayer market price per card, from tcgcsv (about 58 requests; skips if tcgcsv has nothing new)
-python3 -m tools.gundam_cards.cli reparse-tcgplayer          # rebuild prices.json from the saved tcgcsv files, no network
+python3 -m tools.gundam_cards.cli reparse-tcgplayer          # rebuild a price snapshot from the saved tcgcsv files (added only if that day has none), no network
 python3 -m tools.gundam_cards.cli price GD05-002 [--explain] # a card's latest price; --explain lists every product considered (from the saved files)
 ```
 `search` runs entirely against the local catalog: no network, instant, any combination of filters. Bandai is only contacted by `sync`/`refetch`.
@@ -30,13 +30,13 @@ python3 -m tools.gundam_cards.cli price GD05-002 [--explain] # a card's latest p
 - Network (only during sync): Bandai card site and product list; tcgcsv.com (a community export of TCGPlayer's catalog) for the TCGPlayer product mapping and market prices. TCGPlayer's own sites and APIs are never contacted (their terms forbid it; see `notes/source-terms.md`).
 
 ## Outputs
-Shared dataset in `shared/data/gundam_cards/` (owned by this tool; other tools read these files per the contracts below, through the shared models, and never import this tool's parsing code). Raw HTML is cached in `tools/gundam_cards/data/raw/`.
+Owned by this tool; other tools read these files per the contracts below, through the shared models and `store.py`, and never import this tool's parsing code. `sets.json` and `restrictions.json` are tracked in `shared/data/gundam_cards/`. The catalog, its vocabularies and the prices live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_cards/` (default `~/.gcg/data`, see `shared/dataset.py`). Raw HTML is cached in `tools/gundam_cards/data/raw/`.
 
 | File | Format | Key | Fields | Consumers |
 |------|--------|-----|--------|-----------|
-| `cards.json` | JSON (envelope, see tool pattern) | card number | `Card` union below, including `printings` and `faq` | all tools |
+| `cards.json` | JSON (envelope, schema 2) | card number | `Card` union below, including `printings` and `faq`, plus `records`: per card `first_recorded` and `no_longer_listed`. **Append-only**: a refresh replaces a card's data (latest only, no earlier versions) and never removes a card; one the source dropped is kept and marked. `generated_at` is the last refresh. | all tools |
 | `sets.json` | JSON | set code | `CardSet` below | `gundam_meta` (eras), recommender |
-| `prices.json` | JSON (envelope) | card number | `PriceFile` below: per card the **latest TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. Latest only; replaced whole on each sync, never edited by hand. Joined onto the card model on read (`PricedCard`). | `gundam_collection` |
+| `prices/<generated_at>.json` | JSON (envelope) | card number | `PriceFile` below: per card the **TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. One dated snapshot per pull; a snapshot is never rewritten, and a pull with the same prices as the newest adds nothing. The newest is the latest price, joined onto the card model on read (`PricedCard`). | `gundam_collection` |
 | `traits.json` | JSON | trait | generated vocabulary of traits (factions): name, card count, card numbers | parser (validation), search |
 | `source_titles.json` | JSON | source title | generated vocabulary: TV series / game names, counts | parser (validation), search |
 
@@ -279,9 +279,9 @@ Why Bandai and not a third party: it is official and authoritative, includes thi
    1. Read `last-updated.txt` (one request). If it equals the stored `source_updated_at` and `--force` is not given, say "up to date" and stop: tcgcsv changes once a day, and its rules ask for one pull per day.
    2. Fetch the groups, then each group's `products` and `prices` (about 58 requests in all, at least 0.5 s apart, descriptive User-Agent). Raw responses are cached under `tools/gundam_cards/data/raw/tcgcsv/<source date>/` (gitignored; old days are pruned by hand). They are the audit trail, since the stored file keeps only the result.
    3. **Identify, then price** (no network; `reparse-tcgplayer` redoes this from the raw files). Parsing uses an internal, unstored product record (product id, group, name, `Number`, rarity, price row). Identification needs the rarity: `Legend Rare`, `Rare`, `Uncommon`, `Common` and the `LR`, `R`, `U`, `C` codes are the base rarities, and a trailing `+` or `++` marks an alt art, so a product is a **buyable single** when it has a `Number`, is not an alt art (no `+`/`++`) and is not in a promo group (`GCG-PR`, `EXBP`, `EXRP`, `RP`). Price: dollars to integer cents once. For each card number in `cards.json` the price is the **cheapest buyable product by market price** (Edition Beta and SC01 reprints compete like any printing; if a product has more than one price row, the cheapest is used). Anything unrecognized (a rarity, a price kind, a `Number` not in `cards.json`) is reported, never guessed.
-   4. Write `prices.json` atomically: one row per priced card, `(card number, price cents, product id, fetched at)`, sorted, so a re-run on the same dump gives an identical file.
-   Nothing else from tcgcsv is stored. Alt arts are never bought, and owning any printing counts as owning the card, so no alt-art or sealed product needs keeping. History is not kept yet: when it is, the rows above are the time series (append each sync's rows; "latest" becomes the newest row per card).
-   **The master card model carries the price on read, not in `cards.json`.** `store.load_cards_with_prices()` joins `cards.json` and `prices.json` on card number into `PricedCard` (`card` plus `latest_tcg_price`, or `None`). The card facts (from Bandai) and the price facts (from tcgcsv, daily) have different owners, sources and refresh rates, so they are stored apart and joined by key, like tables.
+   4. Add a dated price snapshot, `prices/<generated_at>.json`, atomically: one row per priced card, `(card number, price cents, product id, fetched at)`, sorted, so a re-run on the same dump gives identical rows. A snapshot is never rewritten: a second store on the same UTC day, or prices identical to the newest snapshot, adds nothing.
+   Nothing else from tcgcsv is stored. Alt arts are never bought, and owning any printing counts as owning the card, so no alt-art or sealed product needs keeping. The snapshots are the price history; the latest price is the newest snapshot.
+   **The master card model carries the price on read, not in `cards.json`.** `store.load_cards_with_prices()` joins `cards.json` and the newest price snapshot on card number into `PricedCard` (`card` plus `latest_tcg_price`, or `None`). The card facts (from Bandai) and the price facts (from tcgcsv, daily) have different owners, sources and refresh rates, so they are stored apart and joined by key, like tables.
 6. **Search** (script): local filters over `cards.json`; output as a table or JSON.
 7. **Redo:** `reparse` rebuilds from saved raw HTML with no network; `refetch` re-pulls from Bandai (cards get errata and new FAQ entries) and logs what changed.
 
@@ -291,7 +291,7 @@ Done: `mypy --strict` clean, tests passing (the whole repo: 252), full sync run 
 - `models.py`, `parse_detail.py`, `build.py`: typed cards, keywords, links, text versions, issue reporting.
 - `sets.py` (package filter + product list -> `sets.json`, 42 sets), `printings.py` (list pages -> printing ids -> fetch only missing pages; `refetch`), `search.py` (typed local filters), `store.py`, `cli.py`.
 - CLI: `sync` (sets, lists, missing printing pages, then rebuild), `sync --only sets|printings`, `refetch --card|--package|--all`, `sets`, `reparse`, `show`, `search`.
-- Outputs in `shared/data/gundam_cards/`: `cards.json`, `sets.json`, `traits.json`, `source_titles.json`.
+- Outputs: `sets.json` (tracked, `shared/data/gundam_cards/`); `cards.json`, `traits.json`, `source_titles.json` (the local dataset).
 
 Done 2026-10-08: `tcgcsv.py` (fetch, parse, choose), `sync-tcgplayer`, `reparse-tcgplayer`, `price [--explain]`, `prices.json`, and the `PricedCard` join (`store.load_cards_with_prices`); 14 tests. They replace the earlier plan to read TCGPlayer's search API (see `notes/tcgcsv.md`).
 
@@ -332,7 +332,7 @@ Known data issues after the full sync (pinned by `tests/test_corpus.py`; 14 tota
 - A card with several wordings shows its newest first; `GD01-090` (alt art with different wording) is a test case.
 - `sets.json` dates match the product page; unreleased sets (GD06, GD07) carry future `release_date`s.
 - `sync` twice makes zero detail requests the second time; `reparse` reproduces `cards.json` from raw with no network.
-- **TCGPlayer sync:** a second `sync-tcgplayer` on the same tcgcsv day makes one request (`last-updated.txt`) and changes nothing; `--force` re-pulls. A sync makes about 58 requests, none faster than 0.5 s apart, none to a TCGPlayer host. `reparse-tcgplayer` reproduces `prices.json` from the saved raw files with no network; the file round-trips through the typed models and a rebuild is byte-identical.
+- **TCGPlayer sync:** a second `sync-tcgplayer` on the same tcgcsv day makes one request (`last-updated.txt`) and changes nothing; `--force` re-pulls. A sync makes about 58 requests, none faster than 0.5 s apart, none to a TCGPlayer host. `reparse-tcgplayer` rebuilds the price snapshot from the saved raw files with no network; the snapshot round-trips through the typed models, and a rebuild for a day already stored adds nothing.
 - **Identification:** the GD05 counts from the probe hold (203 products, 6 sealed, 197 with a `Number`, 44 numbers with more than one product, `+`/`++` rarities recognized as alt arts and skipped). A product whose `Number` is not in `cards.json` is reported, not dropped silently.
 - **Coverage report:** the run prints how many catalog cards have a price and lists those that do not (for example alt-art-only numbers like `R-001`, and unreleased sets); flagging an unpriced card that real decks play is the job of the consumer (`gundam_collection`), since the catalog tool must not read the meta data.
 - **Price rule:** `price GD05-002` returns the cheapest buyable product by market price; `--explain` lists every product considered and why each was or was not buyable; a card with only alt arts or promos has no price and says so.
@@ -343,7 +343,7 @@ Known data issues after the full sync (pinned by `tests/test_corpus.py`; 14 tota
 - `search` works with no network.
 
 ## Out of Scope
-- Seller prices, per-seller inventory, per-condition prices and shipping: TCGPlayer's terms forbid scraping them and tcgcsv does not carry them. Only the market price per product is in scope. Price history is not kept yet (see Open Questions); the price rows are already shaped as one row of a history.
+- Seller prices, per-seller inventory, per-condition prices and shipping: TCGPlayer's terms forbid scraping them and tcgcsv does not carry them. Only the market price per product is in scope. Price trend features are not in scope; the dated price snapshots are kept as history.
 - Japanese or other regional sites.
 - Card images (store URLs only).
 - Collection ownership (separate tool).
@@ -357,7 +357,7 @@ Known data issues after the full sync (pinned by `tests/test_corpus.py`; 14 tota
 - **Unreleased sets:** does Bandai list cards for a set before release (presale)? Not seen yet (GD06/GD07 have no card package).
 - **Foil:** Bandai printings don't distinguish foil; tcgcsv's `Holofoil` is only the kind of price a product has (each product has one), so it is recorded and not filtered.
 - **Link art:** tcgcsv marks it like any alt art (`+`), so the `LK` printings of the catalog and the `+` products cannot be told apart. Both are alt arts and never bought, so nothing depends on it.
-- **Price history** (later, not now): append each sync's rows to a time series per card, for trends (is this card cheap right now?). The row shape does not change.
+- **Price trends** (later, not now): the dated price snapshots are the history; read them as a time series per card, for trends (is this card cheap right now?). The row shape does not change.
 - **Re-sync cadence:** on demand, plus when a new set's release date arrives or a new package appears in the filter.
 
 

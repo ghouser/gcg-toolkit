@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -11,7 +11,7 @@ import pytest
 from shared.basetypes import CardNumber, ProductId, Trait
 from shared.fetch import Response
 from tools.gundam_cards.build import SourcePage, build_card
-from tools.gundam_cards.models import CardPrice, CardsFile, PriceFile, Rarity
+from tools.gundam_cards.models import CardPrice, CardRecord, CardsFile, PriceFile, Rarity
 from tools.gundam_cards.store import load_cards_with_prices, load_prices, raw_dump_stamps, read_raw_dump, write_prices
 from tools.gundam_cards.tcgcsv import (
     IssueKind,
@@ -169,7 +169,8 @@ TRAITS = frozenset(Trait(t) for t in ("Earth Federation", "White Base Team", "G 
 
 def test_prices_round_trip_and_join_onto_cards_without_touching_them(tmp_path: Path, page: Callable[[str], SourcePage]) -> None:
     cards = tuple(build_card([page(i)], TRAITS, {}).card for i in ("ST01-001", "GD05-111", "ST01-010"))
-    cards_file = CardsFile(generated_at=PULLED, data=cards)
+    records = tuple(CardRecord(number=c.number, first_recorded=PULLED, no_longer_listed=False) for c in cards)
+    cards_file = CardsFile(generated_at=PULLED, data=cards, records=records)
     (tmp_path / "cards.json").write_text(cards_file.model_dump_json(), encoding="utf-8")
     before = (tmp_path / "cards.json").read_bytes()
     assert load_prices(tmp_path) is None and all(p.latest_tcg_price is None for p in load_cards_with_prices(tmp_path))  # no prices yet
@@ -181,3 +182,53 @@ def test_prices_round_trip_and_join_onto_cards_without_touching_them(tmp_path: P
     assert [str(p.card.number) for p in joined] == [str(c.number) for c in cards]  # every card exactly once, in order
     assert {str(p.card.number): p.latest_tcg_price for p in joined} == {"ST01-001": row, "GD05-111": None, "ST01-010": None}
     assert (tmp_path / "cards.json").read_bytes() == before  # a price sync never rewrites the card facts
+
+
+# ---- price history: dated snapshots, added and never rewritten --------------------------------------------------------
+def _prices(pulled: datetime, cents: int, updated: datetime = UPDATED) -> PriceFile:
+    row = CardPrice(card_number=N("ST01-001"), price_cents=cents, product_id=ProductId(7), fetched_at=pulled)
+    return PriceFile(generated_at=pulled, source_updated_at=updated, data=(row,))
+
+
+def test_new_prices_add_a_dated_snapshot_and_leave_earlier_ones_byte_identical(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    later = PULLED.replace(day=PULLED.day + 1)
+    second = write_prices(_prices(later, 30, later), tmp_path)
+    assert second is not None and second != first
+    assert first.read_bytes() == before
+    assert sorted(p.name for p in (tmp_path / "prices").iterdir()) == [first.name, second.name]
+    assert load_prices(tmp_path) == _prices(later, 30, later)  # the newest is the latest price
+
+
+def test_same_prices_or_same_date_add_nothing(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    assert write_prices(_prices(PULLED, 99), tmp_path) is None  # the same date again: not rewritten
+    assert write_prices(_prices(PULLED.replace(hour=PULLED.hour + 1), 25), tmp_path) is None  # same prices, pulled later
+    assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+
+
+def test_two_price_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_adds_one(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    same_day = PULLED.replace(hour=23, minute=59)
+    assert write_prices(_prices(same_day, 99), tmp_path) is None  # other prices, same UTC day: nothing added
+    assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+    next_day = PULLED + timedelta(days=1)
+    second = write_prices(_prices(next_day, 99), tmp_path)
+    assert second is not None and first.read_bytes() == before
+    assert load_prices(tmp_path) == _prices(next_day, 99)
+
+
+def test_prices_identical_to_the_newest_on_a_later_day_add_nothing(tmp_path: Path) -> None:
+    first = write_prices(_prices(PULLED, 25), tmp_path)
+    assert first is not None
+    before = first.read_bytes()
+    later = PULLED + timedelta(days=3, hours=2)  # another UTC day: only the content comparison can refuse it
+    assert write_prices(_prices(later, 25), tmp_path) is None  # same prices, new generated_at and row fetched_at
+    assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
+    assert write_prices(_prices(later, 26), tmp_path) is not None  # a changed price that day is added

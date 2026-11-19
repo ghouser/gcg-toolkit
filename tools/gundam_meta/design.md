@@ -7,6 +7,7 @@
 ## Purpose
 Keep a local copy of what is being played and answer "what's played" questions from it, with no dependency on TCGPlayer. There are three metas, never merged into one score:
 
+<!-- TODO(source-name): committed text should say only "the online ranking"; remove the source name here. -->
 | Meta | Source(s) | What it represents |
 |------|-----------|--------------------|
 | **MobileSuitArena meta** (`msa`) | the online card ranking: last 14 days, 200 games per hour | Online best-of-1 play |
@@ -32,15 +33,16 @@ python3 -m tools.gundam_meta.cli refetch --source duelfrontier --event <slug>   
 
 ## Inputs
 - Network, only during `sync`/`refetch`: DuelFrontier, EGM Events. The online ranking and the example decks are stored data (collected out of band, not by this repository's commands).
-- `shared/data/gundam_cards/sets.json` (release dates, for eras) and `cards.json` (card kinds, to exclude resources, EX cards and tokens, and to name cards).
+- `shared/data/gundam_cards/sets.json` (release dates, for eras) and the catalog `cards.json` (dataset) (card kinds, to exclude resources, EX cards and tokens, and to name cards).
 
 ## Outputs
-Shared dataset `shared/data/gundam_meta/`, owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py`. Raw responses are cached in `tools/gundam_meta/data/raw/`.
+Owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py` and `store.py`. Events and snapshots live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_meta/` (default `~/.gcg/data`, see `shared/dataset.py`); `popularity.json` is tracked in `shared/data/gundam_meta/`. A snapshot is never rewritten, and one with the same data as the newest adds nothing. Raw responses are cached in `tools/gundam_meta/data/raw/`.
 
+<!-- TODO(source-name): committed text should say only "the online ranking"; remove the source name here. -->
 | File | Contents | Notes |
 |------|----------|-------|
-| `events/<source>/<id>.json` | `EventFile` | **Immutable once written.** Only completed events are stored. Replaced only by `reparse`/`refetch`. |
-| `online_rankings/<generated_at>.json` | `SnapshotFile` | One per distinct snapshot of the rolling 14-day ranking. |
+| `events/<source>/<id>.json` | `EventFile` | **Immutable once written.** Only completed events are stored; each is one snapshot dated by its `fetched_at` (collection date). Replaced only by `reparse`/`refetch`. |
+| `online_rankings/<generated_at>.json` | `SnapshotFile` | At most one per UTC day (the first stored that day), and only when the ranking differs from the newest one. |
 | `example_decks/<fetched_at>.json` | `DecksSnapshotFile` | The weighted example decks (below). |
 | `popularity.json` | `PopularityFile` | Derived. Latest MobileSuitArena ranking with buckets, plus part-over-whole tournament shares per era, tier, and source (and combined). |
 
@@ -70,7 +72,7 @@ Frozen pydantic v2 models, strict, `mypy --strict` (see `docs/tool-pattern.md`).
    - Windows pool their events (bigger events weigh more, by design).
 3. **De-duplication** (see below): the default tournament view counts each real event once across sources.
 4. **Eras**: windows that start when new cards enter the game (below).
-5. **MobileSuitArena buckets** by `appearanceRate`: Core Meta >= 10%, Often Played >= 3%, Played >= 1%, Sometimes Played >= 0.4%, Niche below; unranked cards stay unranked. Cards are played as part of a *package* (archetype), so the curve isn't linear; cutoffs live in one constant and are expected to be tuned.
+5. **MobileSuitArena buckets** by `appearanceRate`: Core Meta >= 10%, Often Played >= 3%, Played >= 1%, Sometimes Played >= 0.4%, Niche below; unranked cards stay unranked. Cards are played as part of a *package* (archetype), so the curve isn't linear; cutoffs live in one constant and are expected to be tuned. <!-- TODO(source-name): committed text should say only "the online ranking"; remove the source name here. -->
 6. **Redo**: `reparse` rebuilds every stored event/snapshot from saved raw responses (no network); `refetch` re-pulls from the source and replaces what changed. Both report changes.
 
 ### De-duplication
@@ -96,8 +98,8 @@ Non-overlapping windows `[start, next start)` defined in `eras.json` by the sets
 - Qualifiers (WCQ events) count as **major**. Sideboard cards are counted. Top-cut-only data is accepted.
 - An event is stored 2 days after it ends.
 - EGM mapping: large and small official -> **major**; unofficial -> **local**.
-- The online ranking is stored as dated snapshots, one per distinct `generated_at`.
-- Cutoffs for MobileSuitArena buckets as above; unranked stays unranked.
+- The online ranking is stored as dated snapshots: at most one per UTC day of `generated_at`, and none when it matches the newest.
+- Cutoffs for MobileSuitArena buckets as above; unranked stays unranked. <!-- TODO(source-name): committed text should say only "the online ranking"; remove the source name here. -->
 - **De-duplicate events that DuelFrontier and EGM both report.**
 - **EGM's `A|B` list slot** (25 decks, best-of-3 events) is the **boundary between the main deck and the sideboard**: in every one, the entries up to `A` total exactly 50 and `B` plus the rest total exactly 10. Accepted only when that arithmetic holds; otherwise the deck stays unresolved.
 - **Local events of any size count as local**, even with only one or two decks listed. No minimum size.
@@ -115,7 +117,7 @@ Online **decks** come as **example decks**: per archetype, a set of curated tour
 
 **Weights.** A list's weight is `archetype games / all archetypes' games x list share`; per archetype the list shares add up to 1.0, so the example decks cover whole archetypes. A list with no share has no weight and is not used.
 
-**Data contract.** `shared/data/gundam_meta/example_decks/<fetched_at>.json` (envelope `{schema_version, data}`): `ExampleDecksSnapshot` = `fetched_at`, `window_days`, `season`, `archetypes[ExampleArchetype(slug, name, games, sides_analyzed, lists[ExampleList(url, cards, share)])]`, `slugs_without_archetype`, `unresolved_lists`. Nothing is guessed: a list link that does not parse into a main deck is reported in `unresolved_lists`. The newest snapshot is the one used (`store.load_decks_snapshot`).
+**Data contract.** `example_decks/<fetched_at>.json` in the dataset (envelope `{schema_version, data}`): `ExampleDecksSnapshot` = `fetched_at`, `window_days`, `season`, `archetypes[ExampleArchetype(slug, name, games, sides_analyzed, lists[ExampleList(url, cards, share)])]`, `slugs_without_archetype`, `unresolved_lists`. Nothing is guessed: a list link that does not parse into a main deck is reported in `unresolved_lists`. The newest snapshot is the one used (`store.load_decks_snapshot`).
 
 **Used by** `gundam_packages build --source online` (see its design, "Online example decks").
 

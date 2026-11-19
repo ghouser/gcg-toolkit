@@ -1,4 +1,4 @@
-"""Your own examples, checked against the real GD05 decks (skipped when the synced data isn't present)."""
+"""Your own examples, checked against the real GD05 decks (run only with GCG_TEST_REAL_DATA=1; skipped when the dataset is empty)."""
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -7,14 +7,12 @@ from pathlib import Path
 import pytest
 
 from shared.basetypes import CardNumber
-from tools.gundam_cards.models import CardModel, CardsFile
-from tools.gundam_cards.store import OUT_DIR as CARDS_DIR
-from tools.gundam_cards.store import load_sets, release_dates
+from tools.gundam_cards.models import CardModel
+from tools.gundam_cards.store import load_catalog, load_catalog_or_fail, load_sets, release_dates
 from tools.gundam_meta.dedupe import combined_events
 from tools.gundam_meta.eras import load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, Event
-from tools.gundam_meta.store import OUT_DIR as META_DIR
-from tools.gundam_meta.store import load_events
+from tools.gundam_meta.store import data_out_dir, load_events
 from tools.gundam_packages.build import ALL_TIERS, build_packages, card_colors, copy_decks, deck_sets, make_window, window_events
 from tools.gundam_packages.drift import compute_drift, introduced_dates
 from tools.gundam_packages.models import PackageId, PackagesFile, RatesFile
@@ -25,7 +23,7 @@ from tools.gundam_packages.synergy import build_graph
 
 pytestmark = pytest.mark.corpus
 needs_data = pytest.mark.skipif(
-    not (META_DIR / "events" / "duelfrontier").is_dir() or not (CARDS_DIR / "cards.json").is_file(),
+    not (data_out_dir() / "events" / "duelfrontier").is_dir() or load_catalog() is None,
     reason="synced meta data and card catalog not present",
 )
 N = CardNumber
@@ -33,7 +31,7 @@ N = CardNumber
 
 @pytest.fixture(scope="module")
 def cards() -> dict[CardNumber, CardModel]:
-    return {c.number: c for c in CardsFile.model_validate_json((CARDS_DIR / "cards.json").read_text(encoding="utf-8")).data}
+    return {c.number: c for c in load_catalog_or_fail().data}
 
 
 @pytest.fixture(scope="module")

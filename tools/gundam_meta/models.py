@@ -124,6 +124,7 @@ class Event(FrozenModel):
         return self.event_type.tier
 
 
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 # ---- Online ranking (MobileSuitArena) -----------------------------------------------------------
 class OnlineRankedCard(FrozenModel):
     card_number: CardNumber
@@ -146,6 +147,7 @@ class OnlineRankingSnapshot(FrozenModel):
     cards: tuple[OnlineRankedCard, ...]
 
 
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 class MsaBucket(StrEnum):
     CORE_META = "core_meta"  # >= 10%
     OFTEN_PLAYED = "often_played"  # >= 3%
@@ -257,6 +259,7 @@ class TournamentStats(FrozenModel):
     cards: tuple[CardShare, ...]  # most played first
 
 
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 class MsaCardStat(FrozenModel):
     card_number: CardNumber
     rank: int
@@ -264,6 +267,7 @@ class MsaCardStat(FrozenModel):
     bucket: MsaBucket
 
 
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 class MsaStats(FrozenModel):
     snapshot: datetime  # the snapshot's generated_at
     window_start: datetime
@@ -277,5 +281,6 @@ class PopularityFile(FrozenModel):
 
     schema_version: Literal[1] = 1
     generated_at: datetime
+    # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
     msa: MsaStats | None
     tournaments: tuple[TournamentStats, ...]

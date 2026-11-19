@@ -101,6 +101,7 @@ def compute_stats(
     return StatsResult(stats, frozenset(unknown))
 
 
+# TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 def msa_stats(snapshot: OnlineRankingSnapshot) -> MsaStats:
     return MsaStats(
         snapshot=snapshot.generated_at,
@@ -133,6 +134,7 @@ def build_popularity(
     today: date,
     generated_at: datetime,
 ) -> PopularityBuild:
+    # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
     """MobileSuitArena from the newest snapshot; tournaments for every era that has started, per source and tier."""
     latest = max(snapshots, key=lambda s: s.generated_at) if snapshots else None
     combined = combined_events(events)

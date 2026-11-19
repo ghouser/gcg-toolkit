@@ -17,7 +17,7 @@ tools/<tool_name>/          snake_case, so it is importable
 shared/                     Code and data used by 2+ tools
   fetch.py                  Cached, rate-limited fetcher with User-Agent (all network access goes through it)
   basetypes.py              Validated identifier types and base model config (CardNumber, SetCode, Trait, Cents, ...)
-  data/                     Shared datasets (e.g. card catalog, collection). Owned by one tool, declared as a dependency by others.
+  data/                     Tracked shared data (set list, restrictions, collection, analysis outputs). Raw inputs live in the local dataset (see below).
 docs/
   tool-pattern.md           This file
   design-template.md        Template for design.md
@@ -66,9 +66,11 @@ Datasets are kept apart by who owns them, where they come from and how often the
 |---|---|---|---|
 | **Card facts** | what a card is: the one master card model (a `Card` union by kind), printings, text | `cards.json`, `sets.json` | when a set releases |
 | **Association facts** | how cards relate and are played: packages, bridges, synergy, rates, per source | `packages.json`, `rates.json` (and `_online`), the collection | with each meta sync or edit |
-| **Price facts** | what a card costs: one row per card per pull | `prices.json` (latest; later a time series of the same rows) | daily |
+| **Price facts** | what a card costs: one row per card per pull | `prices/<pulled at>.json` (dated snapshots; the newest is the latest price) | daily |
 
 A convenient joined view (a card with its latest price, a card with its package) is a **read model**: built on read by a function in the owning tool's `store.py`, never stored, so a daily price pull never rewrites card facts and a card file never goes stale. History is a time series of rows keyed by `(card number, pulled at)`; "latest" is the newest row per card. If querying across layers gets awkward, the next step is a SQLite database with these layers as tables; the JSON files and their keys already have that shape.
+
+**Raw inputs live outside git, in the local dataset** (`$GCG_DATA_DIR`, default `~/.gcg/data`; `shared/dataset.py`): the card catalog and its vocabularies, price snapshots, in-person events, online ranking and example-deck snapshots. The catalog is append-only; the others are dated snapshots that are added, never rewritten. Analysis (packages, rates, drift, the meta report, popularity) is derived from them and committed as regenerable output. `python -m shared.dataset_cli status` says how old each source is.
 
 ## Workflow for a new tool
 

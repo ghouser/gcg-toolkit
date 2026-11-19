@@ -48,6 +48,8 @@ Most views take `--source tournament|online|both`
 
 ## Refreshing data
 
+    .venv/bin/python -m shared.dataset_cli status                  # "data as of" for each source in the local dataset ($GCG_DATA_DIR, default ~/.gcg/data)
+
     .venv/bin/python -m tools.gundam_cards.cli sync-restrictions   # banned / restricted cards from Bandai's announcement (one request; pass --url for a newer list)
     .venv/bin/python -m tools.gundam_cards.cli restrictions        # show the list in force
 

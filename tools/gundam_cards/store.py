@@ -1,4 +1,9 @@
-"""Reading the raw page cache and writing the catalog files."""
+"""Reading the raw page cache and writing the catalog files.
+
+- The set list and the restrictions file are tracked in the repository (`OUT_DIR`).
+- The catalog, its vocabularies and the price snapshots live in the local dataset (`data_out_dir()`, see `shared/dataset.py`).
+  The catalog only grows; price snapshots are added, never rewritten.
+"""
 from __future__ import annotations
 
 import json
@@ -10,9 +15,12 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode, SourceTitle, Trait
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
 from tools.gundam_cards.build import CatalogResult, Issue, IssueKind, SourcePage
 from tools.gundam_cards.models import (
+    Card,
     CardPrice,
+    CardRecord,
     CardSet,
     CardsFile,
     PriceFile,
@@ -31,7 +39,12 @@ from tools.gundam_cards.tcgcsv import RawDump
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = REPO_ROOT / "tools" / "gundam_cards" / "data" / "raw"
-OUT_DIR = REPO_ROOT / "shared" / "data" / "gundam_cards"
+OUT_DIR = REPO_ROOT / "shared" / "data" / "gundam_cards"  # tracked: sets.json, restrictions.json
+
+
+def data_out_dir() -> Path:
+    """This tool's folder in the local dataset: cards.json, traits.json, source_titles.json, prices/."""
+    return data_dir() / "gundam_cards"
 
 
 @dataclass(frozen=True)
@@ -95,13 +108,48 @@ def release_dates(sets: tuple[CardSet, ...]) -> dict[SetCode, date]:
     return {s.code: s.release_date for s in sets if s.release_date is not None}
 
 
-def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path = OUT_DIR) -> None:
-    """Write cards.json, traits.json and source_titles.json (deterministic: sorted, indented)."""
-    cards = CardsFile(generated_at=generated_at, data=result.cards)
+def load_catalog(out_dir: Path | None = None) -> CardsFile | None:
+    """The stored catalog, or None when the dataset has none."""
+    path = (out_dir or data_out_dir()) / "cards.json"
+    return CardsFile.model_validate_json(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+def load_catalog_or_fail(out_dir: Path | None = None) -> CardsFile:
+    """The stored catalog; raises `NoData` when there is none."""
+    catalog = load_catalog(out_dir)
+    if catalog is None:
+        raise NoData(Kind.CATALOG)
+    return catalog
+
+
+def merge_catalog(stored: CardsFile | None, cards: tuple[Card, ...], generated_at: datetime) -> CardsFile:
+    """Append-only: every stored card stays. A card in `cards` takes its new data and keeps its first-recorded date; a stored card
+    missing from `cards` keeps its last data and is marked no longer listed; a new card is first recorded now. Sorted by number."""
+    old_cards = {c.number: c for c in stored.data} if stored else {}
+    old_records = {r.number: r for r in stored.records} if stored else {}
+    listed = {c.number: c for c in cards}
+    merged = {**old_cards, **listed}
+    numbers = sorted(merged, key=str)
+    records = tuple(
+        CardRecord(
+            number=n,
+            first_recorded=old_records[n].first_recorded if n in old_records else generated_at,
+            no_longer_listed=n not in listed,
+        )
+        for n in numbers
+    )
+    return CardsFile(generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=records)
+
+
+def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path | None = None) -> None:
+    """Merge the build into the stored catalog (see `merge_catalog`), then write cards.json, traits.json and source_titles.json
+    (deterministic: sorted, indented). The vocabularies cover the whole merged catalog."""
+    out_dir = out_dir or data_out_dir()
+    cards = merge_catalog(load_catalog(out_dir), result.cards, generated_at)
     write_atomic(out_dir / "cards.json", _pretty(cards.model_dump_json()))
 
     users: dict[Trait, set[CardNumber]] = defaultdict(set)
-    for card in result.cards:
+    for card in cards.data:
         for trait in traits_of(card):
             users[trait].add(card.number)
     stats = tuple(
@@ -111,7 +159,7 @@ def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path =
     write_atomic(out_dir / "traits.json", _pretty(TraitsFile(generated_at=generated_at, data=stats).model_dump_json()))
 
     titles: dict[SourceTitle, int] = defaultdict(int)
-    for card in result.cards:
+    for card in cards.data:
         for title in {p.source_title for p in card.printings if p.source_title is not None}:
             titles[title] += 1
     title_stats = tuple(SourceTitleStat(source_title=t, card_count=n) for t, n in sorted(titles.items()))
@@ -122,20 +170,44 @@ def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path =
 
 
 # ---- prices (tcgcsv) -------------------------------------------------------------------------------------------------
-def write_prices(file: PriceFile, out_dir: Path = OUT_DIR) -> Path:
-    path = out_dir / "prices.json"
-    write_atomic(path, _pretty(file.model_dump_json()))
-    return path
+def _price_content(file: PriceFile) -> object:
+    """What a price snapshot says, without when it was stored (the pull time on the file and on each row)."""
+    return (file.source_updated_at, [row.model_dump(exclude={"fetched_at"}) for row in file.data])
 
 
-def load_prices(out_dir: Path = OUT_DIR) -> PriceFile | None:
-    path = out_dir / "prices.json"
-    return PriceFile.model_validate_json(path.read_text(encoding="utf-8")) if path.is_file() else None
+def write_prices(file: PriceFile, out_dir: Path | None = None) -> Path | None:
+    """Add a dated price snapshot (`prices/<generated_at>.json`). None, writing nothing, when that UTC day is stored already or the
+    newest snapshot has the same prices."""
+    folder = (out_dir or data_out_dir()) / "prices"
+    same = _price_content(file)
+    return add_snapshot(
+        folder, snapshot_key(file.generated_at), _pretty(file.model_dump_json()),
+        lambda text: _price_content(PriceFile.model_validate_json(text)) == same,
+    )
 
 
-def load_cards_with_prices(out_dir: Path = OUT_DIR) -> tuple[PricedCard, ...]:
-    """Every card in `cards.json` once, joined with its latest price (None when it has none). Built on read; nothing is stored."""
-    cards = CardsFile.model_validate_json((out_dir / "cards.json").read_text(encoding="utf-8")).data
+def load_prices(out_dir: Path | None = None) -> PriceFile | None:
+    """The newest price snapshot, or None."""
+    path = newest_snapshot((out_dir or data_out_dir()) / "prices")
+    return PriceFile.model_validate_json(path.read_text(encoding="utf-8")) if path else None
+
+
+def catalog_as_of(out_dir: Path | None = None) -> date | None:
+    """When the catalog was last refreshed, or None (no data)."""
+    catalog = load_catalog(out_dir)
+    return catalog.generated_at.date() if catalog else None
+
+
+def prices_as_of(out_dir: Path | None = None) -> date | None:
+    """The date of the newest price snapshot, or None (no data)."""
+    prices = load_prices(out_dir)
+    return prices.generated_at.date() if prices else None
+
+
+def load_cards_with_prices(out_dir: Path | None = None) -> tuple[PricedCard, ...]:
+    """Every card in `cards.json` once, joined with its latest price (None when it has none). Built on read; nothing is stored.
+    Raises `NoData` when there is no catalog."""
+    cards = load_catalog_or_fail(out_dir).data
     prices = load_prices(out_dir)
     by_number: dict[CardNumber, CardPrice] = {p.card_number: p for p in prices.data} if prices else {}
     return tuple(PricedCard(card=c, latest_tcg_price=by_number.get(c.number)) for c in cards)
