@@ -73,7 +73,7 @@ DEGRADED: list[tuple[Main, list[str], str]] = [
 
 # Subcommands that are not reads of the dataset: they fetch over the network, rebuild from saved responses, or read only tracked files.
 NOT_DATASET_READS: dict[Main, set[str]] = {
-    cards_cli.main: {"sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
+    cards_cli.main: {"refresh", "sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
     meta_cli.main: {"sync", "refetch", "reparse"},
     packages_cli.main: set(),
     collection_cli.main: set(),

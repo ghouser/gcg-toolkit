@@ -1,5 +1,6 @@
 """Gundam card catalog CLI.
 
+    .venv/bin/python -m tools.gundam_cards.cli refresh            # refresh the catalog from Bandai, all or nothing (network; --dry-run)
     .venv/bin/python -m tools.gundam_cards.cli sync               # sets, package lists, new printing pages, then reparse (network)
     .venv/bin/python -m tools.gundam_cards.cli sync --only sets   # just release dates and packages (network)
     .venv/bin/python -m tools.gundam_cards.cli refetch --card ST01-001   # re-pull pages we already have (--package GD05, --all)
@@ -30,6 +31,7 @@ from tools.gundam_cards.build import Issue, build_catalog
 from tools.gundam_cards.changes import format_change, text_changes
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
+from tools.gundam_cards.refresh import format_report, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
 from tools.gundam_cards.sets import SetsBuild, sets_from_raw, sync_sets
 from tools.gundam_cards.models import PriceFile, RestrictionsFile
@@ -77,6 +79,20 @@ def _save_sets(build: SetsBuild) -> None:
     write_sets(build.sets, datetime.now(tz=UTC))
     print(f"{len(build.sets)} sets -> {OUT_DIR / 'sets.json'}")
     _print_issues(build.issues)
+
+
+def refresh_fetcher() -> Fetcher:
+    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in RAW_DIR."""
+    return Fetcher(RAW_DIR, min_interval_s=0.5)
+
+
+def cmd_refresh(args: argparse.Namespace) -> int:
+    report = refresh_catalog(
+        refresh_fetcher(), RAW_DIR, dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
+    )
+    for line in format_report(report):
+        print(line)
+    return 0 if report.complete and not report.refused else 1
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
@@ -352,6 +368,16 @@ def cmd_price(args: argparse.Namespace) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
+    refresh = sub.add_parser(
+        "refresh",
+        help="refresh the catalog from Bandai (network): new packages are recorded as provisional; a failed, refused or "
+        "interrupted run writes nothing; tracked files are never changed",
+    )
+    refresh.add_argument("--dry-run", action="store_true", help="report what a real run would add, miss and refuse; fetches no "
+                         "detail pages and writes nothing (list pages may be cached)")
+    refresh.add_argument("--allow-anomaly", action="store_true", help="write even when an unusually large share of existing cards "
+                         "would be dropped or changed")
+    refresh.set_defaults(func=cmd_refresh)
     sync = sub.add_parser("sync", help="fetch data from Bandai (network), then rebuild the catalog files")
     sync.add_argument("--only", choices=["sets", "printings"], help="sync just one part (default: everything)")
     sync.set_defaults(func=cmd_sync)
