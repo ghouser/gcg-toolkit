@@ -395,7 +395,8 @@ class CardRecord(FrozenModel):
 
     number: CardNumber
     first_recorded: datetime  # the catalog refresh that first saw it
-    no_longer_listed: bool  # the source dropped it; its last known data is kept
+    no_longer_listed: bool  # absent from two consecutive complete refreshes; its last known data is kept
+    missed_once: bool = False  # absent from the last complete refresh (one more miss marks it no longer listed)
 
 
 class CardsFile(FrozenModel):
