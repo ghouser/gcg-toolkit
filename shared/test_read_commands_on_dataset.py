@@ -1,17 +1,15 @@
-"""AC-4: with data from the old in-repository layout migrated into the dataset, the existing read commands produce unchanged output.
+"""AC-4: with the data in the dataset, the existing read commands produce unchanged output.
 
-A small fixture in the old layout (`shared/data/...`) is migrated into a temp dataset, then representative read commands of each tool run
-against it. EXPECTED is the output of the same commands from the code before this change (on `main`), run against the same fixture in
-the old layout: a copy of main's `tools/` and `shared/` code with `legacy_tree()` written as its `shared/data`, its output passed through
-`normalized()`. Regenerate it the same way if the fixture changes. The fixture holds every dataset source, example decks included, so
-each is read back from `GCG_DATA_DIR`.
+A small fixture dataset is built in a temp `GCG_DATA_DIR`, then representative read commands of each tool run against it. EXPECTED is the
+output of the same commands from the code before this change (on `main`), run against the same data in the repository's `shared/data/`
+(where main kept it), passed through `normalized()`. Do not regenerate it with this branch's code: that would only check the code
+against itself. The fixture holds every dataset source, example decks included, so each is read back from `GCG_DATA_DIR`.
 
 The tracked analysis outputs (packages, appearance rates) and the hand-typed collection are not part of the dataset; here they are absent
 (rates) or the small fixture collection, exactly as in the run on main; `build` saves into a temp folder.
 """
 from __future__ import annotations
 
-import json
 import re
 from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime, timedelta
@@ -20,9 +18,8 @@ from pathlib import Path
 import pytest
 
 from shared.basetypes import CardNumber, ProductId
-from shared.dataset_cli import migrate_legacy
 from tools.gundam_cards import cli as cards_cli
-from tools.gundam_cards.models import CardPrice, PriceFile, SourceTitlesFile, TraitsFile
+from tools.gundam_cards.models import Card, CardRecord, CardsFile, CardPrice, PriceFile, SourceTitlesFile, TraitsFile
 from tools.gundam_collection import cli as collection_cli
 from tools.gundam_collection.models import Art, CollectionFile, OwnedCard, OwnedPrinting
 from tools.gundam_meta import cli as meta_cli
@@ -56,9 +53,8 @@ RANKED = datetime(2026, 10, 10, 6, 0, tzinfo=UTC)
 DECKS_AT = datetime(2026, 10, 11, 7, 30, tzinfo=UTC)
 
 
-def _cards() -> list[dict[str, object]]:
-    cards = (unit("GD01-001", "Gundam", link="Amuro Ray", cost=3), pilot("GD01-002", "Amuro Ray"), unit("GD01-003", "Zaku II"))
-    return [json.loads(c.model_dump_json()) for c in cards]
+def _cards() -> tuple[Card, ...]:
+    return (unit("GD01-001", "Gundam", link="Amuro Ray", cost=3), pilot("GD01-002", "Amuro Ray"), unit("GD01-003", "Zaku II"))
 
 
 def _prices() -> PriceFile:
@@ -80,16 +76,18 @@ def _deck(n: int, *cards: tuple[str, int]) -> Deck:
     return Deck(id=DeckId(f"d{n}"), player_name=f"p{n}", placement=n, name=None, available=True, main=main, side=(), unresolved=())
 
 
-def legacy_tree(root: Path) -> Path:
-    """A small repository in the old layout: the source data under shared/data/, and a collection."""
-    cards, meta, coll = (root / "shared" / "data" / name for name in ("gundam_cards", "gundam_meta", "gundam_collection"))
-    for folder in (cards, meta / "online_rankings", meta / "example_decks", coll):
+def dataset_tree(root: Path) -> Path:
+    """A small dataset in its layout (`gundam_cards/`, `gundam_meta/`): the catalog first recorded at its refresh, one price snapshot,
+    two events, one online ranking and one example-deck snapshot."""
+    cards, meta = root / "gundam_cards", root / "gundam_meta"
+    for folder in (cards / "prices", meta / "online_rankings", meta / "example_decks"):
         folder.mkdir(parents=True)
-    old_catalog = {"schema_version": 1, "generated_at": "2026-10-08T12:00:00Z", "data": _cards()}
-    (cards / "cards.json").write_text(json.dumps(old_catalog, indent=1) + "\n", encoding="utf-8")
+    records = tuple(CardRecord(number=c.number, first_recorded=CATALOG_AT, no_longer_listed=False) for c in _cards())
+    catalog = CardsFile(generated_at=CATALOG_AT, data=_cards(), records=records)
+    (cards / "cards.json").write_text(pretty(catalog.model_dump_json()), encoding="utf-8")
     (cards / "traits.json").write_text(TraitsFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
     (cards / "source_titles.json").write_text(SourceTitlesFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
-    (cards / "prices.json").write_text(_prices().model_dump_json(indent=1), encoding="utf-8")
+    (cards / "prices" / f"{snapshot_key(PULLED)}.json").write_text(_prices().model_dump_json(indent=1), encoding="utf-8")
     events = (
         _event(Source.EGM, "e1", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)), _deck(2, ("GD01-003", 4), ("GD01-001", 2)))),
         _event(Source.DUELFRONTIER, "f1", 5, (_deck(1, ("GD01-003", 4)),)),
@@ -107,7 +105,6 @@ def legacy_tree(root: Path) -> Path:
     (meta / "online_rankings" / f"{snapshot_key(RANKED)}.json").write_text(pretty(SnapshotFile(data=ranking).model_dump_json()), encoding="utf-8")
     (meta / "example_decks" / f"{snapshot_key(DECKS_AT)}.json").write_text(pretty(DecksSnapshotFile(data=example_decks()).model_dump_json()),
                                                                      encoding="utf-8")  # fmt: skip
-    (coll / "collection.json").write_text(pretty(collection().model_dump_json()), encoding="utf-8")
     return root
 
 
@@ -252,10 +249,8 @@ EXPECTED: dict[str, tuple[int, str]] = {
 
 
 @pytest.fixture
-def migrated(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    ds = tmp_path / "ds"
-    report = migrate_legacy(legacy_tree(tmp_path / "repo"), ds)
-    assert report.conflicts == ()
+def dataset(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    ds = dataset_tree(tmp_path / "ds")
     monkeypatch.setenv("GCG_DATA_DIR", str(ds))
     # What is not in the dataset is pinned to what the run on main saw: no saved price dumps, no rates built, the fixture collection.
     monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
@@ -270,8 +265,8 @@ def migrated(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 
 @pytest.mark.parametrize(("tool", "main", "argv"), COMMANDS, ids=[f"{t} {' '.join(a)}" for t, _, a in COMMANDS])
-def test_a_read_command_on_the_migrated_dataset_gives_the_same_output_as_before(
-    migrated: Path, tool: str, main: Main, argv: list[str], capsys: pytest.CaptureFixture[str]
+def test_a_read_command_on_the_dataset_gives_the_same_output_as_before(
+    dataset: Path, tool: str, main: Main, argv: list[str], capsys: pytest.CaptureFixture[str]
 ) -> None:
     code = main(argv)
     assert (code, normalized(capsys.readouterr().out)) == EXPECTED[f"{tool} {' '.join(argv)}"]

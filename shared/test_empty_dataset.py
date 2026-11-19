@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from shared.test_read_commands_after_migration import collection
+from shared.test_read_commands_on_dataset import collection
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.store import write_catalog
 from tools.gundam_meta.models import EraId
