@@ -99,14 +99,11 @@ def snapshot_path(generated_at: datetime, out_dir: Path | None = None) -> Path:
     return (out_dir or data_out_dir()) / "online_rankings" / f"{snapshot_key(generated_at)}.json"
 
 
-def write_snapshot(snapshot: OnlineRankingSnapshot, out_dir: Path | None = None, *, replace: bool = False) -> bool:
+def write_snapshot(snapshot: OnlineRankingSnapshot, out_dir: Path | None = None) -> bool:
     """Add a dated ranking snapshot. False (writing nothing) when that UTC day is stored already or the newest snapshot holds the same
-    ranking. `replace` is the deliberate redo of one stored snapshot from its raw response."""
+    ranking."""
     path = snapshot_path(snapshot.generated_at, out_dir)
     text = pretty(SnapshotFile(data=snapshot).model_dump_json())
-    if replace:
-        write_atomic(path, text)
-        return True
     same = snapshot.model_copy(update={"fetched_at": None})
     return add_snapshot(path.parent, path.stem, text,
                         lambda old: SnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same) is not None
