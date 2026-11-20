@@ -153,11 +153,13 @@ def merge_catalog(
     missing from `cards` keeps its last data; a new card is first recorded now. Sorted by number.
 
     `listed` is the card numbers a complete refresh saw on Bandai's listings; only then are misses counted. A stored card not listed
-    is missed: a first miss sets `missed_once`, a miss on a card already missed once marks it no longer listed. A listed card clears
-    both. Without `listed` (a rebuild from saved pages) every stored card keeps its marks."""
+    is missed and keeps its stored data as it is (its rebuild knows none of its packages): a first miss sets `missed_once`, a miss
+    on a card already missed once marks it no longer listed. A listed card clears both. Without `listed` (a rebuild from saved
+    pages) every stored card keeps its marks."""
     old_cards = {c.number: c for c in stored.data} if stored else {}
     old_records = {r.number: r for r in stored.records} if stored else {}
-    merged = {**old_cards, **{c.number: c for c in cards}}
+    missed = {n for n in old_cards if listed is not None and n not in listed}
+    merged = {**old_cards, **{c.number: c for c in cards if c.number not in missed}}
     numbers = sorted(merged, key=str)
 
     def record(n: CardNumber) -> CardRecord:
@@ -173,11 +175,9 @@ def merge_catalog(
     return CardsFile(generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=tuple(record(n) for n in numbers))
 
 
-def write_catalog(
-    result: CatalogResult, generated_at: datetime, out_dir: Path | None = None, listed: frozenset[CardNumber] | None = None
-) -> None:
-    """Merge the build into the stored catalog (see `merge_catalog`), then write it (see `save_catalog`)."""
-    save_catalog(merge_catalog(load_catalog(out_dir), result.cards, generated_at, listed), out_dir)
+def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path | None = None) -> None:
+    """Merge the build into the stored catalog (see `merge_catalog`; no listings, so no card is marked), then write it."""
+    save_catalog(merge_catalog(load_catalog(out_dir), result.cards, generated_at), out_dir)
 
 
 def save_catalog(cards: CardsFile, out_dir: Path | None = None) -> None:

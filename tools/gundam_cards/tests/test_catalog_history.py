@@ -8,7 +8,7 @@ from pathlib import Path
 from shared.basetypes import CardNumber
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.models import CardModel
-from tools.gundam_cards.store import load_catalog, write_catalog
+from tools.gundam_cards.store import load_catalog, merge_catalog, save_catalog, write_catalog
 from tools.gundam_packages.tests.helpers import unit
 
 T1 = datetime(2026, 10, 1, tzinfo=UTC)
@@ -18,6 +18,11 @@ T3 = datetime(2026, 12, 1, tzinfo=UTC)
 
 def _build(*cards: CardModel) -> CatalogResult:
     return CatalogResult(cards=cards, issues=(), trait_vocabulary=frozenset())
+
+
+def _refresh(build: CatalogResult, when: datetime, out: Path, listed: frozenset[CardNumber]) -> None:
+    """What a complete refresh writes: the build merged with the cards it saw listed."""
+    save_catalog(merge_catalog(load_catalog(out), build.cards, when, listed), out)
 
 
 def _records(out: Path) -> dict[str, tuple[datetime, bool]]:
@@ -57,20 +62,20 @@ def test_an_update_keeps_every_card_and_does_not_mark_without_listings(tmp_path:
 
 def test_two_complete_misses_mark_a_card_and_listing_it_again_clears_the_mark(tmp_path: Path) -> None:
     one, two = CardNumber("GD01-001"), CardNumber("GD01-002")
-    write_catalog(_build(unit("GD01-001", "One"), unit("GD01-002", "Two")), T1, tmp_path, listed=frozenset({one, two}))
-    write_catalog(_build(unit("GD01-002", "Two")), T2, tmp_path, listed=frozenset({two}))
+    _refresh(_build(unit("GD01-001", "One"), unit("GD01-002", "Two")), T1, tmp_path, frozenset({one, two}))
+    _refresh(_build(unit("GD01-002", "Two")), T2, tmp_path, frozenset({two}))
     assert _missed(tmp_path) == {"GD01-001": (True, False), "GD01-002": (False, False)}  # missed once: nothing visible
-    write_catalog(_build(unit("GD01-002", "Two")), T3, tmp_path, listed=frozenset({two}))
+    _refresh(_build(unit("GD01-002", "Two")), T3, tmp_path, frozenset({two}))
     assert _missed(tmp_path) == {"GD01-001": (True, True), "GD01-002": (False, False)}  # second miss in a row: marked
-    write_catalog(_build(unit("GD01-001", "One"), unit("GD01-002", "Two")), T3, tmp_path, listed=frozenset({one, two}))
+    _refresh(_build(unit("GD01-001", "One"), unit("GD01-002", "Two")), T3, tmp_path, frozenset({one, two}))
     assert _missed(tmp_path) == {"GD01-001": (False, False), "GD01-002": (False, False)}
     assert _records(tmp_path)["GD01-001"] == (T1, False)  # keeps its date
 
 
 def test_a_rebuild_without_listings_keeps_the_marks(tmp_path: Path) -> None:
     one = CardNumber("GD01-001")
-    write_catalog(_build(unit("GD01-001", "One")), T1, tmp_path, listed=frozenset({one}))
-    write_catalog(_build(), T2, tmp_path, listed=frozenset())
+    _refresh(_build(unit("GD01-001", "One")), T1, tmp_path, frozenset({one}))
+    _refresh(_build(), T2, tmp_path, frozenset())
     write_catalog(_build(unit("GD01-001", "One")), T3, tmp_path)  # reparse: no listings
     assert _missed(tmp_path) == {"GD01-001": (True, False)}
 

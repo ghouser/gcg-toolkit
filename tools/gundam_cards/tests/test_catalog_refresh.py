@@ -285,6 +285,21 @@ def test_a_card_is_marked_only_after_two_consecutive_complete_misses(site: FakeB
     assert flags()["GD01-050"] == (False, False)  # listed again
 
 
+def test_a_missed_card_keeps_its_stored_data_including_its_packages(site: FakeBandai, tracked: Path) -> None:
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
+    run(site, tracked, T1)
+    stored = card("GD01-050")
+    assert stored.printings[0].package_ids == (GD01,)
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])  # GD01-050 gone
+
+    first_miss = run(site, tracked, T2)
+    assert first_miss.missed == ("GD01-050",) and flags()["GD01-050"] == (True, False)
+    assert card("GD01-050") == stored  # one complete miss changes nothing visible: its packages are kept
+    second_miss = run(site, tracked, T3)
+    assert second_miss.marked == ("GD01-050",) and flags()["GD01-050"] == (True, True)
+    assert card("GD01-050") == stored  # marked no longer listed, its data (and package history) kept
+
+
 def test_a_card_that_reappears_after_one_miss_has_its_miss_cleared(site: FakeBandai, tracked: Path) -> None:
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T1)

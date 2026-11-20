@@ -199,11 +199,11 @@ def refresh_catalog(
     listed_numbers = frozenset(i.card_number for i in listed)
     merged = merge_catalog(stored, result.cards, now, listed_numbers)
 
-    # ---- plan: misses and the anomaly guard
-    records = stored.records if stored else ()
-    active = [r for r in records if not r.no_longer_listed]
-    missed = tuple(r.number for r in active if r.number not in listed_numbers)
-    marked = tuple(r.number for r in active if r.number not in listed_numbers and r.missed_once)
+    # ---- plan: misses (read from the merged records, so the report says what is written) and the anomaly guard
+    active = [r for r in (stored.records if stored else ()) if not r.no_longer_listed]
+    merged_records = {r.number: r for r in merged.records}
+    missed = tuple(r.number for r in active if merged_records[r.number].missed_once)
+    marked = tuple(r.number for r in active if merged_records[r.number].no_longer_listed)
     rebuilt = {c.number: c for c in merged.data}
     changed = tuple(r.number for r in active if _comparable(rebuilt[r.number]) != _comparable(stored_cards[r.number]))
     affected = len(set(missed) | set(changed))
