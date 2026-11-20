@@ -449,12 +449,13 @@ def test_a_failed_or_interrupted_run_writes_nothing(site: FakeBandai, tracked: P
 
 
 @pytest.mark.parametrize("when", ["before the rename", "mid-write"])
-@pytest.mark.parametrize("nth", [1, 2, 3])
+@pytest.mark.parametrize("nth", [1, 2, 3, 4])
 def test_an_interruption_during_the_write_phase_never_leaves_a_file_partly_written(
     site: FakeBandai, tracked: Path, monkeypatch: pytest.MonkeyPatch, nth: int, when: str
 ) -> None:
     run(site, tracked, T1)
     site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-002", "GD01-003"])  # something new to write
+    site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])  # a new provisional package: a 4th write
     before = dataset_bytes()
     writes = {"n": 0}
     real_replace, real_fdopen = os.replace, os.fdopen
@@ -495,8 +496,12 @@ def test_an_interruption_during_the_write_phase_never_leaves_a_file_partly_writt
     for name, content in after.items():
         assert content == before.get(name) or json.loads(content)  # each file is the old one or a whole new one
     assert (after["gundam_cards/cards.json"] != before["gundam_cards/cards.json"]) is (nth > 1)  # cards.json is written first
+    provisional = "gundam_cards/provisional_sets.json"
+    assert after[provisional] == before[provisional]  # written last: an interruption at any write leaves the old one
+    assert "GD10" not in {s.code for s in load_provisional_sets()}
 
     assert run(site, tracked, T3).written  # the next run repairs any derived file left behind
+    assert "GD10" in {s.code for s in load_provisional_sets()}  # ... and records the package left out
     stamps = {json.loads(after_bytes)["generated_at"] for name, after_bytes in dataset_bytes().items()
               if name in ("gundam_cards/cards.json", "gundam_cards/traits.json", "gundam_cards/source_titles.json")}
     assert len(stamps) == 1
