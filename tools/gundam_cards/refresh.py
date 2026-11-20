@@ -1,4 +1,4 @@
-"""Refresh the card catalog from Bandai's official English card site, all or nothing.
+"""Refresh the card catalog from Bandai's official English card site: fetch and check everything, then write.
 
     .venv/bin/python -m tools.gundam_cards.cli refresh             # fetch, check, then write the dataset (network)
     .venv/bin/python -m tools.gundam_cards.cli refresh --dry-run   # what a real run would add; fetches no detail pages, writes nothing
@@ -6,7 +6,9 @@
 Three phases. Fetch: Bandai's package list, every package's listing (always fresh) and the detail pages not cached yet (a cached
 page is never requested again), stopping at the first failure. Plan: the shape check, provisional packages, the rebuild from the
 cached pages with packages taken from this run's listings, misses, and the anomaly guard. Write: only after a complete, accepted,
-non-dry run, so a failed, refused or interrupted run leaves the dataset as it was. The tracked sets.json is only read.
+non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it was. Each file is
+written atomically, cards.json first; an interruption among the writes may leave the derived files behind until the next run.
+The tracked sets.json is only read.
 See .claude/feature-design/refresh-cards.md.
 """
 from __future__ import annotations
@@ -36,7 +38,7 @@ from tools.gundam_cards.store import (
     write_provisional_sets,
 )
 
-ANOMALY_SHARE = 0.10  # refuse a run that would drop or change more than this share of existing cards (docs/tuning.md)
+ANOMALY_SHARE = 0.02  # refuse a run that would drop or change more than this share of existing cards (docs/tuning.md)
 
 
 @dataclass(frozen=True)

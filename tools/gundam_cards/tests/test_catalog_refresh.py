@@ -1,16 +1,20 @@
 """refresh-cards: the catalog refresh from Bandai, with a fake Bandai (no network) and small synthetic pages."""
 from __future__ import annotations
 
+import json
+import os
 import shutil
 import subprocess
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode
 from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher, Response
+from shared.test_fetch import _Handler, server  # noqa: F401 (the local HTTP server fixture)
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key
@@ -168,6 +172,18 @@ def test_first_refresh_builds_the_catalog_from_bandai_and_records_an_unknown_pac
     assert card("GD09-001").printings[0].package_ids == (GD09,)
 
 
+def test_a_package_bandai_gives_no_release_date_for_is_still_recorded_and_crawled(site: FakeBandai, tracked: Path) -> None:
+    site.packages[RP02] = ("Reprint Box [RP02]", ["RP02-001"])  # no product page: Bandai gives no release date
+    site.details["RP02-001"] = detail("RP02-001", where="Reprint Box [RP02]")
+    report = run(site, tracked, T1)
+
+    assert report.written and [s.code for s in report.provisional] == ["GD09", "RP02"]
+    rp02 = next(s for s in load_provisional_sets() if s.code == "RP02")
+    assert (rp02.name, rp02.bandai_package_id, rp02.release_date) == ("Reprint Box", RP02, None)
+    assert card("RP02-001").printings[0].package_ids == (RP02,)
+    assert "provisional RP02 Reprint Box (released unknown)" in "\n".join(format_report(report))
+
+
 def test_readers_of_sets_prefer_the_tracked_entry_when_a_code_is_in_both(tracked: Path) -> None:
     clash = CardSet(code=SetCode("GD01"), name="Bandai's name", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
                     release_date=date(2025, 8, 1), product_category_raw=None, product_url=None)
@@ -210,6 +226,8 @@ def test_a_reprint_package_adds_printings_to_existing_cards_and_creates_none(sit
     report = run(site, tracked, T2)
 
     assert report.written and report.new_cards == () and len(report.new_printings) == 2
+    assert [s.code for s in report.provisional] == ["RP02"]  # the run records the package, though it adds no card
+    assert {str(s.code): s.bandai_package_id for s in load_sets(tracked)}["RP02"] == RP02
     assert numbers() == ["GD01-001", "GD01-002", "GD09-001"]
     after = card("GD01-001")
     assert (after.number, after.name) == (before.number, before.name)
@@ -224,6 +242,7 @@ def test_a_package_listing_existing_printing_ids_adds_itself_to_those_printings(
     site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-001"])
     report = run(site, tracked, T2)
     assert report.written and report.new_printings == () and report.new_cards == ()
+    assert "RP02" in {s.code for s in load_sets(tracked)}  # recorded, though it lists only printings we have
     [printing] = card("GD01-001").printings  # no duplicate printing
     assert printing.package_ids == (GD01, RP02)
 
@@ -248,47 +267,47 @@ def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_
 
 # ---- AC-3 --------------------------------------------------------------------------------------------------------------------
 def test_a_card_is_marked_only_after_two_consecutive_complete_misses(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 21)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T1)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 20)])  # GD01-020 gone
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])  # GD01-050 gone: 1 of 51
 
     first_miss = run(site, tracked, T2)
-    assert first_miss.written and first_miss.missed == ("GD01-020",) and first_miss.marked == ()
-    assert flags()["GD01-020"] == (True, False)  # recorded, nothing visible
-    assert "GD01-020" in numbers()
+    assert first_miss.written and first_miss.missed == ("GD01-050",) and first_miss.marked == ()
+    assert flags()["GD01-050"] == (True, False)  # recorded, nothing visible
+    assert "GD01-050" in numbers()
 
     second_miss = run(site, tracked, T3)
-    assert second_miss.marked == ("GD01-020",) and flags()["GD01-020"] == (True, True)
-    assert "GD01-020" in numbers()  # never removed
+    assert second_miss.marked == ("GD01-050",) and flags()["GD01-050"] == (True, True)
+    assert "GD01-050" in numbers()  # never removed
 
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 21)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T4)
-    assert flags()["GD01-020"] == (False, False)  # listed again
+    assert flags()["GD01-050"] == (False, False)  # listed again
 
 
 def test_a_card_that_reappears_after_one_miss_has_its_miss_cleared(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 21)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T1)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 20)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])
     run(site, tracked, T2)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 21)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T3)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 20)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])
     run(site, tracked, T4)
-    assert flags()["GD01-020"] == (True, False)  # a miss after a listing is a first miss again, not a second
+    assert flags()["GD01-050"] == (True, False)  # a miss after a listing is a first miss again, not a second
 
 
 def test_an_incomplete_run_counts_no_miss(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 21)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 51)])
     run(site, tracked, T1)
     run(site, tracked, T2)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 20)])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])
     site.fail.add(LIST_URL.format(GD09))
     before = dataset_bytes()
     report = run(site, tracked, T3)
     assert not report.complete and not report.written and report.missed == ()
     assert dataset_bytes() == before
-    assert flags()["GD01-020"] == (False, False)
+    assert flags()["GD01-050"] == (False, False)
 
 
 # ---- AC-4 --------------------------------------------------------------------------------------------------------------------
@@ -338,7 +357,7 @@ def test_the_anomaly_guard_refuses_a_run_that_drops_too_many_cards(site: FakeBan
     report = run(site, tracked, T2)
     assert report.refused and not report.written and (len(report.missed), report.existing) == (2, 10)
     assert dataset_bytes() == before
-    assert "anomaly guard: 2 dropped, 0 changed of 10 existing cards (limit 10%): would refuse" in format_report(report)
+    assert "anomaly guard: 2 dropped, 0 changed of 10 existing cards (limit 2%): would refuse" in format_report(report)
 
     forced = run(site, tracked, T2, allow_anomaly=True)
     assert forced.written and forced.guard_trips and not forced.refused
@@ -355,17 +374,41 @@ def test_the_anomaly_guard_counts_changed_cards(site: FakeBandai, tracked: Path)
     assert dataset_bytes() == before
 
 
-def test_the_anomaly_guard_lets_a_small_change_through(site: FakeBandai, tracked: Path) -> None:
-    _ten_cards(site, tracked)
-    assert ANOMALY_SHARE == 0.10
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 9)])  # 1 of 10: not more than 10%
+def test_the_refresh_command_refuses_with_a_nonzero_exit_and_allow_anomaly_overrides(
+    site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr(cli, "refresh_fetcher", lambda: site)
+    monkeypatch.setattr(cli, "RAW_DIR", site.raw_dir)
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 10)])
+    assert cli.main(["refresh"]) == 0
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 8)])  # 2 of 10 gone
+    capsys.readouterr()
+    before = dataset_bytes()
+
+    assert cli.main(["refresh"]) == 1  # refused
+    assert "refused by the anomaly guard, nothing written" in capsys.readouterr().out
+    assert dataset_bytes() == before
+
+    assert cli.main(["refresh", "--allow-anomaly"]) == 0  # the owner's override reaches the refresh
+    assert "would refuse (overridden)" in capsys.readouterr().out
+    assert dataset_bytes() != before and flags()["GD01-009"] == (True, False)
+
+
+@pytest.mark.parametrize(("existing", "written"), [(50, True), (49, False)])
+def test_the_anomaly_guard_boundary_is_two_percent(site: FakeBandai, tracked: Path, existing: int, written: bool) -> None:
+    assert ANOMALY_SHARE == 0.02
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, existing)])
+    run(site, tracked, T1)  # existing - 1 + GD09-001 = existing cards
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, existing - 1)])  # 1 gone
     report = run(site, tracked, T2)
-    assert report.written and not report.guard_trips
+    assert (report.existing, len(report.missed)) == (existing, 1)
+    assert report.written is written and report.guard_trips is not written  # exactly 2% passes; just over refuses
 
 
 @pytest.mark.parametrize(
     "breakage",
-    ["package list fails", "listing fails", "listing unreadable", "detail fails", "detail unreadable", "interrupted"],
+    ["package list fails", "package list unreadable", "listing fails", "listing unreadable", "detail fails", "detail unreadable",
+     "interrupted at the package list", "interrupted at a listing", "interrupted"],
 )
 def test_a_failed_or_interrupted_run_writes_nothing(site: FakeBandai, tracked: Path, breakage: str) -> None:
     run(site, tracked, T1)
@@ -374,6 +417,12 @@ def test_a_failed_or_interrupted_run_writes_nothing(site: FakeBandai, tracked: P
     match breakage:
         case "package list fails":
             site.fail.add(CARDS_URL)
+        case "package list unreadable":
+            site.packages.clear()  # the card page is fetched but shows no packages
+        case "interrupted at the package list":
+            site.interrupt.add(CARDS_URL)
+        case "interrupted at a listing":
+            site.interrupt.add(LIST_URL.format(GD09))
         case "listing fails":
             site.fail.add(LIST_URL.format(GD09))
         case "listing unreadable":
@@ -385,16 +434,72 @@ def test_a_failed_or_interrupted_run_writes_nothing(site: FakeBandai, tracked: P
         case "interrupted":
             site.interrupt.add(new_page)
     before = dataset_bytes()
-    if breakage == "interrupted":
+    if breakage.startswith("interrupted"):  # any interruption before the write phase writes nothing
         with pytest.raises(KeyboardInterrupt):
             run(site, tracked, T2)
     else:
         report = run(site, tracked, T2)
         assert not report.complete and not report.written and report.failure
         assert format_report(report)[0].startswith("refresh incomplete, nothing written")
+        if breakage == "package list unreadable":
+            assert report.failure.startswith("package list:") and "unreadable" in report.failure
     assert dataset_bytes() == before
     if breakage == "detail unreadable":
         assert not (site.raw_dir / detail_page_key(PrintingId("GD01-003"))).exists()  # asked again next run
+
+
+@pytest.mark.parametrize("when", ["before the rename", "mid-write"])
+@pytest.mark.parametrize("nth", [1, 2, 3])
+def test_an_interruption_during_the_write_phase_never_leaves_a_file_partly_written(
+    site: FakeBandai, tracked: Path, monkeypatch: pytest.MonkeyPatch, nth: int, when: str
+) -> None:
+    run(site, tracked, T1)
+    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-002", "GD01-003"])  # something new to write
+    before = dataset_bytes()
+    writes = {"n": 0}
+    real_replace, real_fdopen = os.replace, os.fdopen
+
+    def replace(src: str, dst: Path) -> None:  # the rename that publishes a written file
+        writes["n"] += 1
+        if when == "before the rename" and writes["n"] == nth:
+            raise KeyboardInterrupt
+        real_replace(src, dst)
+
+    class HalfWriter:
+        def __init__(self, f: Any) -> None:
+            self.f = f
+
+        def __enter__(self) -> HalfWriter:
+            return self
+
+        def __exit__(self, *exc: object) -> None:
+            self.f.close()
+
+        def write(self, text: str) -> None:
+            self.f.write(text[: len(text) // 2])
+            raise KeyboardInterrupt
+
+    def fdopen(fd: int, *args: Any, **kwargs: Any) -> Any:
+        f = real_fdopen(fd, *args, **kwargs)
+        if when == "mid-write" and writes["n"] == nth - 1:
+            return HalfWriter(f)
+        return f
+
+    with monkeypatch.context() as patched, pytest.raises(KeyboardInterrupt):
+        patched.setattr(os, "replace", replace)
+        patched.setattr(os, "fdopen", fdopen)
+        run(site, tracked, T2)
+
+    after = dataset_bytes()
+    assert not [name for name in after if ".tmp-" in name]  # no stray temporary file
+    for name, content in after.items():
+        assert content == before.get(name) or json.loads(content)  # each file is the old one or a whole new one
+    assert (after["gundam_cards/cards.json"] != before["gundam_cards/cards.json"]) is (nth > 1)  # cards.json is written first
+
+    assert run(site, tracked, T3).written  # the next run repairs any derived file left behind
+    stamps = {json.loads(after_bytes)["generated_at"] for name, after_bytes in dataset_bytes().items()
+              if name in ("gundam_cards/cards.json", "gundam_cards/traits.json", "gundam_cards/source_titles.json")}
+    assert len(stamps) == 1
 
 
 def test_a_failed_first_run_creates_no_dataset(site: FakeBandai, tracked: Path) -> None:
@@ -420,9 +525,9 @@ def test_the_refresh_uses_the_polite_fetcher() -> None:
 
 
 def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 10)])
-    run(site, tracked, T1)
-    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(3, 10)]])
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])
+    run(site, tracked, T1)  # 49 + GD09-001 = 50 existing cards
+    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(3, 50)]])
     site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])
     site.products.append(("Next Pack [GD10]", "June 4,2027"))
 
@@ -442,12 +547,26 @@ def test_a_dry_run_reports_what_a_real_run_would_do_and_changes_nothing(site: Fa
     lines = "\n".join(format_report(report))
     for expected in ("provisional GD10 Next Pack (released 2027-06-04)", "Next Pack [GD10] (provisional)",
                      "Newtype Rising [GD01] (known)", "1 new card number(s): GD10-001", "2 new printing(s): GD01-001_p1 GD10-001",
-                     "1 card(s) missed: GD01-002", "anomaly guard: 1 dropped, 0 changed of 10 existing cards (limit 10%): ok",
+                     "1 card(s) missed: GD01-002", "anomaly guard: 1 dropped, 0 changed of 50 existing cards (limit 2%): ok",
                      "dry run: nothing written"):
         assert expected in lines
 
     real = run(site, tracked, T2)  # the real run does what the dry run said
     assert (real.new_cards, real.new_printings, real.missed) == (report.new_cards, report.new_printings, report.missed)
+
+
+def test_a_dry_run_reports_that_the_anomaly_guard_would_refuse(site: FakeBandai, tracked: Path) -> None:
+    _ten_cards(site, tracked)
+    site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 8)])  # 2 of 10 gone
+    before = dataset_bytes()
+    report = run(site, tracked, T2, dry_run=True)
+    assert report.guard_trips and not report.written and dataset_bytes() == before
+    assert "anomaly guard: 2 dropped, 0 changed of 10 existing cards (limit 2%): would refuse" in format_report(report)
+
+
+def test_the_refresh_fetcher_sends_the_toolkit_user_agent(server: str) -> None:
+    cli.refresh_fetcher().get_text(f"{server}/ok")  # no cache key: nothing written to the page cache
+    assert _Handler.agents == [DEFAULT_USER_AGENT]
 
 
 def test_the_refresh_command_dry_run(site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:

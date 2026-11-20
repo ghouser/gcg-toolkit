@@ -371,7 +371,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     refresh = sub.add_parser(
         "refresh",
         help="refresh the catalog from Bandai (network): new packages are recorded as provisional; a failed, refused or "
-        "interrupted run writes nothing; tracked files are never changed",
+        "interrupted run writes nothing (each file is written atomically); tracked files are never changed",
     )
     refresh.add_argument("--dry-run", action="store_true", help="report what a real run would add, miss and refuse; fetches no "
                          "detail pages and writes nothing (list pages may be cached)")

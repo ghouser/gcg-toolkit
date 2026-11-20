@@ -9,14 +9,16 @@ from pathlib import Path
 
 import pytest
 
-from shared.fetch import FetchError, Fetcher
+from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher
 
 
 class _Handler(BaseHTTPRequestHandler):
     hits: dict[str, int] = {}
+    agents: list[str | None] = []  # the User-Agent header of every request, in order
 
     def do_GET(self) -> None:  # noqa: N802 (http.server API)
         self.hits[self.path] = self.hits.get(self.path, 0) + 1
+        self.agents.append(self.headers.get("User-Agent"))
         if self.path == "/ok":
             body = "héllo".encode()
             self.send_response(200)
@@ -48,6 +50,7 @@ class _Server(HTTPServer):
 @pytest.fixture
 def server() -> Iterator[str]:
     _Handler.hits = {}
+    _Handler.agents = []
     httpd = _Server(("127.0.0.1", 0), _Handler)
     thread = threading.Thread(target=lambda: httpd.serve_forever(poll_interval=0.02), daemon=True)
     thread.start()
@@ -73,6 +76,13 @@ def test_cache_hit_makes_no_second_request(server: str, tmp_path: Path) -> None:
     assert (second.text, second.from_cache) == ("héllo", True)
     assert _Handler.hits["/ok"] == 1 and f.network_requests == 1
     assert (tmp_path / "a" / "b.html").read_text(encoding="utf-8") == "héllo"
+
+
+def test_every_request_carries_the_descriptive_user_agent(server: str, tmp_path: Path) -> None:
+    f = _fetcher(tmp_path, [])
+    f.get_text(f"{server}/ok", cache_key="ua.html")
+    f.get_text(f"{server}/ok", cache_key="ua.html", force=True)
+    assert _Handler.agents == [DEFAULT_USER_AGENT, DEFAULT_USER_AGENT]
 
 
 def test_force_refetches(server: str, tmp_path: Path) -> None:
