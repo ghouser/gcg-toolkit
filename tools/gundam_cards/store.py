@@ -62,9 +62,11 @@ def packages_by_printing(raw_dir: Path) -> dict[PrintingId, tuple[PackageId, ...
     return {k: tuple(v) for k, v in inverted.items()}
 
 
-def load_source_pages(raw_dir: Path = RAW_DIR) -> LoadedPages:
-    """Parse every cached detail page. Pages that can't be parsed become issues."""
-    packages_of = packages_by_printing(raw_dir)
+def load_source_pages(raw_dir: Path = RAW_DIR, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None) -> LoadedPages:
+    """Parse every cached detail page. Pages that can't be parsed become issues. Each printing's packages come from `packages_of`,
+    or from the cached list pages when it is not given."""
+    if packages_of is None:
+        packages_of = packages_by_printing(raw_dir)
     pages: list[SourcePage] = []
     issues: list[Issue] = []
     for path in sorted((raw_dir / "detail").glob("*.html")):
@@ -95,12 +97,34 @@ def write_sets(sets: tuple[CardSet, ...], generated_at: datetime, out_dir: Path 
     write_atomic(out_dir / "sets.json", _pretty(SetsFile(generated_at=generated_at, data=sets).model_dump_json()))
 
 
-def load_sets(out_dir: Path = OUT_DIR) -> tuple[CardSet, ...]:
-    """The saved sets, or () when sets.json doesn't exist yet."""
+def load_tracked_sets(out_dir: Path = OUT_DIR) -> tuple[CardSet, ...]:
+    """The reviewed, tracked sets.json, or () when it doesn't exist yet."""
     path = out_dir / "sets.json"
     if not path.is_file():
         return ()
     return SetsFile.model_validate_json(path.read_text(encoding="utf-8")).data
+
+
+def load_provisional_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:
+    """Packages a refresh found on Bandai that sets.json does not have yet (dataset `provisional_sets.json`), or ()."""
+    path = (out_dir or data_out_dir()) / "provisional_sets.json"
+    return SetsFile.model_validate_json(path.read_text(encoding="utf-8")).data if path.is_file() else ()
+
+
+def write_provisional_sets(sets: tuple[CardSet, ...], generated_at: datetime, out_dir: Path | None = None) -> bool:
+    """Store the provisional packages (sorted by code). Writes nothing (False) when they are the ones stored already."""
+    ordered = tuple(sorted(sets, key=lambda s: str(s.code)))
+    if ordered == load_provisional_sets(out_dir):
+        return False
+    write_atomic((out_dir or data_out_dir()) / "provisional_sets.json", _pretty(SetsFile(generated_at=generated_at, data=ordered).model_dump_json()))
+    return True
+
+
+def load_sets(out_dir: Path = OUT_DIR, data_out: Path | None = None) -> tuple[CardSet, ...]:
+    """Every known set: the tracked sets.json plus the dataset's provisional packages; for a code in both, the sets.json entry wins."""
+    tracked = load_tracked_sets(out_dir)
+    codes = {s.code for s in tracked}
+    return tracked + tuple(s for s in load_provisional_sets(data_out) if s.code not in codes)
 
 
 def release_dates(sets: tuple[CardSet, ...]) -> dict[SetCode, date]:
@@ -122,30 +146,45 @@ def load_catalog_or_fail(out_dir: Path | None = None) -> CardsFile:
     return catalog
 
 
-def merge_catalog(stored: CardsFile | None, cards: tuple[Card, ...], generated_at: datetime) -> CardsFile:
+def merge_catalog(
+    stored: CardsFile | None, cards: tuple[Card, ...], generated_at: datetime, listed: frozenset[CardNumber] | None = None
+) -> CardsFile:
     """Append-only: every stored card stays. A card in `cards` takes its new data and keeps its first-recorded date; a stored card
-    missing from `cards` keeps its last data and is marked no longer listed; a new card is first recorded now. Sorted by number."""
+    missing from `cards` keeps its last data; a new card is first recorded now. Sorted by number.
+
+    `listed` is the card numbers a complete refresh saw on Bandai's listings; only then are misses counted. A stored card not listed
+    is missed and keeps its stored data as it is (its rebuild knows none of its packages): a first miss sets `missed_once`, a miss
+    on a card already missed once marks it no longer listed. A listed card clears both. Without `listed` (a rebuild from saved
+    pages) every stored card keeps its marks."""
     old_cards = {c.number: c for c in stored.data} if stored else {}
     old_records = {r.number: r for r in stored.records} if stored else {}
-    listed = {c.number: c for c in cards}
-    merged = {**old_cards, **listed}
+    missed = {n for n in old_cards if listed is not None and n not in listed}
+    merged = {**old_cards, **{c.number: c for c in cards if c.number not in missed}}
     numbers = sorted(merged, key=str)
-    records = tuple(
-        CardRecord(
-            number=n,
-            first_recorded=old_records[n].first_recorded if n in old_records else generated_at,
-            no_longer_listed=n not in listed,
-        )
-        for n in numbers
-    )
-    return CardsFile(generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=records)
+
+    def record(n: CardNumber) -> CardRecord:
+        old = old_records.get(n)
+        first = old.first_recorded if old else generated_at
+        if listed is None:
+            return CardRecord(number=n, first_recorded=first, no_longer_listed=old.no_longer_listed if old else False,
+                              missed_once=old.missed_once if old else False)
+        if n in listed or old is None:
+            return CardRecord(number=n, first_recorded=first, no_longer_listed=False, missed_once=False)
+        return CardRecord(number=n, first_recorded=first, no_longer_listed=old.no_longer_listed or old.missed_once, missed_once=True)
+
+    return CardsFile(generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=tuple(record(n) for n in numbers))
 
 
 def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path | None = None) -> None:
-    """Merge the build into the stored catalog (see `merge_catalog`), then write cards.json, traits.json and source_titles.json
-    (deterministic: sorted, indented). The vocabularies cover the whole merged catalog."""
+    """Merge the build into the stored catalog (see `merge_catalog`; no listings, so no card is marked), then write it."""
+    save_catalog(merge_catalog(load_catalog(out_dir), result.cards, generated_at), out_dir)
+
+
+def save_catalog(cards: CardsFile, out_dir: Path | None = None) -> None:
+    """Write cards.json, traits.json and source_titles.json (deterministic: sorted, indented). The vocabularies cover the whole
+    catalog; cards.json is written first."""
     out_dir = out_dir or data_out_dir()
-    cards = merge_catalog(load_catalog(out_dir), result.cards, generated_at)
+    generated_at = cards.generated_at
     write_atomic(out_dir / "cards.json", _pretty(cards.model_dump_json()))
 
     users: dict[Trait, set[CardNumber]] = defaultdict(set)

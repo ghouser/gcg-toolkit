@@ -13,7 +13,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from shared.basetypes import PackageId, SetCode
-from shared.fetch import Fetcher
+from shared.fetch import TextFetcher
 from tools.gundam_cards.build import Issue, IssueKind
 from tools.gundam_cards.models import CardSet, SetKind
 from tools.gundam_cards.parse_detail import clean_inline
@@ -256,8 +256,8 @@ def build_sets(packages: tuple[PackageEntry, ...], products: tuple[RawProduct, .
 
 
 # ---- fetching ----------------------------------------------------------------------------------------
-def sync_sets(fetcher: Fetcher) -> SetsBuild:
-    """Fetch the package filter and every product list page (always fresh: new sets get announced), then join."""
+def fetch_package_list(fetcher: TextFetcher) -> tuple[tuple[PackageEntry, ...], tuple[RawProduct, ...]]:
+    """Bandai's package list: the package filter and every product list page (always fresh: new sets get announced)."""
     landing = fetcher.get_text(CARDS_URL, cache_key=LANDING_KEY, force=True)
     first = fetcher.get_text(f"{PRODUCTS_URL}?page=1", cache_key=products_page_key(1), force=True)
     products, pages = parse_product_list(first.text)
@@ -265,7 +265,12 @@ def sync_sets(fetcher: Fetcher) -> SetsBuild:
     for n in range(2, pages + 1):
         page = fetcher.get_text(f"{PRODUCTS_URL}?page={n}", cache_key=products_page_key(n), force=True)
         all_products.extend(parse_product_list(page.text)[0])
-    return build_sets(parse_package_filter(landing.text), tuple(all_products))
+    return parse_package_filter(landing.text), tuple(all_products)
+
+
+def sync_sets(fetcher: TextFetcher) -> SetsBuild:
+    """Fetch the package list (see `fetch_package_list`), then join."""
+    return build_sets(*fetch_package_list(fetcher))
 
 
 def sets_from_raw(raw_dir: Path) -> SetsBuild | None:

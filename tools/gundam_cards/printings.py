@@ -40,11 +40,16 @@ class _CardListParser(HTMLParser):
             self.ids.setdefault(src[len(prefix) :], None)
 
 
-def parse_card_list(html: str) -> tuple[PrintingId, ...]:
-    """Printing ids on one package's list page, in page order, deduplicated."""
+def parse_card_list_raw(html: str) -> tuple[str, ...]:
+    """Printing ids on one package's list page as written (not yet checked), in page order, deduplicated."""
     parser = _CardListParser()
     parser.feed(html)
-    return tuple(PrintingId(i) for i in parser.ids)
+    return tuple(parser.ids)
+
+
+def parse_card_list(html: str) -> tuple[PrintingId, ...]:
+    """Printing ids on one package's list page, in page order, deduplicated."""
+    return tuple(PrintingId(i) for i in parse_card_list_raw(html))
 
 
 @dataclass(frozen=True)

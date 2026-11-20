@@ -9,6 +9,7 @@ Build and keep a local, searchable catalog of **every** Gundam Card Game card (n
 
 ## Usage
 ```
+python3 -m tools.gundam_cards.cli refresh [--dry-run] [--allow-anomaly]   # refresh the catalog from Bandai, all or nothing
 python3 -m tools.gundam_cards.cli sync                       # fetch only cards/sets not already stored
 python3 -m tools.gundam_cards.cli sync --package GD05        # one package
 python3 -m tools.gundam_cards.cli search --name "Gundam" --color blue --kind unit --level 4
@@ -24,7 +25,7 @@ python3 -m tools.gundam_cards.cli sync-tcgplayer [--force]   # latest TCGPlayer 
 python3 -m tools.gundam_cards.cli reparse-tcgplayer          # rebuild a price snapshot from the saved tcgcsv files (added only if that day has none), no network
 python3 -m tools.gundam_cards.cli price GD05-002 [--explain] # a card's latest price; --explain lists every product considered (from the saved files)
 ```
-`search` runs entirely against the local catalog: no network, instant, any combination of filters. Bandai is only contacted by `sync`/`refetch`.
+`search` runs entirely against the local catalog: no network, instant, any combination of filters. Bandai is only contacted by `refresh`/`sync`/`refetch`.
 
 ## Inputs
 - Network (only during sync): Bandai card site and product list; tcgcsv.com (a community export of TCGPlayer's catalog) for the TCGPlayer product mapping and market prices. TCGPlayer's own sites and APIs are never contacted (their terms forbid it; see `notes/source-terms.md`).
@@ -34,8 +35,9 @@ Owned by this tool; other tools read these files per the contracts below, throug
 
 | File | Format | Key | Fields | Consumers |
 |------|--------|-----|--------|-----------|
-| `cards.json` | JSON (envelope, schema 2) | card number | `Card` union below, including `printings` and `faq`, plus `records`: per card `first_recorded` and `no_longer_listed`. **Append-only**: a refresh replaces a card's data (latest only, no earlier versions) and never removes a card; one the source dropped is kept and marked. `generated_at` is the last refresh. | all tools |
-| `sets.json` | JSON | set code | `CardSet` below | `gundam_meta` (eras), recommender |
+| `cards.json` | JSON (envelope, schema 2) | card number | `Card` union below, including `printings` and `faq`, plus `records`: per card `first_recorded`, `missed_once` and `no_longer_listed`. **Append-only**: a refresh replaces a card's data (latest only, no earlier versions) and never removes a card. A card absent from one complete refresh's listings is `missed_once`; absent from the next complete refresh too, it is marked `no_longer_listed`; listed again, both clear. A missed card keeps its stored data as it is. `reparse` (no listings) keeps the marks. `generated_at` is the last refresh. | all tools |
+| `sets.json` | JSON | set code | `CardSet` below. Tracked and reviewed: the golden list; a refresh never edits it | `gundam_meta` (eras), recommender |
+| `provisional_sets.json` | JSON (dataset) | set code | `CardSet`: packages `refresh` found on Bandai that `sets.json` lacks (Bandai's name, code, release date). `store.load_sets()` returns both; on a shared code `sets.json` wins. Promoting one into `sets.json` is done by hand | as `sets.json` |
 | `prices/<generated_at>.json` | JSON (envelope) | card number | `PriceFile` below: per card the **TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. One dated snapshot per pull; a snapshot is never rewritten, and a pull with the same prices as the newest adds nothing. The newest is the latest price, joined onto the card model on read (`PricedCard`). | `gundam_collection` |
 | `traits.json` | JSON | trait | generated vocabulary of traits (factions): name, card count, card numbers | parser (validation), search |
 | `source_titles.json` | JSON | source title | generated vocabulary: TV series / game names, counts | parser (validation), search |
@@ -283,7 +285,8 @@ Why Bandai and not a third party: it is official and authoritative, includes thi
    Nothing else from tcgcsv is stored. Alt arts are never bought, and owning any printing counts as owning the card, so no alt-art or sealed product needs keeping. The snapshots are the price history; the latest price is the newest snapshot.
    **The master card model carries the price on read, not in `cards.json`.** `store.load_cards_with_prices()` joins `cards.json` and the newest price snapshot on card number into `PricedCard` (`card` plus `latest_tcg_price`, or `None`). The card facts (from Bandai) and the price facts (from tcgcsv, daily) have different owners, sources and refresh rates, so they are stored apart and joined by key, like tables.
 6. **Search** (script): local filters over `cards.json`; output as a table or JSON.
-7. **Redo:** `reparse` rebuilds from saved raw HTML with no network; `refetch` re-pulls from Bandai (cards get errata and new FAQ entries) and logs what changed.
+7. **Refresh** (`refresh`, `refresh.py`): fetch Bandai's package list and every listing (stop at the first failure), fetch only uncached detail pages, then plan without writing: shape check (identifier shapes; TYPE, COLOR and rarity vocabularies; a rejected card or printing is reported and never stored), provisional packages, the rebuild from the cached pages with each printing's stored packages plus those listing it this run (a reprint is a new printing, or a new package on an existing printing, of the card number), misses, and the anomaly guard (`ANOMALY_SHARE`, `docs/tuning.md`). The dataset is written only after a complete, accepted run, so a refused run, or one that fails or is interrupted before writing, leaves it as it was; the writes are atomic per file, `cards.json` first, and an interruption among them may leave the derived files behind `cards.json` until the next run. `--dry-run` fetches no detail pages and writes nothing. Design: `.claude/feature-design/refresh-cards.md`.
+8. **Redo:** `reparse` rebuilds from saved raw HTML with no network; `refetch` re-pulls from Bandai (cards get errata and new FAQ entries) and logs what changed.
 
 ## Implementation status
 Done: `mypy --strict` clean, tests passing (the whole repo: 252), full sync run on 2026-10-06 (2,011 printing pages -> 1,152 cards). `changes` lists substantive wording differences between printings.
@@ -321,6 +324,8 @@ Known data issues after the full sync (pinned by `tests/test_corpus.py`; 14 tota
 - In a Link, a parenthesized alternative is a trait with or without the word "Trait" after it; `/` is "or" (`(Teiwaz) / (Tekkadan) Trait` = the Teiwaz trait or the Tekkadan trait).
 - **One flat `keywords` list**, no values, covering both rules groups, including keywords a card grants or references. Intended use: search on a keyword, then read the cards to judge which really have it. Native-vs-granted is out of scope.
 - **Newest wording wins** (block, then set release date). Reminder-text-only ties keep the version with reminder text. Other ambiguous cases are reported, not guessed, and a rule is added once we agree on one.
+- **A refresh never removes a package from a printing (2026-11-20):** a printing's package ids after a refresh are its stored ones plus any package listing it in that run, including a printing that leaves one package's listing or drops off every listing while its card is still listed. The catalog is append-only, so its package history is kept.
+- **What stops a refresh (2026-11-20):** a newly fetched detail page that is structurally unreadable (`DetailPageError`) aborts the refresh, which writes nothing. Finer build errors on a page (an unrecognized trait or link format, the `parse_failure` issues) are reported, that card is left out of the build, a stored card keeps its stored data, and the run still writes. Why: one odd card must not block every refresh until the parser is fixed.
 
 ## Acceptance Checks
 - For each package, the number of stored printings equals the number of ids on its list page.
