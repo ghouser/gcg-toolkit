@@ -5,9 +5,10 @@
 
 Three phases. Fetch: Bandai's package list, every package's listing (always fresh) and the detail pages not cached yet (a cached
 page is never requested again), stopping at the first failure. Plan: the shape check, provisional packages, the rebuild from the
-cached pages with packages taken from this run's listings, misses, and the anomaly guard. Write: only after a complete, accepted,
-non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it was. Each file is
-written atomically, cards.json first; an interruption among the writes may leave the derived files behind until the next run.
+cached pages (a printing keeps its stored packages and gains this run's), misses, and the anomaly guard. Write: only after a
+complete, accepted, non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it
+was. Each file is written atomically, cards.json first; an interruption among the writes may leave the derived files behind
+until the next run.
 The tracked sets.json is only read.
 See .claude/feature-design/refresh-cards.md.
 """
@@ -186,11 +187,16 @@ def refresh_catalog(
         (p.label, p.id not in tracked_ids) for p in packages if any(i in new_set for i in listings[p.id])
     )
 
-    # ---- plan: cards (rebuilt from the cached pages, packages from this run's listings)
+    # ---- plan: cards (rebuilt from the cached pages). A printing's packages are its stored ones plus those listing it in this run:
+    # a refresh never takes a package away from a printing, even one that no listing names any more (owner decision 2026-11-20).
     packages_of: dict[PrintingId, list[PackageId]] = defaultdict(list)
+    for stored_card in stored_cards.values():
+        for printing in stored_card.printings:
+            packages_of[printing.id].extend(printing.package_ids)
     for package_id, package_ids in listings.items():
         for printing_id in package_ids:
-            packages_of[printing_id].append(package_id)
+            if package_id not in packages_of[printing_id]:
+                packages_of[printing_id].append(package_id)
     loaded = load_source_pages(raw_dir, {k: tuple(v) for k, v in packages_of.items()})
     pages, page_rejects = _shape_checked(loaded.pages)
     rejected += page_rejects

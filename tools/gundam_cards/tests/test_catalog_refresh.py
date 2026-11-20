@@ -247,6 +247,28 @@ def test_a_package_listing_existing_printing_ids_adds_itself_to_those_printings(
     assert printing.package_ids == (GD01, RP02)
 
 
+def test_a_printing_that_leaves_one_package_listing_keeps_that_package(site: FakeBandai, tracked: Path) -> None:
+    run(site, tracked, T1)
+    site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-001"])
+    run(site, tracked, T2)
+    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-002"])  # GD01's listing drops GD01-001; RP02 still lists it
+    report = run(site, tracked, T3)
+    assert report.written and report.missed == () and report.changed == ()
+    [printing] = card("GD01-001").printings
+    assert printing.package_ids == (GD01, RP02)  # a refresh never takes a package away (owner decision 2026-11-20)
+
+
+def test_a_printing_no_listing_names_keeps_its_packages_while_its_card_is_listed(site: FakeBandai, tracked: Path) -> None:
+    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", "GD01-002"])
+    run(site, tracked, T1)
+    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])  # GD01-001_p1 on no listing; GD01-001 still is
+    dry = run(site, tracked, T2, dry_run=True)
+    report = run(site, tracked, T2)
+    assert report.written and report.missed == () and report.changed == () and not report.guard_trips
+    assert (dry.missed, dry.changed, dry.guard_trips) == (report.missed, report.changed, report.guard_trips)
+    assert [(str(p.id), p.package_ids) for p in card("GD01-001").printings] == [("GD01-001", (GD01,)), ("GD01-001_p1", (GD01,))]
+
+
 def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_nothing(site: FakeBandai, tracked: Path) -> None:
     run(site, tracked, T1)
     site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-002_p3", "RP02-001"])
