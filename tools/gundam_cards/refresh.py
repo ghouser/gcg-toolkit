@@ -176,15 +176,15 @@ def refresh_catalog(
     # ---- plan: packages
     tracked = load_tracked_sets(tracked_dir)
     tracked_codes = {s.code for s in tracked}
-    tracked_ids = {s.bandai_package_id for s in tracked}
     sets_build = build_sets(packages, products)
     stored_provisional = {s.code: s for s in load_provisional_sets(out_dir)}
     from_bandai = {s.code: s for s in sets_build.sets if s.bandai_package_id is not None and s.code not in tracked_codes}
     provisional = tuple({**stored_provisional, **from_bandai}.values())
     recorded = tuple(s for code, s in sorted(from_bandai.items()) if code not in stored_provisional)
     new_set = set(new_printings)
-    packages_with_new = tuple(
-        (p.label, p.id not in tracked_ids) for p in packages if any(i in new_set for i in listings[p.id])
+    code_of = {s.bandai_package_id: s.code for s in sets_build.sets if s.bandai_package_id is not None}
+    packages_with_new = tuple(  # provisional by set code, as above: a tracked set may have no bandai_package_id
+        (p.label, code_of.get(p.id) not in tracked_codes) for p in packages if any(i in new_set for i in listings[p.id])
     )
 
     # ---- plan: cards (rebuilt from the cached pages). A printing's packages are its stored ones plus those listing it in this run:

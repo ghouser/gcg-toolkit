@@ -599,6 +599,27 @@ def test_a_dry_run_reports_what_a_real_run_would_do_and_changes_nothing(site: Fa
     assert (real.new_cards, real.new_printings, real.missed) == (report.new_cards, report.new_printings, report.missed)
 
 
+def test_a_tracked_set_without_a_package_id_is_reported_known_and_an_untracked_one_provisional(
+    site: FakeBandai, tmp_path: Path
+) -> None:
+    folder = tmp_path / "tracked_gd06"
+    gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
+                   release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
+    gd06 = CardSet(code=SetCode("GD06"), name="Stardust Trails", kind=SetKind.BOOSTER, bandai_package_id=None,
+                   release_date=date(2026, 9, 1), product_category_raw="BOOSTER PACK", product_url=None)
+    write_sets((gd01, gd06), T1, folder)
+    run(site, folder, T1)
+    site.packages[PackageId("616106")] = ("Stardust Trails [GD06]", ["GD06-001"])
+    site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])
+    expected = (("Stardust Trails [GD06]", False), ("Next Pack [GD10]", True))
+
+    for report in (run(site, folder, T2, dry_run=True), run(site, folder, T2)):
+        assert report.packages_with_new == expected
+        assert [s.code for s in report.provisional] == ["GD10"]
+        lines = "\n".join(format_report(report))
+        assert "Stardust Trails [GD06] (known)" in lines and "Next Pack [GD10] (provisional)" in lines
+
+
 def test_a_dry_run_reports_that_the_anomaly_guard_would_refuse(site: FakeBandai, tracked: Path) -> None:
     _ten_cards(site, tracked)
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 8)])  # 2 of 10 gone
