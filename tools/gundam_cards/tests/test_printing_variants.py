@@ -89,7 +89,7 @@ def test_source_title_is_per_printing_and_not_reported(page: Page) -> None:
 
 
 def test_cosmetic_differences_are_not_mismatches(page: Page) -> None:
-    assert build(page, "GD03-027", "GD03-027_p1").issues == ()  # Z’Gok vs Z'Gok
+    assert build(page, "GD03-027", "GD03-027_p1").issues == ()  # curly vs straight apostrophe in Z'Gok
     assert build(page, "ST02-012", "ST02-012_p1").issues == ()  # HP "+1" vs "1"
     assert build(page, "T-029", "T-029_p1").issues == ()  # "UNIT・TOKEN" vs "UNIT TOKEN"
 

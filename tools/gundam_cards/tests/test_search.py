@@ -83,5 +83,5 @@ def test_unknown_criteria_are_rejected() -> None:
 
 def test_table_formatting(cards: list[CardModel]) -> None:
     table = format_table(search(cards, SearchQuery(name="gundam", kinds=frozenset({CardKind.UNIT}))))
-    line = next(l for l in table.splitlines() if l.startswith("ST01-001"))
+    line = next(row for row in table.splitlines() if row.startswith("ST01-001"))
     assert "Gundam" in line and "repair" in line and "during_pair" in line and "Lv4 C3" in line and "blue" in line

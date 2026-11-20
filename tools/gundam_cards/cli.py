@@ -152,7 +152,7 @@ def cmd_sets(_: argparse.Namespace) -> int:
     print(f"{'code':7} {'kind':15} {'release':11} {'status':10} name")
     for s in sorted(sets, key=lambda s: (s.release_date is None, -(s.release_date.toordinal() if s.release_date else 0))):
         status = "unknown" if s.release_date is None else ("released" if s.released_on(today) else "upcoming")
-        print(f"{s.code:7} {s.kind.value:15} {str(s.release_date or '-'):11} {status:10} {s.name}")
+        print(f"{s.code:7} {s.kind.value:15} {s.release_date or '-'!s:11} {status:10} {s.name}")
     return 0
 
 

@@ -58,7 +58,7 @@ def dump() -> RawDump:
             card(14, "Odd rarity", "GD05-002", "Mythic", 1), card(15, "No price", "GD05-003", "Rare", 1),
             card(16, "Not ours", "GD05-099", "Rare", 1), card(17, "Two rows", "GD05-004", "Uncommon", 1),
             card(18, "Null price", "GD05-005", "Common", 1),
-        ]),  # fmt: skip
+        ]),
         2: results([card(20, "V2 Gundam", "GD05-001", "Legend Rare", 2)]),
         3: results([card(30, "V2 Gundam promo", "GD05-001", "P", 3)]),
     }

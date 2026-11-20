@@ -21,7 +21,7 @@ def test_slash_separated_tags_are_both_keywords() -> None:
 
 
 def test_activate_keywords_use_either_separator() -> None:
-    keywords, _ = extract_keywords("【Activate･Main】【Once per Turn】②：Draw 1.\n【Activate・Action】Rest this.", TRAITS)
+    keywords, _ = extract_keywords("【Activate･Main】【Once per Turn】②\uff1aDraw 1.\n【Activate・Action】Rest this.", TRAITS)
     assert keywords == {Keyword.ACTIVATE_MAIN, Keyword.ACTIVATE_ACTION, Keyword.ONCE_PER_TURN}
 
 
