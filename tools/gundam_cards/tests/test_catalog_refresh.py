@@ -14,7 +14,7 @@ import pytest
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode
 from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher, Response
-from shared.test_fetch import _Handler, server  # noqa: F401 (the local HTTP server fixture)
+from shared.test_fetch import _Handler, serve
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key
@@ -629,8 +629,9 @@ def test_a_dry_run_reports_that_the_anomaly_guard_would_refuse(site: FakeBandai,
     assert "anomaly guard: 2 dropped, 0 changed of 10 existing cards (limit 2%): would refuse" in format_report(report)
 
 
-def test_the_refresh_fetcher_sends_the_toolkit_user_agent(server: str) -> None:
-    cli.refresh_fetcher().get_text(f"{server}/ok")  # no cache key: nothing written to the page cache
+def test_the_refresh_fetcher_sends_the_toolkit_user_agent() -> None:
+    with serve() as server:
+        cli.refresh_fetcher().get_text(f"{server}/ok")  # no cache key: nothing written to the page cache
     assert _Handler.agents == [DEFAULT_USER_AGENT]
 
 

@@ -4,8 +4,10 @@ from __future__ import annotations
 import socketserver
 import threading
 from collections.abc import Iterator
+from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 
@@ -13,10 +15,10 @@ from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher
 
 
 class _Handler(BaseHTTPRequestHandler):
-    hits: dict[str, int] = {}
-    agents: list[str | None] = []  # the User-Agent header of every request, in order
+    hits: ClassVar[dict[str, int]] = {}
+    agents: ClassVar[list[str | None]] = []  # the User-Agent header of every request, in order
 
-    def do_GET(self) -> None:  # noqa: N802 (http.server API)
+    def do_GET(self) -> None:
         self.hits[self.path] = self.hits.get(self.path, 0) + 1
         self.agents.append(self.headers.get("User-Agent"))
         if self.path == "/ok":
@@ -47,15 +49,24 @@ class _Server(HTTPServer):
         self.server_name, self.server_port = str(host), port
 
 
-@pytest.fixture
-def server() -> Iterator[str]:
+@contextmanager
+def serve() -> Iterator[str]:
+    """Run the local HTTP server (fresh hit and User-Agent records) and give its base URL; also used by other tools' tests."""
     _Handler.hits = {}
     _Handler.agents = []
     httpd = _Server(("127.0.0.1", 0), _Handler)
     thread = threading.Thread(target=lambda: httpd.serve_forever(poll_interval=0.02), daemon=True)
     thread.start()
-    yield f"http://127.0.0.1:{httpd.server_address[1]}"
-    httpd.shutdown()
+    try:
+        yield f"http://127.0.0.1:{httpd.server_address[1]}"
+    finally:
+        httpd.shutdown()
+
+
+@pytest.fixture
+def server() -> Iterator[str]:
+    with serve() as url:
+        yield url
 
 
 def _fetcher(cache: Path | None, sleeps: list[float], min_interval_s: float = 0.5) -> Fetcher:

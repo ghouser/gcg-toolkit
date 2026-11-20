@@ -80,7 +80,7 @@ def test_packages_are_home_adjacent_or_new_from_what_i_own() -> None:
     base = PackagesFile(generated_at=NOW, window=window("gd05", len(decks), None), params=PARAMS, packages=found.packages, synergy_cards=found.synergy_cards,
                         free_floating=found.free_floating, archetypes=found.archetypes, squads=found.squads, package_synergies=found.package_synergies,
                         rare_cards=found.rare_cards)  # fmt: skip
-    rates_file = compute_rates(base, [{c: 2 for c in d} for d in decks], NOW)
+    rates_file = compute_rates(base, [dict.fromkeys(d, 2) for d in decks], NOW)
     x, y = PackageId("pkg:GD01-001"), PackageId("pkg:GD02-001")
     by_id = {p.package: p for p in rates_file.packages}
     assert ps.R in critical_cards(by_id[x]) and ps.R in critical_cards(by_id[y])  # the bridge is critical to both

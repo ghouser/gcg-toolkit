@@ -36,7 +36,7 @@ def test_cards_are_banded_by_price_and_valued_by_copies() -> None:
     report = analyze([owned(str(n), 2) for n in prices], prices, names)
     assert [(b.cards, b.copies, b.total_cents) for b in report.tiers] == [(1, 2, 60), (1, 2, 150), (2, 4, 1298), (1, 2, 1000), (2, 4, 7000)]
     assert report.total_cents == 60 + 150 + 1298 + 1000 + 7000
-    assert report.bulk.label == "under $0.50" and [b.label for b in report.bands][0] == "$0.50 to under $1"
+    assert report.bulk.label == "under $0.50" and report.bands[0].label == "$0.50 to under $1"
     top = report.bands[-1].lines  # $10 or more: most valuable first
     assert [(ln.card, ln.unit_cents, ln.total_cents) for ln in top] == [("A-007", 2500, 5000), ("A-006", 1000, 2000)]
 

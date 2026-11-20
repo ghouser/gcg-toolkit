@@ -73,9 +73,9 @@ def decks_with_package(decks: Sequence[Deck], text: str) -> list[Deck]:
     anchor = re.fullmatch(r"(?:pkg:)?([a-z]+\d+-\d+)", query)
     found = []
     for deck in decks:
-        if anchor and anchor.group(1).upper() in {a.upper() for a in deck.anchors}:
-            found.append(deck)
-        elif not anchor and query and any(query in label.casefold() for label in (deck.package_labels or (deck.plain_name,))):
+        by_anchor = anchor is not None and anchor.group(1).upper() in {a.upper() for a in deck.anchors}
+        by_name = anchor is None and bool(query) and any(query in label.casefold() for label in (deck.package_labels or (deck.plain_name,)))
+        if by_anchor or by_name:
             found.append(deck)
     return found
 

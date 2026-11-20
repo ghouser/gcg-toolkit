@@ -252,7 +252,7 @@ def test_a_lone_alt_art_becomes_the_reference_printing(page: Page) -> None:
 
 @pytest.mark.parametrize(
     ("value", "expected"),
-    [("3", 3), ("+2", 2), ("-3", -3), ("-", None), ("３", 3), (" 4 ", 4)],
+    [("3", 3), ("+2", 2), ("-3", -3), ("-", None), ("\uff13", 3), (" 4 ", 4)],
 )
 def test_parse_int(value: str, expected: int | None) -> None:
     assert parse_int(value, "t", "x") == expected

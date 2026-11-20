@@ -32,7 +32,7 @@ def test_native_keywords_are_the_ones_the_card_has() -> None:
     assert native_keywords("<Blocker> (Rest this Unit to change the attack target to it.)\n【Deploy】Draw 1.") == {Keyword.BLOCKER}
     assert native_keywords("【Activate･Main】<Support 1> (Rest this Unit. ...)") == {Keyword.SUPPORT}  # after a timing tag
     assert native_keywords("【During Link】This Unit gains <Breach 3>.") == {Keyword.BREACH}  # the normal state of a Linked Unit
-    assert native_keywords("【During Pair】【Activate･Main】Exile 4 cards from your trash：This Unit gains <First Strike> and <Suppression>.") == {Keyword.FIRST_STRIKE, Keyword.SUPPRESSION}  # its own, even at a cost
+    assert native_keywords("【During Pair】【Activate･Main】Exile 4 cards from your trash\uff1aThis Unit gains <First Strike> and <Suppression>.") == {Keyword.FIRST_STRIKE, Keyword.SUPPRESSION}  # its own, even at a cost
     assert native_keywords("【Deploy】Choose 1 friendly Unit. It gains <Breach 2> during this turn.") == frozenset()  # granted to another Unit
     assert native_keywords("Choose 1 Unit with <Blocker>.") == frozenset()  # a mention
 
@@ -181,7 +181,7 @@ def test_a_pilot_pairing_is_kept_only_if_it_serves_the_same_links_in_the_deck() 
 
 
 def test_a_units_own_activated_grant_counts_as_its_keyword() -> None:
-    banshee = unit("ST12-006", "Banshee", link="Marida Cruz", ap=5, hp=4, text="【During Pair】【Activate･Main】Exile 4 cards from your trash：This Unit gains <First Strike> and <Suppression>.")
+    banshee = unit("ST12-006", "Banshee", link="Marida Cruz", ap=5, hp=4, text="【During Pair】【Activate･Main】Exile 4 cards from your trash\uff1aThis Unit gains <First Strike> and <Suppression>.")
     big = unit("GD01-044", "Kshatriya", link="Marida Cruz", ap=5, hp=4, text="【When Paired】Choose 1 enemy Unit. Deal 1 damage to it.")
     assert verdict(big, banshee, pilots_from([MARIDA])) is Verdict.SAME_JOB  # gives up damage, gets First Strike and an Offense keyword
 
@@ -219,7 +219,7 @@ def test_a_command_with_a_pilot_effect_is_a_pilot_and_text_and_stats_are_ignored
 def test_bases_match_on_effect_only() -> None:
     deploy = "【Burst】Deploy this card.\n【Deploy】Add 1 of your Shields to your hand.\n"
     draws = base("GD01-123", "Nahel Argama", text=deploy + "【Once per Turn】When a Unit is destroyed, draw 1.", hp=5, cost=1)
-    also_draws = base("GD01-124", "Side 7", text=deploy + "【Activate･Main】Rest this Base：Draw 2.", hp=4, cost=2, level=5)
+    also_draws = base("GD01-124", "Side 7", text=deploy + "【Activate･Main】Rest this Base\uff1aDraw 2.", hp=4, cost=2, level=5)
     damages = base("GD01-125", "Shield Wall", text=deploy + "【Main】Deal 1 damage to all enemy Units.")
     plain = base("GD01-126", "Plain Base", text=deploy)
     matcher = Matcher()

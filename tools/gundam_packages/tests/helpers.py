@@ -26,20 +26,20 @@ from tools.gundam_cards.models import (
 
 
 def _common(number: str, name: str, text: str, traits_mentioned: tuple[str, ...] = ()) -> dict[str, Any]:
-    return dict(
-        number=CardNumber(number),
-        name=name,
-        text_versions=(TextVersion(text=text, printing_ids=(PrintingId(number),), block=Block.ONE, as_of=None, substantive=False),),
-        keywords=frozenset(),
-        referenced_traits=frozenset(Trait(t) for t in traits_mentioned),
-        printings=(
+    return {
+        "number": CardNumber(number),
+        "name": name,
+        "text_versions": (TextVersion(text=text, printing_ids=(PrintingId(number),), block=Block.ONE, as_of=None, substantive=False),),
+        "keywords": frozenset(),
+        "referenced_traits": frozenset(Trait(t) for t in traits_mentioned),
+        "printings": (
             Printing(id=PrintingId(number), variant=None, rarity=Rarity.C, alt_art_level=0, link_art=False, block=Block.ONE,
                      source_title=None, where_to_get="x", set_code=None, package_ids=(), image_url=None),
         ),
-        faq=(),
-        unknown_tags=(),
-        fetched_at=datetime(2026, 1, 1, tzinfo=UTC),
-    )  # fmt: skip
+        "faq": (),
+        "unknown_tags": (),
+        "fetched_at": datetime(2026, 1, 1, tzinfo=UTC),
+    }  # fmt: skip
 
 
 def unit(number: str, name: str, *, link: str | None = None, link_trait: str | None = None, traits: tuple[str, ...] = (),

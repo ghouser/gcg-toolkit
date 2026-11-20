@@ -27,7 +27,7 @@ def _words(text: str) -> list[str]:
 
 
 def _stem(word: str) -> str:
-    return re.sub(r"['’]s$", "", word).casefold()  # Char's -> char
+    return re.sub(r"['\u2019]s$", "", word).casefold()  # Char's -> char
 
 
 def unit_core(unit_names: Sequence[str]) -> list[str]:

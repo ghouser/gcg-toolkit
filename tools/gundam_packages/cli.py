@@ -31,7 +31,7 @@ from tools.gundam_cards.models import CardModel, UnitCard, color_of, names_of
 from tools.gundam_cards.store import load_catalog_or_fail
 from tools.gundam_cards.store import load_cards_with_prices, load_sets, prices_as_of, release_dates
 from tools.gundam_meta.dedupe import combined_events
-from tools.gundam_meta.eras import EraError, find_era, load_era_defs, resolve_eras
+from tools.gundam_meta.eras import load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, Tier
 from tools.gundam_meta.store import load_decks_snapshot, load_events_or_fail
 from tools.gundam_packages.build import (
@@ -395,7 +395,7 @@ def cmd_compare(args: argparse.Namespace) -> int:
     t_by = {p.package: p for p in t_rates.packages}
     o_by = {p.package: p for p in o_rates.packages}
     print(f"== the same package in tournament decks ({_label(tournament)}) and in {_label(online)} ==")
-    print(f"   rate = how often the package is played; matched by the cards they share (at least half)\n")
+    print("   rate = how often the package is played; matched by the cards they share (at least half)\n")
     print(f"{'package (tournament name / online name)':50} {'tournament':>10} {'online':>8} {'change':>8}  cards shared")
     for tid, oid, score in sorted(pairs, key=lambda x: -o_by[x[1]].rate):
         tp, op = t_by[tid], o_by[oid]
@@ -430,7 +430,7 @@ def cmd_card(args: argparse.Namespace) -> int:
             print(f"  PACKAGE: {p.name} ({member.role.value}, in {_pct(member.share)} of its decks)")
             print(f"     members: {', '.join(_named(cards, m.card_number) for m in p.members)}")
             arch = [a for a in file.archetypes if p.id in a.packages]
-            print(f"     archetypes with it: " + (", ".join(f"{a.name} ({a.decks})" for a in arch[:5]) or "none"))
+            print("     archetypes with it: " + (", ".join(f"{a.name} ({a.decks})" for a in arch[:5]) or "none"))
             return 0
     bridges = [(s, b) for s in file.package_synergies for b in s.bridges if b.card_number == number]
     for s, b in bridges:

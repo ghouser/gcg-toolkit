@@ -21,6 +21,7 @@ import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from itertools import pairwise
 from pathlib import Path
 
 from shared.basetypes import CardNumber
@@ -226,7 +227,7 @@ def cmd_coverage(args: argparse.Namespace) -> int:
             up = c.next_band
             return (up is not None and up.unpriced > 0, up.cost_cents if up else 0)
 
-        def order_key(kv: tuple[PackageId, PackageCoverage]) -> tuple[object, ...]:
+        def order_key(kv: tuple[PackageId, PackageCoverage], by_id: dict[PackageId, PackageRates] = by_id) -> tuple[object, ...]:
             pid, c = kv
             by_rate = -by_id[pid].rate
             return (BANDS.index(c.band), by_rate, *cost_key(c), pid) if args.sort == "played" or c.band is Band.PERFECT else (BANDS.index(c.band), *cost_key(c), by_rate, pid)
@@ -297,7 +298,7 @@ def _parse_bands(text: str) -> tuple[int, ...]:
         values = tuple(round(float(x) * 100) for x in text.split(","))
     except ValueError:
         raise SystemExit(f"--bands wants increasing dollar amounts like 0.5,1,5,10, not {text!r}") from None
-    if not values or values[0] <= 0 or any(a >= b for a, b in zip(values, values[1:], strict=False)):
+    if not values or values[0] <= 0 or any(a >= b for a, b in pairwise(values)):
         raise SystemExit(f"--bands wants increasing dollar amounts like 0.5,1,5,10, not {text!r}")
     return values
 
@@ -636,7 +637,7 @@ def _print_suggestion(sug: Suggestion, layers: Layers, catalog: Mapping[CardNumb
     cov = coverage(hypothetical, groups, layers.owned, layers.prices, catalog)
     own = sum(min(layers.owned.get(p.card, 0), p.copies) for p in sug.picks)
     print(f"\n== {'/'.join(sug.colors)}: {sug.package} {sug.plan.value} ==")
-    print(f"   reference: " + (f"{len(sug.references)} found deck(s) with it in these colors: {', '.join(sug.references[:3])}{' ...' if len(sug.references) > 3 else ''}" if sug.references else "no found deck has it in these colors: every non-core card is chosen by known plan staples and plan fit"))
+    print("   reference: " + (f"{len(sug.references)} found deck(s) with it in these colors: {', '.join(sug.references[:3])}{' ...' if len(sug.references) > 3 else ''}" if sug.references else "no found deck has it in these colors: every non-core card is chosen by known plan staples and plan fit"))
     print(f"   rating of this 50: {_style_line(sug.style)}")
     print(f"   you own {own} of {sug.copies} copies; band {cov.band.value}; to build the rest: {_usd(cov.cost_cents(Layer.CORE, Layer.STAPLE))}   ({_ahead(cov.ahead)})")
     for note in sug.notes:

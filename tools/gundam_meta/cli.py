@@ -16,9 +16,7 @@
 from __future__ import annotations
 
 import argparse
-import os
 import sys
-from pathlib import Path
 from collections.abc import Sequence
 from datetime import UTC, date, datetime
 
@@ -34,21 +32,17 @@ from tools.gundam_meta.egm import egm_raw_path
 from tools.gundam_meta.eras import EraError, current_era, find_era, load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, EventId, MsaBucket, Source, Tier, TournamentStats
 from tools.gundam_meta.redo import RedoReport, refetch_duelfrontier, refetch_egm, reparse_all
-from tools.gundam_meta.stats import build_popularity, compute_stats, events_in_window, msa_stats
+from tools.gundam_meta.stats import build_popularity, compute_stats, msa_stats
 from tools.gundam_meta.store import (
     data_out_dir,
     RAW_DIR,
-    known_snapshot_times,
     load_events,
     load_events_or_fail,
     load_snapshots,
-    snapshot_key,
     stored_event_ids,
     write_atomic,
-    write_decks_snapshot,
     write_event,
     write_popularity,
-    write_snapshot,
 )
 
 USER_AGENT = "gcg-toolkit-meta/0.1 (personal hobby tooling; polite rate-limited fetcher)"
@@ -251,7 +245,7 @@ def cmd_eras(_: argparse.Namespace) -> int:
     for era in eras:
         status = "current" if current == era else ("upcoming" if era.start > today else "past")
         counts = {s: sum(1 for e in events if e.source is s and era.contains(e.start_date) and e.tier is not Tier.OTHER) for s in Source}
-        print(f"{era.id:8} {era.definition.label:8} {era.start!s:11} {str(era.end or '-'):11} {status:9} "
+        print(f"{era.id:8} {era.definition.label:8} {era.start!s:11} {era.end or '-'!s:11} {status:9} "
               f"{counts[Source.DUELFRONTIER]} / {counts[Source.EGM]}")
     return 0
 

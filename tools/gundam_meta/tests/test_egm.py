@@ -21,7 +21,7 @@ def _parse() -> EgmParse:
 
 def test_aggregate_rows_are_not_events() -> None:
     parsed = _parse()
-    assert parsed.skipped == ("TAK Games’ Oceania Regionals",)  # a "Total Color Breakdown" row
+    assert parsed.skipped == ("TAK Games\u2019 Oceania Regionals",)  # a "Total Color Breakdown" row
     assert len(parsed.events) == 4
 
 

@@ -41,5 +41,5 @@ def test_missing_structure_raises() -> None:
 
 
 def test_cleaners() -> None:
-    assert clean_inline("  a​ b \n\t c\xa0d ") == "a b c d"
-    assert clean_block("one  line\r\n\r\n  two​ \n\n\nthree") == "one line\ntwo\nthree"
+    assert clean_inline("  a\u200b b \n\t c\xa0d ") == "a b c d"
+    assert clean_block("one  line\r\n\r\n  two\u200b \n\n\nthree") == "one line\ntwo\nthree"

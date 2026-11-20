@@ -73,7 +73,6 @@ def compute_drift(
 
     drifts: list[PackageDrift] = []
     for package in base.packages:
-        members = members_of[package.id]
         decks_running = running[package.id]
         share_after = len(decks_running) / total if total else 0.0
         dropped: list[CardNumber] = []

@@ -16,7 +16,7 @@ from tools.gundam_meta.redo import (
     reparse_egm,
     same_content,
 )
-from tools.gundam_meta.store import load_events, load_snapshots, snapshot_key, write_event, write_snapshot
+from tools.gundam_meta.store import load_events, write_event
 
 FIXTURES = Path(__file__).parent / "fixtures"
 FETCHED = datetime(2026, 10, 6, 20, 0, 0, 123456, tzinfo=UTC)

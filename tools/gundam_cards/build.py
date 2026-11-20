@@ -12,7 +12,7 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from enum import StrEnum
-from typing import NamedTuple, TypedDict, TypeVar
+from typing import NamedTuple, TypedDict
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from shared.basetypes import CardNumber, PackageId, PilotName, PrintingId, SetCode, SourceTitle, Trait
@@ -43,7 +43,6 @@ from tools.gundam_cards.models import (
 )
 from tools.gundam_cards.parse_detail import RawDetail
 
-_T = TypeVar("_T")
 DETAIL_URL = "https://www.gundam-gcg.com/en/cards/detail.php?detailSearch={}"
 
 
@@ -86,7 +85,7 @@ class BuildResult:
 
 # ---- field parsers -------------------------------------------------------------------------------
 def parse_int(value: str, subject: str, label: str) -> int | None:
-    """`3`, `+2`, `-3`, fullwidth `３` -> int; `-` -> None."""
+    """`3`, `+2`, `-3`, fullwidth digits (`\uff13`) -> int; `-` -> None."""
     v = unicodedata.normalize("NFKC", value).strip()
     if v == "-":
         return None
@@ -95,7 +94,7 @@ def parse_int(value: str, subject: str, label: str) -> int | None:
     return int(v)
 
 
-def _require(value: _T | None, subject: str, label: str) -> _T:
+def _require[T](value: T | None, subject: str, label: str) -> T:
     if value is None:
         raise ParseError(subject, f"{label} is required here but the page shows none")
     return value

@@ -1,10 +1,8 @@
 """Which decks I support, which I am close to, and what to get: on the synthetic worlds with known answers."""
 from __future__ import annotations
 
-from dataclasses import replace
 
 from shared.basetypes import CardNumber
-from tools.gundam_cards.models import CardModel
 from tools.gundam_collection.bands import Band
 from tools.gundam_collection.decks import (
     DECK_SIZE,
@@ -21,9 +19,8 @@ from tools.gundam_collection.decks import (
     picks,
 )
 from tools.gundam_collection.models import Stage
-from tools.gundam_packages.models import DataSource, PackageId, PackagesFile, RatesFile, SquadCard, Squad, SynergyKind
-from tools.gundam_packages.tests.test_discover import A1, A2, A3, B1, F1, H, O, S2, world
-from tools.gundam_packages.tests.helpers import catalog, pilot, unit
+from tools.gundam_packages.models import DataSource, PackageId, PackagesFile, RatesFile
+from tools.gundam_packages.tests.test_discover import A1, A2, A3, F1, H, O1, S2, world
 from tools.gundam_packages.tests.test_drift import base_file
 from tools.gundam_packages.tests.test_rates import rates
 
@@ -57,7 +54,7 @@ def test_a_deck_is_layered_into_core_staples_and_options_with_copy_counts_from_i
     assert (by_card[A1].need, by_card[A2].need) == (4, 2)  # the majority copy count: A1 is a 4-of, A2 a 2-of in all 20 decks
     assert by_card[A1].why == ("core of pkg:GD01-001",)
     assert by_card[H].layer is Layer.STAPLE and by_card[H].need == 2 and by_card[H].share == 0.7 and by_card[H].why == ("in 70% of its lists",)
-    assert by_card[F1].layer is Layer.STAPLE and by_card[O].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE  # half of the lists or more
+    assert by_card[F1].layer is Layer.STAPLE and by_card[O1].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE  # half of the lists or more
     assert deck.requirements == tuple(sorted(deck.requirements, key=lambda r: (list(Layer).index(r.layer), -r.share, r.card)))  # core first, staples most-run first
 
 
@@ -120,7 +117,7 @@ def test_nothing_owned_is_not_happening_and_a_missing_price_makes_the_cost_a_min
 def test_the_overview_puts_perfect_first_by_how_played_and_every_other_band_cheapest_to_move_up_first() -> None:
     decks = build_decks(tournament(), min_rate=0.0)
     prices = {n: 100 for d in decks for n in (r.card for r in d.requirements)}
-    owned = {n: 4 for n in prices}
+    owned = dict.fromkeys(prices, 4)
     groups = overview([coverage(d, (), owned, prices, {}) for d in decks])
     assert [c.deck.top_rate for c in groups[Band.PERFECT]] == sorted((c.deck.top_rate for c in groups[Band.PERFECT]), reverse=True)
     some = {n: (4 if i % 5 else 0) for i, n in enumerate(prices)}
@@ -132,7 +129,7 @@ def test_the_overview_puts_perfect_first_by_how_played_and_every_other_band_chea
 
 def test_picks_come_core_first_then_staples_most_run_first_then_cheapest_and_explain_themselves() -> None:
     deck = deck_a()
-    prices = {A1: 1500, A2: 50, A3: 80, H: 20, F1: 10, O: 30, S2: 5}
+    prices = {A1: 1500, A2: 50, A3: 80, H: 20, F1: 10, O1: 30, S2: 5}
     cov = coverage(deck, (), {}, prices, {})
     buy = picks(cov, {})
     layers = [p.layer for p in buy]
@@ -148,20 +145,20 @@ def test_picks_come_core_first_then_staples_most_run_first_then_cheapest_and_exp
 
 def test_a_card_other_supported_or_close_decks_also_need_comes_first_and_says_so() -> None:
     deck = deck_a()
-    prices = {A1: 100, A2: 100, A3: 100, H: 20, F1: 20, O: 20, S2: 20}
+    prices = {A1: 100, A2: 100, A3: 100, H: 20, F1: 20, O1: 20, S2: 20}
     cov = coverage(deck, (), {}, prices, {})
     durable = {A3: (("Another deck", 0.3), ("Third deck", 0.1)), A2: (("Another deck", 0.3),)}
     core = [p for p in picks(cov, durable) if p.layer is Layer.CORE]
     assert [p.card for p in core][:2] == [A3, A2] and core[0].also_needed_by == ("Another deck", "Third deck")  # needed by two others, then by one
     own_deck = {A3: (("Master", 0.5),)}
-    assert [p for p in picks(cov, own_deck) if p.card == A3][0].also_needed_by == ("Master",)
+    assert next(p for p in picks(cov, own_deck) if p.card == A3).also_needed_by == ("Master",)
     assert needed_by([]) == {}
 
 
 def test_needed_by_counts_only_supported_and_close_decks_and_never_far_ones() -> None:
     decks = build_decks(tournament(), min_rate=0.0)
     prices = {r.card: 10 for d in decks for r in d.requirements}
-    full = {n: 4 for n in prices}
+    full = dict.fromkeys(prices, 4)
     covs = [coverage(d, (), full, prices, {}) for d in decks]
     found = needed_by(covs)
     assert A1 in found and all(rate > 0 for rows in found.values() for _, rate in rows)

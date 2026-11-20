@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from shared.basetypes import CardNumber
-from tools.gundam_packages.models import SynergyKind
 from tools.gundam_cards.models import CardModel
 from tools.gundam_packages.synergy import SynergyGraph, build_graph, pilot_identity
 from tools.gundam_packages.tests.helpers import command, pilot, unit

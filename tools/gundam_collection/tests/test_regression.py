@@ -20,9 +20,10 @@ MASTER_SHINING = "GD05-033+GD05-066"  # Master Asia + Domon Shining (white/red):
 BARBATOS_CHAR = "GD02-054+ST11-001"  # Mikazuki Barbatos + Char Aznable: a pilot-pairing aggro deck, rising online
 STRIKE_FREEDOM = "GD05-002"  # Kira Strike Freedom: the tournament favorite (about 43% of top-cut decks)
 
-pytestmark = pytest.mark.skipif(
-    load_catalog() is None or not COLLECTION_PATH.is_file(), reason="real-data test: run with GCG_TEST_REAL_DATA=1 and a card catalog in the dataset"
-)
+pytestmark = [
+    pytest.mark.real_data,
+    pytest.mark.skipif(load_catalog() is None or not COLLECTION_PATH.is_file(), reason="no card catalog in the dataset or no collection file"),
+]
 
 
 @pytest.fixture(scope="module")

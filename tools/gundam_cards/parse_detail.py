@@ -10,7 +10,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 
-_ZERO_WIDTH = dict.fromkeys(map(ord, "​‌‍⁠﻿"))
+_ZERO_WIDTH = dict.fromkeys(map(ord, "\u200b\u200c\u200d\u2060\ufeff"))
 
 
 class DetailPageError(Exception):
@@ -112,9 +112,7 @@ class _DetailParser(HTMLParser):
         if self._cap is not None:
             if tag == self._cap.tag:
                 self._cap.depth += 1
-            if tag == "br":
-                self._cap.parts.append("\n")
-            elif tag == "p" and self._cap.key == "faq_answer":
+            if tag == "br" or (tag == "p" and self._cap.key == "faq_answer"):
                 self._cap.parts.append("\n")
             return
         if tag == "div" and "cardImage" in classes:

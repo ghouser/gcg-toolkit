@@ -40,7 +40,6 @@ from tools.gundam_packages.models import (
     PackageId,
     PackageMember,
     Params,
-    Relation,
     Role,
     SynergyEdge,
     SynergyKind,

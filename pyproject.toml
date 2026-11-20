@@ -10,8 +10,25 @@ init_forbid_extra = true
 init_typed = true
 warn_required_dynamic_aliases = true
 
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+# Lint only (no formatter): rules that catch bugs, dead code and outdated idioms, not layout.
+select = [
+    "E4", "E7", "E9",  # pycodestyle: imports, statements, syntax errors (not whitespace or line length)
+    "F",               # Pyflakes: unused or undefined names and imports
+    "B",               # flake8-bugbear: likely bugs
+    "UP",              # pyupgrade: idioms for the target Python
+    "C4",              # flake8-comprehensions: needless list/dict/set calls
+    "SIM",             # flake8-simplify: needlessly complex conditions
+    "PIE",             # flake8-pie: unnecessary statements
+    "PLE",             # pylint errors
+    "RUF",             # Ruff's own checks: mutable class defaults, ambiguous characters, unused noqa
+]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tools", "shared"]
 addopts = "--import-mode=importlib"
-markers = ["corpus: runs against the full saved Bandai crawl in tools/gundam_cards/data/raw (skipped if absent)"]
+markers = ["real_data: reads the real local dataset; skipped unless GCG_TEST_REAL_DATA=1 (see conftest.py), and skips on an empty dataset"]
