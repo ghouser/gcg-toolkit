@@ -11,7 +11,7 @@ A1, A2, A3 = N("GD01-001"), N("GD01-002"), N("GD01-003")  # package A: two units
 B1, B2, B3, B4 = N("GD02-001"), N("GD02-002"), N("GD02-003"), N("GD02-004")  # package B: a 4-card chain
 S1, S2 = N("GD03-001"), N("GD03-002")  # staples: everywhere, no structural ties
 F1, F2 = N("GD04-001"), N("GD04-002")  # a pair that always appears together but has no synergy
-H, O = N("GD05-001"), N("GD05-002")  # H: tied to A1 (synergy); O: always with A but no tie to it
+H, O1 = N("GD05-001"), N("GD05-002")  # H: tied to A1 (synergy); O1: always with A but no tie to it
 
 PARAMS = Params(min_decks=3, mutual_threshold=0.8, run_share=0.75, bridge_share=0.5)
 
@@ -30,7 +30,7 @@ GRAPH = SynergyGraph([
 def world() -> list[frozenset[CardNumber]]:
     decks: list[frozenset[CardNumber]] = []
     for i in range(25):  # 20 A-only decks then 5 that also run B
-        deck = {A1, A2, A3, O}
+        deck = {A1, A2, A3, O1}
         if i % 2 == 0:
             deck.add(S2)
         if i < 14:
@@ -63,15 +63,15 @@ def test_packages_need_both_co_play_and_synergy() -> None:
 
 def test_a_card_that_always_comes_along_but_has_no_synergy_is_not_in_the_package() -> None:
     result = run()
-    assert O not in {m.card_number for p in result.packages for m in p.members}  # co-plays with A 100%, no structural tie
-    floater = next(f for f in result.free_floating if f.card_number == O)
+    assert O1 not in {m.card_number for p in result.packages for m in p.members}  # co-plays with A 100%, no structural tie
+    floater = next(f for f in result.free_floating if f.card_number == O1)
     assert floater.decks == 25 and [(a.package, a.share) for a in floater.affinities] == [(PackageId("pkg:GD01-001"), 1.0)]
 
 
 def test_staples_and_unconnected_pairs_stay_free_floating() -> None:
     result = run()
     free = {f.card_number for f in result.free_floating}
-    assert {S1, S2, F1, F2, O} <= free
+    assert {S1, S2, F1, F2, O1} <= free
     assert not {S1, S2, F1, F2} & {m.card_number for p in result.packages for m in p.members}
     pair = {f.card_number: f for f in result.free_floating}
     assert pair[F1].affinities and pair[F1].affinities[0].share == 15 / 25  # often with A, but only a co-play fact
@@ -120,7 +120,7 @@ def test_archetypes_are_the_combinations_of_packages_decks_run() -> None:
     assert by_packages[frozenset()].name == "No package"
     assert sum(a.share for a in result.archetypes) == 1.0
     typical_free = {r.card_number: r.share for r in only_a.free_floating}
-    assert typical_free[O] == 1.0 and typical_free[S2] == 0.5  # S2 is in exactly half of these decks: typical at the 50% line
+    assert typical_free[O1] == 1.0 and typical_free[S2] == 0.5  # S2 is in exactly half of these decks: typical at the 50% line
 
 
 def test_rare_cards_are_counted_not_classified() -> None:

@@ -20,7 +20,7 @@ from tools.gundam_collection.decks import (
 )
 from tools.gundam_collection.models import Stage
 from tools.gundam_packages.models import DataSource, PackageId, PackagesFile, RatesFile
-from tools.gundam_packages.tests.test_discover import A1, A2, A3, F1, H, O, S2, world
+from tools.gundam_packages.tests.test_discover import A1, A2, A3, F1, H, O1, S2, world
 from tools.gundam_packages.tests.test_drift import base_file
 from tools.gundam_packages.tests.test_rates import rates
 
@@ -54,7 +54,7 @@ def test_a_deck_is_layered_into_core_staples_and_options_with_copy_counts_from_i
     assert (by_card[A1].need, by_card[A2].need) == (4, 2)  # the majority copy count: A1 is a 4-of, A2 a 2-of in all 20 decks
     assert by_card[A1].why == ("core of pkg:GD01-001",)
     assert by_card[H].layer is Layer.STAPLE and by_card[H].need == 2 and by_card[H].share == 0.7 and by_card[H].why == ("in 70% of its lists",)
-    assert by_card[F1].layer is Layer.STAPLE and by_card[O].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE  # half of the lists or more
+    assert by_card[F1].layer is Layer.STAPLE and by_card[O1].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE  # half of the lists or more
     assert deck.requirements == tuple(sorted(deck.requirements, key=lambda r: (list(Layer).index(r.layer), -r.share, r.card)))  # core first, staples most-run first
 
 
@@ -129,7 +129,7 @@ def test_the_overview_puts_perfect_first_by_how_played_and_every_other_band_chea
 
 def test_picks_come_core_first_then_staples_most_run_first_then_cheapest_and_explain_themselves() -> None:
     deck = deck_a()
-    prices = {A1: 1500, A2: 50, A3: 80, H: 20, F1: 10, O: 30, S2: 5}
+    prices = {A1: 1500, A2: 50, A3: 80, H: 20, F1: 10, O1: 30, S2: 5}
     cov = coverage(deck, (), {}, prices, {})
     buy = picks(cov, {})
     layers = [p.layer for p in buy]
@@ -145,7 +145,7 @@ def test_picks_come_core_first_then_staples_most_run_first_then_cheapest_and_exp
 
 def test_a_card_other_supported_or_close_decks_also_need_comes_first_and_says_so() -> None:
     deck = deck_a()
-    prices = {A1: 100, A2: 100, A3: 100, H: 20, F1: 20, O: 20, S2: 20}
+    prices = {A1: 100, A2: 100, A3: 100, H: 20, F1: 20, O1: 20, S2: 20}
     cov = coverage(deck, (), {}, prices, {})
     durable = {A3: (("Another deck", 0.3), ("Third deck", 0.1)), A2: (("Another deck", 0.3),)}
     core = [p for p in picks(cov, durable) if p.layer is Layer.CORE]

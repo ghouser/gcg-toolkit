@@ -11,7 +11,7 @@ from tools.gundam_packages.discover import Discovery
 from tools.gundam_packages.models import ArchetypeRole, OtherRole, PackageId, PackagesFile, RatedCard, RatesFile, majority_copies
 from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.tests import test_package_synergy as ps
-from tools.gundam_packages.tests.test_discover import A1, A2, A3, B1, B2, B3, B4, F1, H, O, PARAMS, S1, S2, world
+from tools.gundam_packages.tests.test_discover import A1, A2, A3, B1, B2, B3, B4, F1, H, O1, PARAMS, S1, S2, world
 from tools.gundam_packages.tests.test_drift import base_file, window
 
 NOW = datetime(2026, 10, 7, tzinfo=UTC)
@@ -54,7 +54,7 @@ def test_alone_rate_and_other_cards_are_measured_over_the_perspective_packages_g
     others = {o.card_number: o for o in a.others}
     assert others[H].role is OtherRole.SYNERGY and others[H].copies == 2 * 14 and others[H].possible == 4 * 25  # not multiplied by anything
     assert others[F1].role is OtherRole.FREE_FLOATING and others[F1].copies == 2 * 15  # no tie to A: a rate, not a claim of synergy
-    assert others[O].role is OtherRole.FREE_FLOATING and others[O].copies == 2 * 25 and others[O].rate == 0.5
+    assert others[O1].role is OtherRole.FREE_FLOATING and others[O1].copies == 2 * 25 and others[O1].rate == 0.5
     assert B1 not in others  # B's cards are listed under the partner
 
 
@@ -83,7 +83,7 @@ def test_a_bridge_card_is_multiplied_by_the_combined_rate_and_reported_to_its_pa
         free_floating=found.free_floating, archetypes=found.archetypes, squads=found.squads, package_synergies=found.package_synergies,
         rare_cards=found.rare_cards,
     )  # fmt: skip
-    file = compute_rates(base, [{c: 2 for c in d} for d in decks], NOW)
+    file = compute_rates(base, [dict.fromkeys(d, 2) for d in decks], NOW)
     x, y = PackageId("pkg:GD01-001"), PackageId("pkg:GD02-001")
     partner = package(file, x).partners[0]
     assert partner.package == y and partner.synergistic and partner.pair_decks == 20 and partner.combined_rate == 20 / 80
