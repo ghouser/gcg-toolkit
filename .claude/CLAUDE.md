@@ -9,7 +9,13 @@ A simple flow, self-contained in this repo:
 3. **Check** - `.claude/checks.json` declares setup and checks; passing them is what "tests pass" means.
 4. **Review** - open a PR; merge after review.
 
-Rules for working here are in `.claude/rules/` - read them first. (When driven by the external PersonalClaude workspace, that workflow adds the spec and gates around this same flow; nothing in this repo depends on it.)
+Rules for working here are in `.claude/rules/` - read them first; every change is reviewed against `.claude/rules/review-checklist.md`. Known, accepted shortfalls are GitHub issues labeled `techdebt` in this repo (template: `.github/ISSUE_TEMPLATE/techdebt.md`), never tracking files. (When driven by the external PersonalClaude workspace, that workflow adds the spec and gates around this same flow; nothing in this repo depends on it.)
+
+## Standards
+- `docs/principles.md`: the principles (musts) and values (tie-breakers) behind everything here.
+- `docs/python-style.md`: the Python style standard (functional core and imperative shell, new data objects instead of mutation, no mutable module-level state, frozen models, lint).
+- `docs/testing.md`: the testing standard (where tests live, fixtures, CLI versus unit tests, expected values, "no data" tests, the `real_data` marker).
+- `.claude/rules/review-checklist.md`: the short checklist every review uses.
 
 ## Core Principle: Durable Over "AI-First"
 
@@ -43,7 +49,7 @@ The full version, with how each is enforced, is the top of `tools/gundam_collect
 
 ## Script Conventions
 
-- **Language:** Python 3.14 in the project virtualenv: run everything from the repository root as `.venv/bin/python -m ...` (`./bootstrap.sh` creates it). Standard library first for runtime code (`urllib`, `json`, `csv`, `argparse`, `sqlite3`); add a dependency only when it clearly earns it and record it in `requirements.txt`. Models are typed (pydantic v2 + `mypy --strict`, see `docs/tool-pattern.md`); tests use pytest. Check with `.venv/bin/python -m mypy tools shared` and `.venv/bin/python -m pytest`.
+- **Language:** Python 3.14 in the project virtualenv: run everything from the repository root as `.venv/bin/python -m ...` (`./bootstrap.sh` creates it). Standard library first for runtime code (`urllib`, `json`, `csv`, `argparse`, `sqlite3`); add a dependency only when it clearly earns it and record it in `requirements.txt`. Models are typed (pydantic v2 + `mypy --strict`, see `docs/tool-pattern.md`); tests use pytest. Check with `.venv/bin/python -m mypy tools shared`, `.venv/bin/python -m pytest` and `.venv/bin/python -m ruff check .` (lint only).
 - **Portable:** no absolute or machine-specific paths in code or data (roots come from `Path(__file__)`; stored paths are repo-relative). The repository runs on any machine after a refresh (the online ranking additionally needs separate access), and tests use small fixtures, not the real data.
 - **Raw data lives outside git** in the local dataset: `$GCG_DATA_DIR`, default `~/.gcg/data` (`shared/dataset.py`). The catalog is append-only; prices, the online ranking, example decks and events are dated snapshots, added and never rewritten. Analysis stays derived from it. `python -m shared.dataset_cli status` reports how old each source is.
 - **Never name a module after a stdlib module** (`http.py`, `types.py`, `json.py`, ...): it shadows the standard library when its folder is on `sys.path`.
@@ -66,7 +72,7 @@ The full version, with how each is enforced, is the top of `tools/gundam_collect
 
 ## Domain Notes
 
-- **Card numbers** are `SET-NNN` (`GD05-002`, `ST11-001`, `EB01-076`); other shapes exist (`R-016` resources, `T-022` tokens, `EXB-/EXR-/EXBP-/EXRP-/RP-` extras). The number is the identity everywhere. Alternate arts share the base card's number and are marked by rarity: `+`, `++`, and `LK` (Link art). In the collection file, `GD02-041+ 2` is two alt-art copies of GD02-041.
+- **Card numbers** are `SET-NNN` (`GD05-002`, `ST11-001`, `EB01-076`); other shapes exist (`R-016` resources, `T-022` tokens, `EXB-/EXR-/EXBP-/EXRP-/RP-` extras). The number identifies a card; a printing (one print of it, such as an alt art) is identified by its printing id (`ST01-001_p5`). Alternate arts share the base card's number and are marked by rarity: `+`, `++`, and `LK` (Link art). In the collection file, `GD02-041+ 2` is two alt-art copies of GD02-041.
 - **Set codes:** boosters `GD01`-`GD07`, starters `ST01`-`ST14`, extra booster `EB01`, deck build box `SC01`; TCGPlayer also has `GD01_b` (Edition Beta) and promo groups. `shared/data/gundam_cards/sets.json` has release dates; eras for meta analysis are in `tools/gundam_meta/eras.json` (GD05, GD05.5, GD06, ...).
 - **Card data:** Bandai's official English site (`gundam_cards sync`). **Prices:** tcgcsv, a public mirror of TCGPlayer's catalog (category 86), market price in integer cents, one pull a day at most (`gundam_cards sync-tcgplayer`; see `notes/tcgcsv.md`). The purchase price of a card is its cheapest non-alt-art product.
 - **Meta data:** tournament events from DuelFrontier and EGM Events (`gundam_meta sync`), plus a stored online card ranking and weighted **example decks** (online decks). Terms of each source: `notes/source-terms.md`.
