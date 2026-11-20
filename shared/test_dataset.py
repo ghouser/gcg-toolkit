@@ -34,13 +34,16 @@ def test_the_dataset_is_never_inside_the_repository(monkeypatch: pytest.MonkeyPa
     assert repo not in data_dir().resolve().parents
 
 
+def _never_same(old: str) -> bool:
+    return False
+
+
 def test_a_snapshot_is_added_once_and_earlier_ones_are_untouched(tmp_path: Path) -> None:
-    never_same = lambda old: False  # noqa: E731
-    first = add_snapshot(tmp_path, "2026-10-01T000000Z", "one\n", never_same)
+    first = add_snapshot(tmp_path, "2026-10-01T000000Z", "one\n", _never_same)
     assert first is not None and first.read_text() == "one\n"
-    assert add_snapshot(tmp_path, "2026-10-01T000000Z", "changed\n", never_same) is None  # same date: not rewritten
+    assert add_snapshot(tmp_path, "2026-10-01T000000Z", "changed\n", _never_same) is None  # same date: not rewritten
     assert first.read_text() == "one\n"
-    second = add_snapshot(tmp_path, "2026-10-02T000000Z", "two\n", never_same)
+    second = add_snapshot(tmp_path, "2026-10-02T000000Z", "two\n", _never_same)
     assert second is not None and newest_snapshot(tmp_path) == second and first.read_text() == "one\n"
 
 
@@ -51,13 +54,12 @@ def test_data_identical_to_the_newest_adds_nothing(tmp_path: Path) -> None:
 
 
 def test_a_second_store_on_the_same_utc_day_adds_nothing_even_with_other_data(tmp_path: Path) -> None:
-    never_same = lambda old: False  # noqa: E731
     morning = datetime(2026, 10, 1, 1, 0, tzinfo=UTC)
-    first = add_snapshot(tmp_path, snapshot_key(morning), "one\n", never_same)
+    first = add_snapshot(tmp_path, snapshot_key(morning), "one\n", _never_same)
     assert first is not None
-    assert add_snapshot(tmp_path, snapshot_key(morning.replace(hour=23, minute=59)), "other\n", never_same) is None
+    assert add_snapshot(tmp_path, snapshot_key(morning.replace(hour=23, minute=59)), "other\n", _never_same) is None
     late_west = datetime(2026, 10, 1, 19, 0, tzinfo=timezone(timedelta(hours=-5)))  # Oct 2, 00:00 in UTC: the next UTC day
-    second = add_snapshot(tmp_path, snapshot_key(late_west), "two\n", never_same)
+    second = add_snapshot(tmp_path, snapshot_key(late_west), "two\n", _never_same)
     assert second is not None and second.name == "2026-10-02T000000Z.json"
     assert sorted(p.name for p in tmp_path.iterdir()) == [first.name, second.name] and first.read_text() == "one\n"
 

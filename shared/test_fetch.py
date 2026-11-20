@@ -6,6 +6,7 @@ import threading
 from collections.abc import Iterator
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 
@@ -13,10 +14,10 @@ from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher
 
 
 class _Handler(BaseHTTPRequestHandler):
-    hits: dict[str, int] = {}
-    agents: list[str | None] = []  # the User-Agent header of every request, in order
+    hits: ClassVar[dict[str, int]] = {}
+    agents: ClassVar[list[str | None]] = []  # the User-Agent header of every request, in order
 
-    def do_GET(self) -> None:  # noqa: N802 (http.server API)
+    def do_GET(self) -> None:
         self.hits[self.path] = self.hits.get(self.path, 0) + 1
         self.agents.append(self.headers.get("User-Agent"))
         if self.path == "/ok":
