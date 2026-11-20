@@ -21,7 +21,7 @@ How Python is written in this repository. These are rules a reviewer checks; `ru
 
 ## Lint
 - `ruff check .` passes on the whole repository with the rule set in `pyproject.toml` (bugs, dead code and outdated idioms; no layout rules). It runs as a check in `.claude/checks.json`.
-- A finding is fixed in code. There are no `# noqa` comments, no per-file ignores and no exclusion lists. A character a finding flags but the data needs (a fullwidth colon, a curly apostrophe, a zero-width space) is written as an escape (`"："`), not suppressed.
+- A finding is fixed in code. There are no `# noqa` comments, no per-file ignores and no exclusion lists. A character a finding flags but the data needs (a fullwidth colon, a curly apostrophe, a zero-width space) is written as an escape (`"\uff1a"`), not suppressed.
 
 ## Smaller rules
 - Never name a module after a standard-library module.

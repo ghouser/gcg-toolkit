@@ -31,5 +31,5 @@ Why ruff with a curated `select` over `select = ["ALL"]` plus ignores: an ignore
 ## Risks
 - **Fixes that change behavior.** Some findings (ambiguous Unicode in strings, zero-width spaces, loop-variable capture) touch strings or closures that may be intentional. Each such fix is checked against the tests and, where output text changes, against the spec's "no behavior change"; a character that must stay is written as an escape (`"\uff1a"`) rather than suppressed.
 - **Ruff version drift.** New ruff releases add rules to selected families; the exact pin keeps the check stable, and upgrades are a deliberate change.
-- **Ignored files.** Ruff skips git-ignored paths through `respect-gitignore`; if that default changes, private folders could be linted. Checked by `ruff check --show-files`.
+- **Ignored files.** Ruff skips git-ignored paths through `respect-gitignore`; if that default changes, git-ignored folders (the virtualenv, raw caches) could be linted. Checked by `ruff check --show-files`.
 - **Size.** The first count was 79 findings in 39 files (with the 4 existing `noqa` comments removed), over the 15-file mark; the owner chose to keep one feature, fixed in one commit per area (`shared`, `gundam_cards`, `gundam_collection`, `gundam_meta`, `gundam_packages`).
