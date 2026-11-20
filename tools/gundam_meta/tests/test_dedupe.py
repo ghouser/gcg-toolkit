@@ -46,7 +46,7 @@ def test_the_same_event_under_different_names_and_dates_is_found() -> None:
 
 
 def test_player_names_compare_loosely() -> None:
-    assert normalize_player("  JeZZus ") == normalize_player("jezzus") and normalize_player("ＡＢ  c") == "ab c"
+    assert normalize_player("  JeZZus ") == normalize_player("jezzus") and normalize_player("\uff21\uff22  c") == "ab c"
 
 
 def test_events_from_the_same_source_never_match() -> None:

@@ -17,7 +17,6 @@ from __future__ import annotations
 import unicodedata
 from collections.abc import Sequence
 from dataclasses import dataclass
-from datetime import timedelta
 
 from shared.basetypes import CardNumber
 from tools.gundam_meta.models import Deck, Event, EventId, Source

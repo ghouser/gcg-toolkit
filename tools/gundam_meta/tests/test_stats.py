@@ -67,7 +67,7 @@ def test_the_worked_example_from_the_design() -> None:
     assert (by_card[B].copies, by_card[B].share, by_card[B].decks) == (12, 12 / 400, 3)
     assert by_card[FILLER].copies == 49 + 3 * 46 + 4 * 50
     assert sum(c.share for c in s.cards) == pytest.approx(1.0)
-    assert [c.card_number for c in s.cards][0] == FILLER  # most played first
+    assert s.cards[0].card_number == FILLER  # most played first
 
 
 def test_windows_pool_events_so_bigger_events_weigh_more() -> None:

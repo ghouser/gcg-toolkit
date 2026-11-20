@@ -14,13 +14,11 @@ from pathlib import Path
 
 from shared.fetch import FetchError, TextFetcher
 from tools.gundam_meta import duelfrontier, egm
-from tools.gundam_meta.models import Event, EventId, OnlineRankingSnapshot, Source
+from tools.gundam_meta.models import Event, EventId, Source
 from tools.gundam_meta.store import (
     load_events,
-    load_snapshots,
     write_atomic,
     write_event,
-    write_snapshot,
 )
 
 
