@@ -36,4 +36,4 @@ Everything runs from the repository root as `.venv/bin/python -m tools.<tool>.cl
 
 The wiki pages are generated from `docs/wiki/*.md` (templates with `{{run ...}}` lines): `.venv/bin/python docs/wiki/build.py OUT_DIR` renders them with real, truncated command output into a clone of the wiki.
 
-Each tool has a `design.md` that is its spec. Checks: `.venv/bin/python -m pytest` and `.venv/bin/python -m mypy tools shared`.
+Each tool has a `design.md` that is its spec. Checks: `.venv/bin/python -m pytest`, `.venv/bin/python -m mypy tools shared` and `.venv/bin/python -m ruff check .` (lint only).
