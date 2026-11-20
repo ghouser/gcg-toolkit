@@ -313,10 +313,12 @@ def test_a_missed_card_keeps_its_stored_data_including_its_packages(site: FakeBa
     stored = card("GD01-050")
     assert stored.printings[0].package_ids == (GD01,)
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])  # GD01-050 gone
+    # its cached page now reads differently, so a rebuild of it would differ from what is stored
+    (site.raw_dir / detail_page_key(PrintingId("GD01-050"))).write_text(detail("GD01-050", name="Renamed"), encoding="utf-8")
 
     first_miss = run(site, tracked, T2)
     assert first_miss.missed == ("GD01-050",) and flags()["GD01-050"] == (True, False)
-    assert card("GD01-050") == stored  # one complete miss changes nothing visible: its packages are kept
+    assert card("GD01-050") == stored  # one complete miss changes nothing visible: its stored data is kept
     second_miss = run(site, tracked, T3)
     assert second_miss.marked == ("GD01-050",) and flags()["GD01-050"] == (True, True)
     assert card("GD01-050") == stored  # marked no longer listed, its data (and package history) kept
