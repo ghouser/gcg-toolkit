@@ -1,4 +1,4 @@
-"""Whole-dataset checks against the real synced data (run only with GCG_TEST_REAL_DATA=1; skipped when the dataset is empty).
+"""Whole-dataset checks against the real synced data (marked `real_data`; skipped when the dataset is empty).
 
 These pin facts of the 2026-10-06 sync (184 DuelFrontier events, 83 EGM events). Update deliberately when data is added.
 """
@@ -17,7 +17,7 @@ from tools.gundam_meta.models import PopularityFile, Source, Tier
 from tools.gundam_meta.redo import reparse_duelfrontier, same_content
 from tools.gundam_meta.store import OUT_DIR, RAW_DIR, data_out_dir, load_events, load_snapshots
 
-pytestmark = pytest.mark.corpus
+pytestmark = pytest.mark.real_data
 needs_data = pytest.mark.skipif(
     not (data_out_dir() / "events" / "duelfrontier").is_dir() or load_catalog() is None,
     reason="synced meta data or card catalog not present",

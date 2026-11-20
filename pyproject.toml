@@ -31,4 +31,4 @@ select = [
 pythonpath = ["."]
 testpaths = ["tools", "shared"]
 addopts = "--import-mode=importlib"
-markers = ["corpus: runs against the full saved Bandai crawl in tools/gundam_cards/data/raw (skipped if absent)"]
+markers = ["real_data: reads the real local dataset; skipped unless GCG_TEST_REAL_DATA=1 (see conftest.py), and skips on an empty dataset"]

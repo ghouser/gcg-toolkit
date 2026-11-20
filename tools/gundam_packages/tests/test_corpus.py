@@ -1,4 +1,4 @@
-"""Your own examples, checked against the real GD05 decks (run only with GCG_TEST_REAL_DATA=1; skipped when the dataset is empty)."""
+"""Your own examples, checked against the real GD05 decks (marked `real_data`; skipped when the dataset is empty)."""
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -21,7 +21,7 @@ from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.store import load_packages, write_packages
 from tools.gundam_packages.synergy import build_graph
 
-pytestmark = pytest.mark.corpus
+pytestmark = pytest.mark.real_data
 needs_data = pytest.mark.skipif(
     not (data_out_dir() / "events" / "duelfrontier").is_dir() or load_catalog() is None,
     reason="synced meta data and card catalog not present",
