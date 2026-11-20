@@ -14,7 +14,7 @@ SMALL = unit("GD01-051", "Kshatriya", link_trait="Cyber-Newtype", color=Color.RE
 BESSERUNG = unit("GD03-005", "Kshatriya Besserung", link="Marida Cruz", color=Color.BLUE, ap=4, hp=4,
                  text="<Repair 1> (At the end of your turn, this Unit recovers the specified number of HP.)\n【Deploy】Draw 1.")  # fmt: skip
 PURPLE = unit("ST12-006", "Banshee", link="Marida Cruz", color=Color.PURPLE, ap=5, hp=4,
-              text="【During Pair】【Activate･Main】Exile 4 cards from your trash：This Unit gains <First Strike> and <Suppression>.")  # fmt: skip
+              text="【During Pair】【Activate･Main】Exile 4 cards from your trash\uff1aThis Unit gains <First Strike> and <Suppression>.")  # fmt: skip
 GEARA = unit("GD05-056", "Rezin's Geara Doga", link_trait="Cyber-Newtype", color=Color.PURPLE, ap=3, hp=4)
 CARDS: dict[N, CardModel] = catalog(MARIDA, BIG, SMALL, BESSERUNG, PURPLE, GEARA)
 

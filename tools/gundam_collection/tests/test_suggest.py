@@ -60,7 +60,7 @@ def test_a_link_is_a_bonus_not_a_gate_a_unit_without_its_pilot_ranks_lower_and_a
     chosen = {p.card: p.copies for p in sug.picks}  # type: ignore[attr-defined]
     assert STRANGER.number not in chosen  # same fit as a runner but its Link has no pilot: a weaker body, so it loses the slot to an equal runner
     assert chosen.get(STRANGER_PILOT.number, 0) <= 1  # an unrelated pilot pairs with no Linked Unit: at most a single stat-bonus copy
-    pairs, linked, pilots = sug.pairs  # type: ignore[attr-defined]
+    pairs, linked, _pilots = sug.pairs  # type: ignore[attr-defined]
     assert pairs >= 4 and linked >= 4  # the core Unit and its 4 pilot copies pair up
 
 

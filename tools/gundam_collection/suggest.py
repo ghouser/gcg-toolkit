@@ -345,7 +345,7 @@ def build_suggestion(
         notes.append(f"only {total()} cards were in found lists for these colors; the rest are novel picks by plan fit")
         fill_by_kind(novel_pool, "novel", 3)
     if total() < DECK_SIZE:  # still short (a tiny catalog): relax the shape
-        shape = {k: DECK_SIZE for k in KINDS}
+        shape = dict.fromkeys(KINDS, DECK_SIZE)
         fill_by_kind(by_score, "known", 4)
 
     def requirements() -> list[Requirement]:

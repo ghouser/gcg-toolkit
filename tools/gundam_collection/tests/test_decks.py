@@ -1,10 +1,8 @@
 """Which decks I support, which I am close to, and what to get: on the synthetic worlds with known answers."""
 from __future__ import annotations
 
-from dataclasses import replace
 
 from shared.basetypes import CardNumber
-from tools.gundam_cards.models import CardModel
 from tools.gundam_collection.bands import Band
 from tools.gundam_collection.decks import (
     DECK_SIZE,
@@ -21,9 +19,8 @@ from tools.gundam_collection.decks import (
     picks,
 )
 from tools.gundam_collection.models import Stage
-from tools.gundam_packages.models import DataSource, PackageId, PackagesFile, RatesFile, SquadCard, Squad, SynergyKind
-from tools.gundam_packages.tests.test_discover import A1, A2, A3, B1, F1, H, O, S2, world
-from tools.gundam_packages.tests.helpers import catalog, pilot, unit
+from tools.gundam_packages.models import DataSource, PackageId, PackagesFile, RatesFile
+from tools.gundam_packages.tests.test_discover import A1, A2, A3, F1, H, O, S2, world
 from tools.gundam_packages.tests.test_drift import base_file
 from tools.gundam_packages.tests.test_rates import rates
 
@@ -120,7 +117,7 @@ def test_nothing_owned_is_not_happening_and_a_missing_price_makes_the_cost_a_min
 def test_the_overview_puts_perfect_first_by_how_played_and_every_other_band_cheapest_to_move_up_first() -> None:
     decks = build_decks(tournament(), min_rate=0.0)
     prices = {n: 100 for d in decks for n in (r.card for r in d.requirements)}
-    owned = {n: 4 for n in prices}
+    owned = dict.fromkeys(prices, 4)
     groups = overview([coverage(d, (), owned, prices, {}) for d in decks])
     assert [c.deck.top_rate for c in groups[Band.PERFECT]] == sorted((c.deck.top_rate for c in groups[Band.PERFECT]), reverse=True)
     some = {n: (4 if i % 5 else 0) for i, n in enumerate(prices)}
@@ -154,14 +151,14 @@ def test_a_card_other_supported_or_close_decks_also_need_comes_first_and_says_so
     core = [p for p in picks(cov, durable) if p.layer is Layer.CORE]
     assert [p.card for p in core][:2] == [A3, A2] and core[0].also_needed_by == ("Another deck", "Third deck")  # needed by two others, then by one
     own_deck = {A3: (("Master", 0.5),)}
-    assert [p for p in picks(cov, own_deck) if p.card == A3][0].also_needed_by == ("Master",)
+    assert next(p for p in picks(cov, own_deck) if p.card == A3).also_needed_by == ("Master",)
     assert needed_by([]) == {}
 
 
 def test_needed_by_counts_only_supported_and_close_decks_and_never_far_ones() -> None:
     decks = build_decks(tournament(), min_rate=0.0)
     prices = {r.card: 10 for d in decks for r in d.requirements}
-    full = {n: 4 for n in prices}
+    full = dict.fromkeys(prices, 4)
     covs = [coverage(d, (), full, prices, {}) for d in decks]
     found = needed_by(covs)
     assert A1 in found and all(rate > 0 for rows in found.values() for _, rate in rows)

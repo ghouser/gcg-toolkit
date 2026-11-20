@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from itertools import pairwise
 
 from shared.basetypes import CardNumber
 from tools.gundam_collection.models import Art, OwnedCard
@@ -90,7 +91,7 @@ def _usd(cents: int) -> str:
 def labels(thresholds: tuple[int, ...]) -> tuple[str, ...]:
     """One label per band, lowest first: `under $0.50`, `$0.50 to under $1`, ..., `$10 or more`."""
     out = [f"under {_usd(thresholds[0])}"]
-    out += [f"{_usd(low)} to under {_usd(high)}" for low, high in zip(thresholds, thresholds[1:], strict=False)]
+    out += [f"{_usd(low)} to under {_usd(high)}" for low, high in pairwise(thresholds)]
     out.append(f"{_usd(thresholds[-1])} or more")
     return tuple(out)
 
@@ -106,7 +107,7 @@ def analyze(
     names: Mapping[CardNumber, str],
     thresholds: tuple[int, ...] = DEFAULT_THRESHOLDS,
 ) -> ValueReport:
-    if not thresholds or thresholds[0] <= 0 or any(a >= b for a, b in zip(thresholds, thresholds[1:], strict=False)):
+    if not thresholds or thresholds[0] <= 0 or any(a >= b for a, b in pairwise(thresholds)):
         raise ValueError(f"thresholds must be increasing and positive: {thresholds}")
     grouped: list[list[ValueLine]] = [[] for _ in range(len(thresholds) + 1)]
     unpriced: list[tuple[CardNumber, str, int]] = []
