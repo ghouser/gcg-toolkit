@@ -324,6 +324,7 @@ Known data issues after the full sync (pinned by `tests/test_corpus.py`; 14 tota
 - In a Link, a parenthesized alternative is a trait with or without the word "Trait" after it; `/` is "or" (`(Teiwaz) / (Tekkadan) Trait` = the Teiwaz trait or the Tekkadan trait).
 - **One flat `keywords` list**, no values, covering both rules groups, including keywords a card grants or references. Intended use: search on a keyword, then read the cards to judge which really have it. Native-vs-granted is out of scope.
 - **Newest wording wins** (block, then set release date). Reminder-text-only ties keep the version with reminder text. Other ambiguous cases are reported, not guessed, and a rule is added once we agree on one.
+- **What stops a refresh (2026-11-20):** a newly fetched detail page that is structurally unreadable (`DetailPageError`) aborts the refresh, which writes nothing. Finer build errors on a page (an unrecognized trait or link format, the `parse_failure` issues) are reported, that card is left out of the build, a stored card keeps its stored data, and the run still writes. Why: one odd card must not block every refresh until the parser is fixed.
 
 ## Acceptance Checks
 - For each package, the number of stored printings equals the number of ids on its list page.
