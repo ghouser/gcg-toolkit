@@ -7,22 +7,31 @@ against itself. The fixture holds every dataset source, example decks included, 
 
 The tracked analysis outputs (packages, appearance rates) and the hand-typed collection are not part of the dataset; here they are absent
 (rates) or the small fixture collection, exactly as in the run on main; `build` saves into a temp folder.
+
+AC-1 (shared-data-contracts), at the end: no command of these tools, read or write, writes the catalog export.
 """
 from __future__ import annotations
 
 import re
 from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime, timedelta
+from functools import partial
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
+from shared import dataset_cli
 from shared.basetypes import CardNumber, ProductId
 from tools.gundam_cards import cli as cards_cli
 from tools.gundam_cards.models import Card, CardRecord, CardsFile, CardPrice, PriceFile, SourceTitlesFile, TraitsFile
+from tools.gundam_cards.store import catalog_export_path
 from tools.gundam_collection import cli as collection_cli
+from tools.gundam_collection import store as collection_store
 from tools.gundam_collection.models import Art, CollectionFile, OwnedCard, OwnedPrinting
 from tools.gundam_meta import cli as meta_cli
+from tools.gundam_meta import duelfrontier
+from tools.gundam_meta import store as meta_store
 from tools.gundam_meta.models import (
     Deck,
     DeckCard,
@@ -40,6 +49,7 @@ from tools.gundam_meta.models import (
     SnapshotFile,
     Source,
 )
+from tools.gundam_meta.redo import RedoReport
 from tools.gundam_meta.store import pretty, snapshot_key
 from tools.gundam_packages import cli as packages_cli
 from tools.gundam_packages import store as packages_store
@@ -270,3 +280,131 @@ def test_a_read_command_on_the_dataset_gives_the_same_output_as_before(
 ) -> None:
     code = main(argv)
     assert (code, normalized(capsys.readouterr().out)) == EXPECTED[f"{tool} {' '.join(argv)}"]
+
+
+# ---- AC-1: no command but `gundam_cards export` writes the catalog export -----------------------------------------------------------
+# Every command of the other tools, read and write, runs on the fixture dataset and leaves $GCG_CATALOG_FILE absent (the gundam_cards
+# commands are covered in tools/gundam_cards/tests/test_export.py). Nothing touches the network, the raw response caches or the tracked
+# files: fetches are replaced by fakes and every write outside the dataset goes to a temp folder. The command bodies run for real.
+COLLECTION_LINES = "GD01-001 2\nGD01-002 1\nGD01-003 3\n"
+
+
+class Offline:
+    """Stands in for the network fetcher; the steps that would use it are replaced in the sandbox."""
+
+    network_requests = 0
+
+    def __init__(self, *_: object, **__: object) -> None:
+        pass
+
+
+@pytest.fixture
+def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages, collection, popularity and raw
+    folders redirected to temp folders; the tournament and online packages built (by the commands under test)."""
+    ds = dataset_tree(tmp_path / "ds")
+    monkeypatch.setenv("GCG_DATA_DIR", str(ds))
+    gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(update={"start_date": date(2026, 8, 3)})
+    path = ds / "gundam_meta" / "events" / gd05.source.value / f"{gd05.id}.json"
+    path.write_text(pretty(EventFile(data=gd05).model_dump_json()), encoding="utf-8")
+    monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
+    # A newer example-deck snapshot in which Gundam and its pilot are always played together, so the online build finds a package
+    # (and the deck and package commands below have one to name).
+    together = ExampleList(url="https://example.test/list/9", share=1.0,
+                           cards=(DeckCard(card_number=CardNumber("GD01-001"), qty=4), DeckCard(card_number=CardNumber("GD01-002"), qty=4)))
+    archetypes = (ExampleArchetype(slug="gundam", name="Gundam", games=60, sides_analyzed=10, lists=(together,)),
+                  example_decks().archetypes[1].model_copy(update={"sides_analyzed": 10}))
+    newer = example_decks().model_copy(update={"fetched_at": DECKS_AT + timedelta(days=1), "archetypes": archetypes})
+    (ds / "gundam_meta" / "example_decks" / f"{snapshot_key(newer.fetched_at)}.json").write_text(
+        pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8")
+
+    packages, coll, raw = tmp_path / "packages", tmp_path / "collection", tmp_path / "raw"
+    for folder in (packages, coll, raw):
+        folder.mkdir()
+    for name in ("write_packages", "write_rates", "write_drift"):
+        monkeypatch.setattr(packages_cli, name, partial(getattr(packages_store, name), out_dir=packages))
+    for cli in (packages_cli, collection_cli):
+        monkeypatch.setattr(cli, "load_packages", partial(packages_store.load_packages, packages))
+        monkeypatch.setattr(cli, "load_rates", partial(packages_store.load_rates, packages))
+    monkeypatch.setattr(packages_cli, "OUT_DIR", packages)
+
+    (coll / "my_tcg_collection").write_text(COLLECTION_LINES, encoding="utf-8")
+    monkeypatch.setattr(collection_cli, "OUT_DIR", coll)
+    monkeypatch.setattr(collection_cli, "COLLECTION_PATH", coll / "my_tcg_collection")
+    monkeypatch.setattr(collection_cli, "write_collection", partial(collection_store.write_collection, out_dir=coll))
+    monkeypatch.setattr(collection_cli, "load_collection", partial(collection_store.load_collection, coll))
+    monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
+    monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))
+
+    monkeypatch.setattr(meta_cli, "RAW_DIR", raw)
+    monkeypatch.setattr(meta_cli, "write_popularity", partial(meta_store.write_popularity, out_dir=tmp_path))
+    monkeypatch.setattr(meta_cli, "Fetcher", Offline)
+    monkeypatch.setattr(meta_cli, "egm", SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))))
+    synced = duelfrontier.SyncResult(events=(), listed=0, already_stored=0, not_complete_yet=0, waiting_for_results=0, failures=())
+    monkeypatch.setattr(meta_cli, "duelfrontier", SimpleNamespace(list_events=lambda _: (), sync_events=lambda *_, **__: synced))
+    refetched = RedoReport(changed=("egm:e1",), unchanged=(), failures=())
+    monkeypatch.setattr(meta_cli, "refetch_egm", lambda *_: refetched)
+    monkeypatch.setattr(meta_cli, "refetch_duelfrontier", lambda *_, **__: refetched)
+
+    assert packages_cli.main(["build"]) == 0
+    assert packages_cli.main(["build", "--source", "online"]) == 0
+    return tmp_path
+
+
+OTHER_COMMANDS: list[tuple[Main, list[str], int]] = [
+    (dataset_cli.main, ["status"], 0),
+    (meta_cli.main, ["sync"], 0),
+    (meta_cli.main, ["popularity"], 0),
+    (meta_cli.main, ["eras"], 0),
+    (meta_cli.main, ["reparse"], 1),  # runs to the end: the temp raw folder has no saved response for the fixture events, so it reports them failed
+    (meta_cli.main, ["refetch", "--source", "egm", "--all"], 0),
+    (meta_cli.main, ["refetch", "--source", "duelfrontier", "--all"], 0),
+    (meta_cli.main, ["duplicates"], 0),
+    (meta_cli.main, ["top-cards", "--meta", "major"], 0),
+    (meta_cli.main, ["top-cards", "--meta", "msa"], 0),
+    (packages_cli.main, ["build"], 0),
+    (packages_cli.main, ["build", "--source", "online"], 0),
+    (packages_cli.main, ["packages"], 0),
+    (packages_cli.main, ["archetypes"], 0),
+    (packages_cli.main, ["synergy"], 0),
+    (packages_cli.main, ["package-synergy"], 0),
+    (packages_cli.main, ["free"], 0),
+    (packages_cli.main, ["squads"], 0),
+    (packages_cli.main, ["package", "amuro", "--source", "online"], 0),
+    (packages_cli.main, ["compare"], 0),
+    (packages_cli.main, ["card", "GD01-001"], 0),
+    (packages_cli.main, ["pairs", "GD01-001"], 0),
+    (packages_cli.main, ["drift"], 0),
+    (packages_cli.main, ["report"], 0),
+    (collection_cli.main, ["check"], 0),
+    (collection_cli.main, ["template", "GD01"], 0),
+    (collection_cli.main, ["import"], 0),
+    (collection_cli.main, ["coverage"], 0),
+    (collection_cli.main, ["card", "GD01-001"], 0),
+    (collection_cli.main, ["decks", "--all"], 0),
+    (collection_cli.main, ["styles", "--min-rate", "0"], 0),
+    (collection_cli.main, ["suggest", "amuro"], 0),
+    (collection_cli.main, ["archetypes", "--min-share", "0"], 0),
+    (collection_cli.main, ["buy", "amuro", "--min-rate", "0", "--export"], 0),
+    (collection_cli.main, ["nickname", "amuro", "mine"], 0),
+    (collection_cli.main, ["deck", "amuro"], 0),
+    (collection_cli.main, ["value"], 0),
+]
+
+
+TOOL: dict[Main, str] = {dataset_cli.main: "dataset", meta_cli.main: "meta", packages_cli.main: "packages", collection_cli.main: "collection"}
+
+
+@pytest.mark.parametrize(("main", "argv", "code"), OTHER_COMMANDS, ids=[f"{TOOL[m]} {' '.join(a)}" for m, a, _ in OTHER_COMMANDS])
+def test_no_command_of_the_other_tools_writes_the_catalog_export(sandbox: Path, main: Main, argv: list[str], code: int) -> None:
+    assert main(argv) == code
+    assert not catalog_export_path().exists()
+
+
+@pytest.mark.parametrize("main", list(TOOL), ids=TOOL.get)
+def test_every_subcommand_of_the_other_tools_is_run_above(main: Main, capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        main(["--help"])
+    match = re.search(r"\{([a-z,-]+)\}", capsys.readouterr().out)
+    assert match is not None
+    assert set(match.group(1).split(",")) == {a[0] for m, a, _ in OTHER_COMMANDS if m is main}
