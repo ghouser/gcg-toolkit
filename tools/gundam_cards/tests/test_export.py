@@ -11,6 +11,7 @@ import pytest
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, ProductId, SetCode
 from tools.gundam_cards import cli
+from tools.gundam_cards.export import CatalogExport
 from tools.gundam_cards.models import (
     CardPrice,
     CardRecord,
@@ -26,6 +27,7 @@ from tools.gundam_cards.models import (
 from tools.gundam_cards.store import CATALOG_FILE_VAR, catalog_export_path, save_catalog, write_prices, write_provisional_sets
 from tools.gundam_packages.tests.helpers import pilot, unit
 
+REPO_DOCS = Path(__file__).resolve().parents[3] / "docs"
 CATALOG_AT = datetime(2026, 11, 1, tzinfo=UTC)
 
 
@@ -257,3 +259,9 @@ def test_a_failed_first_export_leaves_no_file(tracked: None) -> None:
     assert cli.main(["export"]) == 1
     assert not catalog_export_path().exists()
 
+
+# ---- AC-4: the documented example ---------------------------------------------------------------------------------------------
+def test_the_documented_example_export_is_a_valid_export_with_no_null() -> None:
+    text = (REPO_DOCS / "catalog-export.example.json").read_text(encoding="utf-8")
+    assert CatalogExport.model_validate_json(text).schema_version == 1
+    assert None not in values(json.loads(text))

@@ -57,6 +57,7 @@ Most views take `--source tournament|online|both`
     .venv/bin/python -m tools.gundam_cards.cli restrictions        # show the list in force
 
     .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer          # prices (tcgcsv); --force to refetch
+    .venv/bin/python -m tools.gundam_cards.cli export              # the catalog export for the UI ($GCG_CATALOG_FILE, default ~/.gcg/catalog.json; contract: docs/catalog-export.md)
     .venv/bin/python -m tools.gundam_packages.cli build ; .venv/bin/python -m tools.gundam_packages.cli build --source online   # re-derive packages after new data
 
 ## Finding a package

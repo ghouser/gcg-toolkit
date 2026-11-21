@@ -1,0 +1,59 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-11-20T09:15:00Z",
+ "reference": {
+  "sets": [
+   {"code": "GD01", "name": "Newtype Rising", "kind": "booster", "release_date": "2025-07-25"},
+   {"code": "PB03", "name": "GUNDAM CARD GAME 1st Anniversary Set", "kind": "other", "provisional": true},
+   {"code": "ST01", "name": "Heroic Beginnings", "kind": "starter", "release_date": "2025-07-25"}
+  ],
+  "kinds": [
+   {"kind": "unit", "deck": true},
+   {"kind": "pilot", "deck": true},
+   {"kind": "command", "deck": true},
+   {"kind": "base", "deck": true},
+   {"kind": "ex_base", "deck": false},
+   {"kind": "resource", "deck": false},
+   {"kind": "ex_resource", "deck": false},
+   {"kind": "unit_token", "deck": false}
+  ],
+  "colors": ["blue", "green", "white", "red", "purple"],
+  "rarities": ["C", "U", "R", "LR", "P"]
+ },
+ "cards": [
+  {
+   "number": "R-001",
+   "name": "Resource",
+   "kind": "resource",
+   "printings": [
+    {"id": "R-001_p4", "rarity": "C", "variant": 4, "alt_art_level": 1, "link_art": false}
+   ]
+  },
+  {
+   "number": "ST01-001",
+   "name": "Gundam",
+   "kind": "unit",
+   "set_code": "ST01",
+   "color": "blue",
+   "level": 4,
+   "cost": 3,
+   "printings": [
+    {"id": "ST01-001", "rarity": "LR", "set_code": "ST01", "image_url": "https://www.gundam-gcg.com/en/images/cards/card/ST01-001.webp", "price_cents": 125, "price_as_of": "2026-11-19"},
+    {"id": "ST01-001_p5", "rarity": "LR", "set_code": "PB03", "variant": 5, "alt_art_level": 1, "link_art": true, "image_url": "https://www.gundam-gcg.com/en/images/cards/card/ST01-001_p5.webp"}
+   ]
+  },
+  {
+   "number": "ST01-010",
+   "name": "Amuro Ray",
+   "kind": "pilot",
+   "no_longer_listed": true,
+   "set_code": "ST01",
+   "color": "blue",
+   "level": 3,
+   "cost": 1,
+   "printings": [
+    {"id": "ST01-010", "rarity": "R", "set_code": "ST01"}
+   ]
+  }
+ ]
+}

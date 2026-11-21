@@ -23,6 +23,7 @@ The words and variable names used across the tools, so docs, code, CLI output an
 | **Pilot** | A Pilot card, or a Command with a pilot effect. |
 | **Reference** | Card text that points at other cards: a name reference (`"Master Gundam" in its card name`) or a trait reference (an ability that needs other cards with a trait). |
 | **Provisional package** | A Bandai card package (set) that a catalog refresh found but the reviewed `sets.json` does not have yet. Kept in the local dataset and usable at once; the owner promotes it into `sets.json` by hand. |
+| **Catalog export** | The versioned JSON file of every card, its printings with a price each, and the reference vocabularies (sets, kinds with a deck flag, colors, rarities), written by `gundam_cards export` for the UI to read. Contract: `docs/catalog-export.md`. |
 | **No longer listed** | A card absent from Bandai's listings in two consecutive complete refreshes (one miss only records it as *missed once*). It stays in the catalog with its last data. |
 
 ## Relations between cards (read from the card text, never from decks)
