@@ -2,6 +2,8 @@
 
 Tests marked `real_data` run only with GCG_TEST_REAL_DATA=1, and only they then see GCG_DATA_DIR as it is (they still skip on an empty
 dataset); every other test keeps its empty temp folder. This is the only place that variable is read; test modules use the marker.
+
+No test writes the real catalog export: GCG_CATALOG_FILE points at a temp file for every test, real-data ones included.
 """
 from __future__ import annotations
 
@@ -12,6 +14,7 @@ from pathlib import Path
 import pytest
 
 from shared.dataset import ENV_VAR
+from tools.gundam_cards.store import CATALOG_FILE_VAR
 
 pytest_plugins = ["pytester"]  # for testing this file's own hooks
 
@@ -35,6 +38,7 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
 
 @pytest.fixture(autouse=True)
 def _empty_dataset(request: pytest.FixtureRequest, tmp_path_factory: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch) -> Path | None:
+    monkeypatch.setenv(CATALOG_FILE_VAR, str(tmp_path_factory.mktemp("gcg-export") / "catalog.json"))
     if REAL_DATA and request.node.get_closest_marker("real_data") is not None:
         return None
     folder = tmp_path_factory.mktemp("gcg-data")
