@@ -23,6 +23,7 @@ from tools.gundam_cards.sets import CARDS_URL, PRODUCTS_URL
 from tools.gundam_cards.store import (
     OUT_DIR,
     RAW_DIR,
+    catalog_export_path,
     data_out_dir,
     load_catalog,
     load_provisional_sets,
@@ -645,5 +646,6 @@ def test_the_refresh_command_dry_run(site: FakeBandai, monkeypatch: pytest.Monke
 
     assert cli.main(["refresh"]) == 0
     assert numbers() == ["GD01-001", "GD01-002", "GD09-001"]
+    assert not catalog_export_path().exists()  # only `export` writes the catalog export
     site.fail.add(CARDS_URL)
     assert cli.main(["refresh"]) == 1
