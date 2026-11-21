@@ -219,6 +219,15 @@
    "product_url": "https://www.gundam-gcg.com/en/products/pb02.html"
   },
   {
+   "code": "PB03",
+   "name": "GUNDAM CARD GAME 1st Anniversary Set",
+   "kind": "promo",
+   "bandai_package_id": null,
+   "release_date": "2026-07-27",
+   "product_category_raw": "PREMIUM BANDAI",
+   "product_url": "https://www.gundam-gcg.com/en/products/pb03.html"
+  },
+  {
    "code": "PC01A",
    "name": "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam IRON-BLOODED ORPHANS-",
    "kind": "other",
