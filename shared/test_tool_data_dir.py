@@ -211,10 +211,15 @@ def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
     run(cards_cli.main, ["sync"])
     assert (raw_dir / LANDING_KEY).is_file() and (raw_dir / list_page_key(PackageId(GD01))).is_file()  # the fetcher's cache
     assert (raw_dir / detail_page_key(PrintingId("GD01-002"))).is_file()  # sync_printings' pages
+    (raw_dir / detail_page_key(PrintingId("GD01-002"))).unlink()
+    # sync_printings reads the temp folder's cache: one page there, one missing (the repository's folder would differ)
+    assert "2 printings: 1 already cached, 1 fetched, 0 failed" in run(cards_cli.main, ["sync"])
 
     network[DETAIL_URL.format("GD01-001")] = detail("GD01-001", name="Refetched Name")
-    run(cards_cli.main, ["refetch", "--card", "GD01-001"])
+    assert "1 changed, 0 unchanged, 0 failed" in run(cards_cli.main, ["refetch", "--card", "GD01-001"])
     assert "Refetched Name" in (raw_dir / detail_page_key(PrintingId("GD01-001"))).read_text(encoding="utf-8")
+    # refetch_printings compares with the temp folder's cached copy, which now matches what Bandai serves
+    assert "0 changed, 1 unchanged, 0 failed" in run(cards_cli.main, ["refetch", "--card", "GD01-001"])
 
     run(cards_cli.main, ["sync-tcgplayer"])
     dump = raw_dir / "tcgcsv" / stamp_of(TCGCSV_AT)
