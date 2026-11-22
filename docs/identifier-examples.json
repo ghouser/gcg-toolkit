@@ -2,14 +2,14 @@
  "about": "Valid and invalid identifiers for parser tests. The shapes are defined in docs/catalog-export.md (Identifiers).",
  "card_number": {
   "valid": ["ST01-001", "GD05-111", "EB01-076", "R-016", "T-022", "EXB-002", "EXBP-001", "EXRP-017"],
-  "invalid": ["st01-001", "ST01-1", "ST01-0001", "ST01001", "ST01-001_p5", " ST01-001", "ST01-001 ", "", "01-001"]
+  "invalid": ["st01-001", "ST01-1", "ST01-0001", "ST01001", "ST01-001_p5", " ST01-001", "ST01-001 ", "", "01-001", "ST٠١-001", "ST01-٠٠١", "ST٠١-٠٠١", "GD０５-001", "GD05-１１１"]
  },
  "printing_id": {
   "valid": ["ST01-001", "ST01-001_p5", "R-016", "T-022", "EXB-002", "R-001_p4", "GD01-118_p12"],
-  "invalid": ["st01-001", "ST01-1", "ST01-001_p", "ST01-001_5", "ST01-001_P5", "ST01-001-p5", "ST01-001_p5a", ""]
+  "invalid": ["st01-001", "ST01-1", "ST01-001_p", "ST01-001_5", "ST01-001_P5", "ST01-001-p5", "ST01-001_p5a", "", "ST٠١-001_p5", "ST01-٠٠١_p5", "ST01-001_p٥", "GD05-111_p１"]
  },
  "set_code": {
   "valid": ["GD05", "ST11", "EB01", "SC01", "PB03", "EVX01", "PC01A", "PROMO", "BETA"],
-  "invalid": ["gd05", "GD01_b", "GD-05", "G", "5GD", "", "GD 05"]
+  "invalid": ["gd05", "GD01_b", "GD-05", "G", "5GD", "", "GD 05", "GD０５", "ST٠١"]
  }
 }
