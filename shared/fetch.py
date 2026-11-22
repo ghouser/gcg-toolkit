@@ -4,7 +4,7 @@
 - Waits `min_interval_s` between real network requests (cache hits are free and never wait).
 - Caches successful responses on disk under `cache_dir/<cache_key>`; a cached key is never re-fetched unless `force=True`.
 - Retries transient failures (429, 5xx, connection errors) with exponential backoff, then raises `FetchError`.
-- Cache writes are atomic (temp file, then rename).
+- Cache writes are atomic (temp file, then rename), and refused inside the real `~/.gcg` while tests run (`shared/dataset.py`).
 """
 from __future__ import annotations
 
@@ -18,6 +18,8 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Protocol
+
+from shared.dataset import refuse_real_data_write
 
 DEFAULT_USER_AGENT = "gcg-toolkit/0.1 (personal hobby tooling; polite rate-limited fetcher)"
 _RETRYABLE_STATUS = frozenset({429, 500, 502, 503, 504})
@@ -129,6 +131,7 @@ class Fetcher:
 
 
 def _atomic_write(path: Path, text: str) -> None:
+    refuse_real_data_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
     try:

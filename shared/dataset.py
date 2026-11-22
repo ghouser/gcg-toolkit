@@ -4,10 +4,12 @@ The folder is `$GCG_DATA_DIR`, or `~/.gcg/data` when it is unset; it is resolved
 The cards and meta tools' raw page caches and tracked files are found under `tool_data_root()` (`$GCG_TOOL_DATA_DIR`, else the
 repository), resolved the same way.
 History rules shared by the stores: a dated snapshot is added at most once per UTC day and never rewritten (see `add_snapshot`).
+Backstop: while the test suite runs, every file writer refuses a path inside the real `~/.gcg` (see `refuse_real_data_write`).
 """
 from __future__ import annotations
 
 import os
+import sys
 import tempfile
 from collections.abc import Callable
 from datetime import UTC, datetime
@@ -30,6 +32,23 @@ def tool_data_root() -> Path:
     `<root>/tools/<tool>/data/raw/` and their tracked files `<root>/shared/data/<tool>/`. `$GCG_TOOL_DATA_DIR`, else the repository."""
     value = os.environ.get(TOOL_DATA_VAR)
     return Path(value).expanduser() if value else REPO_ROOT
+
+
+class RealDataWrite(Exception):
+    """A write into the real `~/.gcg` folder while the test suite runs. Raised before anything is written."""
+
+
+def refuse_real_data_write(path: Path) -> None:
+    """Raise `RealDataWrite` when the test suite is running (pytest is imported) and `path` resolves inside `~/.gcg`: the real dataset,
+    images and catalog export. A backstop for a test, or an old checkout, that forgot to redirect a location or ran with real data;
+    outside a test run it does nothing."""
+    if "pytest" not in sys.modules:
+        return
+    real = (Path.home() / ".gcg").resolve()
+    target = path.resolve()
+    if target == real or real in target.parents:
+        raise RealDataWrite(f"refused to write {path}: the test suite is running and this is inside the real {real} folder "
+                            "(tests write only to temp folders: GCG_DATA_DIR, GCG_CATALOG_FILE); nothing was written")
 
 
 class Kind(StrEnum):
@@ -56,6 +75,7 @@ def snapshot_key(when: datetime) -> str:
 
 
 def write_atomic(path: Path, text: str) -> None:
+    refuse_real_data_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
     try:

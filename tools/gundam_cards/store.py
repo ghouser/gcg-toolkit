@@ -16,7 +16,17 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode, SourceTitle, Trait
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key, snapshot_paths, tool_data_root
+from shared.dataset import (
+    Kind,
+    NoData,
+    add_snapshot,
+    data_dir,
+    newest_snapshot,
+    refuse_real_data_write,
+    snapshot_key,
+    snapshot_paths,
+    tool_data_root,
+)
 from tools.gundam_cards.build import CatalogResult, Issue, IssueKind, SourcePage
 from tools.gundam_cards.export import CatalogExport, export_json
 from tools.gundam_cards.models import (
@@ -91,6 +101,7 @@ def load_source_pages(raw_dir: Path | None = None, packages_of: dict[PrintingId,
 
 
 def write_atomic(path: Path, text: str) -> None:
+    refuse_real_data_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
     try:

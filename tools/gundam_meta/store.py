@@ -15,7 +15,7 @@ import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths, tool_data_root
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, refuse_real_data_write, snapshot_paths, tool_data_root
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -46,6 +46,7 @@ def data_out_dir() -> Path:
 
 
 def write_atomic(path: Path, text: str) -> None:
+    refuse_real_data_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
     try:
