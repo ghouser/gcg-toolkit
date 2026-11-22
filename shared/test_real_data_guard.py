@@ -5,6 +5,9 @@ The real `~/.gcg` is never touched here: HOME points at a temp folder, so `~/.gc
 their defaults, as a test that forgot to redirect them would leave them."""
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
 from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
@@ -12,7 +15,7 @@ from pathlib import Path
 import pytest
 
 from shared import dataset
-from shared.dataset import ENV_VAR, RealDataWrite, data_dir
+from shared.dataset import ENV_VAR, REPO_ROOT, RealDataWrite, data_dir
 from shared.fetch import Fetcher
 from shared.test_fetch import serve
 from tools.gundam_cards import store as cards_store
@@ -69,3 +72,32 @@ def test_the_fetcher_cache_refuses_the_real_gcg_folder(home: Path) -> None:
 def test_a_write_outside_gcg_still_works(home: Path) -> None:
     cards_store.write_atomic(home / "elsewhere" / "file.json", "{}")
     assert (home / "elsewhere" / "file.json").read_text(encoding="utf-8") == "{}"
+
+
+def test_the_refusal_holds_in_a_real_data_run(home: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("GCG_TEST_REAL_DATA", "1")
+    with pytest.raises(RealDataWrite):
+        cards_store.write_catalog(CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()),
+                                  datetime(2026, 11, 1, tzinfo=UTC))  # fmt: skip
+    assert files_under(home) == []
+
+
+WRITE_OUTSIDE_TESTS = """
+import sys
+from datetime import UTC, datetime
+from tools.gundam_cards import store
+from tools.gundam_cards.build import CatalogResult
+from tools.gundam_packages.tests.helpers import unit
+assert "pytest" not in sys.modules
+store.write_catalog(CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()), datetime(2026, 11, 1, tzinfo=UTC))
+store.write_atomic(store.catalog_export_path(), "{}")
+"""
+
+
+def test_outside_a_test_run_the_same_writes_go_through(home: Path) -> None:
+    """A separate Python without pytest, its home at the temp folder and the locations at their defaults, writes into `~/.gcg`."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GCG_") and k != "PYTEST_CURRENT_TEST"} | {"HOME": str(home)}
+    done = subprocess.run([sys.executable, "-c", WRITE_OUTSIDE_TESTS], cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=False)
+    assert done.returncode == 0, done.stderr
+    assert (home / ".gcg" / "data" / "gundam_cards" / "cards.json").is_file()
+    assert (home / ".gcg" / "catalog.json").read_text(encoding="utf-8") == "{}"
