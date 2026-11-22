@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import pytest
@@ -149,6 +149,19 @@ def test_value_prices_an_owned_alternate_with_no_price_of_its_own_at_its_cards_p
     out = capsys.readouterr().out
     assert "my collection: 1 cards, 3 copies, worth $0.75" in out  # 3 x $0.25: the alternate is valued as the card
     assert "owned cards have no price" not in out
+
+
+def test_value_prices_a_printing_at_its_own_price_when_the_store_gives_one(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # The store's rule (`export.printing_prices`) gives the same cents as the card's price today, so the store is stood in for here:
+    # it gives the alternate its own price of $50.00, and the command must use it rather than the card's $0.25.
+    monkeypatch.setattr(cli, "prices_of_printings", lambda card, rows: {PrintingId("ST01-001_p5"): (5000, date(2026, 10, 9))} if card.number == "ST01-001" else {})
+    write_file(monkeypatch, tmp_path, {"ST01-001": 1, "ST01-001_p5": 2})
+    assert cli.main(["value"]) == 0
+    out = capsys.readouterr().out
+    assert "my collection: 1 cards, 3 copies, worth $100.25" in out  # 1 x $0.25 + 2 x $50.00
+    assert "ST01-001_p5)" in out and "$50.00" in out
 
 
 def test_with_no_collection_at_all_the_commands_say_where_it_would_be(capsys: pytest.CaptureFixture[str]) -> None:
