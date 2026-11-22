@@ -68,7 +68,7 @@ from tools.gundam_collection.link import (
 )
 from tools.gundam_collection.models import CheckReport, Severity, Stage
 from tools.gundam_collection.collection_file import CollectionRefused, Owned, Source, collection_file_path, read_owned, text_list_path
-from tools.gundam_collection.store import COLLECTION_PATH, OUT_DIR, REPO_ROOT, load_deck_names, save_deck_names
+from tools.gundam_collection.store import OUT_DIR, REPO_ROOT, load_deck_names, save_deck_names
 from tools.gundam_collection.value import DEFAULT_THRESHOLDS, SELL_MIN_CENTS, ValueReport, analyze
 from tools.gundam_packages.models import DataSource, PackageId, PackageRates, PackagesFile, RatesFile, Squad, typical_copies
 from tools.gundam_packages.store import load_packages, load_rates
@@ -96,7 +96,7 @@ def _print_report(report: CheckReport, quiet: bool) -> None:
 
 
 def cmd_check(args: argparse.Namespace) -> int:
-    path = Path(args.file)
+    path = Path(args.file) if args.file else text_list_path()
     if not path.is_file():
         print(f"no such file: {path}", file=sys.stderr)
         return 2
@@ -903,7 +903,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     check = sub.add_parser("check", help="validate the text list: bad lines, unknown cards, duplicates (no network)")
-    check.add_argument("--file", default=str(COLLECTION_PATH), help="the text list (default shared/data/gundam_collection/my_tcg_collection)")
+    check.add_argument("--file", default=None, help="the text list (default shared/data/gundam_collection/my_tcg_collection)")
     check.add_argument("--quiet", action="store_true", help="hide info-level notes (resource cards, large totals)")
     check.set_defaults(func=cmd_check)
     template = sub.add_parser("template", help="print the unique cards in a product with ? quantities to fill in")

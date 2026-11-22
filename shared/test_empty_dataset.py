@@ -51,7 +51,7 @@ COMMANDS: list[tuple[Main, list[str], str]] = [
     (packages_cli.main, ["compare"], "card catalog"),
     (packages_cli.main, ["drift"], "card catalog"),
     (packages_cli.main, ["report"], "card catalog"),
-    (collection_cli.main, ["check"], "card catalog"),
+    (collection_cli.main, ["check", "--file", __file__], "card catalog"),  # any existing file: the catalog is needed first
     (collection_cli.main, ["coverage"], "card catalog"),
     (collection_cli.main, ["decks"], "card catalog"),
     (collection_cli.main, ["buy", "suletta"], "card catalog"),

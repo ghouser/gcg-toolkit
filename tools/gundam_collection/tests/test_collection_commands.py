@@ -167,3 +167,11 @@ def test_value_prices_a_printing_at_its_own_price_when_the_store_gives_one(
 def test_with_no_collection_at_all_the_commands_say_where_it_would_be(capsys: pytest.CaptureFixture[str]) -> None:
     assert cli.main(["value"]) == 2
     assert "no collection yet" in capsys.readouterr().err
+
+
+def test_check_and_the_fallback_read_the_same_text_list(capsys: pytest.CaptureFixture[str]) -> None:
+    write_text_list("ST01-001 2\nST01-001+ 1\n")  # under GCG_TOOL_DATA_DIR
+    assert cli.main(["check"]) == 0
+    assert "2 lines read, 1 distinct cards, 3 copies counted" in capsys.readouterr().out
+    assert cli.main(["card", "ST01-001"]) == 0
+    assert "owned:  3 copies" in capsys.readouterr().out

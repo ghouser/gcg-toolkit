@@ -330,7 +330,7 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
     (coll / "my_tcg_collection").write_text(COLLECTION_LINES, encoding="utf-8")
     monkeypatch.setattr(collection_cli, "OUT_DIR", coll)
-    monkeypatch.setattr(collection_cli, "COLLECTION_PATH", coll / "my_tcg_collection")
+    monkeypatch.setattr(collection_cli, "text_list_path", lambda: coll / "my_tcg_collection")
     write_collection_file(coll, monkeypatch)
     monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
     monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))

@@ -9,7 +9,6 @@ from tools.gundam_meta.store import write_atomic
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "shared" / "data" / "gundam_collection"
-COLLECTION_PATH = OUT_DIR / "my_tcg_collection"  # the hand-typed list (read by `collection_file.py`; `check` and `template` still default to it)
 DECK_NAMES_PATH = OUT_DIR / "deck_names.json"  # nicknames for decks, by deck id
 
 
