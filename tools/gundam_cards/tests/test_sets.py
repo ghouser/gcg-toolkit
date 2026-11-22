@@ -86,7 +86,7 @@ def test_kind_for_code() -> None:
     kinds = {c: kind_for_code(SetCode(c)) for c in ("GD05", "ST11", "EB01", "SC01", "PB01", "EVX08", "PC01A")}
     assert kinds == {
         "GD05": SetKind.BOOSTER, "ST11": SetKind.STARTER, "EB01": SetKind.EXTRA_BOOSTER, "SC01": SetKind.DECK_BUILD_BOX,
-        "PB01": SetKind.OTHER, "EVX08": SetKind.OTHER, "PC01A": SetKind.OTHER,
+        "PB01": SetKind.PROMO, "EVX08": SetKind.OTHER, "PC01A": SetKind.OTHER,
     }  # fmt: skip
 
 

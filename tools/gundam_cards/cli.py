@@ -2,10 +2,10 @@
 
     .venv/bin/python -m tools.gundam_cards.cli refresh            # refresh the catalog from Bandai, all or nothing (network; --dry-run)
     .venv/bin/python -m tools.gundam_cards.cli sync               # sets, package lists, new printing pages, then reparse (network)
-    .venv/bin/python -m tools.gundam_cards.cli sync --only sets   # just release dates and packages (network)
+    .venv/bin/python -m tools.gundam_cards.cli sync --only sets   # just release dates and packages, as provisional sets (network)
     .venv/bin/python -m tools.gundam_cards.cli refetch --card ST01-001   # re-pull pages we already have (--package GD05, --all)
-    .venv/bin/python -m tools.gundam_cards.cli sets               # list sets with release dates (no network)
-    .venv/bin/python -m tools.gundam_cards.cli reparse            # rebuild sets/cards/traits from saved pages (no network)
+    .venv/bin/python -m tools.gundam_cards.cli sets               # list sets with release dates: sets.json plus provisional (no network)
+    .venv/bin/python -m tools.gundam_cards.cli reparse            # rebuild provisional sets/cards/traits from saved pages (no network)
     .venv/bin/python -m tools.gundam_cards.cli show ST01-001      # print one card
     .venv/bin/python -m tools.gundam_cards.cli changes            # cards whose wording differs between printings (to read)
     .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer     # latest TCGPlayer market price per card from tcgcsv (network; once a day)
@@ -35,7 +35,7 @@ from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
 from tools.gundam_cards.refresh import format_report, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
-from tools.gundam_cards.sets import SetsBuild, sets_from_raw, sync_sets
+from tools.gundam_cards.sets import SetsBuild, propose_sets, reviewed_set_notes, sets_from_raw, sync_sets
 from tools.gundam_cards.models import PriceFile, RestrictionsFile
 from tools.gundam_cards.restrictions import NEWS_URL, RestrictionsError, parse_restrictions, vanilla_cards
 from tools.gundam_cards.store import (
@@ -60,7 +60,7 @@ from tools.gundam_cards.store import (
     write_catalog,
     write_catalog_export,
     write_prices,
-    write_sets,
+    write_provisional_sets,
 )
 from tools.gundam_cards.tcgcsv import (
     RawDump,
@@ -82,9 +82,16 @@ def _print_issues(issues: Sequence[Issue]) -> None:
         print(f"  [{issue.kind.value}] {issue.subject}: {issue.detail}")
 
 
-def _save_sets(build: SetsBuild) -> None:
-    write_sets(build.sets, datetime.now(tz=UTC))
-    print(f"{len(build.sets)} sets -> {tracked_folder() / 'sets.json'}")
+def _record_sets(build: SetsBuild) -> None:
+    """Record Bandai's sets that sets.json lacks as provisional (sets.json is never written) and report how it differs from Bandai."""
+    tracked = load_tracked_sets()
+    provisional = propose_sets(tracked, load_provisional_sets(), build.sets)
+    write_provisional_sets(provisional, datetime.now(tz=UTC))
+    if not tracked:
+        print(f"no tracked set list ({tracked_folder() / 'sets.json'}): every set is recorded as provisional")
+    print(f"{len(build.sets)} sets on Bandai's list, {len(provisional)} provisional -> {data_out_dir() / 'provisional_sets.json'}")
+    for line in reviewed_set_notes(tracked, build.sets):
+        print(line)
     _print_issues(build.issues)
 
 
@@ -107,7 +114,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
     code = 0
     if args.only in (None, "sets"):
         build = sync_sets(fetcher)
-        _save_sets(build)
+        _record_sets(build)
         code = 1 if build.issues else 0
         if args.only == "sets":
             print(f"{fetcher.network_requests} network request(s)")
@@ -151,9 +158,11 @@ def cmd_refetch(args: argparse.Namespace) -> int:
 
 
 def cmd_sets(_: argparse.Namespace) -> int:
+    if not load_tracked_sets():
+        print(f"no tracked set list ({tracked_folder() / 'sets.json'}); listing the provisional sets only", file=sys.stderr)
     sets = load_sets()
     if not sets:
-        print("no sets.json yet; run `sync --only sets` first", file=sys.stderr)
+        print("no provisional sets either; `sync --only sets` or `refresh` records them", file=sys.stderr)
         return 2
     today = date.today()
     print(f"{'code':7} {'kind':15} {'release':11} {'status':10} name")
@@ -167,10 +176,9 @@ def cmd_reparse(_: argparse.Namespace) -> int:
     issues: list[Issue] = []
     rebuilt = sets_from_raw(raw_folder())
     if rebuilt is not None:
-        _save_sets(rebuilt)
+        _record_sets(rebuilt)
         issues.extend(rebuilt.issues)
-    sets = rebuilt.sets if rebuilt is not None else load_sets()
-    dates = release_dates(sets)
+    dates = release_dates(load_sets())  # a reviewed set's date is the sets.json one
 
     loaded = load_source_pages()
     result = build_catalog(loaded.pages, dates)
@@ -413,7 +421,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     target.add_argument("--all", action="store_true", help="every listed printing (about 2,000 requests)")
     refetch.set_defaults(func=cmd_refetch)
     sub.add_parser("sets", help="list sets with release dates (no network)").set_defaults(func=cmd_sets)
-    sub.add_parser("reparse", help="rebuild sets/cards/traits files from the saved raw pages (no network)").set_defaults(
+    sub.add_parser("reparse", help="rebuild provisional sets/cards/traits files from the saved raw pages (no network; sets.json is "
+                   "never written)").set_defaults(
         func=cmd_reparse
     )
     sub.add_parser(

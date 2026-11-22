@@ -102,12 +102,8 @@ def write_atomic(path: Path, text: str) -> None:
         raise
 
 
-def write_sets(sets: tuple[CardSet, ...], generated_at: datetime, out_dir: Path | None = None) -> None:
-    write_atomic((out_dir or tracked_folder()) / "sets.json", _pretty(SetsFile(generated_at=generated_at, data=sets).model_dump_json()))
-
-
 def load_tracked_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:
-    """The reviewed, tracked sets.json, or () when it doesn't exist yet."""
+    """The reviewed, tracked sets.json, or () when there is none. Changed only by hand: no code writes it."""
     path = (out_dir or tracked_folder()) / "sets.json"
     if not path.is_file():
         return ()
@@ -115,7 +111,7 @@ def load_tracked_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:
 
 
 def load_provisional_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:
-    """Packages a refresh found on Bandai that sets.json does not have yet (dataset `provisional_sets.json`), or ()."""
+    """Sets a rebuild found on Bandai that sets.json does not have (dataset `provisional_sets.json`), or ()."""
     path = (out_dir or data_out_dir()) / "provisional_sets.json"
     return SetsFile.model_validate_json(path.read_text(encoding="utf-8")).data if path.is_file() else ()
 

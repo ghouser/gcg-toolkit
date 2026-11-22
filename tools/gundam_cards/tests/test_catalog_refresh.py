@@ -17,7 +17,7 @@ from shared.dataset import REPO_ROOT, TOOL_DATA_VAR
 from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher, Response
 from shared.test_fetch import _Handler, serve
 from tools.gundam_cards import cli
-from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind
+from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind, SetsFile
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key
 from tools.gundam_cards.refresh import ANOMALY_SHARE, RefreshReport, format_report, refresh_catalog
 from tools.gundam_cards.sets import CARDS_URL, PRODUCTS_URL
@@ -29,7 +29,6 @@ from tools.gundam_cards.store import (
     load_sets,
     raw_folder,
     write_provisional_sets,
-    write_sets,
 )
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
@@ -109,13 +108,19 @@ class FakeBandai:
         return [c for c in self.calls if c.startswith(DETAIL_URL.split("{}")[0])]
 
 
+def write_tracked_sets(sets: tuple[CardSet, ...], generated_at: datetime, folder: Path) -> None:
+    """A reviewed sets.json, as the owner keeps it by hand (no toolkit code writes it)."""
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "sets.json").write_text(SetsFile(generated_at=generated_at, data=sets).model_dump_json(), encoding="utf-8")
+
+
 @pytest.fixture
 def tracked(tmp_path: Path) -> Path:
     """A tracked folder with the reviewed sets.json: GD01 only."""
     folder = tmp_path / "tracked"
     gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising (reviewed)", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
                    release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
-    write_sets((gd01,), T1, folder)
+    write_tracked_sets((gd01,), T1, folder)
     return folder
 
 
@@ -608,7 +613,7 @@ def test_a_tracked_set_without_a_package_id_is_reported_known_and_an_untracked_o
                    release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
     gd06 = CardSet(code=SetCode("GD06"), name="Stardust Trails", kind=SetKind.BOOSTER, bandai_package_id=None,
                    release_date=date(2026, 9, 1), product_category_raw="BOOSTER PACK", product_url=None)
-    write_sets((gd01, gd06), T1, folder)
+    write_tracked_sets((gd01, gd06), T1, folder)
     run(site, folder, T1)
     site.packages[PackageId("616106")] = ("Stardust Trails [GD06]", ["GD06-001"])
     site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])

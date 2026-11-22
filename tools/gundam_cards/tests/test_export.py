@@ -220,7 +220,7 @@ def offline(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     restrictions = Restrictions(banned=(), limited=(), banned_pairs=(), vanilla_description="vanilla", vanilla_group=())
     fakes: dict[str, object] = {
         "Fetcher": Offline,
-        "sync_sets": lambda *_: SetsBuild((GD01, ST01)), "write_sets": lambda *_: None,
+        "sync_sets": lambda *_: SetsBuild((GD01, ST01)),
         "read_packages": lambda *_: ("one package",), "load_source_pages": lambda *_: LoadedPages((), ()),
         "sync_printings": lambda *_, **__: SyncReport(packages=1, listed=1, already_cached=1, fetched=0, failures=()),
         "select_printings": lambda *_, **__: (PrintingId("GD01-001"),),
