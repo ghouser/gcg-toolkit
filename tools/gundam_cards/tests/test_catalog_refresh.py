@@ -289,7 +289,7 @@ def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_
 
     first, provisional = catalog(), (data_out_dir() / "provisional_sets.json").read_bytes()
     again = run(site, tracked, T3)
-    assert again.written and again.new_cards == again.missed == again.changed == () and again.new_printings == ()
+    assert again.written and again.new_cards == again.missed == () and again.changed == () and again.new_printings == ()
     second = catalog()
     assert (second.data, second.records) == (first.data, first.records)  # only the refresh time moves
     assert (data_out_dir() / "provisional_sets.json").read_bytes() == provisional
@@ -417,7 +417,8 @@ def test_the_anomaly_guard_counts_changed_cards(site: FakeBandai, tracked: Path)
         (site.raw_dir / detail_page_key(PrintingId(number))).write_text(detail(number, name="Renamed"), encoding="utf-8")
     before = dataset_bytes()
     report = run(site, tracked, T2)
-    assert report.refused and report.changed == ("GD01-001", "GD01-002") and report.missed == ()
+    assert report.refused and [(c.number, c.fields) for c in report.changed] == [("GD01-001", ("name",)), ("GD01-002", ("name",))]
+    assert report.missed == ()
     assert dataset_bytes() == before
 
 
