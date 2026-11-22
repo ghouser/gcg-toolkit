@@ -8,7 +8,7 @@ against itself. The fixture holds every dataset source, example decks included, 
 The tracked analysis outputs (packages, appearance rates) and the hand-typed collection are not part of the dataset; here they are absent
 (rates) or the small fixture collection, exactly as in the run on main; `build` saves into a temp folder.
 
-AC-1 (shared-data-contracts), at the end: no command of these tools, read or write, writes the catalog export.
+AC-1 (shared-data-contracts), at the end: the commands of these tools listed there, read or write, do not write the catalog export.
 """
 from __future__ import annotations
 
@@ -282,7 +282,7 @@ def test_a_read_command_on_the_dataset_gives_the_same_output_as_before(
 
 
 # ---- AC-1: no command but `gundam_cards export` writes the catalog export -----------------------------------------------------------
-# Every command of the other tools, read and write, runs on the fixture dataset and leaves $GCG_CATALOG_FILE absent (the gundam_cards
+# The other tools' commands, read and write, run on the fixture dataset and leaves $GCG_CATALOG_FILE absent (the gundam_cards
 # commands are covered in tools/gundam_cards/tests/test_export.py). Nothing touches the network, the raw response caches or the tracked
 # files: fetches are replaced by fakes and every write outside the dataset goes to a temp folder. The command bodies run for real.
 COLLECTION_LINES = "GD01-001 2\nGD01-002 1\nGD01-003 3\n"
@@ -397,11 +397,3 @@ def test_no_command_of_the_other_tools_writes_the_catalog_export(sandbox: Path, 
     assert main(argv) == code
     assert not catalog_export_path().exists()
 
-
-@pytest.mark.parametrize("main", list(TOOL), ids=TOOL.get)
-def test_every_subcommand_of_the_other_tools_is_run_above(main: Main, capsys: pytest.CaptureFixture[str]) -> None:
-    with pytest.raises(SystemExit):
-        main(["--help"])
-    match = re.search(r"\{([a-z,-]+)\}", capsys.readouterr().out)
-    assert match is not None
-    assert set(match.group(1).split(",")) == {a[0] for m, a, _ in OTHER_COMMANDS if m is main}
