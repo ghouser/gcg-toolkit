@@ -26,7 +26,8 @@ The UI maintains what the owner has in one JSON file. The toolkit's collection c
 
 - **Identifiers** are printing ids; their shape is defined in `docs/catalog-export.md` (the "Identifiers" table): `ST01-001` is the base printing, `ST01-001_p5` an alternate printing. Case-sensitive, no spaces.
 - **Counts are integers of 1 or more.** A card not owned is left out of `counts`; the file never contains `null` and never a count of 0.
-- Readers ignore fields they do not know. An empty `counts` is valid.
+- The UI writes only these three top-level keys, and its own reader refuses a file with any other top-level key. The toolkit's reader is more lenient: it ignores fields it does not know. An empty `counts` is valid.
+- The UI records the printing it shows for a card: the base printing, or for a card listed only as variants (such as `EXB-001`) its first printing. So the file never holds a printing id the catalog lacks.
 - A printing id the toolkit's catalog does not know is not an error: the commands name it once on stderr, leave it out, and carry on.
 - Owning any printing of a card counts as owning the card; copies of different printings of one card add up.
 
@@ -35,7 +36,7 @@ A file that is present but invalid (not JSON, a missing or unreadable `updated_a
 ## Version policy
 
 - `schema_version` changes only for a **breaking** change: a field removed or renamed, made required where it was optional, or its type or meaning changed.
-- Not breaking: adding an optional field.
+- Not breaking: adding an optional field (the toolkit's reader ignores it; the UI's reader refuses top-level keys it does not know, so a new key needs the UI updated first).
 - A reader accepts the versions it was written for and refuses any other with a message naming the version found and the versions supported; it never guesses. The toolkit supports version 1.
 
 ## The legacy text list
