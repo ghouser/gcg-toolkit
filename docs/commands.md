@@ -7,7 +7,7 @@ Most views take `--source tournament|online|both`
 ## What do I own, and how much of each package / deck? (the band views)
 
     .venv/bin/python -m tools.gundam_collection.cli check                      # validate my_tcg_collection (typos, duplicates, unknown cards)
-    .venv/bin/python -m tools.gundam_collection.cli import                     # my_tcg_collection -> collection.json (the views also re-import it themselves when the file is newer and has no errors)
+    .venv/bin/python -m tools.gundam_collection.cli import                     # points to the UI, which keeps the collection (writes nothing); the views read $GCG_COLLECTION_FILE, else ~/.gcg/collection.json, else the old my_tcg_collection (docs/collection-file.md)
     .venv/bin/python -m tools.gundam_collection.cli coverage --source online --limit 40    # every package: band, share, cost to the next band, stage
     .venv/bin/python -m tools.gundam_collection.cli decks                      # decks by band (perfect .. reachable); add --all for the lower bands
     .venv/bin/python -m tools.gundam_collection.cli decks --all --min-rate 0   # every deck, even ones played in under 5% of decks

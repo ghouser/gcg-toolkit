@@ -1,15 +1,12 @@
-"""The import and the links between my collection, prices and associations, on the synthetic worlds."""
+"""The links between my collection, prices and associations, on the synthetic worlds."""
 from __future__ import annotations
 
+
 from datetime import UTC, datetime
-from pathlib import Path
 
 from shared.basetypes import CardNumber
-from tools.gundam_cards.models import CardKind
-from tools.gundam_collection.check import build_collection, check_lines
 from tools.gundam_collection.link import associated_cards, classify, critical_cards, package_coverage
-from tools.gundam_collection.models import Art, CardInfo, Stage
-from tools.gundam_collection.store import load_collection, owned_copies, write_collection
+from tools.gundam_collection.models import Stage
 from tools.gundam_packages.models import PackageId, PackagesFile, RatesFile, SquadCard, Squad, SynergyKind
 from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.tests import test_package_synergy as ps
@@ -31,18 +28,6 @@ def names(**overrides: str) -> dict[CardNumber, str]:
 
 def package_a() -> tuple[RatesFile, PackagesFile]:
     return rates(), base_file()
-
-
-def test_the_collection_is_summed_per_card_with_its_arts_and_round_trips(tmp_path: Path) -> None:
-    catalog = {N("GD02-041"): CardInfo(name="Gundam Aerial", kind=CardKind.UNIT, arts=frozenset({Art.BASE, Art.ALT})),
-               N("GD05-002"): CardInfo(name="Strike Freedom Gundam", kind=CardKind.UNIT, arts=frozenset({Art.BASE}))}  # fmt: skip
-    report = check_lines(["GD05-002 3", "GD02-041 1", "GD02-041+ 2", "GD02-041 1"], catalog, file="mine")
-    collection = build_collection(report, NOW)
-    assert [(c.card_number, c.copies) for c in collection.data] == [("GD02-041", 4), ("GD05-002", 3)]  # sorted, duplicates summed
-    assert [(p.art, p.copies) for p in collection.data[0].printings] == [(Art.BASE, 2), (Art.ALT, 2)]
-    write_collection(collection, tmp_path)
-    assert load_collection(tmp_path) == collection and owned_copies(collection) == {N("GD02-041"): 4, N("GD05-002"): 3}
-    assert load_collection(tmp_path / "nothing") is None and owned_copies(None) == {}
 
 
 def test_coverage_counts_critical_copies_against_the_majority_copy_count_and_prices_the_gap() -> None:

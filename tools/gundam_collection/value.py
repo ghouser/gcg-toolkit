@@ -1,8 +1,9 @@
 """What my collection is worth, by price band (no network): my copies times each card's latest TCGPlayer market price.
 
-A card's price is the cheapest buyable (non-alt-art, non-promo) product's market price for its card number (see gundam_cards design),
-so an alt art or a pricier printing I own is valued as the base card; cards with no such product (resources, EX cards, tokens) have
-no price and are listed apart.
+Each owned printing is valued at its own price when the store has one, else at its card's price: the cheapest buyable (non-alt-art,
+non-promo) product's market price for the card number (see gundam_cards design; a stopgap until prices are stored per printing), so an
+alt art with no price of its own is valued as the base card. Printings with neither (resources, EX cards, tokens) have no price and
+are listed apart.
 
 Bands are contiguous, in whole cents, split at increasing thresholds, and every threshold *opens* the band above it: a card priced at
 a threshold or more is in the higher band ("$0.50 and above"). With the default thresholds $0.50, $1, $5 and $10 the bands are:
@@ -11,12 +12,11 @@ a threshold or more is in the higher band ("$0.50 and above"). With the default 
 """
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from dataclasses import dataclass
 from itertools import pairwise
 
-from shared.basetypes import CardNumber
-from tools.gundam_collection.models import Art, OwnedCard
+from shared.basetypes import CardNumber, PrintingId
 
 DEFAULT_THRESHOLDS = (50, 100, 500, 1000)  # cents
 SELL_MIN_CENTS = 50  # a card worth at least this is worth selling: the value with the bulk ignored counts only those
@@ -24,11 +24,10 @@ SELL_MIN_CENTS = 50  # a card worth at least this is worth selling: the value wi
 
 @dataclass(frozen=True)
 class ValueLine:
-    card: CardNumber
+    printing: PrintingId
     name: str
     copies: int
     unit_cents: int
-    alt_art_copies: int  # copies recorded as an alt art: valued here as the base card
 
     @property
     def total_cents(self) -> int:
@@ -57,7 +56,7 @@ class Band:
 class ValueReport:
     thresholds: tuple[int, ...]
     tiers: tuple[Band, ...]  # lowest price first; one more than the thresholds
-    unpriced: tuple[tuple[CardNumber, str, int], ...]  # (card, name, copies): owned, no price
+    unpriced: tuple[tuple[PrintingId, str, int], ...]  # (printing, name, copies): owned, no price
 
     @property
     def bulk(self) -> Band:
@@ -102,7 +101,8 @@ def band_index(cents: int, thresholds: tuple[int, ...]) -> int:
 
 
 def analyze(
-    owned: Sequence[OwnedCard],
+    owned: Mapping[PrintingId, int],
+    printing_prices: Mapping[PrintingId, int],
     prices: Mapping[CardNumber, int],
     names: Mapping[CardNumber, str],
     thresholds: tuple[int, ...] = DEFAULT_THRESHOLDS,
@@ -110,15 +110,16 @@ def analyze(
     if not thresholds or thresholds[0] <= 0 or any(a >= b for a, b in pairwise(thresholds)):
         raise ValueError(f"thresholds must be increasing and positive: {thresholds}")
     grouped: list[list[ValueLine]] = [[] for _ in range(len(thresholds) + 1)]
-    unpriced: list[tuple[CardNumber, str, int]] = []
-    for card in owned:
-        name = names.get(card.card_number, str(card.card_number))
-        if card.card_number not in prices:
-            unpriced.append((card.card_number, name, card.copies))
+    unpriced: list[tuple[PrintingId, str, int]] = []
+    for printing, copies in owned.items():
+        card = printing.card_number
+        name = names.get(card, str(card))
+        cents = printing_prices.get(printing, prices.get(card))
+        if cents is None:
+            unpriced.append((printing, name, copies))
             continue
-        alt = sum(p.copies for p in card.printings if p.art is not Art.BASE)
-        line = ValueLine(card.card_number, name, card.copies, prices[card.card_number], alt)
-        grouped[band_index(line.unit_cents, thresholds)].append(line)
+        line = ValueLine(printing, name, copies, cents)
+        grouped[band_index(cents, thresholds)].append(line)
     names_ = labels(thresholds)
-    made = [Band(names_[i], tuple(sorted(g, key=lambda ln: (-ln.total_cents, -ln.unit_cents, ln.card)))) for i, g in enumerate(grouped)]
+    made = [Band(names_[i], tuple(sorted(g, key=lambda ln: (-ln.total_cents, -ln.unit_cents, ln.printing)))) for i, g in enumerate(grouped)]
     return ValueReport(thresholds, tuple(made), tuple(sorted(unpriced)))

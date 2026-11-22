@@ -5,8 +5,8 @@ output of the same commands from the code before this change (on `main`), run ag
 (where main kept it), passed through `normalized()`. Do not regenerate it with this branch's code: that would only check the code
 against itself. The fixture holds every dataset source, example decks included, so each is read back from `GCG_DATA_DIR`.
 
-The tracked analysis outputs (packages, appearance rates) and the hand-typed collection are not part of the dataset; here they are absent
-(rates) or the small fixture collection, exactly as in the run on main; `build` saves into a temp folder.
+The tracked analysis outputs (packages, appearance rates) and the collection are not part of the dataset; here they are absent
+(rates) or the small fixture collection file, exactly as in the run on main; `build` saves into a temp folder.
 
 AC-1 (shared-data-contracts), at the end: the commands of these tools listed there, read or write, do not write the catalog export.
 """
@@ -28,7 +28,6 @@ from tools.gundam_cards.models import Card, CardRecord, CardsFile, CardPrice, Pr
 from tools.gundam_cards.store import catalog_export_path
 from tools.gundam_collection import cli as collection_cli
 from tools.gundam_collection import store as collection_store
-from tools.gundam_collection.models import Art, CollectionFile, OwnedCard, OwnedPrinting
 from tools.gundam_meta import cli as meta_cli
 from tools.gundam_meta import duelfrontier
 from tools.gundam_meta.models import (
@@ -137,10 +136,11 @@ def normalized(out: str) -> str:
     return re.sub(r" -> \S+, \S+$", " -> <packages>, <rates>", out, flags=re.M)
 
 
-def collection() -> CollectionFile:
-    owned = ((CardNumber("GD01-001"), 2), (CardNumber("GD01-002"), 1), (CardNumber("GD01-003"), 3))
-    return CollectionFile(generated_at=CATALOG_AT, source_file="my_tcg_collection",
-                          data=tuple(OwnedCard(card_number=n, copies=c, printings=(OwnedPrinting(art=Art.BASE, copies=c),)) for n, c in owned))  # fmt: skip
+def write_collection_file(folder: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The small fixture collection, as the UI's file, found through GCG_COLLECTION_FILE."""
+    path = folder / "collection.json"
+    path.write_text('{"schema_version": 1, "updated_at": "2026-10-01T00:00:00Z", "counts": {"GD01-001": 2, "GD01-002": 1, "GD01-003": 3}}\n', encoding="utf-8")
+    monkeypatch.setenv("GCG_COLLECTION_FILE", str(path))
 
 
 COMMANDS: list[tuple[str, Main, list[str]]] = [
@@ -235,7 +235,7 @@ EXPECTED: dict[str, tuple[int, str]] = {
         '== my collection: 3 cards, 6 copies, worth $2.80 at TCGPlayer market prices (pulled 2026-10-09 21:00 UTC) ==\n'
         '   with the bulk ignored (cards of $0.50 or more, the ones worth selling): $2.50 from 1 cards, 2 copies\n'
         '   bulk (under $0.50 a card): $0.30 from 1 cards, 3 copies; the total above includes it\n'
-        "   each card is valued at the cheapest regular printing's market price, so an alt art or a pricier printing is valued as the base card\n"
+        "   each printing is valued at its own market price when one is stored, else at the card's (the cheapest regular printing's), so an alt art with no price of its own is valued as the base card\n"
         '\n'
         '== $10 or more: 0 cards, 0 copies, worth $0.00 ==\n'
         '   none\n'
@@ -264,8 +264,9 @@ def dataset(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     # What is not in the dataset is pinned to what the run on main saw: no saved price dumps, no rates built, the fixture collection.
     monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
     monkeypatch.setattr(packages_cli, "load_rates", lambda *a, **k: None)
-    monkeypatch.setattr(collection_cli, "_refresh_collection", lambda cards: None)
-    monkeypatch.setattr(collection_cli, "load_collection", lambda *a, **k: collection())
+    folder = tmp_path / "collection"
+    folder.mkdir()
+    write_collection_file(folder, monkeypatch)
     # `build` saves its packages and rates; here into a temp folder instead of the repository.
     out = tmp_path / "packages_out"
     monkeypatch.setattr(packages_cli, "write_packages", lambda file: packages_store.write_packages(file, out))
@@ -329,9 +330,8 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
     (coll / "my_tcg_collection").write_text(COLLECTION_LINES, encoding="utf-8")
     monkeypatch.setattr(collection_cli, "OUT_DIR", coll)
-    monkeypatch.setattr(collection_cli, "COLLECTION_PATH", coll / "my_tcg_collection")
-    monkeypatch.setattr(collection_cli, "write_collection", partial(collection_store.write_collection, out_dir=coll))
-    monkeypatch.setattr(collection_cli, "load_collection", partial(collection_store.load_collection, coll))
+    monkeypatch.setattr(collection_cli, "text_list_path", lambda: coll / "my_tcg_collection")
+    write_collection_file(coll, monkeypatch)
     monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
     monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))
 

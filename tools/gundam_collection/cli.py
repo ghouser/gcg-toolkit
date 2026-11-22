@@ -3,15 +3,16 @@
     .venv/bin/python -m tools.gundam_collection.cli check                     # validate my_tcg_collection: bad lines, unknown cards, duplicates
     .venv/bin/python -m tools.gundam_collection.cli check --file other.txt    # check another file
     .venv/bin/python -m tools.gundam_collection.cli template ST05 ST06        # the unique cards in a product, as "CARD ?" lines to fill in
-    .venv/bin/python -m tools.gundam_collection.cli import                    # my_tcg_collection -> collection.json (refuses if the file has errors)
+    .venv/bin/python -m tools.gundam_collection.cli import                    # points to the UI, which keeps the collection now (writes nothing)
     .venv/bin/python -m tools.gundam_collection.cli coverage [--source both]  # how complete each package is, home/adjacent/new, cost to complete
     .venv/bin/python -m tools.gundam_collection.cli card GD01-026             # one card: facts, price, what I own, associations, coverage
     .venv/bin/python -m tools.gundam_collection.cli value [--bands 0.5,1,5,10]   # what my collection is worth: cards by price band, with totals
     .venv/bin/python -m tools.gundam_collection.cli decks                     # decks I support, decks I am close to (a deck needs its core and staples)
     .venv/bin/python -m tools.gundam_collection.cli deck "Barbatos Tekkadan"  # one deck: what is missing, and the picks to get (never a 50-card list)
 
-The collection file is hand-typed, one card per line: `GD02-041 1` (card number, quantity; either order, `#` starts a comment).
-`check` reads only local files (the card catalog and your list), never the network. It exits 1 when the file has errors.
+The collection is the UI's file (`$GCG_COLLECTION_FILE`, else `~/.gcg/collection.json`; docs/collection-file.md), read here and never written.
+Until it exists the old hand-typed list (`my_tcg_collection`, one card per line: `GD02-041 1`) is read instead.
+`check` reads only local files (the card catalog and that list), never the network. It exits 1 when the list has errors.
 """
 from __future__ import annotations
 
@@ -20,12 +21,12 @@ import re
 import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from datetime import UTC, datetime
 from itertools import pairwise
 from pathlib import Path
 
-from shared.basetypes import CardNumber
+from shared.basetypes import CardNumber, PrintingId
 from shared.dataset import Kind, NoData
+from tools.gundam_cards.export import printing_prices as prices_of_printings
 from tools.gundam_cards.models import CardModel, PricedCard, color_of, cost_of, level_of
 from tools.gundam_cards.legality import Rules
 from tools.gundam_cards.store import load_catalog_or_fail
@@ -33,7 +34,7 @@ from tools.gundam_cards.store import load_restrictions
 from tools.gundam_cards.store import load_cards_with_prices, prices_as_of
 from tools.gundam_collection.alternatives import candidates, owned_alternatives
 from tools.gundam_collection.bands import BANDS, THRESHOLDS, Band, NextBand
-from tools.gundam_collection.check import build_collection, catalog_info, check_lines, set_template
+from tools.gundam_collection.check import catalog_info, check_lines, set_template
 from tools.gundam_collection.decks import (
     anchor_of,
     LAYERS,
@@ -66,7 +67,8 @@ from tools.gundam_collection.link import (
     package_coverage,
 )
 from tools.gundam_collection.models import CheckReport, Severity, Stage
-from tools.gundam_collection.store import COLLECTION_PATH, OUT_DIR, REPO_ROOT, load_collection, load_deck_names, owned_copies, save_deck_names, write_collection
+from tools.gundam_collection.collection_file import CollectionRefused, Owned, Source, collection_file_path, read_owned, text_list_path
+from tools.gundam_collection.store import OUT_DIR, REPO_ROOT, load_deck_names, save_deck_names
 from tools.gundam_collection.value import DEFAULT_THRESHOLDS, SELL_MIN_CENTS, ValueReport, analyze
 from tools.gundam_packages.models import DataSource, PackageId, PackageRates, PackagesFile, RatesFile, Squad, typical_copies
 from tools.gundam_packages.store import load_packages, load_rates
@@ -94,7 +96,7 @@ def _print_report(report: CheckReport, quiet: bool) -> None:
 
 
 def cmd_check(args: argparse.Namespace) -> int:
-    path = Path(args.file)
+    path = Path(args.file) if args.file else text_list_path()
     if not path.is_file():
         print(f"no such file: {path}", file=sys.stderr)
         return 2
@@ -121,18 +123,7 @@ def cmd_template(args: argparse.Namespace) -> int:
 
 
 def cmd_import(args: argparse.Namespace) -> int:
-    path = Path(args.file)
-    if not path.is_file():
-        print(f"no such file: {path}", file=sys.stderr)
-        return 2
-    report = check_lines(path.read_text(encoding="utf-8").splitlines(), catalog_info(_cards()), file=_portable(path))
-    if not report.ok:
-        _print_report(report, quiet=True)
-        print("\nnot imported: fix the errors above first", file=sys.stderr)
-        return 1
-    out = write_collection(build_collection(report, datetime.now(UTC)))
-    warnings = sum(1 for i in report.issues if i.severity is Severity.WARNING)
-    print(f"imported {report.distinct_cards} cards, {report.total_copies} copies -> {out}" + (f" ({warnings} warning(s); run `check` to see them)" if warnings else ""))
+    print("the collection is kept in the UI now: use it to add and edit what you own (nothing was imported or written here)")
     return 0
 
 
@@ -143,7 +134,9 @@ class Layers:
 
     cards: Mapping[CardNumber, PricedCard]
     prices: Mapping[CardNumber, int]
-    owned: Mapping[CardNumber, int]
+    printing_prices: Mapping[PrintingId, int]
+    owned: Mapping[CardNumber, int]  # any printing of a card is the card
+    printings: Mapping[PrintingId, int]
     have_collection: bool
 
 
@@ -155,30 +148,34 @@ def _portable(path: Path) -> str:
         return str(path)
 
 
-def _refresh_collection(cards: Mapping[CardNumber, PricedCard]) -> None:
-    """Pick up edits to the hand-typed file: when it is newer than the last import and has no errors, import it again (a derived file, nothing is
-    guessed); with errors, keep the last good import and say so. Says what it did on stderr, never silently."""
-    source = COLLECTION_PATH
-    out = OUT_DIR / "collection.json"
-    if not source.is_file() or (out.is_file() and source.stat().st_mtime <= out.stat().st_mtime):
-        return
-    report = check_lines(source.read_text(encoding="utf-8").splitlines(), catalog_info(c.card for c in cards.values()), file=_portable(source))
-    if not report.ok:
-        print(f"note: my_tcg_collection has errors, so the last good import is used (run `check`): {len(report.errors)} error(s)", file=sys.stderr)
-        return
-    write_collection(build_collection(report, datetime.now(UTC)))
-    print(f"note: my_tcg_collection changed, re-imported {report.distinct_cards} cards, {report.total_copies} copies", file=sys.stderr)
+def _say_what_was_read(owned: Owned) -> None:
+    """On stderr: that the text list stands in for the missing collection file, and each printing id the catalog does not know."""
+    if owned.source is Source.TEXT_LIST:
+        print(f"note: no collection file at {collection_file_path()}; reading the text list {text_list_path().name} instead (read-only; "
+              f"{owned.markers} marker lines (+, ++, LK) counted as the base printing)", file=sys.stderr)
+    for printing in owned.unknown:
+        print(f"note: {printing} in the {owned.source.value} is not in the catalog and was left out", file=sys.stderr)
 
 
 def _layers() -> Layers:
     priced = load_cards_with_prices()
     cards = {p.card.number: p for p in priced}
     prices = {n: p.latest_tcg_price.price_cents for n, p in cards.items() if p.latest_tcg_price is not None}
+    own_prices = {
+        printing: cents
+        for p in priced
+        if p.latest_tcg_price is not None
+        for printing, (cents, _) in prices_of_printings(p.card, (p.latest_tcg_price,)).items()
+    }
     if prices_as_of() is None:
         print(f"{NoData(Kind.PRICES)}; every card counts as unpriced", file=sys.stderr)
-    _refresh_collection(cards)
-    collection = load_collection()
-    return Layers(cards, prices, owned_copies(collection), collection is not None)
+    owned = read_owned([printing.id for p in priced for printing in p.card.printings])
+    _say_what_was_read(owned)
+    return Layers(cards, prices, own_prices, owned.cards, owned.printings, owned.source is not Source.NONE)
+
+
+def _no_collection() -> None:
+    print(f"no collection yet: the UI creates {collection_file_path()} (or set GCG_COLLECTION_FILE)", file=sys.stderr)
 
 
 def _sources(choice: str) -> list[DataSource]:
@@ -210,7 +207,7 @@ def _coverages(packages: PackagesFile, rates: RatesFile, layers: Layers) -> tupl
 def cmd_coverage(args: argparse.Namespace) -> int:
     layers = _layers()
     if not layers.have_collection:
-        print("no collection.json yet; run `import` first", file=sys.stderr)
+        _no_collection()
         return 2
     for source in _sources(args.source):
         loaded = _load_source(source)
@@ -260,7 +257,7 @@ def cmd_card(args: argparse.Namespace) -> int:
     price = priced.latest_tcg_price
     print(f"  price:  {_usd(price.price_cents) + f'  (TCGPlayer market, product {price.product_id}, pulled {price.fetched_at:%Y-%m-%d})' if price else 'no TCGPlayer price (not a buyable single)'}")
     have = layers.owned.get(number, 0)
-    print(f"  owned:  {have} copies" + ("" if layers.have_collection else "  (no collection.json yet: run `import`)"))
+    print(f"  owned:  {have} copies" + ("" if layers.have_collection else "  (no collection yet: the UI creates it)"))
     for source in _sources(args.source):
         loaded = _load_source(source)
         if loaded is None:
@@ -303,7 +300,7 @@ def _parse_bands(text: str) -> tuple[int, ...]:
     return values
 
 
-def _label_of(name: str, number: CardNumber, width: int = 36) -> str:
+def _label_of(name: str, number: str, width: int = 36) -> str:
     """`Name (NUMBER)`, with a long name cut short so the number always shows."""
     return f"{name if len(name) <= width else name[: width - 1] + '…'} ({number})"
 
@@ -320,8 +317,7 @@ def _print_value(report: ValueReport, limit: int | None) -> None:
             continue
         print(f"   {'card':52} {'copies':>6} {'each':>9} {'worth':>10}")
         for line in band.lines[:limit]:
-            note = f"  (you own {line.alt_art_copies} as an alt art; priced as the base card)" if line.alt_art_copies else ""
-            print(f"   {_label_of(line.name, line.card):52} {line.copies:>6} {_usd(line.unit_cents):>9} {_usd(line.total_cents):>10}{note}")
+            print(f"   {_label_of(line.name, line.printing):52} {line.copies:>6} {_usd(line.unit_cents):>9} {_usd(line.total_cents):>10}")
         if limit is not None and len(band.lines) > limit:
             print(f"   ... and {len(band.lines) - limit} more")
     b = report.bulk
@@ -330,26 +326,25 @@ def _print_value(report: ValueReport, limit: int | None) -> None:
 
 def cmd_value(args: argparse.Namespace) -> int:
     layers = _layers()
-    collection = load_collection()
-    if collection is None:
-        print("no collection.json yet; run `import` first", file=sys.stderr)
+    if not layers.have_collection:
+        _no_collection()
         return 2
     thresholds = _parse_bands(args.bands)
-    report = analyze(collection.data, layers.prices, {n: c.card.name for n, c in layers.cards.items()}, thresholds)
+    report = analyze(layers.printings, layers.printing_prices, layers.prices, {n: c.card.name for n, c in layers.cards.items()}, thresholds)
     pulled = max((c.latest_tcg_price.fetched_at for c in layers.cards.values() if c.latest_tcg_price), default=None)
-    owned_total = sum(c.copies for c in collection.data)
+    owned_total = sum(layers.printings.values())
     sell_value, sell_cards, sell_copies = report.sellable(SELL_MIN_CENTS)
     bulk_value, bulk_cards, bulk_copies = report.bulk_below(SELL_MIN_CENTS)
-    print(f"== my collection: {len(collection.data)} cards, {owned_total} copies, worth {_usd(report.total_cents)} at TCGPlayer market prices"
+    print(f"== my collection: {len(layers.owned)} cards, {owned_total} copies, worth {_usd(report.total_cents)} at TCGPlayer market prices"
           + (f" (pulled {pulled:%Y-%m-%d %H:%M} UTC)" if pulled else "") + " ==")
     print(f"   with the bulk ignored (cards of {_usd(SELL_MIN_CENTS)} or more, the ones worth selling): {_usd(sell_value)} from {sell_cards} cards, {sell_copies} copies")
     print(f"   bulk (under {_usd(SELL_MIN_CENTS)} a card): {_usd(bulk_value)} from {bulk_cards} cards, {bulk_copies} copies; the total above includes it")
-    print("   each card is valued at the cheapest regular printing's market price, so an alt art or a pricier printing is valued as the base card")
+    print("   each printing is valued at its own market price when one is stored, else at the card's (the cheapest regular printing's), so an alt art with no price of its own is valued as the base card")
     _print_value(report, args.limit)
     if args.bulk:
         print(f"\n   {report.bulk.label}:")
         for line in report.bulk.lines:
-            print(f"   {_label_of(line.name, line.card):52} {line.copies:>6} {_usd(line.unit_cents):>9} {_usd(line.total_cents):>10}")
+            print(f"   {_label_of(line.name, line.printing):52} {line.copies:>6} {_usd(line.unit_cents):>9} {_usd(line.total_cents):>10}")
     if report.unpriced:
         kinds = ", ".join(f"{n} {name}" for n, name, _ in report.unpriced[:6])
         print(f"\n   {len(report.unpriced)} owned cards have no price (resources, EX cards or tokens: not sold as singles): {kinds}{', ...' if len(report.unpriced) > 6 else ''}")
@@ -360,7 +355,7 @@ def cmd_value(args: argparse.Namespace) -> int:
 def _deck_context(choice: str, min_rate: float) -> tuple[Layers, list[DeckCoverage], dict[DataSource, dict[PackageId, Stage]]] | None:
     layers = _layers()
     if not layers.have_collection:
-        print("no collection.json yet; run `import` first", file=sys.stderr)
+        _no_collection()
         return None
     sources: dict[DataSource, tuple[PackagesFile, RatesFile]] = {}
     for source in _sources(choice):
@@ -907,15 +902,14 @@ def cmd_deck(args: argparse.Namespace) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
-    check = sub.add_parser("check", help="validate the collection file: bad lines, unknown cards, duplicates (no network)")
-    check.add_argument("--file", default=str(COLLECTION_PATH), help="the collection file (default shared/data/gundam_collection/my_tcg_collection)")
+    check = sub.add_parser("check", help="validate the text list: bad lines, unknown cards, duplicates (no network)")
+    check.add_argument("--file", default=None, help="the text list (default shared/data/gundam_collection/my_tcg_collection)")
     check.add_argument("--quiet", action="store_true", help="hide info-level notes (resource cards, large totals)")
     check.set_defaults(func=cmd_check)
     template = sub.add_parser("template", help="print the unique cards in a product with ? quantities to fill in")
     template.add_argument("sets", nargs="+", help="set codes, e.g. ST05 SC01")
     template.set_defaults(func=cmd_template)
-    imp = sub.add_parser("import", help="turn my_tcg_collection into collection.json (refuses if the file has errors)")
-    imp.add_argument("--file", default=str(COLLECTION_PATH), help="the collection file")
+    imp = sub.add_parser("import", help="points to the UI, which keeps the collection now (writes nothing)")
     imp.set_defaults(func=cmd_import)
     cov = sub.add_parser("coverage", help="how complete each package is, its stage (home/adjacent/new) and the cost to complete (no network)")
     cov.add_argument("--source", choices=["tournament", "online", "both"], default="tournament")
@@ -998,6 +992,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     except NoData as e:
         print(e, file=sys.stderr)
         return 2
+    except CollectionRefused as e:
+        print(f"refused: {e}", file=sys.stderr)
+        return 1
     return code
 
 

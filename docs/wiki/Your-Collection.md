@@ -25,7 +25,7 @@ The warnings above are not errors: a card listed twice adds up, and `check` tell
 
 ## Import it
 
-`import` turns your file into `collection.json`. You rarely need to run it yourself: every view re-imports the file when it is newer and has no errors.
+Your collection now lives in the UI's collection file (`docs/collection-file.md`). Until that file exists the views read your text file as it is, read-only, and say so. `import` only points you to the UI; it writes nothing.
 
 ## See what it is worth
 

@@ -12,7 +12,7 @@ import pytest
 from tools.gundam_cards.store import load_catalog
 from tools.gundam_collection import cli
 from tools.gundam_collection.decks import Deck, is_played
-from tools.gundam_collection.store import COLLECTION_PATH
+from tools.gundam_collection.collection_file import collection_file_path, text_list_path
 from tools.gundam_collection.styles import Plan, Style, style_of
 from tools.gundam_packages.models import DataSource
 
@@ -22,13 +22,12 @@ STRIKE_FREEDOM = "GD05-002"  # Kira Strike Freedom: the tournament favorite (abo
 
 pytestmark = [
     pytest.mark.real_data,
-    pytest.mark.skipif(load_catalog() is None or not COLLECTION_PATH.is_file(), reason="no card catalog in the dataset or no collection file"),
+    pytest.mark.skipif(load_catalog() is None or not (collection_file_path().is_file() or text_list_path().is_file()), reason="no card catalog in the dataset or no collection file"),
 ]
 
 
 @pytest.fixture(scope="module")
 def meta(monkeypatch_module: pytest.MonkeyPatch) -> tuple[list[Deck], dict[str, Style]]:
-    monkeypatch_module.setattr(cli, "_refresh_collection", lambda cards: None)  # the test must not rewrite the repository's collection file
     context = cli._deck_context("both", 0.0)
     assert context is not None
     layers, coverages, _ = context
@@ -77,7 +76,6 @@ def test_every_strike_freedom_deck_is_control_and_the_main_one_is_all_interactio
 
 
 def test_the_barbatos_aggro_suggestion_brings_the_char_package_and_its_link_pairs(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
-    monkeypatch.setattr(cli, "_refresh_collection", lambda cards: None)
     assert cli.main(["suggest", "barbatos", "aggro", "PB", "--pool", "0"]) == 0
     out = capsys.readouterr().out
     assert "B/P" in out and "aggro" in out.split("rating of this 50:")[1].split("\n")[0]

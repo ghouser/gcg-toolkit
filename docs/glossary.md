@@ -81,7 +81,7 @@ The words and variable names used across the tools, so docs, code, CLI output an
 | **Reach** | The share of all decks that run a card or any acceptable alternative: how durable a purchase is. |
 | **Unlock** | How much filling a slot enables: the sum, over packages needing it, of the package's played rate divided by its remaining missing slots. |
 | **Price tier** | Market-price band: bulk up to $0.50, cheap up to $2.00, mid up to $10.00, premium above. |
-| **Collection file** | `shared/data/gundam_collection/my_tcg_collection`: my hand-typed list of `CARD QUANTITY` lines, the source of truth; `collection.json` is derived from it. Validated by `gundam_collection check`. |
+| **Collection file** | The UI's JSON file of printing id -> count (`$GCG_COLLECTION_FILE`, else `~/.gcg/collection.json`; `docs/collection-file.md`); the toolkit only reads it. Until it exists the commands read the old hand-typed text list `shared/data/gundam_collection/my_tcg_collection` (`CARD QUANTITY` lines), validated by `gundam_collection check`. |
 
 ## Appearance rates (the math: `tools/gundam_packages/appearance-rates.md`)
 Perspective package **X** is the package being looked at; **W** is another package played with it.

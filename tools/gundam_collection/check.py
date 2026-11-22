@@ -9,7 +9,6 @@ from __future__ import annotations
 import difflib
 from collections import defaultdict
 from collections.abc import Iterable, Mapping
-from datetime import datetime
 
 from shared.basetypes import CardNumber
 from tools.gundam_cards.models import CardKind, CardModel
@@ -17,13 +16,10 @@ from tools.gundam_collection.models import (
     Art,
     CardInfo,
     CheckReport,
-    CollectionFile,
     Entry,
     Issue,
     IssueCode,
     KindTotal,
-    OwnedCard,
-    OwnedPrinting,
     Severity,
 )
 from tools.gundam_collection.parse import parse_lines
@@ -122,23 +118,3 @@ def set_template(cards: Iterable[CardModel], set_code: str) -> tuple[CardNumber,
         c.number for c in cards
         if any(p.set_code is not None and str(p.set_code) == set_code and p.alt_art_level == 0 and not p.link_art for p in c.printings)
     ))  # fmt: skip
-
-
-def build_collection(report: CheckReport, generated_at: datetime) -> CollectionFile:
-    """The structured collection from a clean check: copies per card, summed across lines, with the arts they came in."""
-    by_art: dict[CardNumber, dict[Art, int]] = defaultdict(lambda: defaultdict(int))
-    for entry in report.entries:
-        by_art[entry.card_number][entry.art] += entry.copies or 0
-    order = {a: i for i, a in enumerate(Art)}
-    return CollectionFile(
-        generated_at=generated_at,
-        source_file=report.file,
-        data=tuple(
-            OwnedCard(
-                card_number=number,
-                copies=sum(arts.values()),
-                printings=tuple(OwnedPrinting(art=a, copies=n) for a, n in sorted(arts.items(), key=lambda kv: order[kv[0]])),
-            )
-            for number, arts in sorted(by_art.items())
-        ),
-    )

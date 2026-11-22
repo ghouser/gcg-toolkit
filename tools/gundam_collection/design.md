@@ -1,6 +1,6 @@
 # Gundam Collection
 
-**Status:** Draft for the planner (`plan`, `export`, the deck report). Built: the collection file and `check`/`template`, `import`, `coverage`, the cross-layer `card` view, and the links they use (`link.py`).
+**Status:** Draft for the planner (`plan`, `export`, the deck report). Built: reading the UI's collection file (text-list fallback), `check`/`template`, `import` (a pointer to the UI), `coverage`, the cross-layer `card` view, and the links they use (`link.py`).
 **Folder:** `tools/gundam_collection/`
 **Backlog item:** workspace backlog > Collection and purchase planning (replaces the TCG Store Recommendation tool and the parked Collection management tool)
 
@@ -62,7 +62,7 @@ Beyond the hard rules above, these are defaults (named constants, adjustable):
 - **Colors and archetypes** are not asked for: they follow from what I own (home packages) and from `preferences.json` pins.
 
 ## Collection input (question 2)
-I type my binder into a plain text file, `shared/data/gundam_collection/my_tcg_collection` (hand-maintained, my source of truth). The tool turns it into structured data and reports every line it could not use. Re-running is idempotent: the file is read in full each time. **Card numbers only** (no names): a card number is exact, so nothing is ever matched by guessing.
+I type my binder into a plain text file, `shared/data/gundam_collection/my_tcg_collection` (hand-maintained; now only the read-only fallback until the UI's collection file exists). The tool turns it into structured data and reports every line it could not use. Re-running is idempotent: the file is read in full each time. **Card numbers only** (no names): a card number is exact, so nothing is ever matched by guessing.
 
 ```
 # a comment; blank lines are fine
@@ -85,7 +85,7 @@ Ownership counts by **card number** (any printing satisfies a slot); the art mar
 ```
 python3 -m tools.gundam_collection.cli check               # validate my_tcg_collection: bad lines, unknown cards, duplicates (built)
 python3 -m tools.gundam_collection.cli template ST05 SC01  # unique cards in a product, as "CARD ?" lines to fill in (built)
-python3 -m tools.gundam_collection.cli import              # my_tcg_collection -> collection.json; refuses if the file has errors (built)
+python3 -m tools.gundam_collection.cli import              # points to the UI, which keeps the collection; writes nothing (built)
 python3 -m tools.gundam_collection.cli coverage [--source tournament|online|both]   # critical copies owned per package, home/adjacent/new, cost to complete (built)
 python3 -m tools.gundam_collection.cli card GD01-026       # one card across every layer: facts, price, what I own, associations, coverage (built)
 python3 -m tools.gundam_collection.cli decks               # every deck by completeness band, with the cost to the next band (design below)
@@ -111,7 +111,7 @@ python3 -m tools.gundam_collection.cli export --format massentry   # the plan as
 ## Outputs
 | File | Format | Key | Fields | Consumers |
 |---|---|---|---|---|
-| `shared/data/gundam_collection/collection.json` | JSON (envelope) | card number | `CollectionFile`: per card `copies`, `printings` (marker, copies), `notes` (binder headers) | this tool, others |
+| `~/.gcg/collection.json` (`$GCG_COLLECTION_FILE`) | JSON | printing id | `counts`: printing id -> count (`docs/collection-file.md`) | the UI writes it; this tool only reads it |
 | `shared/data/gundam_collection/import_report.json` | JSON (envelope) | line number | lines not applied (reason, candidates), duplicates summed | me |
 | `tools/gundam_collection/data/out/plan.json` | JSON (envelope) | slot | the purchase plan with reasons | export, me |
 | `tools/gundam_collection/data/out/massentry.txt` | text | line | the pasteable list | TCGPlayer Mass Entry |
@@ -188,7 +188,7 @@ One ladder says **how much of a package or deck I have**, measured on copies: a 
 - **Calibration:** `styles --explain` prints the ratings and the measured numbers for the most played decks; the labels are checked against what I know of the meta and the anchors tuned.
 - **Built (2026-10-08):** `styles.py` (pure; 6 tests), the `styles` command, and colors and plan in the `decks` table and the `deck` header. Assumption to confirm: "burst" among the beatdown's wants was read as the Breach keyword.
 
-**Edits are picked up automatically (2026-10-08).** Every view first compares `my_tcg_collection` with `collection.json`; if the file is newer and has no errors it re-imports it and says so on stderr (`note: my_tcg_collection changed, re-imported ...`); with errors it keeps the last good import and says so. `import` still works on its own.
+**The collection is the UI's file (2026-11-22, `collection-file-read`).** `collection_file.py` is the one reader: it reads `$GCG_COLLECTION_FILE` (else `~/.gcg/collection.json`; schema in `docs/collection-file.md`) as printing id -> count, refuses an unsupported version or any invalid file (exit 1, no fallback), reports ids the catalog does not know once each on stderr, and never writes. The commands use the card view (any printing is the card); `value` prices each printing at its own price when stored, else at the card's. Until the file exists, `my_tcg_collection` is read read-only as the fallback (every line is a base printing; stderr says how many marker lines were counted); when the file exists the list is not read, and the two are never merged. The derived `collection.json`, the auto re-import and the converter are gone; `import` only points to the UI. `check` and `template` stay for the text list until the fallback is removed.
 
 ## Buy recommendations: `buy <archetype>` (decided 2026-10-08)
 
@@ -239,7 +239,7 @@ Single-deck play rates are all small (the best is 12% and only 8 decks reach 5%)
 - **Known soft spots:** a deck near a plan line (a beatdown score of 40 vs 41) lands in a different archetype; tiny-sample decks are noisy; tournament and online disagree a lot (Kira control is 36% of tournament decks but 7% online), so both are always shown.
 
 ## What is built: the linked views (2026-10-08)
-**The links.** Everything joins on the card number: the master card model and its latest price (`gundam_cards`, `PricedCard`), what I own (`collection.json`), and the associations (`packages*.json`, `rates*.json`, for tournament and online decks). `link.py` is pure functions over loaded data; the CLI loads the layers and prints.
+**The links.** Everything joins on the card number: the master card model and its latest price (`gundam_cards`, `PricedCard`), what I own (the collection file), and the associations (`packages*.json`, `rates*.json`, for tournament and online decks). `link.py` is pure functions over loaded data; the CLI loads the layers and prints.
 - **Slot:** a place in a package that needs copies of one card; every required card is its own slot (same-job cards are redundant, not substitutes). Copies needed = the **majority copy count** from the histogram (the most copies at least half of the package's decks run). **Critical** = the core members' copies; optional members are layer 3.
 - **Coverage:** critical copies I own over critical copies needed, per package; **cost to complete** = the missing critical copies at the cheapest printing's market price (a minimum, and it says so, when a card has no price).
 - **Stage:** home = I own at least half of the critical copies; adjacent = not home but shares a critical card (a core member or a bridge) with a home package; new = neither.
@@ -249,7 +249,7 @@ Single-deck play rates are all small (the best is 12% and only 8 decks reach 5%)
 First run on the real data (164 cards, 535 copies, all the starter decks typed so far): Kira Aile Strike is complete (8 of 8 critical copies, the ST04 deck), Amuro Ray 5 of 8, Mikazuki Barbatos 4 of 12 and $210 to complete (Gundam Barbatos 1st Form alone is $43.44), Marida Kshatriya $179 (Kshatriya $44.29).
 
 ## Price analyzer: `value` (2026-10-08)
-`python3 -m tools.gundam_collection.cli value [--bands 0.5,1,5,10] [--limit N] [--bulk]`: what my collection is worth, from `collection.json` and the newest price snapshot (no network). Each card is valued at its latest TCGPlayer market price times my copies. **Bands are contiguous, in whole cents:** `under $0.50` (bulk, counted but not listed unless `--bulk`), `$0.50 to under $1`, `$1 to under $5`, `$5 to under $10`, and `$10 or more`. Edge rule (changed 2026-10-08): **every threshold opens the band above it**, so a card priced at exactly a threshold is in the higher band (a card at $0.50 is "$0.50 and above"); the header also shows the value with the bulk ignored (cards of $0.50 or more, the ones worth selling) and the bulk's own value.
+`python3 -m tools.gundam_collection.cli value [--bands 0.5,1,5,10] [--limit N] [--bulk]`: what my collection is worth, from the collection file and the newest price snapshot (no network). Each owned printing is valued at its own market price when the store has one, else at its card's latest TCGPlayer market price (a stopgap until prices are stored per printing), times my copies. **Bands are contiguous, in whole cents:** `under $0.50` (bulk, counted but not listed unless `--bulk`), `$0.50 to under $1`, `$1 to under $5`, `$5 to under $10`, and `$10 or more`. Edge rule (changed 2026-10-08): **every threshold opens the band above it**, so a card priced at exactly a threshold is in the higher band (a card at $0.50 is "$0.50 and above"); the header also shows the value with the bulk ignored (cards of $0.50 or more, the ones worth selling) and the bulk's own value.
 
 ## Deck report: `decks` and `deck` (agreed 2026-10-09; built)
 **Purpose.** Show which decks my collection supports, which it is close to supporting, and for one deck exactly which cards to get next. It **never produces a 50-card list**: its job is to grow the collection, so it reports gaps and picks (what to buy, how many, what it costs, why), under the goals at the top of this file.
@@ -304,7 +304,7 @@ Each pick says: copies to buy, unit and line price, why ("core of Tekkadan", "br
 
 **Both sources.** The default is both: a slot is critical if it is critical in either source, at the larger copy count (goal 1: never miss a critical card); each line says which source needs it. `--source tournament|online` restricts to one.
 
-**Outputs.** Read-only views (no new files). All numbers come from `collection.json`, the newest price snapshot, `packages*.json` and `rates*.json`.
+**Outputs.** Read-only views (no new files). All numbers come from the collection file, the newest price snapshot, `packages*.json` and `rates*.json`.
 
 **Acceptance checks (a first list).**
 - Every core copy of a deck's packages, and the bridges of each pair, appear in its core section (goals 1 and 2); the Mikazuki Barbatos + Tekkadan deck lists the three Barbatos cards, the four Tekkadan cards and the bridge Gundam Flauros.
