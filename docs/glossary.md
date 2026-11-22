@@ -25,6 +25,7 @@ The words and variable names used across the tools, so docs, code, CLI output an
 | **Provisional package** | A Bandai set that a rebuild (`refresh`, `sync`, `reparse`) found but the reviewed `sets.json` does not have. Kept in the local dataset and usable at once; the owner promotes it into `sets.json` by hand. |
 | **Catalog export** | The versioned JSON file of every card, its printings with a price each, and the reference vocabularies (sets, kinds with a deck flag, colors, rarities), written by `gundam_cards export` for the UI to read. Contract: `docs/catalog-export.md`. |
 | **No longer listed** | A card absent from Bandai's listings in two consecutive complete refreshes (one miss only records it as *missed once*). It stays in the catalog with its last data. |
+| **Orphan page** | A cached Bandai detail page whose card number is in no package listing of a refresh and not in the catalog. The refresh reports it by printing id and leaves it out of the catalog; it does not count toward the anomaly guard. |
 
 ## Relations between cards (read from the card text, never from decks)
 | Term | Meaning |

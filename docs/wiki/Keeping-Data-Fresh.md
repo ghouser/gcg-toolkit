@@ -9,7 +9,7 @@ Prices, the banned list and the packages go stale. The repository ships with dat
 | Tournament events | `gundam_meta sync` |
 | Re-derive the packages after new data | `gundam_packages build` and `gundam_packages build --source online` |
 
-Each is run as `.venv/bin/python -m tools.<tool>.cli <command>`. Raw responses are cached under each tool's `data/raw/` folder (not part of the repository), so a re-run does not hit the sites again.
+Each is run as `.venv/bin/python -m tools.<tool>.cli <command>`. Raw responses are cached under each tool's `data/raw/` folder (not part of the repository), so a re-run does not hit the sites again. Bandai's card pages are the exception: they are cached once in the dataset (`$GCG_DATA_DIR/gundam_cards/pages/`), so every copy of the repository shares them.
 
 ## The banned and restricted list in force
 
