@@ -114,11 +114,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
     code = 0
     if args.only in (None, "sets"):
         build = sync_sets(fetcher)
-        _record_sets(build)
         code = 1 if build.issues else 0
         if args.only == "sets":
+            _record_sets(build)
             print(f"{fetcher.network_requests} network request(s)")
             return code
+        # The full sync records the sets once, in the reparse below, from the pages just cached (so each report line appears once).
     packages = read_packages(raw_folder())
     if not packages:
         print("no cached package list; run `sync` (without --only printings) first", file=sys.stderr)

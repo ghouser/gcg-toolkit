@@ -14,6 +14,7 @@ import pytest
 from shared.basetypes import CardNumber, PackageId, SetCode
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardSet, SetKind, SetsFile
+from tools.gundam_cards.sets import reviewed_set_notes
 from tools.gundam_cards.store import catalog_export_path, load_catalog, load_provisional_sets, raw_folder, tracked_folder
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail
 
@@ -69,6 +70,18 @@ def provisional() -> dict[str, CardSet]:
     return {str(s.code): s for s in load_provisional_sets()}
 
 
+def assert_reported_once(out: str) -> None:
+    lines = out.splitlines()
+    assert lines.count(PB03_LINE) == 1 and lines.count(GD01_LINE) == 1
+
+
+def gd01_as_of() -> date | None:
+    catalog = load_catalog()
+    assert catalog is not None
+    [card] = [c for c in catalog.data if c.number == CardNumber("GD01-001")]
+    return card.text_versions[0].as_of
+
+
 @pytest.mark.parametrize("argv", [["sync", "--only", "sets"], ["sync"], ["refresh"]], ids=" ".join)
 def test_a_rebuild_leaves_sets_json_byte_identical_and_proposes_new_sets(
     tracked: bytes, site: Bandai, argv: list[str], capsys: pytest.CaptureFixture[str]
@@ -76,11 +89,13 @@ def test_a_rebuild_leaves_sets_json_byte_identical_and_proposes_new_sets(
     assert cli.main(argv) == 0
     out = capsys.readouterr().out
     assert sets_json().read_bytes() == tracked
-    assert PB03_LINE in out.splitlines() and GD01_LINE in out.splitlines()
+    assert_reported_once(out)
     found = provisional()
     assert set(found) >= {"GD09", "PB04"} and "GD01" not in found and "PB03" not in found  # Bandai's GD01 is recorded nowhere
     assert (found["GD09"].kind, found["GD09"].name, found["GD09"].release_date) == (SetKind.BOOSTER, "Future Pack", date(2027, 3, 5))
     assert found["PB04"].kind is SetKind.PROMO  # a new PB code is a promo set
+    if argv != ["sync", "--only", "sets"]:  # the runs that rebuild the catalog
+        assert gd01_as_of() == date(2025, 7, 25)  # the sets.json date, not Bandai's August 1
 
 
 def test_reparse_and_refetch_leave_sets_json_byte_identical_and_take_release_dates_from_it(
@@ -91,13 +106,10 @@ def test_reparse_and_refetch_leave_sets_json_byte_identical_and_take_release_dat
     for argv in (["reparse"], ["refetch", "--card", "GD01-001"]):
         site.details["GD01-001"] = detail("GD01-001", name="Renamed on Bandai")  # so the refetch finds a change and reparses
         assert cli.main(argv) == 0
-        lines = capsys.readouterr().out.splitlines()
+        out = capsys.readouterr().out
         assert sets_json().read_bytes() == tracked
-        assert PB03_LINE in lines and GD01_LINE in lines
-    catalog = load_catalog()
-    assert catalog is not None
-    [gd01_001] = [c for c in catalog.data if c.number == CardNumber("GD01-001")]
-    assert gd01_001.text_versions[0].as_of == date(2025, 7, 25)  # the sets.json date, not Bandai's August 1
+        assert_reported_once(out)
+    assert gd01_as_of() == date(2025, 7, 25)  # the sets.json date, not Bandai's August 1
 
 
 def test_a_matching_list_gives_the_same_exit_code_and_no_report_line(site: Bandai, capsys: pytest.CaptureFixture[str]) -> None:
@@ -135,3 +147,14 @@ def test_with_no_tracked_set_list_every_set_is_proposed_and_none_is_created(site
     captured = capsys.readouterr()
     assert "no tracked set list" in captured.err and "run `sync --only sets` first" not in captured.err
     assert sorted(line.split()[0] for line in captured.out.splitlines()[1:]) == ["GD01", "GD09", "PB04"]
+
+
+@pytest.mark.parametrize(("change", "label"), [
+    ({"name": "Other"}, "name"), ({"kind": SetKind.PROMO}, "kind"), ({"release_date": date(2025, 8, 1)}, "release date"),
+    ({"bandai_package_id": PackageId("616199")}, "package id"), ({"product_category_raw": "STARTER DECK"}, "category"),
+    ({"product_url": "https://example.test/other"}, "url"),
+], ids=lambda v: v if isinstance(v, str) else "")  # fmt: skip
+def test_each_compared_field_is_named_when_bandai_differs(change: dict[str, object], label: str) -> None:
+    mine = reviewed()[0]
+    assert reviewed_set_notes((mine,), (mine.model_copy(update=change),)) == (f"reviewed set GD01 differs from Bandai: {label}",)
+    assert reviewed_set_notes((mine,), (mine,)) == ()
