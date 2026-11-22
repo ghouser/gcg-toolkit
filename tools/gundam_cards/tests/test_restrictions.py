@@ -83,3 +83,9 @@ def test_violations_list_everything_illegal_in_a_deck() -> None:
     assert "GD01-020 is banned" in text and "3 copies of ST02-016, restricted to 2" in text
     assert "ST01-010 and ST05-010 are a banned pair" in text and "GD01-035 and ST01-005 are both in the vanilla group" in text
     assert r.violations({N("GD01-001"): 4, N("ST02-016"): 2}) == ()
+
+
+def test_a_card_line_with_non_ascii_digits_is_not_read_as_a_card() -> None:
+    page = PAGE.replace(div("GD01-020 Anksha"), div("GD01-020 Anksha") + div("GD\uff10\uff11-021 Fake"))
+    found, _ = parse_restrictions(page)
+    assert found.banned == (N("GD01-020"),)

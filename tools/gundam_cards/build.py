@@ -328,7 +328,7 @@ def pilot_name_in_text(text: str) -> PilotName | None:
 
 
 # ---- printing and text-version assembly -------------------------------------------------------------
-_SET_CODE_IN_TEXT = re.compile(r"\[([A-Z]{2,4})-?(\d{2}[A-Z]?)\]")  # [GD05], [PB01], [PC02A], [EVX-01] -> EVX01
+_SET_CODE_IN_TEXT = re.compile(r"\[([A-Z]{2,4})-?([0-9]{2}[A-Z]?)\]")  # [GD05], [PB01], [PC02A], [EVX-01] -> EVX01
 _COMPARED_FIELDS = ("TYPE", "COLOR", "Lv.", "COST", "AP", "HP", "Trait", "Link", "Zone")  # not Source Title: per printing
 
 

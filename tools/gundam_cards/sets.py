@@ -55,7 +55,7 @@ class _PackageFilterParser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         value = dict(attrs).get("data-val")
-        if tag == "a" and value and value.isdigit():
+        if tag == "a" and value and value.isascii() and value.isdigit():
             self._current, self._text = value, []
 
     def handle_data(self, data: str) -> None:
@@ -145,7 +145,7 @@ def parse_product_list(html: str) -> tuple[tuple[RawProduct, ...], int]:
 
 
 # ---- field parsing ---------------------------------------------------------------------------------
-_TITLE_WITH_CODE = re.compile(r"(.*?)\s*\[([A-Z]{2,4})-?(\d{2}[A-Z]?)\]\s*")
+_TITLE_WITH_CODE = re.compile(r"(.*?)\s*\[([A-Z]{2,4})-?([0-9]{2}[A-Z]?)\]\s*")
 _DATE = re.compile(r"([A-Za-z]+)\s+(\d{1,2})\s*,\s*(\d{4})")
 
 

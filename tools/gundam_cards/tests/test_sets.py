@@ -132,3 +132,13 @@ def test_unparseable_release_date_is_reported_and_the_set_is_kept() -> None:
     build = build_sets((), (product,))
     assert [s.code for s in build.sets] == ["GD09"] and build.sets[0].release_date is None
     assert len(build.issues) == 1 and "Coming soon" in build.issues[0].detail
+
+
+@pytest.mark.parametrize("title", ["Freedom Ascension [GD\uff10\uff15]", "Freedom Ascension [GD\u0660\u0665]"])
+def test_a_title_whose_code_has_non_ascii_digits_has_no_set_code(title: str) -> None:
+    assert split_title(title) == (title, None)
+
+
+def test_a_package_whose_id_has_non_ascii_digits_is_skipped_like_any_non_numeric_id() -> None:
+    html = '<a data-val="\uff16\uff11\uff16\uff11\uff10\uff15">Odd [GD05]</a><a data-val="61a">Bad</a><a data-val="616105">Freedom Ascension [GD05]</a>'
+    assert parse_package_filter(html) == (PackageEntry(PackageId("616105"), "Freedom Ascension [GD05]"),)

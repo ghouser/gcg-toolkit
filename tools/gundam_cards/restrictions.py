@@ -13,7 +13,7 @@ from tools.gundam_cards.models import BannedPair, CardModel, LimitedCard, Restri
 
 NEWS_URL = "https://www.gundam-gcg.com/en/news/01_279.html"
 HEADING = "##H"
-_CARD_LINE = re.compile(r"^([A-Z]{1,4}\d{2}-\d{3})\s+\S.*$")
+_CARD_LINE = re.compile(r"^([A-Z]{1,4}[0-9]{2}-[0-9]{3})\s+\S.*$")
 _DESCRIPTION = re.compile(r"description\s+[\"“](.+?)[\"”]", re.I)
 
 

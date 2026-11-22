@@ -105,3 +105,9 @@ def test_completeness_rule() -> None:
     assert is_complete(date(2026, 10, 4), date(2026, 10, 6))
     assert not is_complete(date(2026, 10, 5), date(2026, 10, 6))
     assert not is_complete(date(2026, 10, 6), date(2026, 10, 6))
+
+
+def test_a_card_token_with_non_ascii_digits_is_unresolved_not_a_crash() -> None:
+    odd = "GD\uff10\uff11-001:4"  # fullwidth digits
+    parsed = parse_deck_url(f"https://x/?deck=ST11-001:4,{odd}")
+    assert [(str(c.card_number), c.qty) for c in parsed.main] == [("ST11-001", 4)] and parsed.unresolved == (odd,)
