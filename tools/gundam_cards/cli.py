@@ -13,6 +13,7 @@
     .venv/bin/python -m tools.gundam_cards.cli sync-restrictions  # banned / restricted cards from Bandai's announcement (network, one request)
     .venv/bin/python -m tools.gundam_cards.cli restrictions       # show the banned / restricted list
     .venv/bin/python -m tools.gundam_cards.cli price GD05-002 --explain   # a card's latest price and every product considered (no network)
+    .venv/bin/python -m tools.gundam_cards.cli export             # write the catalog export for the UI ($GCG_CATALOG_FILE, default ~/.gcg/catalog.json)
     .venv/bin/python -m tools.gundam_cards.cli search --keyword blocker --trait "G Generation" --kind unit --color blue
     .venv/bin/python -m tools.gundam_cards.cli search --mentions-trait Marine --pilot --json   # all filters AND together
 """
@@ -29,6 +30,7 @@ from shared.dataset import Kind, NoData
 from shared.fetch import Fetcher
 from tools.gundam_cards.build import Issue, build_catalog
 from tools.gundam_cards.changes import format_change, text_changes
+from tools.gundam_cards.export import MissingSetCodes, build_export
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
 from tools.gundam_cards.refresh import format_report, refresh_catalog
@@ -41,17 +43,22 @@ from tools.gundam_cards.store import (
     write_restrictions,
     OUT_DIR,
     RAW_DIR,
+    catalog_export_path,
     data_out_dir,
     load_catalog,
     load_catalog_or_fail,
+    load_price_history,
     load_prices,
+    load_provisional_sets,
     load_sets,
     load_source_pages,
+    load_tracked_sets,
     raw_dump_stamps,
     read_raw_dump,
     release_dates,
     write_atomic,
     write_catalog,
+    write_catalog_export,
     write_prices,
     write_sets,
 )
@@ -223,6 +230,24 @@ def cmd_show(args: argparse.Namespace) -> int:
     return 1
 
 
+def cmd_export(_: argparse.Namespace) -> int:
+    catalog = load_catalog_or_fail()
+    history = load_price_history()
+    if not history:
+        print(f"{NoData(Kind.PRICES)}; printings are exported without prices", file=sys.stderr)
+    try:
+        export = build_export(catalog, load_tracked_sets(), load_provisional_sets(), history, datetime.now(UTC).replace(microsecond=0))
+    except MissingSetCodes as e:
+        print(f"{e}; nothing written (add them to sets.json, or refresh to record them as provisional)", file=sys.stderr)
+        return 1
+    path = catalog_export_path()
+    write_catalog_export(export, path)
+    priced = sum(1 for c in export.cards for p in c.printings if p.price_cents is not None)
+    printings = sum(len(c.printings) for c in export.cards)
+    print(f"{len(export.cards)} cards, {printings} printings ({priced} priced), {len(export.reference.sets)} sets -> {path}")
+    return 0
+
+
 # ---- TCGPlayer prices (tcgcsv) --------------------------------------------------------------------------------------
 def _catalog() -> dict[CardNumber, str]:
     """Card number -> name for the whole catalog (raises `NoData` when there is none)."""
@@ -391,6 +416,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     sub.add_parser("reparse", help="rebuild sets/cards/traits files from the saved raw pages (no network)").set_defaults(
         func=cmd_reparse
     )
+    sub.add_parser(
+        "export", help="write the catalog export for the UI to $GCG_CATALOG_FILE (default ~/.gcg/catalog.json); "
+        "fails, writing nothing, when a set code is missing from the sets (no network)",
+    ).set_defaults(func=cmd_export)
     search_p = sub.add_parser("search", help="filter the local catalog (no network); all filters AND together")
     search_p.add_argument("--name", help="substring of the card name")
     search_p.add_argument("--text", help="substring of the current card text")

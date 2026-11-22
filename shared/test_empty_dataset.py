@@ -32,6 +32,7 @@ COMMANDS: list[tuple[Main, list[str], str]] = [
     (cards_cli.main, ["show", "ST01-001"], "card catalog"),
     (cards_cli.main, ["price", "GD01-001"], "card catalog"),
     (cards_cli.main, ["reparse-tcgplayer"], "card catalog"),
+    (cards_cli.main, ["export"], "card catalog"),
     (meta_cli.main, ["popularity"], "card catalog"),
     (meta_cli.main, ["duplicates"], "in-person events"),
     (meta_cli.main, ["top-cards", "--meta", "major"], "card catalog"),
@@ -109,6 +110,7 @@ def test_every_subcommand_is_checked_or_is_not_a_dataset_read(main: Main, capsys
 # apart; the empty-dataset tests above already cover them.
 OTHER_SOURCE: list[tuple[Main, list[str], str, int]] = [
     (cards_cli.main, ["price", "GD01-001"], "prices", 1),
+    (cards_cli.main, ["export"], "prices", 0),
     (meta_cli.main, ["popularity"], "in-person events", 2),
     (meta_cli.main, ["duplicates"], "in-person events", 2),
     (meta_cli.main, ["top-cards", "--meta", "major"], "in-person events", 2),

@@ -15,8 +15,9 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode, SourceTitle, Trait
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key, snapshot_paths
 from tools.gundam_cards.build import CatalogResult, Issue, IssueKind, SourcePage
+from tools.gundam_cards.export import CatalogExport, export_json
 from tools.gundam_cards.models import (
     Card,
     CardPrice,
@@ -225,6 +226,11 @@ def write_prices(file: PriceFile, out_dir: Path | None = None) -> Path | None:
     )
 
 
+def load_price_history(out_dir: Path | None = None) -> tuple[PriceFile, ...]:
+    """Every stored price snapshot, oldest first (empty when there are none)."""
+    return tuple(PriceFile.model_validate_json(p.read_text(encoding="utf-8")) for p in snapshot_paths((out_dir or data_out_dir()) / "prices"))
+
+
 def load_prices(out_dir: Path | None = None) -> PriceFile | None:
     """The newest price snapshot, or None."""
     path = newest_snapshot((out_dir or data_out_dir()) / "prices")
@@ -268,6 +274,21 @@ def read_raw_dump(stamp: str, raw_dir: Path = RAW_DIR) -> RawDump:
         products={g: (folder / f"{g}_products.json").read_text(encoding="utf-8") for g in group_ids},
         prices={g: (folder / f"{g}_prices.json").read_text(encoding="utf-8") for g in group_ids},
     )
+
+
+# ---- the catalog export (for the UI) ---------------------------------------------------------------------------------
+CATALOG_FILE_VAR = "GCG_CATALOG_FILE"
+
+
+def catalog_export_path() -> Path:
+    """Where the catalog export goes: `$GCG_CATALOG_FILE`, else `~/.gcg/catalog.json` (resolved on every call)."""
+    value = os.environ.get(CATALOG_FILE_VAR)
+    return Path(value).expanduser() if value else Path.home() / ".gcg" / "catalog.json"
+
+
+def write_catalog_export(export: CatalogExport, path: Path) -> None:
+    """Write the export atomically: a failure part-way leaves an earlier export as it was."""
+    write_atomic(path, export_json(export))
 
 
 def _pretty(compact_json: str) -> str:

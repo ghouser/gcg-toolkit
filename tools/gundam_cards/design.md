@@ -24,6 +24,7 @@ python3 -m tools.gundam_cards.cli reparse                    # rebuild from save
 python3 -m tools.gundam_cards.cli sync-tcgplayer [--force]   # latest TCGPlayer market price per card, from tcgcsv (about 58 requests; skips if tcgcsv has nothing new)
 python3 -m tools.gundam_cards.cli reparse-tcgplayer          # rebuild a price snapshot from the saved tcgcsv files (added only if that day has none), no network
 python3 -m tools.gundam_cards.cli price GD05-002 [--explain] # a card's latest price; --explain lists every product considered (from the saved files)
+python3 -m tools.gundam_cards.cli export                     # the catalog export for the UI (docs/catalog-export.md), no network
 ```
 `search` runs entirely against the local catalog: no network, instant, any combination of filters. Bandai is only contacted by `refresh`/`sync`/`refetch`.
 
@@ -41,6 +42,7 @@ Owned by this tool; other tools read these files per the contracts below, throug
 | `prices/<generated_at>.json` | JSON (envelope) | card number | `PriceFile` below: per card the **TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. One dated snapshot per pull; a snapshot is never rewritten, and a pull with the same prices as the newest adds nothing. The newest is the latest price, joined onto the card model on read (`PricedCard`). | `gundam_collection` |
 | `traits.json` | JSON | trait | generated vocabulary of traits (factions): name, card count, card numbers | parser (validation), search |
 | `source_titles.json` | JSON | source title | generated vocabulary: TV series / game names, counts | parser (validation), search |
+| catalog export | JSON (`schema_version` 1), at `$GCG_CATALOG_FILE` (default `~/.gcg/catalog.json`), outside the dataset | card number | written only by `export` (atomically; nothing when a printing's set code is not in the sets): every card with its printings (rarity, set, variant, image, a price per printing) and a `reference` section of sets, kinds with a deck flag, colors and rarities. The contract is `docs/catalog-export.md`; built by `export.py` | the UI (its own repo) |
 
 Internal schema: our own, not any site's. Card number is the identity. Printings hang off the card. Other tools never depend on Bandai's HTML shape or TCGPlayer's field names. Conventions (envelope, typed models, cents, UTC, no stale derived state) are in `docs/tool-pattern.md`.
 
