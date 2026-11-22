@@ -5,6 +5,9 @@ dataset); every other test keeps its empty temp folder. This is the only place t
 
 No test writes the real catalog export: GCG_CATALOG_FILE points at a temp file for every test, real-data ones included.
 
+No test reads the real collection file: GCG_COLLECTION_FILE points at a temp path (absent unless the test writes it) for every test,
+real-data ones included.
+
 No test touches the cards and meta tools' real raw caches or tracked files: GCG_TOOL_DATA_DIR points at a temp folder, handled like
 GCG_DATA_DIR (real-data tests see it as it is). Each test's folder holds a copy of the tracked set list and restrictions file, the
 tracked inputs that tests read; a test that writes them writes the copy.
@@ -20,6 +23,7 @@ import pytest
 
 from shared.dataset import ENV_VAR, REPO_ROOT, TOOL_DATA_VAR
 from tools.gundam_cards.store import CATALOG_FILE_VAR
+from tools.gundam_collection.collection_file import ENV_VAR as COLLECTION_FILE_VAR
 
 pytest_plugins = ["pytester"]  # for testing this file's own hooks
 
@@ -55,6 +59,7 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
 @pytest.fixture(autouse=True)
 def _empty_dataset(request: pytest.FixtureRequest, tmp_path_factory: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch) -> Path | None:
     monkeypatch.setenv(CATALOG_FILE_VAR, str(tmp_path_factory.mktemp("gcg-export") / "catalog.json"))
+    monkeypatch.setenv(COLLECTION_FILE_VAR, str(tmp_path_factory.mktemp("gcg-collection") / "collection.json"))
     if REAL_DATA and request.node.get_closest_marker("real_data") is not None:
         return None
     folder = tmp_path_factory.mktemp("gcg-data")
