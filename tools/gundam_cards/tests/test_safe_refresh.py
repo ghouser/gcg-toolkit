@@ -23,7 +23,8 @@ from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardModel, CardSet, SetKind
 from tools.gundam_cards.printings import DETAIL_URL, detail_page_key
 from tools.gundam_cards.refresh import ChangedCard, RefreshReport, format_report, refresh_catalog
-from tools.gundam_cards.store import data_out_dir, load_catalog, pages_folder
+from tools.gundam_cards.sets import CARDS_URL, LANDING_KEY, PRODUCTS_URL, products_page_key
+from tools.gundam_cards.store import data_out_dir, load_catalog, load_provisional_sets, pages_folder
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, dataset_bytes, detail, write_tracked_sets
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
@@ -110,12 +111,24 @@ def web(monkeypatch: pytest.MonkeyPatch) -> Web:
     return fake
 
 
+FUTURE = FakeBandai(Path(), {"616190": ("Future Pack [GD90]", ["GD90-001"])}, products=[("Future Pack [GD90]", "March 5,2027")])
+OLD = FakeBandai(Path(), {"616191": ("Old Pack [GD91]", ["GD91-001"])}, products=[("Old Pack [GD91]", "May 1,2025")])
+
+
+def write_package_list(folder: Path, site: FakeBandai) -> None:
+    """The cached landing page and first product page (what the sets rebuild reads), as `site` draws them."""
+    for key, url in ((LANDING_KEY, CARDS_URL), (products_page_key(1), f"{PRODUCTS_URL}?page=1")):
+        (folder / key).parent.mkdir(parents=True, exist_ok=True)
+        (folder / key).write_text(site.page(url), encoding="utf-8")
+
+
 def checkout_with_an_old_cache(folder: Path) -> dict[str, bytes]:
-    """A checkout whose own raw folder holds an older Bandai cache; returns its files' bytes, to compare after a run."""
+    """A checkout whose own raw folder holds an older Bandai cache (a detail page, and a package list naming GD91, not GD90);
+    returns its files' bytes, to compare after a run."""
     raw = folder / "tools" / "gundam_cards" / "data" / "raw"
     (raw / "detail").mkdir(parents=True)
     (raw / detail_page_key(PrintingId("GD01-001"))).write_text(detail("GD01-001", name="Old Checkout Name"), encoding="utf-8")
-    (raw / "cardlist.html").write_text('<a data-val="616101">Newtype Rising [GD01]</a>', encoding="utf-8")
+    write_package_list(raw, OLD)
     return {str(p): p.read_bytes() for p in sorted(folder.rglob("*")) if p.is_file()}
 
 
@@ -162,6 +175,40 @@ def test_refetch_and_reparse_do_not_read_a_checkouts_old_cache(
     cli.main(["reparse"])
     assert "0 pages -> 0 cards" in capsys.readouterr().out  # the checkout's old detail page is not built
     assert files_of(checkout) == old and web.requested == []
+
+
+def provisional_codes() -> list[str]:
+    return [str(s.code) for s in load_provisional_sets()]
+
+
+def test_reparse_rebuilds_the_sets_from_the_datasets_package_list_not_the_checkouts(
+    web: Web, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    checkout = tmp_path / "checkout"
+    old = checkout_with_an_old_cache(checkout)
+    monkeypatch.setenv(TOOL_DATA_VAR, str(checkout))
+    write_package_list(pages_folder(), FUTURE)
+
+    cli.main(["reparse"])
+    assert "1 sets on Bandai's list, 1 provisional" in capsys.readouterr().out
+    assert provisional_codes() == ["GD90"]  # from the dataset's pages; the checkout's GD91 is not read
+    assert files_of(checkout) == old and web.requested == []
+
+
+def test_sync_rebuilds_the_sets_from_the_pages_it_cached_in_the_dataset(
+    web: Web, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    checkout = tmp_path / "checkout"
+    old = checkout_with_an_old_cache(checkout)
+    monkeypatch.setenv(TOOL_DATA_VAR, str(checkout))
+    web.pages.update(bandai_pages(FUTURE))
+    web.pages[DETAIL_URL.format("GD90-001")] = detail("GD90-001", where="Future Pack [GD90]")
+
+    cli.main(["sync"])
+    assert (pages_folder() / LANDING_KEY).read_text(encoding="utf-8") == FUTURE.page(CARDS_URL)
+    assert provisional_codes() == ["GD90"]  # the reparse inside sync read the dataset's pages, not the checkout's GD91
+    assert "GD90-001" in cards()
+    assert files_of(checkout) == old
 
 
 # ---- AC-2 and AC-3: every field-level change counted and named ----------------------------------------------------------------------
@@ -215,9 +262,16 @@ def test_gaining_a_printing_or_a_package_is_not_a_change(site: FakeBandai, track
         assert cards()["GD01-003"].printings[0].package_ids == (GD01, "616901")
 
 
-def test_the_guard_counts_n_changed_cards_and_allow_anomaly_still_writes(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(2, 50)]])
+FIFTY = ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(2, 50)]]  # 49 GD01 cards; with GD09-001, 50
+
+
+def fifty_cards(site: FakeBandai, tracked: Path) -> None:
+    site.packages[GD01] = ("Newtype Rising [GD01]", list(FIFTY))
     assert run(site, tracked, T1).written and len(cards()) == 50
+
+
+def test_the_guard_counts_n_changed_cards_and_allow_anomaly_still_writes(site: FakeBandai, tracked: Path) -> None:
+    fifty_cards(site, tracked)
     cache("GD01-002", page("GD01-002", name="Renamed"))
     cache("GD01-003", page("GD01-003", faq="Yes."))
     cache("GD01-001_p1", page("GD01-001_p1", source_title="Mobile Suit Gundam"))
@@ -277,3 +331,28 @@ def test_the_refresh_command_prints_changed_cards_and_orphans(
     out = capsys.readouterr().out
     assert "  changed GD01-002: name" in out
     assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in out
+
+
+# The limit is 2% of 50 existing cards: 1 affected card (2%) passes, 2 (4%) refuse.
+def test_one_dropped_and_one_changed_are_added_together_and_refused(site: FakeBandai, tracked: Path) -> None:
+    fifty_cards(site, tracked)
+    site.packages[GD01] = ("Newtype Rising [GD01]", [i for i in FIFTY if i != "GD01-049"])  # 1 dropped: 2% alone
+    cache("GD01-002", page("GD01-002", name="Renamed"))  # 1 changed: 2% alone
+    before = dataset_bytes()
+    report = run(site, tracked, T2)
+    assert report.missed == ("GD01-049",) and report.changed == (ChangedCard(CardNumber("GD01-002"), ("name",)),)
+    assert "anomaly guard: 1 dropped, 1 changed of 50 existing cards (limit 2%): would refuse" in format_report(report)
+    assert report.refused and dataset_bytes() == before  # together 4%: over the limit
+
+
+def test_changed_cards_at_the_limit_pass_and_a_card_with_several_changed_fields_counts_once(
+    site: FakeBandai, tracked: Path
+) -> None:
+    fifty_cards(site, tracked)
+    cache("GD01-002", page("GD01-002", name="Renamed", faq="Yes."))  # one card, two fields: 1 changed card, 2%
+    report = run(site, tracked, T2)
+    lines = format_report(report)
+    assert "anomaly guard: 0 dropped, 1 changed of 50 existing cards (limit 2%): ok" in lines
+    assert "  changed GD01-002: faq, name" in lines and "written" in lines  # named in a real, passing run
+    assert report.written and not report.guard_trips
+    assert cards()["GD01-002"].name == "Renamed" and len(cards()["GD01-002"].faq) == 1

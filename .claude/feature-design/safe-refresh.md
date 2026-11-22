@@ -56,6 +56,8 @@ Unit tests call `changed_fields` and `refresh_catalog` with `FakeBandai`; the co
     writes them under that folder's `gundam_cards/pages/`.
   - `sync`, `refetch`, `reparse` (happy, per command): each reads and writes pages only in `pages_folder()` and leaves the checkout's raw
     folder empty of Bandai pages (updated `shared/test_tool_data_dir.py` cases; `reparse` builds from pages placed in the dataset only).
+  - the sets rebuild (happy and unhappy): with landing and product pages in the dataset cache and different ones in a checkout's old
+    cache, `reparse` and a full `sync` record provisional sets from the dataset's pages only, and the checkout's files are unchanged.
   - tcgcsv and restrictions stay in `raw_folder()` (unchanged test).
   - empty state: `reparse` with no pages in the dataset still runs as before; `refetch` with no cached package list says to run `sync`
     (exit 2).
@@ -66,6 +68,8 @@ Unit tests call `changed_fields` and `refresh_catalog` with `FakeBandai`; the co
   - the guard uses the count: with 10 existing cards, one changed only in a printing's source title is 10% and refuses (the old code
     counted 0 and passed); `--allow-anomaly` still writes.
   - N changed reported as N: 3 of 50 cards changed in different families: the guard line says `3 changed`.
+  - changed and dropped are added (both sides of the limit, 50 cards): 1 dropped plus 1 changed (each 2% alone) refuses at 4%; one
+    card with two changed fields counts once (2%) and passes, its `changed` line printed in the written run.
 - AC-3
   - real run and dry run: same cards and fields in both reports, one `changed <number>: <fields>` line per card with the printing named
     for a printing-level field; the dry run writes nothing.
