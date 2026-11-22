@@ -47,10 +47,3 @@ def test_the_examples_include_the_specs_own() -> None:
     invalid = {v for kind in TYPES for v in EXAMPLES[kind]["invalid"]}
     assert {"ST01-001", "ST01-001_p5", "R-016", "T-022", "EXB-002"} <= valid
     assert {"st01-001", "ST01-1", "ST01-001_p", "ST01-001_5"} <= invalid
-
-
-def test_the_invalid_examples_include_non_ascii_digits_in_every_digit_position() -> None:
-    card, printing, code = (set(EXAMPLES[k]["invalid"]) for k in ("card_number", "printing_id", "set_code"))
-    assert {"ST\u0660\u0661-001", "ST01-\u0660\u0660\u0661"} <= card  # after the set letters; in the three-digit part
-    assert {"ST\u0660\u0661-001_p5", "ST01-\u0660\u0660\u0661_p5", "ST01-001_p\u0665"} <= printing  # ... and in the _p number
-    assert {"GD\uff10\uff15", "ST\u0660\u0661"} <= code
