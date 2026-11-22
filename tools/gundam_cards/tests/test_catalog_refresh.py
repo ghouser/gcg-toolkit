@@ -27,7 +27,7 @@ from tools.gundam_cards.store import (
     load_catalog,
     load_provisional_sets,
     load_sets,
-    raw_folder,
+    pages_folder,
     write_provisional_sets,
 )
 
@@ -127,7 +127,7 @@ def tracked(tmp_path: Path) -> Path:
 @pytest.fixture
 def site(tmp_path: Path) -> FakeBandai:
     return FakeBandai(
-        raw_folder(),
+        pages_folder(),
         {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"]), GD09: ("Future Pack [GD09]", ["GD09-001"])},
         details={"GD09-001": detail("GD09-001", where="Future Pack [GD09]")},
         products=[("Newtype Rising [GD01]", "July 25,2025"), ("Future Pack [GD09]", "March 5,2027")],
@@ -157,8 +157,9 @@ def flags() -> dict[str, tuple[bool, bool]]:
 
 
 def dataset_bytes() -> dict[str, bytes]:
-    root = data_out_dir().parent
-    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()}
+    """Every dataset file but the Bandai page cache (a dry run may cache list pages; "writes nothing" is about the catalog files)."""
+    root, pages = data_out_dir().parent, pages_folder()
+    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file() and pages not in p.parents}
 
 
 # ---- AC-1 --------------------------------------------------------------------------------------------------------------------
@@ -571,7 +572,7 @@ def test_the_refresh_uses_the_polite_fetcher() -> None:
     fetcher = cli.refresh_fetcher()
     assert isinstance(fetcher, Fetcher)
     assert fetcher._min_interval_s >= 0.5 and fetcher._user_agent == DEFAULT_USER_AGENT  # spacing itself: shared/test_fetch.py
-    assert fetcher._cache_dir == raw_folder()
+    assert fetcher._cache_dir == pages_folder()
 
 
 def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:

@@ -15,7 +15,7 @@ from shared.basetypes import CardNumber, PackageId, SetCode
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardSet, SetKind, SetsFile
 from tools.gundam_cards.sets import reviewed_set_notes
-from tools.gundam_cards.store import catalog_export_path, load_catalog, load_provisional_sets, raw_folder, tracked_folder
+from tools.gundam_cards.store import catalog_export_path, load_catalog, load_provisional_sets, pages_folder, tracked_folder
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail
 
 GD01, GD09, PB04 = "616101", "616109", "616904"
@@ -55,7 +55,7 @@ def tracked() -> bytes:
 @pytest.fixture
 def site(monkeypatch: pytest.MonkeyPatch) -> Bandai:
     bandai = Bandai(
-        raw_folder(),
+        pages_folder(),
         {GD01: ("Newtype Rising [GD01]", ["GD01-001"]), GD09: ("Future Pack [GD09]", ["GD09-001"]),
          PB04: ("Premium Pack [PB04]", ["PB04-001"])},
         details={"GD09-001": detail("GD09-001", where="Future Pack [GD09]"), "PB04-001": detail("PB04-001", where="Premium Pack [PB04]")},
