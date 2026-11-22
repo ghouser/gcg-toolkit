@@ -6,8 +6,7 @@ Spec: `claude-workspace/specs/gcg-toolkit/safe-refresh/spec.md` (Approved 2026-1
 **One page cache, in the dataset (AC-1).** A new resolver `store.pages_folder()` returns `data_out_dir() / "pages"`
 (`$GCG_DATA_DIR/gundam_cards/pages/`), resolved on every call like the other folders. Every command that reads or writes Bandai's pages
 (landing, product, list and detail) uses it: `refresh` (its fetcher and its `raw_dir`), `sync` (fetcher, `read_packages`,
-`sync_printings`), `refetch`, and `reparse` (`sets_from_raw`, `load_source_pages`). `load_source_pages` and `packages_by_printing` default
-to it. `raw_folder()` stays where it is (under `$GCG_TOOL_DATA_DIR` or the checkout) and now holds only the tcgcsv dumps and the
+`sync_printings`), `refetch`, and `reparse` (`sets_from_raw`, `load_source_pages`). `load_source_pages` defaults to it. `raw_folder()` stays where it is (under `$GCG_TOOL_DATA_DIR` or the checkout) and now holds only the tcgcsv dumps and the
 restrictions page. Nothing is copied from an old checkout cache: the first run fetches every listed detail page again (owner decision).
 Moving the folder, rather than pointing `GCG_TOOL_DATA_DIR` at a shared place, is what the spec asks: the dataset is the one place
 two checkouts already share.
@@ -28,11 +27,11 @@ name the same cards and fields.
 
 **Orphan pages (AC-4).** Before the shape check, the loaded pages are split: a page whose card number is in this run's listings or in
 the stored catalog is kept; any other page is an orphan, left out of the build. `RefreshReport.orphans` holds their printing ids
-(sorted), and the report prints `N orphan page(s), not added: ...` in both modes. Orphans never enter `changed`, `missed` or the guard.
+(sorted), and the report prints `N orphan page(s), in no listing and not in the catalog, not added: ...` in both modes. Orphans never enter `changed`, `missed` or the guard.
 A stored card missing from the listings is still kept by the filter and handled by the two-miss rule in `merge_catalog`.
 
 ## Files and interfaces
-- `tools/gundam_cards/store.py`: `pages_folder() -> Path`; `load_source_pages` and `packages_by_printing` default to it;
+- `tools/gundam_cards/store.py`: `pages_folder() -> Path`; `load_source_pages` defaults to it;
   `raw_folder()` docstring says tcgcsv and restrictions only.
 - `tools/gundam_cards/cli.py`: `refresh_fetcher()` caches in `pages_folder()`; `cmd_refresh`, `cmd_sync`, `cmd_refetch`, `cmd_reparse` use
   `pages_folder()` for the Bandai pages. `sync-tcgplayer`, `reparse-tcgplayer`, `price` and `sync-restrictions` are unchanged.

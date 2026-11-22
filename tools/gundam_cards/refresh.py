@@ -244,7 +244,7 @@ def refresh_catalog(
     changed = tuple(
         ChangedCard(r.number, fields) for r in active if (fields := changed_fields(stored_cards[r.number], rebuilt[r.number]))
     )
-    affected = len(set(missed) | set(changed))
+    affected = len(set(missed) | {c.number for c in changed})
     guard_trips = bool(active) and affected / len(active) > ANOMALY_SHARE
     report = RefreshReport(
         dry_run=dry_run,
