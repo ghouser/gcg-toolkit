@@ -237,7 +237,7 @@ def normalize_id(text: str) -> str:
 
 def id_tokens(text: str) -> frozenset[str]:
     """The anchor cards named in a text, in any order and with any punctuation: `gd02-054 + st11-001` and `ST11001GD02054` -> {GD02054, ST11001}."""
-    return frozenset(re.findall(r"[A-Z]+\d+", re.sub(r"[-\s+,]", "", text).upper()))
+    return frozenset(re.findall(r"[A-Z]+[0-9]+", re.sub(r"[-\s+,]", "", text).upper()))
 
 
 def label_decks(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardModel], nicknames: Mapping[str, str]) -> tuple[Deck, ...]:

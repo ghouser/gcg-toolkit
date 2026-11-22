@@ -5,7 +5,7 @@ from shared.basetypes import CardNumber
 from tools.gundam_cards.models import CardKind
 from tools.gundam_collection.check import check_lines
 from tools.gundam_collection.models import Art, CardInfo, Entry, Issue, IssueCode, Severity
-from tools.gundam_collection.parse import parse_line
+from tools.gundam_collection.parse import parse_line, parse_lines
 
 N = CardNumber
 CATALOG = {
@@ -76,3 +76,10 @@ def test_placeholders_zero_copies_resources_and_large_totals() -> None:
 def test_checking_is_deterministic_and_never_changes_the_input() -> None:
     lines = ["GD02-041 1", "GD05-002 2", "GD02-041 3", "GD99-001 1", "oops"]
     assert check_lines(lines, CATALOG) == check_lines(list(lines), CATALOG)
+
+
+def test_a_card_number_with_non_ascii_digits_is_a_bad_card_number_not_a_crash() -> None:
+    lines = ["GD01-001 2", "GD\uff10\uff11-001 2", "GD01-\u0660\u0660\u0661 1"]  # fullwidth and Arabic-Indic digits
+    entries, issues, count = parse_lines(lines)
+    assert [str(e.card_number) for e in entries] == ["GD01-001"] and count == 3
+    assert [(i.line, i.code) for i in issues] == [(2, IssueCode.BAD_CARD_NUMBER), (3, IssueCode.BAD_CARD_NUMBER)]

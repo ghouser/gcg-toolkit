@@ -35,10 +35,10 @@ from tools.gundam_meta.redo import RedoReport, refetch_duelfrontier, refetch_egm
 from tools.gundam_meta.stats import build_popularity, compute_stats, msa_stats
 from tools.gundam_meta.store import (
     data_out_dir,
-    RAW_DIR,
     load_events,
     load_events_or_fail,
     load_snapshots,
+    raw_folder,
     stored_event_ids,
     write_atomic,
     write_event,
@@ -73,10 +73,10 @@ def _eras() -> tuple[Era, ...]:
 
 # ---- sync -----------------------------------------------------------------------------------------------------
 def _sync_duelfrontier() -> bool:
-    fetcher = Fetcher(RAW_DIR, user_agent=USER_AGENT)
+    fetcher = Fetcher(raw_folder(), user_agent=USER_AGENT)
     listed = duelfrontier.list_events(fetcher)
     result = duelfrontier.sync_events(
-        fetcher, RAW_DIR, listed, stored_event_ids(Source.DUELFRONTIER), _today(), progress=lambda m: print(f"  {m}", flush=True)
+        fetcher, raw_folder(), listed, stored_event_ids(Source.DUELFRONTIER), _today(), progress=lambda m: print(f"  {m}", flush=True)
     )
     stored = sum(write_event(e) for e in result.events)
     print(
@@ -92,7 +92,7 @@ def _sync_duelfrontier() -> bool:
 def _sync_egm() -> bool:
     fetcher = Fetcher(None, user_agent=USER_AGENT)
     raw, parsed = egm.fetch_tournaments(fetcher)
-    write_atomic(egm_raw_path(RAW_DIR, parsed.fetched_at), raw)  # named by the same instant stamped on its events
+    write_atomic(egm_raw_path(raw_folder(), parsed.fetched_at), raw)  # named by the same instant stamped on its events
     stored_ids = stored_event_ids(Source.EGM)
     today = _today()
     new = [e for e in parsed.events if e.id not in stored_ids and is_complete(e.start_date, today)]
@@ -201,7 +201,7 @@ def _print_redo(report: RedoReport) -> int:
 
 
 def cmd_reparse(args: argparse.Namespace) -> int:
-    code = _print_redo(reparse_all(RAW_DIR))
+    code = _print_redo(reparse_all(raw_folder()))
     cmd_popularity(args)
     return code
 
@@ -214,9 +214,9 @@ def cmd_refetch(args: argparse.Namespace) -> int:
     stored = [e.id for e in load_events(source=source)]
     ids = stored if args.all else [EventId(e) for e in args.event]
     if source is Source.DUELFRONTIER:
-        report = refetch_duelfrontier(Fetcher(RAW_DIR, user_agent=USER_AGENT), RAW_DIR, data_out_dir(), ids, progress=print)
+        report = refetch_duelfrontier(Fetcher(raw_folder(), user_agent=USER_AGENT), raw_folder(), data_out_dir(), ids, progress=print)
     else:
-        report = refetch_egm(Fetcher(None, user_agent=USER_AGENT), RAW_DIR, data_out_dir(), None if args.all else frozenset(ids))
+        report = refetch_egm(Fetcher(None, user_agent=USER_AGENT), raw_folder(), data_out_dir(), None if args.all else frozenset(ids))
     code = _print_redo(report)
     if report.changed:
         cmd_popularity(args)

@@ -13,10 +13,10 @@ import pytest
 
 from tools.gundam_cards.build import CatalogResult, IssueKind, build_catalog
 from tools.gundam_cards.models import CardKind, CardsFile, CommandCard, Keyword, Rarity, SourceTitlesFile, TraitsFile
-from tools.gundam_cards.store import RAW_DIR, load_source_pages, release_dates, load_sets, write_catalog
+from tools.gundam_cards.store import load_source_pages, raw_folder, release_dates, load_sets, write_catalog
 
 pytestmark = pytest.mark.real_data
-needs_raw = pytest.mark.skipif(not (RAW_DIR / "detail").is_dir(), reason="the raw Bandai crawl is not present")
+needs_raw = pytest.mark.skipif(not (raw_folder() / "detail").is_dir(), reason="the raw Bandai crawl is not present")
 
 
 @pytest.fixture(scope="module")

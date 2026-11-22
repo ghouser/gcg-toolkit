@@ -2,10 +2,10 @@
 
     .venv/bin/python -m tools.gundam_cards.cli refresh            # refresh the catalog from Bandai, all or nothing (network; --dry-run)
     .venv/bin/python -m tools.gundam_cards.cli sync               # sets, package lists, new printing pages, then reparse (network)
-    .venv/bin/python -m tools.gundam_cards.cli sync --only sets   # just release dates and packages (network)
+    .venv/bin/python -m tools.gundam_cards.cli sync --only sets   # just release dates and packages, as provisional sets (network)
     .venv/bin/python -m tools.gundam_cards.cli refetch --card ST01-001   # re-pull pages we already have (--package GD05, --all)
-    .venv/bin/python -m tools.gundam_cards.cli sets               # list sets with release dates (no network)
-    .venv/bin/python -m tools.gundam_cards.cli reparse            # rebuild sets/cards/traits from saved pages (no network)
+    .venv/bin/python -m tools.gundam_cards.cli sets               # list sets with release dates: sets.json plus provisional (no network)
+    .venv/bin/python -m tools.gundam_cards.cli reparse            # rebuild provisional sets/cards/traits from saved pages (no network)
     .venv/bin/python -m tools.gundam_cards.cli show ST01-001      # print one card
     .venv/bin/python -m tools.gundam_cards.cli changes            # cards whose wording differs between printings (to read)
     .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer     # latest TCGPlayer market price per card from tcgcsv (network; once a day)
@@ -35,14 +35,12 @@ from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
 from tools.gundam_cards.refresh import format_report, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
-from tools.gundam_cards.sets import SetsBuild, sets_from_raw, sync_sets
+from tools.gundam_cards.sets import SetsBuild, propose_sets, reviewed_set_notes, sets_from_raw, sync_sets
 from tools.gundam_cards.models import PriceFile, RestrictionsFile
 from tools.gundam_cards.restrictions import NEWS_URL, RestrictionsError, parse_restrictions, vanilla_cards
 from tools.gundam_cards.store import (
     load_restrictions,
     write_restrictions,
-    OUT_DIR,
-    RAW_DIR,
     catalog_export_path,
     data_out_dir,
     load_catalog,
@@ -54,13 +52,15 @@ from tools.gundam_cards.store import (
     load_source_pages,
     load_tracked_sets,
     raw_dump_stamps,
+    raw_folder,
     read_raw_dump,
     release_dates,
+    tracked_folder,
     write_atomic,
     write_catalog,
     write_catalog_export,
     write_prices,
-    write_sets,
+    write_provisional_sets,
 )
 from tools.gundam_cards.tcgcsv import (
     RawDump,
@@ -82,20 +82,27 @@ def _print_issues(issues: Sequence[Issue]) -> None:
         print(f"  [{issue.kind.value}] {issue.subject}: {issue.detail}")
 
 
-def _save_sets(build: SetsBuild) -> None:
-    write_sets(build.sets, datetime.now(tz=UTC))
-    print(f"{len(build.sets)} sets -> {OUT_DIR / 'sets.json'}")
+def _record_sets(build: SetsBuild) -> None:
+    """Record Bandai's sets that sets.json lacks as provisional (sets.json is never written) and report how it differs from Bandai."""
+    tracked = load_tracked_sets()
+    provisional = propose_sets(tracked, load_provisional_sets(), build.sets)
+    write_provisional_sets(provisional, datetime.now(tz=UTC))
+    if not tracked:
+        print(f"no tracked set list ({tracked_folder() / 'sets.json'}): every set is recorded as provisional")
+    print(f"{len(build.sets)} sets on Bandai's list, {len(provisional)} provisional -> {data_out_dir() / 'provisional_sets.json'}")
+    for line in reviewed_set_notes(tracked, build.sets):
+        print(line)
     _print_issues(build.issues)
 
 
 def refresh_fetcher() -> Fetcher:
-    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in RAW_DIR."""
-    return Fetcher(RAW_DIR, min_interval_s=0.5)
+    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in `raw_folder()`."""
+    return Fetcher(raw_folder(), min_interval_s=0.5)
 
 
 def cmd_refresh(args: argparse.Namespace) -> int:
     report = refresh_catalog(
-        refresh_fetcher(), RAW_DIR, dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
+        refresh_fetcher(), raw_folder(), dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
     )
     for line in format_report(report):
         print(line)
@@ -103,20 +110,21 @@ def cmd_refresh(args: argparse.Namespace) -> int:
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
-    fetcher = Fetcher(RAW_DIR, min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
     code = 0
     if args.only in (None, "sets"):
         build = sync_sets(fetcher)
-        _save_sets(build)
         code = 1 if build.issues else 0
         if args.only == "sets":
+            _record_sets(build)
             print(f"{fetcher.network_requests} network request(s)")
             return code
-    packages = read_packages(RAW_DIR)
+        # The full sync records the sets once, in the reparse below, from the pages just cached (so each report line appears once).
+    packages = read_packages(raw_folder())
     if not packages:
         print("no cached package list; run `sync` (without --only printings) first", file=sys.stderr)
         return 2
-    report = sync_printings(fetcher, RAW_DIR, packages, progress=lambda m: print(m, flush=True))
+    report = sync_printings(fetcher, raw_folder(), packages, progress=lambda m: print(m, flush=True))
     print(
         f"{report.listed} printings: {report.already_cached} already cached, {report.fetched} fetched, "
         f"{len(report.failures)} failed; {fetcher.network_requests} network request(s)"
@@ -127,12 +135,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
 
 def cmd_refetch(args: argparse.Namespace) -> int:
-    packages = read_packages(RAW_DIR)
+    packages = read_packages(raw_folder())
     if not packages:
         print("no cached package list; run `sync` first", file=sys.stderr)
         return 2
     try:
-        ids = select_printings(RAW_DIR, packages, card=CardNumber(args.card) if args.card else None, package=args.package)
+        ids = select_printings(raw_folder(), packages, card=CardNumber(args.card) if args.card else None, package=args.package)
     except ValueError as e:
         print(e, file=sys.stderr)
         return 2
@@ -140,8 +148,8 @@ def cmd_refetch(args: argparse.Namespace) -> int:
         print("nothing matches", file=sys.stderr)
         return 1
     print(f"refetching {len(ids)} printing page(s) from Bandai")
-    fetcher = Fetcher(RAW_DIR, min_interval_s=0.5)
-    report = refetch_printings(fetcher, RAW_DIR, ids, progress=lambda m: print(m, flush=True))
+    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
+    report = refetch_printings(fetcher, raw_folder(), ids, progress=lambda m: print(m, flush=True))
     print(f"{len(report.changed)} changed, {len(report.unchanged)} unchanged, {len(report.failures)} failed")
     for printing_id in report.changed[:50]:
         print(f"  changed: {printing_id}")
@@ -151,9 +159,11 @@ def cmd_refetch(args: argparse.Namespace) -> int:
 
 
 def cmd_sets(_: argparse.Namespace) -> int:
+    if not load_tracked_sets():
+        print(f"no tracked set list ({tracked_folder() / 'sets.json'}); listing the provisional sets only", file=sys.stderr)
     sets = load_sets()
     if not sets:
-        print("no sets.json yet; run `sync --only sets` first", file=sys.stderr)
+        print("no provisional sets either; `sync --only sets` or `refresh` records them", file=sys.stderr)
         return 2
     today = date.today()
     print(f"{'code':7} {'kind':15} {'release':11} {'status':10} name")
@@ -165,12 +175,11 @@ def cmd_sets(_: argparse.Namespace) -> int:
 
 def cmd_reparse(_: argparse.Namespace) -> int:
     issues: list[Issue] = []
-    rebuilt = sets_from_raw(RAW_DIR)
+    rebuilt = sets_from_raw(raw_folder())
     if rebuilt is not None:
-        _save_sets(rebuilt)
+        _record_sets(rebuilt)
         issues.extend(rebuilt.issues)
-    sets = rebuilt.sets if rebuilt is not None else load_sets()
-    dates = release_dates(sets)
+    dates = release_dates(load_sets())  # a reviewed set's date is the sets.json one
 
     loaded = load_source_pages()
     result = build_catalog(loaded.pages, dates)
@@ -283,7 +292,7 @@ def _build_prices(dump: RawDump, pulled_at: datetime, names: dict[CardNumber, st
 def cmd_sync_restrictions(args: argparse.Namespace) -> int:
     """Banned / restricted cards from Bandai's announcement page (one request, cached; give the new URL when Bandai publishes a new list)."""
     catalog = {c.number: c for c in load_catalog_or_fail().data}
-    fetcher = Fetcher(RAW_DIR / "restrictions", min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder() / "restrictions", min_interval_s=0.5)
     key = args.url.rstrip("/").rsplit("/", 1)[-1]
     html = fetcher.get_text(args.url, cache_key=key, force=args.force).text
     try:
@@ -331,7 +340,7 @@ def cmd_restrictions(args: argparse.Namespace) -> int:
 
 def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
     names = _catalog()
-    fetcher = Fetcher(RAW_DIR / "tcgcsv", min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder() / "tcgcsv", min_interval_s=0.5)
     try:
         updated = fetch_updated(fetcher)
         stored = load_prices()
@@ -340,7 +349,7 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
             return 0
         dump = fetch_dump(fetcher, updated, force=args.force, progress=lambda m: print(f"  {m}", flush=True))
         pulled_at = datetime.now(UTC).replace(microsecond=0)
-        write_atomic(RAW_DIR / "tcgcsv" / stamp_of(updated) / "pulled-at.txt", pulled_at.isoformat() + "\n")
+        write_atomic(raw_folder() / "tcgcsv" / stamp_of(updated) / "pulled-at.txt", pulled_at.isoformat() + "\n")
         print(f"{fetcher.network_requests} request(s)")
         return _build_prices(dump, pulled_at, names)
     except TcgcsvError as e:
@@ -349,7 +358,7 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
 
 
 def _pulled_at(stamp: str) -> datetime:
-    marker = RAW_DIR / "tcgcsv" / stamp / "pulled-at.txt"
+    marker = raw_folder() / "tcgcsv" / stamp / "pulled-at.txt"
     if marker.is_file():
         return datetime.fromisoformat(marker.read_text(encoding="utf-8").strip())
     return datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)  # a dump saved before this marker existed: use the dump's own time
@@ -413,7 +422,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     target.add_argument("--all", action="store_true", help="every listed printing (about 2,000 requests)")
     refetch.set_defaults(func=cmd_refetch)
     sub.add_parser("sets", help="list sets with release dates (no network)").set_defaults(func=cmd_sets)
-    sub.add_parser("reparse", help="rebuild sets/cards/traits files from the saved raw pages (no network)").set_defaults(
+    sub.add_parser("reparse", help="rebuild provisional sets/cards/traits files from the saved raw pages (no network; sets.json is "
+                   "never written)").set_defaults(
         func=cmd_reparse
     )
     sub.add_parser(

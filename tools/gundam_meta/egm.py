@@ -56,7 +56,7 @@ class _Tournament(_Wire):
     tournament_results: tuple[_Result, ...]
 
 
-_TOKEN = re.compile(r"([A-Z]+\d*-\d{3}):(\d+)")
+_TOKEN = re.compile(r"([A-Z]+[0-9]*-[0-9]{3}):([0-9]+)")
 
 
 @dataclass(frozen=True)

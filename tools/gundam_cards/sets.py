@@ -3,10 +3,14 @@
 - Card packages come from the filter on `/en/cards/` (`<a data-val="616105">Freedom Ascension [GD05]</a>`).
 - Release dates come from `/en/products/list.php?page=N`, which also lists announced, unreleased products.
 Both are HTML; both are parsed with `html.parser`, never by eye.
+
+The reviewed `sets.json` is never written here or anywhere in the toolkit: a rebuild only proposes sets it lacks (`propose_sets`, into
+the dataset's provisional record) and reports how Bandai's list differs from it (`reviewed_set_notes`).
 """
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from html.parser import HTMLParser
@@ -51,7 +55,7 @@ class _PackageFilterParser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         value = dict(attrs).get("data-val")
-        if tag == "a" and value and value.isdigit():
+        if tag == "a" and value and value.isascii() and value.isdigit():
             self._current, self._text = value, []
 
     def handle_data(self, data: str) -> None:
@@ -141,7 +145,7 @@ def parse_product_list(html: str) -> tuple[tuple[RawProduct, ...], int]:
 
 
 # ---- field parsing ---------------------------------------------------------------------------------
-_TITLE_WITH_CODE = re.compile(r"(.*?)\s*\[([A-Z]{2,4})-?(\d{2}[A-Z]?)\]\s*")
+_TITLE_WITH_CODE = re.compile(r"(.*?)\s*\[([A-Z]{2,4})-?([0-9]{2}[A-Z]?)\]\s*")
 _DATE = re.compile(r"([A-Za-z]+)\s+(\d{1,2})\s*,\s*(\d{4})")
 
 
@@ -167,7 +171,7 @@ def parse_release_date(text: str) -> date | None:
     return datetime.strptime(" ".join(match.groups()), "%B %d %Y").date()
 
 
-_PREFIX_KINDS = {"GD": SetKind.BOOSTER, "ST": SetKind.STARTER, "EB": SetKind.EXTRA_BOOSTER, "SC": SetKind.DECK_BUILD_BOX}
+_PREFIX_KINDS = {"GD": SetKind.BOOSTER, "ST": SetKind.STARTER, "EB": SetKind.EXTRA_BOOSTER, "SC": SetKind.DECK_BUILD_BOX, "PB": SetKind.PROMO}
 _SYNTHETIC_PACKAGES = {
     "Promotion card": (SetCode("PROMO"), SetKind.PROMO),
     "Edition Beta": (SetCode("BETA"), SetKind.BETA),
@@ -253,6 +257,34 @@ def build_sets(packages: tuple[PackageEntry, ...], products: tuple[RawProduct, .
         for code, d in sorted(drafts.items())
     )
     return SetsBuild(sets, tuple(issues))
+
+
+# ---- the reviewed list and the provisional record ----------------------------------------------------------------
+_COMPARED = (("name", "name"), ("kind", "kind"), ("release_date", "release date"), ("bandai_package_id", "package id"),
+             ("product_category_raw", "category"), ("product_url", "url"))  # fmt: skip
+
+
+def propose_sets(tracked: Sequence[CardSet], stored: Sequence[CardSet], bandai: Sequence[CardSet]) -> tuple[CardSet, ...]:
+    """The provisional record after a rebuild, by code: the stored entries, updated or added from Bandai's list. An entry Bandai no
+    longer lists stays; a code in the reviewed `sets.json` is never in it (Bandai's version of a reviewed set is recorded nowhere)."""
+    tracked_codes = {s.code for s in tracked}
+    merged = {**{s.code: s for s in stored}, **{s.code: s for s in bandai}}
+    return tuple(s for code, s in sorted(merged.items()) if code not in tracked_codes)
+
+
+def reviewed_set_notes(tracked: Sequence[CardSet], bandai: Sequence[CardSet]) -> tuple[str, ...]:
+    """One informational line per reviewed set that Bandai's list lacks or shows with different data (the reviewed entry stands)."""
+    listed = {s.code: s for s in bandai}
+    notes: list[str] = []
+    for mine in tracked:
+        theirs = listed.get(mine.code)
+        if theirs is None:
+            notes.append(f"reviewed set {mine.code} is not on Bandai's list")
+            continue
+        differs = [label for field_name, label in _COMPARED if getattr(mine, field_name) != getattr(theirs, field_name)]
+        if differs:
+            notes.append(f"reviewed set {mine.code} differs from Bandai: {', '.join(differs)}")
+    return tuple(notes)
 
 
 # ---- fetching ----------------------------------------------------------------------------------------

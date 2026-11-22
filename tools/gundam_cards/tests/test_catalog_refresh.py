@@ -13,23 +13,22 @@ from typing import Any
 import pytest
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode
+from shared.dataset import REPO_ROOT, TOOL_DATA_VAR
 from shared.fetch import DEFAULT_USER_AGENT, FetchError, Fetcher, Response
 from shared.test_fetch import _Handler, serve
 from tools.gundam_cards import cli
-from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind
+from tools.gundam_cards.models import CardModel, CardSet, CardsFile, SetKind, SetsFile
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key
 from tools.gundam_cards.refresh import ANOMALY_SHARE, RefreshReport, format_report, refresh_catalog
 from tools.gundam_cards.sets import CARDS_URL, PRODUCTS_URL
 from tools.gundam_cards.store import (
-    OUT_DIR,
-    RAW_DIR,
     catalog_export_path,
     data_out_dir,
     load_catalog,
     load_provisional_sets,
     load_sets,
+    raw_folder,
     write_provisional_sets,
-    write_sets,
 )
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
@@ -109,20 +108,26 @@ class FakeBandai:
         return [c for c in self.calls if c.startswith(DETAIL_URL.split("{}")[0])]
 
 
+def write_tracked_sets(sets: tuple[CardSet, ...], generated_at: datetime, folder: Path) -> None:
+    """A reviewed sets.json, as the owner keeps it by hand (no toolkit code writes it)."""
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "sets.json").write_text(SetsFile(generated_at=generated_at, data=sets).model_dump_json(), encoding="utf-8")
+
+
 @pytest.fixture
 def tracked(tmp_path: Path) -> Path:
     """A tracked folder with the reviewed sets.json: GD01 only."""
     folder = tmp_path / "tracked"
     gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising (reviewed)", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
                    release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
-    write_sets((gd01,), T1, folder)
+    write_tracked_sets((gd01,), T1, folder)
     return folder
 
 
 @pytest.fixture
 def site(tmp_path: Path) -> FakeBandai:
     return FakeBandai(
-        tmp_path / "raw",
+        raw_folder(),
         {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"]), GD09: ("Future Pack [GD09]", ["GD09-001"])},
         details={"GD09-001": detail("GD09-001", where="Future Pack [GD09]")},
         products=[("Newtype Rising [GD01]", "July 25,2025"), ("Future Pack [GD09]", "March 5,2027")],
@@ -206,8 +211,9 @@ def test_a_second_refresh_adds_new_cards_and_printings_and_removes_nothing(site:
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="needs git")
-def test_a_refresh_reading_the_real_tracked_folder_changes_no_tracked_file(site: FakeBandai) -> None:
-    repo = OUT_DIR.parents[2]
+def test_a_refresh_reading_the_real_tracked_folder_changes_no_tracked_file(site: FakeBandai, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv(TOOL_DATA_VAR)  # the repository's own tracked folder; the pages stay in the temp folder
+    repo = REPO_ROOT
     status = ["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=no"]
     if subprocess.run(["git", "-C", str(repo), "rev-parse"], capture_output=True, check=False).returncode != 0:
         pytest.skip("not inside a git checkout")
@@ -418,7 +424,6 @@ def test_the_refresh_command_refuses_with_a_nonzero_exit_and_allow_anomaly_overr
     site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     monkeypatch.setattr(cli, "refresh_fetcher", lambda: site)
-    monkeypatch.setattr(cli, "RAW_DIR", site.raw_dir)
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 10)])
     assert cli.main(["refresh"]) == 0
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 8)])  # 2 of 10 gone
@@ -566,7 +571,7 @@ def test_the_refresh_uses_the_polite_fetcher() -> None:
     fetcher = cli.refresh_fetcher()
     assert isinstance(fetcher, Fetcher)
     assert fetcher._min_interval_s >= 0.5 and fetcher._user_agent == DEFAULT_USER_AGENT  # spacing itself: shared/test_fetch.py
-    assert fetcher._cache_dir == RAW_DIR
+    assert fetcher._cache_dir == raw_folder()
 
 
 def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:
@@ -608,7 +613,7 @@ def test_a_tracked_set_without_a_package_id_is_reported_known_and_an_untracked_o
                    release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
     gd06 = CardSet(code=SetCode("GD06"), name="Stardust Trails", kind=SetKind.BOOSTER, bandai_package_id=None,
                    release_date=date(2026, 9, 1), product_category_raw="BOOSTER PACK", product_url=None)
-    write_sets((gd01, gd06), T1, folder)
+    write_tracked_sets((gd01, gd06), T1, folder)
     run(site, folder, T1)
     site.packages[PackageId("616106")] = ("Stardust Trails [GD06]", ["GD06-001"])
     site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])
@@ -638,7 +643,6 @@ def test_the_refresh_fetcher_sends_the_toolkit_user_agent() -> None:
 
 def test_the_refresh_command_dry_run(site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
     monkeypatch.setattr(cli, "refresh_fetcher", lambda: site)
-    monkeypatch.setattr(cli, "RAW_DIR", site.raw_dir)
     assert cli.main(["refresh", "--dry-run"]) == 0
     out = capsys.readouterr().out
     assert "3 new card number(s): GD01-001 GD01-002 GD09-001" in out and "dry run: nothing written" in out

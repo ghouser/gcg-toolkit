@@ -37,14 +37,14 @@ class ValidatedStr(str):
 class CardNumber(ValidatedStr):
     """`GD05-111`, `ST01-001`, `EB01-076`, `R-016` (resource), `T-022` (token), `EXB-002`, `EXBP-001`."""
 
-    pattern = re.compile(r"[A-Z]+\d*-\d{3}")
+    pattern = re.compile(r"[A-Z]+[0-9]*-[0-9]{3}")
     label = "card number"
 
 
 class PrintingId(ValidatedStr):
     """A Bandai printing id: a card number, optionally followed by `_p<N>` for a parallel/alt-art printing."""
 
-    pattern = re.compile(r"[A-Z]+\d*-\d{3}(?:_p\d+)?")
+    pattern = re.compile(r"[A-Z]+[0-9]*-[0-9]{3}(?:_p[0-9]+)?")
     label = "printing id"
 
     @property
@@ -67,7 +67,7 @@ class SetCode(ValidatedStr):
 class PackageId(ValidatedStr):
     """Bandai's numeric package id, e.g. `616105`."""
 
-    pattern = re.compile(r"\d+")
+    pattern = re.compile(r"[0-9]+")
     label = "package id"
 
 

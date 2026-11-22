@@ -4,7 +4,8 @@
 - Online ranking snapshots are named by their `generated_at`; example-deck snapshots by their `fetched_at`. A snapshot is added once and
   never rewritten; storing the same data again adds nothing.
 - Events, online ranking and example-deck snapshots live in the local dataset (`data_out_dir()`, see `shared/dataset.py`).
-- Raw responses are cached under the tool's own `data/raw/`; the derived `popularity.json` is tracked in `shared/data/gundam_meta/`.
+- Raw responses are cached under the tool's own `data/raw/` (`raw_folder()`); the derived `popularity.json` is tracked in
+  `shared/data/gundam_meta/` (`tracked_folder()`). Both are under `tool_data_root()` (see `shared/dataset.py`), resolved on every call.
 """
 from __future__ import annotations
 
@@ -14,7 +15,7 @@ import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, refuse_real_data_write, snapshot_paths, tool_data_root
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -28,9 +29,15 @@ from tools.gundam_meta.models import (
     Source,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-RAW_DIR = REPO_ROOT / "tools" / "gundam_meta" / "data" / "raw"
-OUT_DIR = REPO_ROOT / "shared" / "data" / "gundam_meta"  # tracked: popularity.json
+
+def raw_folder() -> Path:
+    """This tool's raw response cache (git-ignored)."""
+    return tool_data_root() / "tools" / "gundam_meta" / "data" / "raw"
+
+
+def tracked_folder() -> Path:
+    """This tool's tracked output: popularity.json."""
+    return tool_data_root() / "shared" / "data" / "gundam_meta"
 
 
 def data_out_dir() -> Path:
@@ -39,6 +46,7 @@ def data_out_dir() -> Path:
 
 
 def write_atomic(path: Path, text: str) -> None:
+    refuse_real_data_write(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
     try:
@@ -165,7 +173,7 @@ def decks_as_of(out_dir: Path | None = None) -> date | None:
 
 
 # ---- derived ---------------------------------------------------------------------------------------------------
-def write_popularity(popularity: PopularityFile, out_dir: Path = OUT_DIR) -> Path:
-    path = out_dir / "popularity.json"
+def write_popularity(popularity: PopularityFile, out_dir: Path | None = None) -> Path:
+    path = (out_dir or tracked_folder()) / "popularity.json"
     write_atomic(path, pretty(popularity.model_dump_json()))
     return path

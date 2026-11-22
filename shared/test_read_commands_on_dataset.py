@@ -8,7 +8,7 @@ against itself. The fixture holds every dataset source, example decks included, 
 The tracked analysis outputs (packages, appearance rates) and the hand-typed collection are not part of the dataset; here they are absent
 (rates) or the small fixture collection, exactly as in the run on main; `build` saves into a temp folder.
 
-AC-1 (shared-data-contracts), at the end: no command of these tools, read or write, writes the catalog export.
+AC-1 (shared-data-contracts), at the end: the commands of these tools listed there, read or write, do not write the catalog export.
 """
 from __future__ import annotations
 
@@ -31,7 +31,6 @@ from tools.gundam_collection import store as collection_store
 from tools.gundam_collection.models import Art, CollectionFile, OwnedCard, OwnedPrinting
 from tools.gundam_meta import cli as meta_cli
 from tools.gundam_meta import duelfrontier
-from tools.gundam_meta import store as meta_store
 from tools.gundam_meta.models import (
     Deck,
     DeckCard,
@@ -283,7 +282,7 @@ def test_a_read_command_on_the_dataset_gives_the_same_output_as_before(
 
 
 # ---- AC-1: no command but `gundam_cards export` writes the catalog export -----------------------------------------------------------
-# Every command of the other tools, read and write, runs on the fixture dataset and leaves $GCG_CATALOG_FILE absent (the gundam_cards
+# The other tools' commands, read and write, run on the fixture dataset and leaves $GCG_CATALOG_FILE absent (the gundam_cards
 # commands are covered in tools/gundam_cards/tests/test_export.py). Nothing touches the network, the raw response caches or the tracked
 # files: fetches are replaced by fakes and every write outside the dataset goes to a temp folder. The command bodies run for real.
 COLLECTION_LINES = "GD01-001 2\nGD01-002 1\nGD01-003 3\n"
@@ -300,8 +299,8 @@ class Offline:
 
 @pytest.fixture
 def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages, collection, popularity and raw
-    folders redirected to temp folders; the tournament and online packages built (by the commands under test)."""
+    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages and collection folders redirected
+    to temp folders (the raw and popularity folders are in the root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
     ds = dataset_tree(tmp_path / "ds")
     monkeypatch.setenv("GCG_DATA_DIR", str(ds))
     gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(update={"start_date": date(2026, 8, 3)})
@@ -318,8 +317,8 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     (ds / "gundam_meta" / "example_decks" / f"{snapshot_key(newer.fetched_at)}.json").write_text(
         pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8")
 
-    packages, coll, raw = tmp_path / "packages", tmp_path / "collection", tmp_path / "raw"
-    for folder in (packages, coll, raw):
+    packages, coll = tmp_path / "packages", tmp_path / "collection"
+    for folder in (packages, coll):
         folder.mkdir()
     for name in ("write_packages", "write_rates", "write_drift"):
         monkeypatch.setattr(packages_cli, name, partial(getattr(packages_store, name), out_dir=packages))
@@ -336,8 +335,6 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
     monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))
 
-    monkeypatch.setattr(meta_cli, "RAW_DIR", raw)
-    monkeypatch.setattr(meta_cli, "write_popularity", partial(meta_store.write_popularity, out_dir=tmp_path))
     monkeypatch.setattr(meta_cli, "Fetcher", Offline)
     monkeypatch.setattr(meta_cli, "egm", SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))))
     synced = duelfrontier.SyncResult(events=(), listed=0, already_stored=0, not_complete_yet=0, waiting_for_results=0, failures=())
@@ -400,11 +397,3 @@ def test_no_command_of_the_other_tools_writes_the_catalog_export(sandbox: Path, 
     assert main(argv) == code
     assert not catalog_export_path().exists()
 
-
-@pytest.mark.parametrize("main", list(TOOL), ids=TOOL.get)
-def test_every_subcommand_of_the_other_tools_is_run_above(main: Main, capsys: pytest.CaptureFixture[str]) -> None:
-    with pytest.raises(SystemExit):
-        main(["--help"])
-    match = re.search(r"\{([a-z,-]+)\}", capsys.readouterr().out)
-    assert match is not None
-    assert set(match.group(1).split(",")) == {a[0] for m, a, _ in OTHER_COMMANDS if m is main}

@@ -19,7 +19,7 @@ from tools.gundam_collection.models import Art, Entry, Issue, IssueCode, Severit
 MAX_QUANTITY = 99
 UNKNOWN = "?"
 
-_CARD = re.compile(r"(?P<number>[A-Z]+\d*-\d{3})(?P<art>\+\+|\+|LK)?", re.IGNORECASE)
+_CARD = re.compile(r"(?P<number>[A-Z]+[0-9]*-[0-9]{3})(?P<art>\+\+|\+|LK)?", re.IGNORECASE | re.ASCII)
 _QUANTITY = re.compile(r"x?(?P<n>\d+)x?", re.IGNORECASE)
 _ART = {"+": Art.ALT, "++": Art.ALT_PLUS, "LK": Art.LINK}
 

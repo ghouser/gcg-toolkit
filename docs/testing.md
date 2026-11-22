@@ -7,7 +7,7 @@ Rules for tests in this repository, written so a reviewer can check each one. Te
 - Fixtures are small and saved in the tool's `tests/fixtures/` folder: a few cards, one page, one event, never a whole crawl or dataset. Test data built in code (helpers like `tools/gundam_packages/tests/helpers.py`) is fine and preferred when it is shorter.
 
 ## What a test proves
-- **Test behavior, not construction.** A test calls the code the way its users do and checks what comes out. It does not scan source files or docs to check how they are written; rules about how code is built are for the reviewer (`.claude/rules/review-checklist.md`).
+- **Test behavior, not construction.** A test calls the code the way its users do and checks what comes out. It does not scan source files or docs to check how they are written; rules about how code is built are for the reviewer (`.claude/rules/review-checklist.md`). One stated exception: a test may read `docs/catalog-export.md` to check the identifier patterns the contract documents against its fixture, `docs/identifier-examples.json` (`shared/test_identifier_examples.py`).
 - **CLI end to end for commands; units for logic.** A command's behavior and output contract (what it prints, what files it writes, its exit code) is tested by running the command (its `main` with arguments). Logic and parsing (scoring, matching, parsing a page) are tested as units, by calling the function with small values.
 - **Expected values come from the spec or from hand derivation**, never copied from running the code. A test whose expectations were taken from the code's own output is a *characterization test*: its name says so (`test_characterization_...`) and a comment says what it pins and why.
 - **"Effectively what the spec asked."** Where the spec cannot fully determine a value (a score, a ranking among near-equals), a test may check a range, an ordering or a property instead of an exact value, and says so in a comment.
@@ -15,6 +15,9 @@ Rules for tests in this repository, written so a reviewer can check each one. Te
 
 ## Real data
 - Tests never read or write the real dataset by default. The root `conftest.py` points `GCG_DATA_DIR` at an empty temporary folder for every test.
+- Tests never touch the cards and meta tools' real raw caches or tracked files: the root `conftest.py` points `GCG_TOOL_DATA_DIR` at a temporary folder for every test (real-data tests see it as it is), holding copies of the tracked `sets.json` and `restrictions.json`.
 - A test that needs the real dataset is marked **`real_data`** (`pytestmark = pytest.mark.real_data`). Marked tests are skipped unless **`GCG_TEST_REAL_DATA=1`**; with it set, only they see the real dataset, and they still skip when the data they need is absent.
 - `conftest.py` is the only place that reads `GCG_TEST_REAL_DATA`. A test module never checks it itself; it uses the marker.
+- A run with `GCG_TEST_REAL_DATA=1` is made deliberately, by the owner, and never on an old or base checkout (one that predates the current safeguards).
+- Backstop: while the test suite runs, every file writer (the stores' `write_atomic`, the fetcher's cache) refuses a path inside the real `~/.gcg` (the dataset, images, the catalog export) with `RealDataWrite`, before writing anything (`shared/dataset.py`, `refuse_real_data_write`). It holds even with `GCG_TEST_REAL_DATA=1` or a location left unredirected; real-data tests only read the real dataset.
 - Real-data tests check facts that should survive a data refresh (ranges, orderings, that every card is known), or pin facts of a dated sync and say so in their docstring.

@@ -70,7 +70,7 @@ def decks_with_package(decks: Sequence[Deck], text: str) -> list[Deck]:
     """The decks that contain a package, in any role: a package's anchor card (`ST11-001` or `pkg:ST11-001`) or words of its name as the decks show it
     (`char aznable (b)`)."""
     query = text.strip().casefold()
-    anchor = re.fullmatch(r"(?:pkg:)?([a-z]+\d+-\d+)", query)
+    anchor = re.fullmatch(r"(?:pkg:)?([a-z]+[0-9]+-[0-9]+)", query)
     found = []
     for deck in decks:
         by_anchor = anchor is not None and anchor.group(1).upper() in {a.upper() for a in deck.anchors}

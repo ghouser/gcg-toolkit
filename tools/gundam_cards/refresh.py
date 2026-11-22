@@ -9,7 +9,7 @@ cached pages (a printing keeps its stored packages and gains this run's), misses
 complete, accepted, non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it
 was. Each file is written atomically, cards.json first; an interruption among the writes may leave the derived files behind
 until the next run.
-The tracked sets.json is only read.
+The tracked sets.json is only read; each reviewed set Bandai lacks or shows differently gets one informational report line.
 See .claude/feature-design/refresh-cards.md.
 """
 from __future__ import annotations
@@ -26,9 +26,8 @@ from tools.gundam_cards.build import Issue, ParseError, SourcePage, build_catalo
 from tools.gundam_cards.models import CardModel, CardSet
 from tools.gundam_cards.parse_detail import DetailPageError, parse_detail_html
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key, list_page_key, parse_card_list_raw
-from tools.gundam_cards.sets import build_sets, fetch_package_list
+from tools.gundam_cards.sets import build_sets, fetch_package_list, propose_sets, reviewed_set_notes
 from tools.gundam_cards.store import (
-    OUT_DIR,
     load_catalog,
     load_provisional_sets,
     load_source_pages,
@@ -65,6 +64,7 @@ class RefreshReport:
     refused: bool = False  # ... and no override was given
     rejected: tuple[Rejected, ...] = ()
     issues: tuple[Issue, ...] = ()
+    reviewed_notes: tuple[str, ...] = ()  # reviewed sets Bandai's list lacks or shows differently (informational)
     written: bool = False
 
 
@@ -109,7 +109,7 @@ def refresh_catalog(
     fetcher: TextFetcher,
     raw_dir: Path,
     *,
-    tracked_dir: Path = OUT_DIR,
+    tracked_dir: Path | None = None,
     out_dir: Path | None = None,
     dry_run: bool = False,
     allow_anomaly: bool = False,
@@ -117,7 +117,7 @@ def refresh_catalog(
     progress: Callable[[str], None] = lambda _: None,
 ) -> RefreshReport:
     """Run one refresh (see the module docstring). `raw_dir` is the page cache the fetcher writes; `tracked_dir` holds sets.json
-    (read only); `out_dir` is the catalog's dataset folder (default `data_out_dir()`)."""
+    (read only; default `tracked_folder()`); `out_dir` is the catalog's dataset folder (default `data_out_dir()`)."""
     now = now or datetime.now(tz=UTC)
     rejected: list[Rejected] = []
 
@@ -177,10 +177,10 @@ def refresh_catalog(
     tracked = load_tracked_sets(tracked_dir)
     tracked_codes = {s.code for s in tracked}
     sets_build = build_sets(packages, products)
-    stored_provisional = {s.code: s for s in load_provisional_sets(out_dir)}
-    from_bandai = {s.code: s for s in sets_build.sets if s.bandai_package_id is not None and s.code not in tracked_codes}
-    provisional = tuple({**stored_provisional, **from_bandai}.values())
-    recorded = tuple(s for code, s in sorted(from_bandai.items()) if code not in stored_provisional)
+    stored_provisional = load_provisional_sets(out_dir)
+    stored_codes = {s.code for s in stored_provisional}
+    provisional = propose_sets(tracked, stored_provisional, tuple(s for s in sets_build.sets if s.bandai_package_id is not None))
+    recorded = tuple(s for s in provisional if s.code not in stored_codes)
     new_set = set(new_printings)
     code_of = {s.bandai_package_id: s.code for s in sets_build.sets if s.bandai_package_id is not None}
     packages_with_new = tuple(  # provisional by set code, as above: a tracked set may have no bandai_package_id
@@ -200,7 +200,7 @@ def refresh_catalog(
     loaded = load_source_pages(raw_dir, {k: tuple(v) for k, v in packages_of.items()})
     pages, page_rejects = _shape_checked(loaded.pages)
     rejected += page_rejects
-    dates = release_dates(tracked + tuple(s for s in provisional if s.code not in tracked_codes))
+    dates = release_dates(tracked + provisional)
     result = build_catalog(pages, dates)
     listed_numbers = frozenset(i.card_number for i in listed)
     merged = merge_catalog(stored, result.cards, now, listed_numbers)
@@ -229,6 +229,7 @@ def refresh_catalog(
         refused=guard_trips and not allow_anomaly,
         rejected=tuple(rejected),
         issues=(*sets_build.issues, *loaded.issues, *result.issues),
+        reviewed_notes=reviewed_set_notes(tracked, sets_build.sets),
     )
     if dry_run or report.refused:
         return report
@@ -265,6 +266,7 @@ def format_report(report: RefreshReport) -> list[str]:
             lines.append("dry run: nothing written")
         else:
             lines.append("written")
+    lines += list(report.reviewed_notes)
     lines += [f"rejected {r.subject}: {r.reason}" for r in report.rejected]
     lines += [f"  [{i.kind.value}] {i.subject}: {i.detail}" for i in report.issues]
     return lines

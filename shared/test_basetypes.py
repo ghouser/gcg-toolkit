@@ -18,6 +18,13 @@ def test_card_numbers_rejected(value: str) -> None:
         CardNumber(value)
 
 
+@pytest.mark.parametrize("value", ["\uff16\uff11\uff16\uff11\uff10\uff15", "\u0666\u0661\u0666\u0661\u0660\u0665", "61610\uff15"])
+def test_package_ids_with_non_ascii_digits_rejected(value: str) -> None:
+    assert PackageId("616105") == "616105"
+    with pytest.raises(ValueError):
+        PackageId(value)
+
+
 def test_printing_id_parts() -> None:
     base, alt = PrintingId("ST01-001"), PrintingId("ST01-001_p5")
     assert (base.card_number, base.variant) == ("ST01-001", None)

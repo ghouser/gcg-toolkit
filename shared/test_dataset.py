@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from shared.basetypes import CardNumber, ProductId
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
+from shared.dataset import REPO_ROOT, Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key
 from tools.gundam_cards import store as cards_store
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.models import CardPrice, PriceFile
@@ -86,8 +86,8 @@ def _repository_files(root: Path, skip: set[Path]) -> dict[str, tuple[int, int]]
 def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchanged(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     ds = tmp_path / "ds"
     monkeypatch.setenv("GCG_DATA_DIR", str(ds))
-    skip = {cards_store.RAW_DIR, meta_store.RAW_DIR}
-    before = _repository_files(cards_store.REPO_ROOT, skip)
+    skip = {REPO_ROOT / "tools" / tool / "data" / "raw" for tool in ("gundam_cards", "gundam_meta")}
+    before = _repository_files(REPO_ROOT, skip)
 
     pulled = datetime(2026, 10, 9, 21, 0, tzinfo=UTC)
     row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=25, product_id=ProductId(7), fetched_at=pulled)
@@ -102,4 +102,4 @@ def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchange
     assert decks_path.parent == ds / "gundam_meta" / "example_decks" and decks_path.is_file()
     assert len(list((ds / "gundam_meta" / "online_rankings").glob("*.json"))) == 1
     assert (ds / "gundam_meta" / "events" / "egm" / "a.json").is_file()
-    assert _repository_files(cards_store.REPO_ROOT, skip) == before  # nothing written under the repository folder
+    assert _repository_files(REPO_ROOT, skip) == before  # nothing written under the repository folder
