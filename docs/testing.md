@@ -15,6 +15,7 @@ Rules for tests in this repository, written so a reviewer can check each one. Te
 
 ## Real data
 - Tests never read or write the real dataset by default. The root `conftest.py` points `GCG_DATA_DIR` at an empty temporary folder for every test.
+- Tests never touch the cards and meta tools' real raw caches or tracked files: the root `conftest.py` points `GCG_TOOL_DATA_DIR` at a temporary folder for every test (real-data tests see it as it is), holding copies of the tracked `sets.json` and `restrictions.json`.
 - A test that needs the real dataset is marked **`real_data`** (`pytestmark = pytest.mark.real_data`). Marked tests are skipped unless **`GCG_TEST_REAL_DATA=1`**; with it set, only they see the real dataset, and they still skip when the data they need is absent.
 - `conftest.py` is the only place that reads `GCG_TEST_REAL_DATA`. A test module never checks it itself; it uses the marker.
 - Real-data tests check facts that should survive a data refresh (ranges, orderings, that every card is known), or pin facts of a dated sync and say so in their docstring.

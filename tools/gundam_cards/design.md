@@ -32,7 +32,7 @@ python3 -m tools.gundam_cards.cli export                     # the catalog expor
 - Network (only during sync): Bandai card site and product list; tcgcsv.com (a community export of TCGPlayer's catalog) for the TCGPlayer product mapping and market prices. TCGPlayer's own sites and APIs are never contacted (their terms forbid it; see `notes/source-terms.md`).
 
 ## Outputs
-Owned by this tool; other tools read these files per the contracts below, through the shared models and `store.py`, and never import this tool's parsing code. `sets.json` and `restrictions.json` are tracked in `shared/data/gundam_cards/`. The catalog, its vocabularies and the prices live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_cards/` (default `~/.gcg/data`, see `shared/dataset.py`). Raw HTML is cached in `tools/gundam_cards/data/raw/`.
+Owned by this tool; other tools read these files per the contracts below, through the shared models and `store.py`, and never import this tool's parsing code. `sets.json` and `restrictions.json` are tracked in `shared/data/gundam_cards/`. The catalog, its vocabularies and the prices live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_cards/` (default `~/.gcg/data`, see `shared/dataset.py`). Raw HTML is cached in `tools/gundam_cards/data/raw/`. Both folders are found under `$GCG_TOOL_DATA_DIR` when it is set (`store.raw_folder()`, `store.tracked_folder()`; see `shared/dataset.py`).
 
 | File | Format | Key | Fields | Consumers |
 |------|--------|-----|--------|-----------|

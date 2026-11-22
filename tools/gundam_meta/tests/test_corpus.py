@@ -15,7 +15,7 @@ from tools.gundam_meta import egm
 from tools.gundam_meta.dedupe import combined_events, find_duplicate_groups
 from tools.gundam_meta.models import PopularityFile, Source, Tier
 from tools.gundam_meta.redo import reparse_duelfrontier, same_content
-from tools.gundam_meta.store import OUT_DIR, RAW_DIR, data_out_dir, load_events, load_snapshots
+from tools.gundam_meta.store import data_out_dir, load_events, load_snapshots, raw_folder, tracked_folder
 
 pytestmark = pytest.mark.real_data
 needs_data = pytest.mark.skipif(
@@ -74,7 +74,7 @@ def test_duplicate_events_are_found_and_collapsed() -> None:
 
 @needs_data
 def test_popularity_file_loads_and_covers_the_eras() -> None:
-    popularity = PopularityFile.model_validate_json((OUT_DIR / "popularity.json").read_text(encoding="utf-8"))
+    popularity = PopularityFile.model_validate_json((tracked_folder() / "popularity.json").read_text(encoding="utf-8"))
     assert popularity.msa is not None and len(popularity.msa.cards) == 282
     assert {str(t.era) for t in popularity.tournaments} == {"gd05", "gd05_5"}  # gd06 hasn't started
     for t in popularity.tournaments:
@@ -84,11 +84,11 @@ def test_popularity_file_loads_and_covers_the_eras() -> None:
 
 @needs_data
 def test_reparse_from_raw_reproduces_every_stored_duelfrontier_event() -> None:
-    if not (RAW_DIR / "duelfrontier" / "events").is_dir():
+    if not (raw_folder() / "duelfrontier" / "events").is_dir():
         pytest.skip("raw DuelFrontier pages not present")
     stored = {e.id: e for e in load_events(source=Source.DUELFRONTIER)}
     with tempfile.TemporaryDirectory() as tmp:
-        report = reparse_duelfrontier(RAW_DIR, Path(tmp))
+        report = reparse_duelfrontier(raw_folder(), Path(tmp))
         rebuilt = {e.id: e for e in load_events(Path(tmp), Source.DUELFRONTIER)}
     assert report.failures == ()
     assert rebuilt.keys() == stored.keys()
@@ -99,7 +99,7 @@ def test_reparse_from_raw_reproduces_every_stored_duelfrontier_event() -> None:
 def test_egm_events_reproduce_from_their_raw_response() -> None:
     stored = load_events(source=Source.EGM)
     for fetched_at in {e.fetched_at for e in stored}:
-        path = egm.egm_raw_path(RAW_DIR, fetched_at)
+        path = egm.egm_raw_path(raw_folder(), fetched_at)
         if not path.is_file():
             pytest.skip("raw EGM response not present")
         rebuilt = {e.id: e for e in egm.parse_tournaments(path.read_text(encoding="utf-8"), fetched_at).events}

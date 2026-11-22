@@ -31,7 +31,6 @@ from tools.gundam_collection import store as collection_store
 from tools.gundam_collection.models import Art, CollectionFile, OwnedCard, OwnedPrinting
 from tools.gundam_meta import cli as meta_cli
 from tools.gundam_meta import duelfrontier
-from tools.gundam_meta import store as meta_store
 from tools.gundam_meta.models import (
     Deck,
     DeckCard,
@@ -300,8 +299,8 @@ class Offline:
 
 @pytest.fixture
 def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages, collection, popularity and raw
-    folders redirected to temp folders; the tournament and online packages built (by the commands under test)."""
+    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages and collection folders redirected
+    to temp folders (the raw and popularity folders are in the root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
     ds = dataset_tree(tmp_path / "ds")
     monkeypatch.setenv("GCG_DATA_DIR", str(ds))
     gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(update={"start_date": date(2026, 8, 3)})
@@ -318,8 +317,8 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     (ds / "gundam_meta" / "example_decks" / f"{snapshot_key(newer.fetched_at)}.json").write_text(
         pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8")
 
-    packages, coll, raw = tmp_path / "packages", tmp_path / "collection", tmp_path / "raw"
-    for folder in (packages, coll, raw):
+    packages, coll = tmp_path / "packages", tmp_path / "collection"
+    for folder in (packages, coll):
         folder.mkdir()
     for name in ("write_packages", "write_rates", "write_drift"):
         monkeypatch.setattr(packages_cli, name, partial(getattr(packages_store, name), out_dir=packages))
@@ -336,8 +335,6 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
     monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))
 
-    monkeypatch.setattr(meta_cli, "RAW_DIR", raw)
-    monkeypatch.setattr(meta_cli, "write_popularity", partial(meta_store.write_popularity, out_dir=tmp_path))
     monkeypatch.setattr(meta_cli, "Fetcher", Offline)
     monkeypatch.setattr(meta_cli, "egm", SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))))
     synced = duelfrontier.SyncResult(events=(), listed=0, already_stored=0, not_complete_yet=0, waiting_for_results=0, failures=())

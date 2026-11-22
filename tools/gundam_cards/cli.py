@@ -41,8 +41,6 @@ from tools.gundam_cards.restrictions import NEWS_URL, RestrictionsError, parse_r
 from tools.gundam_cards.store import (
     load_restrictions,
     write_restrictions,
-    OUT_DIR,
-    RAW_DIR,
     catalog_export_path,
     data_out_dir,
     load_catalog,
@@ -54,8 +52,10 @@ from tools.gundam_cards.store import (
     load_source_pages,
     load_tracked_sets,
     raw_dump_stamps,
+    raw_folder,
     read_raw_dump,
     release_dates,
+    tracked_folder,
     write_atomic,
     write_catalog,
     write_catalog_export,
@@ -84,18 +84,18 @@ def _print_issues(issues: Sequence[Issue]) -> None:
 
 def _save_sets(build: SetsBuild) -> None:
     write_sets(build.sets, datetime.now(tz=UTC))
-    print(f"{len(build.sets)} sets -> {OUT_DIR / 'sets.json'}")
+    print(f"{len(build.sets)} sets -> {tracked_folder() / 'sets.json'}")
     _print_issues(build.issues)
 
 
 def refresh_fetcher() -> Fetcher:
-    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in RAW_DIR."""
-    return Fetcher(RAW_DIR, min_interval_s=0.5)
+    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in `raw_folder()`."""
+    return Fetcher(raw_folder(), min_interval_s=0.5)
 
 
 def cmd_refresh(args: argparse.Namespace) -> int:
     report = refresh_catalog(
-        refresh_fetcher(), RAW_DIR, dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
+        refresh_fetcher(), raw_folder(), dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
     )
     for line in format_report(report):
         print(line)
@@ -103,7 +103,7 @@ def cmd_refresh(args: argparse.Namespace) -> int:
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
-    fetcher = Fetcher(RAW_DIR, min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
     code = 0
     if args.only in (None, "sets"):
         build = sync_sets(fetcher)
@@ -112,11 +112,11 @@ def cmd_sync(args: argparse.Namespace) -> int:
         if args.only == "sets":
             print(f"{fetcher.network_requests} network request(s)")
             return code
-    packages = read_packages(RAW_DIR)
+    packages = read_packages(raw_folder())
     if not packages:
         print("no cached package list; run `sync` (without --only printings) first", file=sys.stderr)
         return 2
-    report = sync_printings(fetcher, RAW_DIR, packages, progress=lambda m: print(m, flush=True))
+    report = sync_printings(fetcher, raw_folder(), packages, progress=lambda m: print(m, flush=True))
     print(
         f"{report.listed} printings: {report.already_cached} already cached, {report.fetched} fetched, "
         f"{len(report.failures)} failed; {fetcher.network_requests} network request(s)"
@@ -127,12 +127,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
 
 def cmd_refetch(args: argparse.Namespace) -> int:
-    packages = read_packages(RAW_DIR)
+    packages = read_packages(raw_folder())
     if not packages:
         print("no cached package list; run `sync` first", file=sys.stderr)
         return 2
     try:
-        ids = select_printings(RAW_DIR, packages, card=CardNumber(args.card) if args.card else None, package=args.package)
+        ids = select_printings(raw_folder(), packages, card=CardNumber(args.card) if args.card else None, package=args.package)
     except ValueError as e:
         print(e, file=sys.stderr)
         return 2
@@ -140,8 +140,8 @@ def cmd_refetch(args: argparse.Namespace) -> int:
         print("nothing matches", file=sys.stderr)
         return 1
     print(f"refetching {len(ids)} printing page(s) from Bandai")
-    fetcher = Fetcher(RAW_DIR, min_interval_s=0.5)
-    report = refetch_printings(fetcher, RAW_DIR, ids, progress=lambda m: print(m, flush=True))
+    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
+    report = refetch_printings(fetcher, raw_folder(), ids, progress=lambda m: print(m, flush=True))
     print(f"{len(report.changed)} changed, {len(report.unchanged)} unchanged, {len(report.failures)} failed")
     for printing_id in report.changed[:50]:
         print(f"  changed: {printing_id}")
@@ -165,7 +165,7 @@ def cmd_sets(_: argparse.Namespace) -> int:
 
 def cmd_reparse(_: argparse.Namespace) -> int:
     issues: list[Issue] = []
-    rebuilt = sets_from_raw(RAW_DIR)
+    rebuilt = sets_from_raw(raw_folder())
     if rebuilt is not None:
         _save_sets(rebuilt)
         issues.extend(rebuilt.issues)
@@ -283,7 +283,7 @@ def _build_prices(dump: RawDump, pulled_at: datetime, names: dict[CardNumber, st
 def cmd_sync_restrictions(args: argparse.Namespace) -> int:
     """Banned / restricted cards from Bandai's announcement page (one request, cached; give the new URL when Bandai publishes a new list)."""
     catalog = {c.number: c for c in load_catalog_or_fail().data}
-    fetcher = Fetcher(RAW_DIR / "restrictions", min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder() / "restrictions", min_interval_s=0.5)
     key = args.url.rstrip("/").rsplit("/", 1)[-1]
     html = fetcher.get_text(args.url, cache_key=key, force=args.force).text
     try:
@@ -331,7 +331,7 @@ def cmd_restrictions(args: argparse.Namespace) -> int:
 
 def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
     names = _catalog()
-    fetcher = Fetcher(RAW_DIR / "tcgcsv", min_interval_s=0.5)
+    fetcher = Fetcher(raw_folder() / "tcgcsv", min_interval_s=0.5)
     try:
         updated = fetch_updated(fetcher)
         stored = load_prices()
@@ -340,7 +340,7 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
             return 0
         dump = fetch_dump(fetcher, updated, force=args.force, progress=lambda m: print(f"  {m}", flush=True))
         pulled_at = datetime.now(UTC).replace(microsecond=0)
-        write_atomic(RAW_DIR / "tcgcsv" / stamp_of(updated) / "pulled-at.txt", pulled_at.isoformat() + "\n")
+        write_atomic(raw_folder() / "tcgcsv" / stamp_of(updated) / "pulled-at.txt", pulled_at.isoformat() + "\n")
         print(f"{fetcher.network_requests} request(s)")
         return _build_prices(dump, pulled_at, names)
     except TcgcsvError as e:
@@ -349,7 +349,7 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
 
 
 def _pulled_at(stamp: str) -> datetime:
-    marker = RAW_DIR / "tcgcsv" / stamp / "pulled-at.txt"
+    marker = raw_folder() / "tcgcsv" / stamp / "pulled-at.txt"
     if marker.is_file():
         return datetime.fromisoformat(marker.read_text(encoding="utf-8").strip())
     return datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)  # a dump saved before this marker existed: use the dump's own time

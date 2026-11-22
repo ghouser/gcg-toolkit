@@ -1,6 +1,7 @@
 """Reading the raw page cache and writing the catalog files.
 
-- The set list and the restrictions file are tracked in the repository (`OUT_DIR`).
+- The set list and the restrictions file are tracked in the repository (`tracked_folder()`); the raw page cache is `raw_folder()`.
+  Both are under `tool_data_root()` (see `shared/dataset.py`), resolved on every call.
 - The catalog, its vocabularies and the price snapshots live in the local dataset (`data_out_dir()`, see `shared/dataset.py`).
   The catalog only grows; price snapshots are added, never rewritten.
 """
@@ -15,7 +16,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode, SourceTitle, Trait
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key, snapshot_paths
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, newest_snapshot, snapshot_key, snapshot_paths, tool_data_root
 from tools.gundam_cards.build import CatalogResult, Issue, IssueKind, SourcePage
 from tools.gundam_cards.export import CatalogExport, export_json
 from tools.gundam_cards.models import (
@@ -38,9 +39,15 @@ from tools.gundam_cards.parse_detail import DetailPageError, parse_detail_html
 from tools.gundam_cards.printings import read_package_lists, read_packages
 from tools.gundam_cards.tcgcsv import RawDump
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-RAW_DIR = REPO_ROOT / "tools" / "gundam_cards" / "data" / "raw"
-OUT_DIR = REPO_ROOT / "shared" / "data" / "gundam_cards"  # tracked: sets.json, restrictions.json
+
+def raw_folder() -> Path:
+    """This tool's raw page cache (git-ignored): Bandai pages, tcgcsv dumps, the restrictions page."""
+    return tool_data_root() / "tools" / "gundam_cards" / "data" / "raw"
+
+
+def tracked_folder() -> Path:
+    """This tool's tracked files: sets.json (changed only by hand) and restrictions.json."""
+    return tool_data_root() / "shared" / "data" / "gundam_cards"
 
 
 def data_out_dir() -> Path:
@@ -63,9 +70,10 @@ def packages_by_printing(raw_dir: Path) -> dict[PrintingId, tuple[PackageId, ...
     return {k: tuple(v) for k, v in inverted.items()}
 
 
-def load_source_pages(raw_dir: Path = RAW_DIR, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None) -> LoadedPages:
+def load_source_pages(raw_dir: Path | None = None, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None) -> LoadedPages:
     """Parse every cached detail page. Pages that can't be parsed become issues. Each printing's packages come from `packages_of`,
     or from the cached list pages when it is not given."""
+    raw_dir = raw_dir or raw_folder()
     if packages_of is None:
         packages_of = packages_by_printing(raw_dir)
     pages: list[SourcePage] = []
@@ -94,13 +102,13 @@ def write_atomic(path: Path, text: str) -> None:
         raise
 
 
-def write_sets(sets: tuple[CardSet, ...], generated_at: datetime, out_dir: Path = OUT_DIR) -> None:
-    write_atomic(out_dir / "sets.json", _pretty(SetsFile(generated_at=generated_at, data=sets).model_dump_json()))
+def write_sets(sets: tuple[CardSet, ...], generated_at: datetime, out_dir: Path | None = None) -> None:
+    write_atomic((out_dir or tracked_folder()) / "sets.json", _pretty(SetsFile(generated_at=generated_at, data=sets).model_dump_json()))
 
 
-def load_tracked_sets(out_dir: Path = OUT_DIR) -> tuple[CardSet, ...]:
+def load_tracked_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:
     """The reviewed, tracked sets.json, or () when it doesn't exist yet."""
-    path = out_dir / "sets.json"
+    path = (out_dir or tracked_folder()) / "sets.json"
     if not path.is_file():
         return ()
     return SetsFile.model_validate_json(path.read_text(encoding="utf-8")).data
@@ -121,7 +129,7 @@ def write_provisional_sets(sets: tuple[CardSet, ...], generated_at: datetime, ou
     return True
 
 
-def load_sets(out_dir: Path = OUT_DIR, data_out: Path | None = None) -> tuple[CardSet, ...]:
+def load_sets(out_dir: Path | None = None, data_out: Path | None = None) -> tuple[CardSet, ...]:
     """Every known set: the tracked sets.json plus the dataset's provisional packages; for a code in both, the sets.json entry wins."""
     tracked = load_tracked_sets(out_dir)
     codes = {s.code for s in tracked}
@@ -258,14 +266,14 @@ def load_cards_with_prices(out_dir: Path | None = None) -> tuple[PricedCard, ...
     return tuple(PricedCard(card=c, latest_tcg_price=by_number.get(c.number)) for c in cards)
 
 
-def raw_dump_stamps(raw_dir: Path = RAW_DIR) -> tuple[str, ...]:
+def raw_dump_stamps(raw_dir: Path | None = None) -> tuple[str, ...]:
     """The saved tcgcsv dumps (`20261008T200609Z`), oldest first."""
-    return tuple(sorted(p.name for p in (raw_dir / "tcgcsv").glob("*Z") if (p / "groups.json").is_file()))
+    return tuple(sorted(p.name for p in ((raw_dir or raw_folder()) / "tcgcsv").glob("*Z") if (p / "groups.json").is_file()))
 
 
-def read_raw_dump(stamp: str, raw_dir: Path = RAW_DIR) -> RawDump:
+def read_raw_dump(stamp: str, raw_dir: Path | None = None) -> RawDump:
     """A saved dump read back from disk (no network)."""
-    folder = raw_dir / "tcgcsv" / stamp
+    folder = (raw_dir or raw_folder()) / "tcgcsv" / stamp
     groups_text = (folder / "groups.json").read_text(encoding="utf-8")
     group_ids = [g["groupId"] for g in json.loads(groups_text)["results"]]
     return RawDump(
@@ -295,12 +303,12 @@ def _pretty(compact_json: str) -> str:
     return json.dumps(json.loads(compact_json), ensure_ascii=False, indent=1) + "\n"
 
 
-def write_restrictions(file: RestrictionsFile, out_dir: Path = OUT_DIR) -> Path:
-    path = out_dir / "restrictions.json"
+def write_restrictions(file: RestrictionsFile, out_dir: Path | None = None) -> Path:
+    path = (out_dir or tracked_folder()) / "restrictions.json"
     write_atomic(path, json.dumps(json.loads(file.model_dump_json()), ensure_ascii=False, indent=1) + "\n")
     return path
 
 
-def load_restrictions(out_dir: Path = OUT_DIR) -> RestrictionsFile | None:
-    path = out_dir / "restrictions.json"
+def load_restrictions(out_dir: Path | None = None) -> RestrictionsFile | None:
+    path = (out_dir or tracked_folder()) / "restrictions.json"
     return RestrictionsFile.model_validate_json(path.read_text(encoding="utf-8")) if path.is_file() else None

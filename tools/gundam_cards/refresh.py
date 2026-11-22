@@ -28,7 +28,6 @@ from tools.gundam_cards.parse_detail import DetailPageError, parse_detail_html
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key, list_page_key, parse_card_list_raw
 from tools.gundam_cards.sets import build_sets, fetch_package_list
 from tools.gundam_cards.store import (
-    OUT_DIR,
     load_catalog,
     load_provisional_sets,
     load_source_pages,
@@ -109,7 +108,7 @@ def refresh_catalog(
     fetcher: TextFetcher,
     raw_dir: Path,
     *,
-    tracked_dir: Path = OUT_DIR,
+    tracked_dir: Path | None = None,
     out_dir: Path | None = None,
     dry_run: bool = False,
     allow_anomaly: bool = False,
@@ -117,7 +116,7 @@ def refresh_catalog(
     progress: Callable[[str], None] = lambda _: None,
 ) -> RefreshReport:
     """Run one refresh (see the module docstring). `raw_dir` is the page cache the fetcher writes; `tracked_dir` holds sets.json
-    (read only); `out_dir` is the catalog's dataset folder (default `data_out_dir()`)."""
+    (read only; default `tracked_folder()`); `out_dir` is the catalog's dataset folder (default `data_out_dir()`)."""
     now = now or datetime.now(tz=UTC)
     rejected: list[Rejected] = []
 

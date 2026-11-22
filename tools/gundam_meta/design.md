@@ -36,7 +36,7 @@ python3 -m tools.gundam_meta.cli refetch --source duelfrontier --event <slug>   
 - `shared/data/gundam_cards/sets.json` (release dates, for eras) and the catalog `cards.json` (dataset) (card kinds, to exclude resources, EX cards and tokens, and to name cards).
 
 ## Outputs
-Owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py` and `store.py`. Events and snapshots live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_meta/` (default `~/.gcg/data`, see `shared/dataset.py`); `popularity.json` is tracked in `shared/data/gundam_meta/`. A snapshot is never rewritten, and one with the same data as the newest adds nothing. Raw responses are cached in `tools/gundam_meta/data/raw/`.
+Owned by this tool; other tools read it through the models in `tools/gundam_meta/models.py` and `store.py`. Events and snapshots live in the local dataset, outside git: `$GCG_DATA_DIR/gundam_meta/` (default `~/.gcg/data`, see `shared/dataset.py`); `popularity.json` is tracked in `shared/data/gundam_meta/`. A snapshot is never rewritten, and one with the same data as the newest adds nothing. Raw responses are cached in `tools/gundam_meta/data/raw/`. Both folders are found under `$GCG_TOOL_DATA_DIR` when it is set (`store.raw_folder()`, `store.tracked_folder()`; see `shared/dataset.py`).
 
 <!-- TODO(source-name): committed text should say only "the online ranking"; remove the source name here. -->
 | File | Contents | Notes |
