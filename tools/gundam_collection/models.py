@@ -1,7 +1,6 @@
-"""Typed models for the collection file and its check report. See tools/gundam_collection/design.md."""
+"""Typed models for the text list's check report and the deck nicknames. See tools/gundam_collection/design.md."""
 from __future__ import annotations
 
-from datetime import datetime
 from enum import StrEnum
 from typing import Literal
 
@@ -85,29 +84,6 @@ class CheckReport(FrozenModel):
     @property
     def ok(self) -> bool:
         return not self.errors
-
-
-# ---- the structured collection ---------------------------------------------------------------------------------------
-class OwnedPrinting(FrozenModel):
-    art: Art
-    copies: int = Field(ge=1)
-
-
-class OwnedCard(FrozenModel):
-    """What I own of one card. Ownership counts by card number (any printing satisfies a slot); the arts are kept for the record."""
-
-    card_number: CardNumber
-    copies: int = Field(ge=1)  # total across printings
-    printings: tuple[OwnedPrinting, ...]
-
-
-class CollectionFile(FrozenModel):
-    """`shared/data/gundam_collection/collection.json`: derived from `my_tcg_collection` by `import`; sorted by card number."""
-
-    schema_version: Literal[1] = 1
-    generated_at: datetime
-    source_file: str
-    data: tuple[OwnedCard, ...]
 
 
 class Stage(StrEnum):

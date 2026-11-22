@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from shared.test_read_commands_on_dataset import collection
+from shared.test_read_commands_on_dataset import write_collection_file
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.store import write_catalog
 from tools.gundam_meta.models import EraId
@@ -58,7 +58,6 @@ COMMANDS: list[tuple[Main, list[str], str]] = [
     (collection_cli.main, ["deck", "redletta"], "card catalog"),
     (collection_cli.main, ["value"], "card catalog"),
     (collection_cli.main, ["template", "ST01"], "card catalog"),
-    (collection_cli.main, ["import", "--file", __file__], "card catalog"),  # any existing file: the catalog is needed first
     (collection_cli.main, ["card", "GD01-001"], "card catalog"),
     (collection_cli.main, ["styles"], "card catalog"),
     (collection_cli.main, ["suggest", "barbatos"], "card catalog"),
@@ -77,7 +76,7 @@ NOT_DATASET_READS: dict[Main, set[str]] = {
     cards_cli.main: {"refresh", "sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
     meta_cli.main: {"sync", "refetch", "reparse"},
     packages_cli.main: set(),
-    collection_cli.main: set(),
+    collection_cli.main: {"import"},  # prints a pointer to the UI
 }
 
 
@@ -137,7 +136,7 @@ CATALOG_ONLY: dict[Main, set[str]] = {
     cards_cli.main: {"search", "changes", "show", "restrictions", "reparse-tcgplayer"},
     meta_cli.main: set(),
     packages_cli.main: {"packages", "archetypes", "synergy", "package-synergy", "free", "squads", "package", "compare", "card"},
-    collection_cli.main: {"check", "template", "import"},
+    collection_cli.main: {"check", "template"},
 }
 CATALOG_AT = datetime(2026, 10, 1, tzinfo=UTC)
 
@@ -154,8 +153,9 @@ def catalog_only(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     write_catalog(CatalogResult(cards=(unit("GD01-001", "Gundam", link="Amuro Ray"), pilot("GD01-002", "Amuro Ray")), issues=(),
                                 trait_vocabulary=frozenset()), CATALOG_AT)  # fmt: skip
     # Inputs outside the dataset are small fixtures, never the repository's own files; nothing is written into the repository.
-    monkeypatch.setattr(collection_cli, "_refresh_collection", lambda cards: None)
-    monkeypatch.setattr(collection_cli, "load_collection", lambda *a, **k: collection())
+    folder = tmp_path / "collection"
+    folder.mkdir()
+    write_collection_file(folder, monkeypatch)
     for cli in (collection_cli, packages_cli):
         monkeypatch.setattr(cli, "load_rates", lambda *a, **k: None)
     monkeypatch.setattr(collection_cli, "load_packages", lambda *a, **k: None)
