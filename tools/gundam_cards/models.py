@@ -37,6 +37,7 @@ class CardKind(StrEnum):
     RESOURCE = "resource"
     EX_RESOURCE = "ex_resource"
     UNIT_TOKEN = "unit_token"
+    BASE_TOKEN = "base_token"  # inferred, never a page TYPE: a Base with no color and a token-series number (build.py)
 
     @property
     def is_deck_card(self) -> bool:
@@ -313,12 +314,25 @@ class UnitTokenCard(CardBase):
     traits: tuple[Trait, ...]
 
 
+class BaseTokenCard(CardBase):
+    """A token Base (T-037): TYPE Base, no color, a token-series number. It keeps whichever Base fields its page shows."""
+
+    kind: Literal[CardKind.BASE_TOKEN] = CardKind.BASE_TOKEN
+    level: int | None
+    cost: int | None
+    hp: int | None
+    zones: SortedFrozenSet[Zone]
+    traits: tuple[Trait, ...]
+
+
 Card = Annotated[
-    UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard,
+    UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard | BaseTokenCard,
     Field(discriminator="kind"),
 ]
 
-CardModel = UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard
+CardModel = (
+    UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard | BaseTokenCard
+)
 """Union of the concrete card classes, for type annotations (use `Card` when validating)."""
 
 
@@ -339,7 +353,7 @@ def cost_of(card: CardModel) -> int | None:
 
 def traits_of(card: CardModel) -> tuple[Trait, ...]:
     """The card's own traits (empty for kinds that have none)."""
-    if isinstance(card, UnitCard | PilotCard | CommandCard | BaseCard | UnitTokenCard):
+    if isinstance(card, UnitCard | PilotCard | CommandCard | BaseCard | UnitTokenCard | BaseTokenCard):
         return card.traits
     return ()
 

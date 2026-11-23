@@ -1,10 +1,11 @@
 """Refresh the card catalog from Bandai's official English card site: fetch and check everything, then write.
 
     .venv/bin/python -m tools.gundam_cards.cli refresh             # fetch, check, then write the dataset (network)
-    .venv/bin/python -m tools.gundam_cards.cli refresh --dry-run   # what a real run would add; fetches no detail pages, writes nothing
+    .venv/bin/python -m tools.gundam_cards.cli refresh --dry-run   # what a real run would add and drop; stores and writes nothing
 
 Three phases. Fetch: Bandai's package list, every package's listing (always fresh) and the detail pages not cached yet (a cached
-page is never requested again), stopping at the first failure. Plan: the shape check, provisional packages, the rebuild from the
+page is never requested again), stopping at the first failure. A dry run fetches the same pages but stores none of them: the
+detail pages it fetches are parsed in memory, so it builds what the real run would build, and the page cache is left as it was. Plan: the shape check, provisional packages, the rebuild from the
 cached pages of listed or stored cards (a printing keeps its stored packages and gains this run's; any other cached page is an
 orphan, reported and left out), misses, and the anomaly guard over every field-level change. Write: only after a
 complete, accepted, non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it
@@ -22,10 +23,10 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PackageId, PrintingId
-from shared.fetch import FetchError, TextFetcher
+from shared.fetch import FetchError, Response, TextFetcher
 from tools.gundam_cards.build import Issue, ParseError, SourcePage, build_catalog, parse_color, parse_kind, parse_rarity
 from tools.gundam_cards.models import CardModel, CardSet
-from tools.gundam_cards.parse_detail import DetailPageError, parse_detail_html
+from tools.gundam_cards.parse_detail import DetailPageError, RawDetail, parse_detail_html
 from tools.gundam_cards.printings import DETAIL_URL, LIST_URL, detail_page_key, list_page_key, parse_card_list_raw
 from tools.gundam_cards.sets import build_sets, fetch_package_list, propose_sets, reviewed_set_notes
 from tools.gundam_cards.store import (
@@ -74,6 +75,16 @@ class RefreshReport:
     issues: tuple[Issue, ...] = ()
     reviewed_notes: tuple[str, ...] = ()  # reviewed sets Bandai's list lacks or shows differently (informational)
     written: bool = False
+
+
+@dataclass(frozen=True)
+class _Uncached:
+    """A fetcher that stores nothing: every request goes out without a cache key (the dry run leaves the page cache as it was)."""
+
+    fetcher: TextFetcher
+
+    def get_text(self, url: str, *, cache_key: str | None = None, force: bool = False) -> Response:
+        return self.fetcher.get_text(url)
 
 
 def shape_problems(page: SourcePage) -> list[str]:
@@ -148,6 +159,8 @@ def refresh_catalog(
     (read only; default `tracked_folder()`); `out_dir` is the catalog's dataset folder (default `data_out_dir()`)."""
     now = now or datetime.now(tz=UTC)
     rejected: list[Rejected] = []
+    if dry_run:
+        fetcher = _Uncached(fetcher)
 
     def incomplete(failure: str) -> RefreshReport:
         return RefreshReport(dry_run=dry_run, complete=False, failure=failure, rejected=tuple(rejected))
@@ -185,21 +198,23 @@ def refresh_catalog(
     new_printings = tuple(i for i in listed if i not in stored_printings)
     new_cards = tuple(dict.fromkeys(i.card_number for i in new_printings if i.card_number not in stored_cards))
 
-    # ---- fetch: detail pages not cached yet (real run only)
-    if not dry_run:
-        missing = [i for i in listed if not (raw_dir / detail_page_key(i)).is_file()]
-        for n, printing_id in enumerate(missing, start=1):
-            try:
-                text = fetcher.get_text(DETAIL_URL.format(printing_id), cache_key=detail_page_key(printing_id)).text
-            except FetchError as e:
-                return incomplete(f"detail page {printing_id}: {e}")
-            try:
-                parse_detail_html(text)
-            except DetailPageError as e:
-                (raw_dir / detail_page_key(printing_id)).unlink(missing_ok=True)  # not a card page: ask again next run
-                return incomplete(f"detail page {printing_id}: unreadable ({e})")
-            if n % 25 == 0 or n == len(missing):
-                progress(f"fetched {n}/{len(missing)} new detail pages")
+    # ---- fetch: detail pages not cached yet (a dry run keeps them in memory only)
+    unstored: dict[PrintingId, RawDetail] = {}
+    missing = [i for i in listed if not (raw_dir / detail_page_key(i)).is_file()]
+    for n, printing_id in enumerate(missing, start=1):
+        try:
+            text = fetcher.get_text(DETAIL_URL.format(printing_id), cache_key=detail_page_key(printing_id)).text
+        except FetchError as e:
+            return incomplete(f"detail page {printing_id}: {e}")
+        try:
+            raw = parse_detail_html(text)
+        except DetailPageError as e:
+            (raw_dir / detail_page_key(printing_id)).unlink(missing_ok=True)  # not a card page: ask again next run
+            return incomplete(f"detail page {printing_id}: unreadable ({e})")
+        if dry_run:
+            unstored[printing_id] = raw
+        if n % 25 == 0 or n == len(missing):
+            progress(f"fetched {n}/{len(missing)} new detail pages")
 
     # ---- plan: packages
     tracked = load_tracked_sets(tracked_dir)
@@ -226,10 +241,11 @@ def refresh_catalog(
             if package_id not in packages_of[printing_id]:
                 packages_of[printing_id].append(package_id)
     loaded = load_source_pages(raw_dir, {k: tuple(v) for k, v in packages_of.items()})
+    fetched = [SourcePage(i, raw, now, tuple(packages_of[i])) for i, raw in unstored.items()]
     listed_numbers = frozenset(i.card_number for i in listed)
     known = listed_numbers | stored_cards.keys()
     orphans = tuple(sorted((p.printing_id for p in loaded.pages if p.printing_id.card_number not in known), key=str))
-    pages, page_rejects = _shape_checked([p for p in loaded.pages if p.printing_id.card_number in known])
+    pages, page_rejects = _shape_checked([p for p in (*loaded.pages, *fetched) if p.printing_id.card_number in known])
     rejected += page_rejects
     dates = release_dates(tracked + provisional)
     result = build_catalog(pages, dates)

@@ -18,6 +18,7 @@ from urllib.parse import urljoin, urlsplit, urlunsplit
 from shared.basetypes import CardNumber, PackageId, PilotName, PrintingId, SetCode, SourceTitle, Trait
 from tools.gundam_cards.models import (
     BaseCard,
+    BaseTokenCard,
     Block,
     CardKind,
     CardModel,
@@ -44,6 +45,7 @@ from tools.gundam_cards.models import (
 from tools.gundam_cards.parse_detail import RawDetail
 
 DETAIL_URL = "https://www.gundam-gcg.com/en/cards/detail.php?detailSearch={}"
+TOKEN_SERIES = "T-"  # the card-number prefix of tokens (unit tokens T-001 to T-036, the base token T-037)
 
 
 class ParseError(Exception):
@@ -633,7 +635,16 @@ def _build_variant(base: SourcePage, common: _Common, current_text: str) -> Card
             return CommandCard(
                 **common, color=color, level=level, cost=cost, traits=parse_traits(field_value("Trait"), subject), pilot=pilot
             )
-        case CardKind.BASE:
+        case CardKind.BASE | CardKind.BASE_TOKEN:  # a page never says base token: it is inferred here
+            if parse_color(f.get("COLOR", "-"), subject) is None and base.printing_id.card_number.startswith(TOKEN_SERIES):
+                return BaseTokenCard(
+                    **common,
+                    level=parse_int(f.get("Lv.", "-"), subject, "Lv."),
+                    cost=parse_int(f.get("COST", "-"), subject, "COST"),
+                    hp=hp,
+                    zones=parse_zones(f.get("Zone", "-"), subject),
+                    traits=parse_traits(f.get("Trait", "-"), subject),
+                )
             color, level, cost = colored()
             return BaseCard(
                 **common,

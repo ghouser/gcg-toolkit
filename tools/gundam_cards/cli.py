@@ -408,8 +408,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="refresh the catalog from Bandai (network): new packages are recorded as provisional; a failed, refused or "
         "interrupted run writes nothing (each file is written atomically); tracked files are never changed",
     )
-    refresh.add_argument("--dry-run", action="store_true", help="report what a real run would add, miss and refuse; fetches no "
-                         "detail pages and writes nothing (list pages may be cached)")
+    refresh.add_argument("--dry-run", action="store_true", help="report what a real run would add, drop, miss and refuse; "
+                         "fetches the pages a real run would, but stores and writes nothing")
     refresh.add_argument("--allow-anomaly", action="store_true", help="write even when an unusually large share of existing cards "
                          "would be dropped or changed")
     refresh.set_defaults(func=cmd_refresh)

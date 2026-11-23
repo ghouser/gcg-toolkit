@@ -39,7 +39,7 @@ A JSON object. **A field that does not apply is left out; the file never contain
 | Field | Type | Meaning |
 |---|---|---|
 | `sets` | array of set | every known set, by code; every set code in `cards` is one of them |
-| `kinds` | array of `{kind, deck}` | every card kind, with `deck: true` for those that go in a deck (`unit`, `pilot`, `command`, `base`) and `false` for the others (`ex_base`, `resource`, `ex_resource`, `unit_token`) |
+| `kinds` | array of `{kind, deck}` | every card kind, with `deck: true` for those that go in a deck (`unit`, `pilot`, `command`, `base`) and `false` for the others (`ex_base`, `resource`, `ex_resource`, `unit_token`, `base_token`) |
 | `colors` | array of string | the card colors (`blue`, `green`, `white`, `red`, `purple`) |
 | `rarities` | array of string | the rarities (`C`, `U`, `R`, `LR`, `P`). Alt-art marks (`+`, `++`) and Link art (`LK`) are not rarities: see a printing's `alt_art_level` and `link_art` |
 

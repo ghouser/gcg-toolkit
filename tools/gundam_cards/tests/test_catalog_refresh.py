@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import subprocess
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -50,11 +51,13 @@ def detail(
     rarity: str = "C",
     card_no: str | None = None,
     where: str = "Newtype Rising [GD01]",
+    shown: Mapping[str, str | None] | None = None,
 ) -> str:
-    """A minimal Bandai detail page that the real parser reads."""
+    """A minimal Bandai detail page that the real parser reads. `shown` overrides field values; a None value leaves the label out."""
     number = printing_id.split("_p")[0]
     fields = {"Lv.": "2", "COST": "1", "COLOR": color, "TYPE": kind, "Zone": "Space", "Trait": "(Earth Federation)", "Link": "-",
               "AP": "1", "HP": "2", "Source Title": "-", "Where to get it": where}
+    fields = {k: v for k, v in {**fields, **(shown or {})}.items() if v is not None}
     rows = "".join(f'<dt class="dataTit">{k}</dt><dd class="dataTxt">{v}</dd>' for k, v in fields.items())
     return (f'<html><body><div class="cardNo">{card_no or number}</div><div class="rarity">{rarity}</div>'
             f'<div class="blockIcon">1</div><h1 class="cardName">{name or "Card " + number}</h1><dl>{rows}</dl>'
@@ -157,9 +160,15 @@ def flags() -> dict[str, tuple[bool, bool]]:
 
 
 def dataset_bytes() -> dict[str, bytes]:
-    """Every dataset file but the Bandai page cache (a dry run may cache list pages; "writes nothing" is about the catalog files)."""
+    """Every dataset file but the Bandai page cache (a failed real run may have cached pages; "writes nothing" is about the catalog files)."""
     root, pages = data_out_dir().parent, pages_folder()
     return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file() and pages not in p.parents}
+
+
+def all_dataset_bytes() -> dict[str, bytes]:
+    """Every dataset file, the Bandai page cache included (what a dry run must leave byte-identical)."""
+    root = data_out_dir().parent
+    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()}
 
 
 # ---- AC-1 --------------------------------------------------------------------------------------------------------------------
@@ -586,12 +595,12 @@ def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:
 
 def test_a_dry_run_reports_what_a_real_run_would_do_and_changes_nothing(site: FakeBandai, tracked: Path) -> None:
     _changes_for_a_dry_run(site, tracked)
-    before, tracked_before = dataset_bytes(), (tracked / "sets.json").read_bytes()
+    before, tracked_before = all_dataset_bytes(), (tracked / "sets.json").read_bytes()
     site.calls.clear()
     report = run(site, tracked, T2, dry_run=True)
 
-    assert site.detail_calls() == [] and not report.written
-    assert dataset_bytes() == before and (tracked / "sets.json").read_bytes() == tracked_before
+    assert site.detail_calls() == [DETAIL_URL.format(i) for i in ("GD01-001_p1", "GD10-001")] and not report.written  # fetched, not stored
+    assert all_dataset_bytes() == before and (tracked / "sets.json").read_bytes() == tracked_before
     assert [s.code for s in report.provisional] == ["GD10"]
     assert report.packages_with_new == (("Newtype Rising [GD01]", False), ("Next Pack [GD10]", True))
     assert report.new_cards == ("GD10-001",) and report.new_printings == ("GD01-001_p1", "GD10-001")
@@ -648,7 +657,8 @@ def test_the_refresh_command_dry_run(site: FakeBandai, monkeypatch: pytest.Monke
     assert cli.main(["refresh", "--dry-run"]) == 0
     out = capsys.readouterr().out
     assert "3 new card number(s): GD01-001 GD01-002 GD09-001" in out and "dry run: nothing written" in out
-    assert site.detail_calls() == [] and dataset_bytes() == {}
+    assert sorted(site.detail_calls()) == [DETAIL_URL.format(i) for i in ("GD01-001", "GD01-002", "GD09-001")]
+    assert all_dataset_bytes() == {}  # nothing stored, not even a page
 
     assert cli.main(["refresh"]) == 0
     assert numbers() == ["GD01-001", "GD01-002", "GD09-001"]

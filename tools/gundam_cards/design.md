@@ -82,8 +82,9 @@ SourceTitle  = NewType(str)  # open vocabulary; validated against source_titles.
 # ---- closed vocabularies ------------------------------------------------------------------
 class CardKind(StrEnum):
     UNIT = "unit"; PILOT = "pilot"; COMMAND = "command"; BASE = "base"
-    EX_BASE = "ex_base"; RESOURCE = "resource"; EX_RESOURCE = "ex_resource"; UNIT_TOKEN = "unit_token"
+    EX_BASE = "ex_base"; RESOURCE = "resource"; EX_RESOURCE = "ex_resource"; UNIT_TOKEN = "unit_token"; BASE_TOKEN = "base_token"
     # "UNIT TOKEN" and "UNIT・TOKEN" both map to UNIT_TOKEN. An unseen TYPE fails the parse loudly.
+    # BASE_TOKEN is never a page TYPE: it is inferred (see "Parser rules": a Base with no color and a `T-` number).
 
 class Color(StrEnum):   BLUE = "blue"; GREEN = "green"; WHITE = "white"; RED = "red"; PURPLE = "purple"
 class Zone(StrEnum):    SPACE = "space"; EARTH = "earth"
@@ -208,8 +209,14 @@ class UnitTokenCard(CardBase):
     ap: int | None; hp: int
     traits: tuple[Trait, ...]
 
-Card = Annotated[UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard,
-                 Field(discriminator="kind")]
+class BaseTokenCard(CardBase):      # a token Base (T-037): no color; keeps whichever Base fields its page shows, none required
+    kind: Literal[CardKind.BASE_TOKEN]
+    level: int | None; cost: int | None; hp: int | None
+    zones: frozenset[Zone]
+    traits: tuple[Trait, ...]
+
+Card = Annotated[UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard
+                 | BaseTokenCard, Field(discriminator="kind")]
 # Helpers on CardBase: is_deck_card (kind in unit/pilot/command/base), is_pilot (PilotCard, or CommandCard with `pilot`),
 # text (current wording), current_block.
 
@@ -257,6 +264,7 @@ Bandai reprints cards with changed wording and expects more rules-driven changes
 
 ### Parser rules
 - Parse by `dt` label, never by position. An unknown label, `TYPE`, rarity, color, zone, or block **fails that card's parse** and is listed in the run report; nothing is guessed.
+- **Base token (inferred):** a card whose TYPE is Base, whose number is in the token series (`T-`, `build.TOKEN_SERIES`) and whose page shows no color (`-` or no COLOR label) is a `BaseTokenCard` (`base_token`, not a deck kind). It keeps whichever of the Base's fields the page shows (a missing label reads as `-`); none is required. A Base that shows a color is a `BaseCard` whatever its number; any other Base with no color fails ("COLOR is required here but the page shows none"), as do Units, Pilots and Commands with no color, whatever their number.
 - `-` means none. NFKC-normalize stats first (`３` -> `3`). `+2` on a Pilot or Command is a bonus.
 - Base card attributes (kind, color, level, cost, stats, traits, link) come from the base printing. Any other printing that differs in those is reported. Printings contribute `rarity`, `alt_art`, `block`, `where_to_get`, and text.
 - `Trait` -> `traits` by splitting `(…)` groups. `Link` -> split on ` / ` into `any_of`; `[…]` is a `PilotNameLink`, `(…) Trait` is a `TraitLink`.
@@ -287,7 +295,7 @@ Why Bandai and not a third party: it is official and authoritative, includes thi
    Nothing else from tcgcsv is stored. Alt arts are never bought, and owning any printing counts as owning the card, so no alt-art or sealed product needs keeping. The snapshots are the price history; the latest price is the newest snapshot.
    **The master card model carries the price on read, not in `cards.json`.** `store.load_cards_with_prices()` joins `cards.json` and the newest price snapshot on card number into `PricedCard` (`card` plus `latest_tcg_price`, or `None`). The card facts (from Bandai) and the price facts (from tcgcsv, daily) have different owners, sources and refresh rates, so they are stored apart and joined by key, like tables.
 6. **Search** (script): local filters over `cards.json`; output as a table or JSON.
-7. **Refresh** (`refresh`, `refresh.py`): fetch Bandai's package list and every listing (stop at the first failure), fetch only uncached detail pages, then plan without writing: shape check (identifier shapes; TYPE, COLOR and rarity vocabularies; a rejected card or printing is reported and never stored), provisional packages, the rebuild from the cached pages with each printing's stored packages plus those listing it this run (a reprint is a new printing, or a new package on an existing printing, of the card number), misses, and the anomaly guard (`ANOMALY_SHARE`, `docs/tuning.md`). The guard counts every field-level change to an existing card (`refresh.changed_fields`: card fields, the current wording, each printing's fields and wording, and a stored printing the rebuild lacks; gaining a printing or a package is not a change), and the report names each changed card with its fields. A cached detail page whose card is in no listing and not in the catalog is an orphan: reported by printing id, left out of the build, and not counted by the guard. The dataset is written only after a complete, accepted run, so a refused run, or one that fails or is interrupted before writing, leaves it as it was; the writes are atomic per file, `cards.json` first, and an interruption among them may leave the derived files behind `cards.json` until the next run. `--dry-run` fetches no detail pages and writes nothing. Design: `.claude/feature-design/refresh-cards.md`.
+7. **Refresh** (`refresh`, `refresh.py`): fetch Bandai's package list and every listing (stop at the first failure), fetch only uncached detail pages, then plan without writing: shape check (identifier shapes; TYPE, COLOR and rarity vocabularies; a rejected card or printing is reported and never stored), provisional packages, the rebuild from the cached pages with each printing's stored packages plus those listing it this run (a reprint is a new printing, or a new package on an existing printing, of the card number), misses, and the anomaly guard (`ANOMALY_SHARE`, `docs/tuning.md`). The guard counts every field-level change to an existing card (`refresh.changed_fields`: card fields, the current wording, each printing's fields and wording, and a stored printing the rebuild lacks; gaining a printing or a package is not a change), and the report names each changed card with its fields. A cached detail page whose card is in no listing and not in the catalog is an orphan: reported by printing id, left out of the build, and not counted by the guard. The dataset is written only after a complete, accepted run, so a refused run, or one that fails or is interrupted before writing, leaves it as it was; the writes are atomic per file, `cards.json` first, and an interruption among them may leave the derived files behind `cards.json` until the next run. `--dry-run` fetches the same pages (listings and uncached detail pages) without storing any, builds from them in memory, and writes nothing: it reports the same rejections and parse failures the real run would, so a new card the real run would drop is named with its reason, and the dataset, page cache included, is left byte-identical. Design: `.claude/feature-design/refresh-cards.md`.
 8. **Redo:** `reparse` rebuilds from saved raw HTML with no network; `refetch` re-pulls from Bandai (cards get errata and new FAQ entries) and logs what changed.
 
 ## Implementation status
