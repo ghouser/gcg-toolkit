@@ -62,11 +62,12 @@ class Kind(StrEnum):
 
 
 class NoData(Exception):
-    """A source the command needs has nothing in the dataset. CLIs print it and exit 2 instead of crashing."""
+    """A source the command needs has nothing in the dataset. CLIs print it and exit 2 instead of crashing. `missing` says what
+    exactly is not stored, when it is not the dataset's copy of the source (a saved price dump)."""
 
-    def __init__(self, kind: Kind) -> None:
+    def __init__(self, kind: Kind, missing: str | None = None) -> None:
         self.kind = kind
-        super().__init__(f"no data: {kind.value} (dataset {data_dir()}; refresh it, or set {ENV_VAR})")
+        super().__init__(f"no data: {kind.value} ({missing or f'dataset {data_dir()}; refresh it, or set {ENV_VAR}'})")
 
 
 def snapshot_key(when: datetime) -> str:

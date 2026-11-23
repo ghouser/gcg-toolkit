@@ -4,6 +4,7 @@ Check every change against this list. A "no" is a finding.
 
 ## Correctness
 - Does it do what its design or spec says, including edge cases and the empty dataset?
+- Does every public store reader it adds or changes have its empty-dataset row (`store-readers.md`)?
 - Do the tests prove the behavior, with expected values from the spec or worked out by hand (`docs/testing.md`)?
 - Do `tests`, `types` and `lint` in `.claude/checks.json` pass?
 

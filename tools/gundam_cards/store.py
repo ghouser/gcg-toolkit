@@ -291,8 +291,10 @@ def raw_dump_stamps(raw_dir: Path | None = None) -> tuple[str, ...]:
 
 
 def read_raw_dump(stamp: str, raw_dir: Path | None = None) -> RawDump:
-    """A saved dump read back from disk (no network)."""
+    """A saved dump read back from disk (no network). Raises `NoData` naming the dump when it is not stored."""
     folder = (raw_dir or raw_folder()) / "tcgcsv" / stamp
+    if not (folder / "groups.json").is_file():
+        raise NoData(Kind.PRICES, f"saved price dump {stamp} is not in {folder.parent}")
     groups_text = (folder / "groups.json").read_text(encoding="utf-8")
     group_ids = [g["groupId"] for g in json.loads(groups_text)["results"]]
     return RawDump(

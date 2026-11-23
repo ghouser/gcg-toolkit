@@ -68,6 +68,13 @@ def test_no_data_names_the_source() -> None:
     assert str(NoData(Kind.PRICES)).startswith("no data: prices")
 
 
+def test_no_data_with_what_is_missing_names_it_instead_of_the_dataset() -> None:
+    error = NoData(Kind.PRICES, "saved price dump 20261008T200609Z is not in /x")
+    assert error.kind is Kind.PRICES
+    assert str(error) == "no data: prices (saved price dump 20261008T200609Z is not in /x)"
+    assert f"dataset {data_dir()}" in str(NoData(Kind.PRICES))  # without it, the dataset hint stays
+
+
 # ---- every writer, called without a folder, stores into the dataset and leaves the repository as it was ----------------
 _SKIP = {".git", ".venv", "__pycache__", ".mypy_cache", ".pytest_cache"}
 
