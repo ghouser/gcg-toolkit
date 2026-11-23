@@ -22,9 +22,9 @@ from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail
 Page = Callable[[str], SourcePage]
 TRAITS = frozenset({Trait("Earth Federation"), Trait("White Base Team")})
 NO_DATES: dict[SetCode, date] = {}
-GD01, GD02, SC01, PROMO, BETA, UNKNOWN = "616101", "616102", "616301", "616901", "616000", "616999"
+GD01, GD02, SC01, BASIC, PROMO, BETA, UNKNOWN = "616101", "616102", "616301", "616801", "616901", "616000", "616999"
 PACKAGE_CODES = {PackageId(GD01): SetCode("GD01"), PackageId(GD02): SetCode("GD02"), PackageId(SC01): SetCode("SC01"),
-                 PackageId(PROMO): SetCode("PROMO"), PackageId(BETA): SetCode("BETA")}  # fmt: skip
+                 PackageId(BASIC): SetCode("BASIC"), PackageId(PROMO): SetCode("PROMO"), PackageId(BETA): SetCode("BETA")}  # fmt: skip
 
 
 def printed(page: Page, where: str, *packages: str, codes: dict[PackageId, SetCode] = PACKAGE_CODES) -> Printing:
@@ -84,21 +84,24 @@ def test_an_edition_beta_printing_gets_beta_and_nothing_else_changes(page: Page)
 
 
 # ---- AC-4 and AC-5: the rebuilds and the export, end to end -----------------------------------------------------------------
-# The fake Bandai lists six packages; the reviewed sets.json knows five of them. GD01-003 has no base page: its first printing is
-# in Edition Beta and its second in SC01 (as EXB-001, EXR-001 and R-001 on the real data).
+# The fake Bandai lists seven packages; the reviewed sets.json knows six of them. GD01-003 has no base page: its first printing is
+# in Edition Beta, its second in the basic package (no bracketed code) and its third a bracketed SC01 reprint, as EXB-001, EXR-001
+# and R-001 (the basic cards given in the starter decks) on the real data, so its card-level set is BASIC.
 LISTED = {
     GD01: ("Newtype Rising [GD01]", {"GD01-001": "Newtype Rising [GD01]"}),
     GD02: ("Dueling Colonies [GD02]", {"GD02-001": "-"}),
-    SC01: ("Deck Build Box [SC01]", {"GD01-003_p2": "Deck Build Box [SC01]"}),
+    SC01: ("Deck Build Box [SC01]", {"GD01-003_p3": "Deck Build Box [SC01]"}),
+    BASIC: ("Basic Cards", {"GD01-003_p2": "Included in each starter deck"}),
     PROMO: ("Promotion card", {"GD01-002": "Store tournament prize"}),
     BETA: ("Edition Beta", {"GD01-003_p1": "Edition Beta"}),
     UNKNOWN: ("Future Pack [GD99]", {"GD99-001": "Prerelease event"}),  # sets.json lacks it: the rebuild proposes GD99
 }
-EXPECTED_PRINTING_CODES = {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-003_p2": "SC01", "GD01-002": "PROMO", "GD01-003_p1": "BETA",
-                           "GD99-001": None}  # fmt: skip
+EXPECTED_PRINTING_CODES = {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-003_p2": "BASIC", "GD01-003_p3": "SC01", "GD01-002": "PROMO",
+                           "GD01-003_p1": "BETA", "GD99-001": None}  # fmt: skip
 
 
-KINDS = {"GD01": SetKind.BOOSTER, "GD02": SetKind.BOOSTER, "SC01": SetKind.DECK_BUILD_BOX, "PROMO": SetKind.PROMO, "BETA": SetKind.BETA}
+KINDS = {"GD01": SetKind.BOOSTER, "GD02": SetKind.BOOSTER, "SC01": SetKind.DECK_BUILD_BOX, "BASIC": SetKind.OTHER,
+         "PROMO": SetKind.PROMO, "BETA": SetKind.BETA}
 
 
 def reviewed_sets() -> tuple[CardSet, ...]:
@@ -160,16 +163,16 @@ def test_reparse_reports_the_provisional_sets_as_before(tracked: bytes, site: Ba
     assert cli.main(["sync"]) == 0
     capsys.readouterr()
     assert cli.main(["reparse"]) == 0
-    assert f"6 sets on Bandai's list, 1 provisional -> {data_out_dir() / 'provisional_sets.json'}" in capsys.readouterr().out.splitlines()
+    assert f"7 sets on Bandai's list, 1 provisional -> {data_out_dir() / 'provisional_sets.json'}" in capsys.readouterr().out.splitlines()
 
 
 def test_with_no_sets_json_the_rebuild_gives_only_bracketed_codes_and_creates_none(site: Bandai) -> None:
     (tracked_folder() / "sets.json").unlink()  # the root conftest's copy
     rebuild("reparse")
     assert not (tracked_folder() / "sets.json").exists()
-    assert catalog_printing_codes() == {"GD01-001": "GD01", "GD02-001": None, "GD01-003_p2": "SC01", "GD01-002": None,
-                                        "GD01-003_p1": None, "GD99-001": None}  # fmt: skip
-    assert {str(s.code) for s in load_provisional_sets()} == {"GD01", "GD02", "SC01", "PROMO", "BETA", "GD99"}
+    assert catalog_printing_codes() == {"GD01-001": "GD01", "GD02-001": None, "GD01-003_p2": None, "GD01-003_p3": "SC01",
+                                        "GD01-002": None, "GD01-003_p1": None, "GD99-001": None}  # fmt: skip
+    assert {str(s.code) for s in load_provisional_sets()} == {"GD01", "GD02", "SC01", "BASIC", "PROMO", "BETA", "GD99"}
 
 
 @pytest.mark.parametrize("how", ["reparse", "refresh"])
@@ -184,4 +187,4 @@ def test_the_export_after_a_rebuild_is_valid_and_carries_the_new_codes(tracked: 
     card_codes = {c["number"]: c.get("set_code") for c in data["cards"]}
     assert {c for c in [*printing_codes.values(), *card_codes.values()] if c is not None} <= known
     assert printing_codes == EXPECTED_PRINTING_CODES
-    assert card_codes == {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-002": "PROMO", "GD01-003": "SC01", "GD99-001": None}
+    assert card_codes == {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-002": "PROMO", "GD01-003": "BASIC", "GD99-001": None}
