@@ -15,7 +15,6 @@ from __future__ import annotations
 import re
 from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime, timedelta
-from functools import partial
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -27,7 +26,7 @@ from tools.gundam_cards import cli as cards_cli
 from tools.gundam_cards.models import Card, CardRecord, CardsFile, CardPrice, PriceFile, SourceTitlesFile, TraitsFile
 from tools.gundam_cards.store import catalog_export_path
 from tools.gundam_collection import cli as collection_cli
-from tools.gundam_collection import store as collection_store
+from tools.gundam_collection.collection_file import text_list_path
 from tools.gundam_meta import cli as meta_cli
 from tools.gundam_meta import duelfrontier
 from tools.gundam_meta.models import (
@@ -318,18 +317,14 @@ def packages_dataset_tree(root: Path) -> Path:
 
 @pytest.fixture
 def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    """The packages fixture dataset; the collection folder redirected to a temp folder (the raw, popularity and packages folders are in the
-    root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
+    """The packages fixture dataset; the text list in the collection folder (the raw, popularity, packages and collection folders are in
+    the root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
     monkeypatch.setenv("GCG_DATA_DIR", str(packages_dataset_tree(tmp_path / "ds")))
     monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
-    coll = tmp_path / "collection"
-    coll.mkdir()
-    (coll / "my_tcg_collection").write_text(COLLECTION_LINES, encoding="utf-8")
-    monkeypatch.setattr(collection_cli, "OUT_DIR", coll)
-    monkeypatch.setattr(collection_cli, "text_list_path", lambda: coll / "my_tcg_collection")
-    write_collection_file(coll, monkeypatch)
-    monkeypatch.setattr(collection_cli, "load_deck_names", partial(collection_store.load_deck_names, coll / "deck_names.json"))
-    monkeypatch.setattr(collection_cli, "save_deck_names", partial(collection_store.save_deck_names, path=coll / "deck_names.json"))
+    text_list = text_list_path()
+    text_list.parent.mkdir(parents=True, exist_ok=True)
+    text_list.write_text(COLLECTION_LINES, encoding="utf-8")
+    write_collection_file(tmp_path, monkeypatch)
 
     monkeypatch.setattr(meta_cli, "Fetcher", Offline)
     monkeypatch.setattr(meta_cli, "egm", SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))))

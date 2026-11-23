@@ -8,7 +8,7 @@ No test writes the real catalog export: GCG_CATALOG_FILE points at a temp file f
 No test reads the real collection file: GCG_COLLECTION_FILE points at a temp path (absent unless the test writes it) for every test,
 real-data ones included.
 
-No test touches the cards and meta tools' real raw caches or the cards, meta and packages tools' tracked files: GCG_TOOL_DATA_DIR points at a temp folder, handled like
+No test touches the cards and meta tools' real raw caches or the cards, meta, packages and collection tools' tracked files: GCG_TOOL_DATA_DIR points at a temp folder, handled like
 GCG_DATA_DIR (real-data tests see it as it is). Each test's folder holds a copy of the tracked set list and restrictions file, the
 tracked inputs that tests read; a test that writes them writes the copy.
 """
