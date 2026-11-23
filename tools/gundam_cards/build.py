@@ -342,12 +342,19 @@ def _image_url(printing_id: PrintingId, src: str | None) -> str | None:
     return urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))  # drop the cache-busting query
 
 
-def build_printing(page: SourcePage) -> Printing:
+def _set_code(where: str, package_ids: Sequence[PackageId], package_codes: Mapping[PackageId, SetCode]) -> SetCode | None:
+    """The bracketed code in "Where to get it"; else the code of the first of the printing's packages that `package_codes` knows."""
+    set_match = _SET_CODE_IN_TEXT.search(where)
+    if set_match:
+        return SetCode(set_match.group(1) + set_match.group(2))
+    return next((package_codes[p] for p in package_ids if p in package_codes), None)
+
+
+def build_printing(page: SourcePage, package_codes: Mapping[PackageId, SetCode]) -> Printing:
     subject = str(page.printing_id)
     parsed_rarity = parse_rarity(page.raw.rarity, subject)
     source_title = page.raw.fields.get("Source Title", "-")
     where = page.raw.fields.get("Where to get it", "")
-    set_match = _SET_CODE_IN_TEXT.search(where)
     return Printing(
         id=page.printing_id,
         variant=page.printing_id.variant,
@@ -357,7 +364,7 @@ def build_printing(page: SourcePage) -> Printing:
         block=parse_block(page.raw.block, subject),
         source_title=None if source_title == "-" else SourceTitle(source_title),
         where_to_get=where,
-        set_code=SetCode(set_match.group(1) + set_match.group(2)) if set_match else None,
+        set_code=_set_code(where, page.package_ids, package_codes),
         package_ids=page.package_ids,
         image_url=_image_url(page.printing_id, page.raw.image_src),
     )
@@ -479,8 +486,11 @@ def build_card(
     pages: Sequence[SourcePage],
     traits: frozenset[Trait],
     release_dates: Mapping[SetCode, date],
+    package_codes: Mapping[PackageId, SetCode] | None = None,
 ) -> BuildResult:
-    """Build one card from all fetched printings of it (base printing required)."""
+    """Build one card from all fetched printings of it (base printing required). `package_codes` (package id -> set code, from the
+    reviewed sets.json) gives a printing its set when its text names none; None means no package is known."""
+    package_codes = package_codes or {}
     if not pages:
         raise ValueError("build_card needs at least one page")
     number = pages[0].printing_id.card_number
@@ -502,11 +512,11 @@ def build_card(
         raise ParseError(subject, f"page shows card number {base.raw.card_no!r}")
 
     # printings: the reference printing must build; an alt art that can't be parsed is reported and left out
-    printings: list[Printing] = [build_printing(base)]
+    printings: list[Printing] = [build_printing(base, package_codes)]
     kept: list[SourcePage] = [base]
     for page in ordered[1:]:
         try:
-            printings.append(build_printing(page))
+            printings.append(build_printing(page, package_codes))
         except ParseError as e:
             issues.append(Issue(IssueKind.PARSE_FAILURE, e.subject, f"{e.detail} (printing left out; the card is kept)"))
             continue
@@ -683,8 +693,11 @@ def build_trait_vocabulary(pages: Iterable[SourcePage]) -> frozenset[Trait]:
     return frozenset(vocabulary)
 
 
-def build_catalog(pages: Sequence[SourcePage], release_dates: Mapping[SetCode, date]) -> CatalogResult:
-    """Pass 1 builds the trait vocabulary; pass 2 builds every card. Parse failures are issues, not crashes."""
+def build_catalog(
+    pages: Sequence[SourcePage], release_dates: Mapping[SetCode, date], package_codes: Mapping[PackageId, SetCode]
+) -> CatalogResult:
+    """Pass 1 builds the trait vocabulary; pass 2 builds every card. Parse failures are issues, not crashes. `package_codes`: see
+    `build_card`."""
     issues: list[Issue] = []
     usable: list[SourcePage] = []
     for page in pages:
@@ -702,7 +715,7 @@ def build_catalog(pages: Sequence[SourcePage], release_dates: Mapping[SetCode, d
     cards: list[CardModel] = []
     for number in sorted(by_card):
         try:
-            result = build_card(by_card[number], vocabulary, release_dates)
+            result = build_card(by_card[number], vocabulary, release_dates, package_codes)
         except (ParseError, ValueError) as e:
             subject = e.subject if isinstance(e, ParseError) else str(number)
             detail = e.detail if isinstance(e, ParseError) else str(e)

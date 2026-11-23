@@ -35,6 +35,7 @@ from tools.gundam_cards.store import (
     load_source_pages,
     load_tracked_sets,
     merge_catalog,
+    package_set_codes,
     release_dates,
     save_catalog,
     write_provisional_sets,
@@ -248,7 +249,7 @@ def refresh_catalog(
     pages, page_rejects = _shape_checked([p for p in (*loaded.pages, *fetched) if p.printing_id.card_number in known])
     rejected += page_rejects
     dates = release_dates(tracked + provisional)
-    result = build_catalog(pages, dates)
+    result = build_catalog(pages, dates, package_set_codes(tracked))
     merged = merge_catalog(stored, result.cards, now, listed_numbers)
 
     # ---- plan: misses (read from the merged records, so the report says what is written) and the anomaly guard

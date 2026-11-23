@@ -185,7 +185,7 @@ class Printing(FrozenModel):
     block: Block | None
     source_title: SourceTitle | None  # per printing: alt arts often show a different series
     where_to_get: str  # raw free text
-    set_code: SetCode | None  # parsed from "[CODE]" in where_to_get; None for promos/events
+    set_code: SetCode | None  # "[CODE]" in where_to_get, else the reviewed sets.json code of its first known package; None if neither
     package_ids: tuple[PackageId, ...]
     image_url: str | None
 
