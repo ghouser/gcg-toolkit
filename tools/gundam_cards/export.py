@@ -26,6 +26,7 @@ from tools.gundam_cards.models import (
 )
 
 EXPORT_SCHEMA_VERSION: Literal[1] = 1  # see "Version policy" in docs/catalog-export.md
+_EDITION_BETA = SetCode("BETA")  # teaching copies, never bought or sold: never a card's reference printing
 
 
 class ExportPrinting(FrozenModel):
@@ -45,7 +46,7 @@ class ExportCard(FrozenModel):
     name: str
     kind: CardKind
     no_longer_listed: Literal[True] | None = None
-    set_code: SetCode | None = None  # the reference (first) printing's
+    set_code: SetCode | None = None  # the reference printing's: the first one whose set is not Edition Beta
     color: Color | None = None  # color, level, cost: deck kinds only
     level: int | None = None
     cost: int | None = None
@@ -110,6 +111,11 @@ def _sets(tracked: tuple[CardSet, ...], provisional: tuple[CardSet, ...]) -> tup
     )
 
 
+def _reference_set_code(card: CardModel) -> SetCode | None:
+    """The card's set: that of its first printing whose set code is not BETA; None when it has none (or only Beta printings)."""
+    return next((p.set_code for p in card.printings if p.set_code != _EDITION_BETA), None)
+
+
 def _card(card: CardModel, no_longer_listed: bool, prices: dict[PrintingId, tuple[int, date]]) -> ExportCard:
     printings = tuple(
         ExportPrinting(
@@ -130,7 +136,7 @@ def _card(card: CardModel, no_longer_listed: bool, prices: dict[PrintingId, tupl
         name=card.name,
         kind=card.kind,
         no_longer_listed=True if no_longer_listed else None,
-        set_code=card.printings[0].set_code,
+        set_code=_reference_set_code(card),
         color=color_of(card),
         level=level_of(card),
         cost=cost_of(card),

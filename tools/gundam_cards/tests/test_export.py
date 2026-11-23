@@ -301,6 +301,34 @@ def test_the_card_set_code_is_its_first_printings_and_absent_when_that_has_none(
     assert "set_code" not in cards["R-001"]
 
 
+def a_set(code: str, kind: SetKind) -> CardSet:
+    return CardSet(code=SetCode(code), name=code, kind=kind, bandai_package_id=None, release_date=None, product_category_raw=None,
+                   product_url=None)  # fmt: skip
+
+
+def test_the_card_set_code_skips_edition_beta_printings_which_keep_beta(monkeypatch: pytest.MonkeyPatch) -> None:
+    """promo-beta-set-codes AC-3: the reference printing is the first one whose set is not BETA (EXB-001, EXR-001, R-001 on the
+    real data: a Beta first printing, then SC01)."""
+    sets = (GD01, a_set("BETA", SetKind.BETA), a_set("SC01", SetKind.DECK_BUILD_BOX))
+    monkeypatch.setattr(cli, "load_tracked_sets", lambda *a, **k: sets)
+    beta_first = RESOURCE.model_copy(update={"printings": (printing("R-001_p1", "BETA", rarity=Rarity.C, alt=1),
+                                                           printing("R-001_p4", "SC01", rarity=Rarity.C, alt=1))})  # fmt: skip
+    beta_later = GUNDAM.model_copy(update={"printings": (printing("GD01-001", "GD01"), printing("GD01-001_p1", "BETA", alt=1))})
+    beta_only = RESOURCE.model_copy(update={"number": CardNumber("R-002"), "printings": (printing("R-002_p1", "BETA", rarity=Rarity.C, alt=1),)})
+    beta_then_none = RESOURCE.model_copy(update={"number": CardNumber("R-003"), "printings": (
+        printing("R-003_p1", "BETA", rarity=Rarity.C, alt=1), printing("R-003_p2", None, rarity=Rarity.C, alt=1),
+        printing("R-003_p3", "SC01", rarity=Rarity.C, alt=1))})  # fmt: skip
+    store((beta_first, beta_only, beta_then_none, beta_later), unlisted=())
+    data = export()
+    cards, printings = cards_by_number(data), printings_by_id(data)
+    assert cards["R-001"]["set_code"] == "SC01"
+    assert cards["GD01-001"]["set_code"] == "GD01"  # a first printing that is not Beta: unchanged
+    assert "set_code" not in cards["R-002"]  # no printing outside Beta: omitted, as the field is optional
+    assert "set_code" not in cards["R-003"]  # the reference printing is the first non-Beta one, which has no set code
+    assert [printings[i]["set_code"] for i in ("R-001_p1", "GD01-001_p1", "R-002_p1", "R-003_p1")] == ["BETA"] * 4
+    assert printings["R-001_p4"]["set_code"] == "SC01"
+
+
 def test_each_printing_carries_only_what_applies_to_it(tracked: None) -> None:
     store()
     printings = printings_by_id(export())
