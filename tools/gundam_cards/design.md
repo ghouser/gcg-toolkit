@@ -82,8 +82,9 @@ SourceTitle  = NewType(str)  # open vocabulary; validated against source_titles.
 # ---- closed vocabularies ------------------------------------------------------------------
 class CardKind(StrEnum):
     UNIT = "unit"; PILOT = "pilot"; COMMAND = "command"; BASE = "base"
-    EX_BASE = "ex_base"; RESOURCE = "resource"; EX_RESOURCE = "ex_resource"; UNIT_TOKEN = "unit_token"
+    EX_BASE = "ex_base"; RESOURCE = "resource"; EX_RESOURCE = "ex_resource"; UNIT_TOKEN = "unit_token"; BASE_TOKEN = "base_token"
     # "UNIT TOKEN" and "UNIT・TOKEN" both map to UNIT_TOKEN. An unseen TYPE fails the parse loudly.
+    # BASE_TOKEN is never a page TYPE: it is inferred (see "Parser rules": a Base with no color and a `T-` number).
 
 class Color(StrEnum):   BLUE = "blue"; GREEN = "green"; WHITE = "white"; RED = "red"; PURPLE = "purple"
 class Zone(StrEnum):    SPACE = "space"; EARTH = "earth"
@@ -208,8 +209,14 @@ class UnitTokenCard(CardBase):
     ap: int | None; hp: int
     traits: tuple[Trait, ...]
 
-Card = Annotated[UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard,
-                 Field(discriminator="kind")]
+class BaseTokenCard(CardBase):      # a token Base (T-037): no color; keeps whichever Base fields its page shows, none required
+    kind: Literal[CardKind.BASE_TOKEN]
+    level: int | None; cost: int | None; hp: int | None
+    zones: frozenset[Zone]
+    traits: tuple[Trait, ...]
+
+Card = Annotated[UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard
+                 | BaseTokenCard, Field(discriminator="kind")]
 # Helpers on CardBase: is_deck_card (kind in unit/pilot/command/base), is_pilot (PilotCard, or CommandCard with `pilot`),
 # text (current wording), current_block.
 
@@ -257,6 +264,7 @@ Bandai reprints cards with changed wording and expects more rules-driven changes
 
 ### Parser rules
 - Parse by `dt` label, never by position. An unknown label, `TYPE`, rarity, color, zone, or block **fails that card's parse** and is listed in the run report; nothing is guessed.
+- **Base token (inferred):** a card whose TYPE is Base, whose number is in the token series (`T-`, `build.TOKEN_SERIES`) and whose page shows no color (`-` or no COLOR label) is a `BaseTokenCard` (`base_token`, not a deck kind). It keeps whichever of the Base's fields the page shows (a missing label reads as `-`); none is required. A Base that shows a color is a `BaseCard` whatever its number; any other Base with no color fails ("COLOR is required here but the page shows none"), as do Units, Pilots and Commands with no color, whatever their number.
 - `-` means none. NFKC-normalize stats first (`３` -> `3`). `+2` on a Pilot or Command is a bonus.
 - Base card attributes (kind, color, level, cost, stats, traits, link) come from the base printing. Any other printing that differs in those is reported. Printings contribute `rarity`, `alt_art`, `block`, `where_to_get`, and text.
 - `Trait` -> `traits` by splitting `(…)` groups. `Link` -> split on ` / ` into `any_of`; `[…]` is a `PilotNameLink`, `(…) Trait` is a `TraitLink`.

@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import subprocess
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -50,11 +51,13 @@ def detail(
     rarity: str = "C",
     card_no: str | None = None,
     where: str = "Newtype Rising [GD01]",
+    shown: Mapping[str, str | None] | None = None,
 ) -> str:
-    """A minimal Bandai detail page that the real parser reads."""
+    """A minimal Bandai detail page that the real parser reads. `shown` overrides field values; a None value leaves the label out."""
     number = printing_id.split("_p")[0]
     fields = {"Lv.": "2", "COST": "1", "COLOR": color, "TYPE": kind, "Zone": "Space", "Trait": "(Earth Federation)", "Link": "-",
               "AP": "1", "HP": "2", "Source Title": "-", "Where to get it": where}
+    fields = {k: v for k, v in {**fields, **(shown or {})}.items() if v is not None}
     rows = "".join(f'<dt class="dataTit">{k}</dt><dd class="dataTxt">{v}</dd>' for k, v in fields.items())
     return (f'<html><body><div class="cardNo">{card_no or number}</div><div class="rarity">{rarity}</div>'
             f'<div class="blockIcon">1</div><h1 class="cardName">{name or "Card " + number}</h1><dl>{rows}</dl>'

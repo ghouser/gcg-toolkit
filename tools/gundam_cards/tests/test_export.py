@@ -14,6 +14,7 @@ from shared.basetypes import CardNumber, PackageId, PrintingId, ProductId, SetCo
 from tools.gundam_cards import cli
 from tools.gundam_cards.export import CatalogExport
 from tools.gundam_cards.models import (
+    BaseTokenCard,
     CardPrice,
     CardRecord,
     CardSet,
@@ -279,7 +280,9 @@ def common(number: str) -> dict[str, Any]:
     (ResourceCard(**common("R-002")), None),
     (ExResourceCard(**common("EXR-001")), None),
     (UnitTokenCard(**common("T-001"), ap=1, hp=1, traits=()), None),
-], ids=[k.value for k in CardKind])  # fmt: skip
+    (BaseTokenCard(**common("T-037"), level=None, cost=None, hp=5, zones=frozenset(), traits=()), None),
+    (BaseTokenCard(**common("T-038"), level=2, cost=1, hp=3, zones=frozenset(), traits=()), None),  # shown, still not exported
+], ids=[*(k.value for k in CardKind), "base_token showing level and cost"])  # fmt: skip
 def test_every_kind_has_color_level_and_cost_exactly_when_it_goes_into_a_deck(tracked: None, card: Any,
                                                                                stats: tuple[str, int, int] | None) -> None:  # fmt: skip
     store((card,), unlisted=())
@@ -355,7 +358,7 @@ def test_the_reference_section_comes_from_the_sets_and_the_vocabularies(tracked:
         {"code": "ST01", "name": "Heroic Beginnings", "kind": "starter"},
     ]
     deck = {"unit", "pilot", "command", "base"}
-    others = {"ex_base", "resource", "ex_resource", "unit_token"}
+    others = {"ex_base", "resource", "ex_resource", "unit_token", "base_token"}
     assert {k["kind"]: k["deck"] for k in reference["kinds"]} == {**dict.fromkeys(deck, True), **dict.fromkeys(others, False)}
     assert reference["colors"] == ["blue", "green", "white", "red", "purple"]
     assert reference["rarities"] == ["C", "U", "R", "LR", "P"]
