@@ -2,11 +2,12 @@
 what the real run drops.
 
 The refresh runs with the fake Bandai of the refresh tests in the per-test temp dataset. Expected values come from the spec: T-037 is
-TYPE Base, no color, 5 HP, and nothing else shown.
+TYPE Base, no color, 5 HP, and nothing else shown. The export tests run `export` after a real refresh.
 """
 from __future__ import annotations
 
 import email.message
+import json
 import urllib.error
 import urllib.request
 from datetime import UTC, date, datetime
@@ -20,11 +21,13 @@ from shared.dataset import data_dir, tool_data_root
 from shared.fetch import Fetcher
 from shared.test_tool_data_dir import _Body, bandai_pages
 from tools.gundam_cards import cli
+from tools.gundam_cards.export import CatalogExport
 from tools.gundam_cards.models import BaseCard, BaseTokenCard, CardKind, CardModel, CardSet, Color, SetKind, Zone
 from tools.gundam_cards.printings import DETAIL_URL
 from tools.gundam_cards.refresh import RefreshReport, format_report, refresh_catalog
-from tools.gundam_cards.store import load_catalog, pages_folder
+from tools.gundam_cards.store import catalog_export_path, load_catalog, load_tracked_sets, pages_folder
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, all_dataset_bytes, detail, write_tracked_sets
+from tools.gundam_cards.tests.test_export import REPO_DOCS
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
 T2 = datetime(2026, 11, 2, tzinfo=UTC)
@@ -249,3 +252,30 @@ def test_the_dry_run_command_with_the_real_fetcher_stores_nothing(
     out = capsys.readouterr().out
     assert f"  [parse_failure] GD99-004: {COLOR_REQUIRED}" in out and "T-037:" not in out and "dry run: nothing written" in out
     assert every_file(data_dir()) == before and every_file(tool_data_root()) == tool_before
+
+
+# ---- AC-4 --------------------------------------------------------------------------------------------------------------------
+def test_a_refreshed_base_token_is_exported_with_its_kind_and_no_color_level_or_cost(
+    site: FakeBandai, tracked: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    new_cards(site, {"T-037": t037()})
+    assert run(site, tracked, T1).written
+    monkeypatch.setattr(cli, "load_tracked_sets", lambda *a, **k: load_tracked_sets(tracked))
+
+    assert cli.main(["export"]) == 0
+    text = catalog_export_path().read_text(encoding="utf-8")
+    CatalogExport.model_validate_json(text)  # the export's own validation
+    data = json.loads(text)
+    token = next(c for c in data["cards"] if c["number"] == "T-037")
+    assert token["kind"] == "base_token" and not {"color", "level", "cost"} & set(token)
+    assert {"kind": "base_token", "deck": False} in data["reference"]["kinds"]
+    assert "null" not in text
+
+
+def test_the_documented_example_lists_the_same_kinds_as_the_export(site: FakeBandai, tracked: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    assert run(site, tracked, T1).written
+    monkeypatch.setattr(cli, "load_tracked_sets", lambda *a, **k: load_tracked_sets(tracked))
+    assert cli.main(["export"]) == 0
+    exported = json.loads(catalog_export_path().read_text(encoding="utf-8"))["reference"]["kinds"]
+    example = json.loads((REPO_DOCS / "catalog-export.example.json").read_text(encoding="utf-8"))["reference"]["kinds"]
+    assert example == exported

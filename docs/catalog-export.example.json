@@ -15,7 +15,8 @@
    {"kind": "ex_base", "deck": false},
    {"kind": "resource", "deck": false},
    {"kind": "ex_resource", "deck": false},
-   {"kind": "unit_token", "deck": false}
+   {"kind": "unit_token", "deck": false},
+   {"kind": "base_token", "deck": false}
   ],
   "colors": ["blue", "green", "white", "red", "purple"],
   "rarities": ["C", "U", "R", "LR", "P"]
