@@ -54,6 +54,7 @@ Most views take `--source tournament|online|both`
 
     .venv/bin/python -m tools.gundam_cards.cli refresh --dry-run   # what a catalog refresh would add, drop (each new card it cannot parse, with the reason), miss, change (each card and field named), orphan or refuse (fetches new pages without storing them; writes nothing)
     .venv/bin/python -m tools.gundam_cards.cli refresh             # refresh the catalog from Bandai, all or nothing (--allow-anomaly to override the guard)
+    # one time, after printings first gained package-fallback set codes: the guard will likely refuse the first refresh (hundreds of printings change set_code); run `reparse` once, or `refresh --allow-anomaly` after checking the --dry-run report
 
     .venv/bin/python -m tools.gundam_cards.cli sync-restrictions   # banned / restricted cards from Bandai's announcement (one request; pass --url for a newer list)
     .venv/bin/python -m tools.gundam_cards.cli restrictions        # show the list in force

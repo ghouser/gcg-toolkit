@@ -96,6 +96,10 @@ conftest's temp folders. Expected values are worked out by hand from the fixture
   from BETA/PROMO, so those never match, as before. Counted in the real-data check.
 - **Package order.** "First known package" follows the printing's `package_ids` order (Bandai's package filter order on a rebuild,
   stored-then-listed on a refresh). On the real cache no printing has more than one package today.
+- **The first refresh after this lands will likely be refused.** The anomaly guard (`ANOMALY_SHARE`) counts a stored printing's
+  `set_code` change as a field-level change (`changed_fields` compares every printing field but `package_ids`), and hundreds of
+  printings gain a set code, so far more than 2% of cards change at once. One time only: run `reparse` (it has no guard), or
+  `refresh --allow-anomaly` after checking the `--dry-run` report. Noted in `docs/commands.md`.
 - Contracts made stricter: none. The export's field, type and presence rule are unchanged (`schema_version` 1); `build_catalog`
   gains a required argument, and both of its callers (`cli.cmd_reparse`, `refresh.refresh_catalog`) and the real-data corpus test
   pass it.
