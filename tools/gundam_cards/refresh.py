@@ -5,7 +5,8 @@
 
 Three phases. Fetch: Bandai's package list, every package's listing (always fresh) and the detail pages not cached yet (a cached
 page is never requested again), stopping at the first failure. Plan: the shape check, provisional packages, the rebuild from the
-cached pages (a printing keeps its stored packages and gains this run's), misses, and the anomaly guard. Write: only after a
+cached pages of listed or stored cards (a printing keeps its stored packages and gains this run's; any other cached page is an
+orphan, reported and left out), misses, and the anomaly guard over every field-level change. Write: only after a
 complete, accepted, non-dry run, so a refused run, or one that fails or is interrupted before writing, leaves the dataset as it
 was. Each file is written atomically, cards.json first; an interruption among the writes may leave the derived files behind
 until the next run.
@@ -48,6 +49,12 @@ class Rejected:
 
 
 @dataclass(frozen=True)
+class ChangedCard:
+    number: CardNumber
+    fields: tuple[str, ...]  # what differs from the stored card, as `changed_fields` names it
+
+
+@dataclass(frozen=True)
 class RefreshReport:
     dry_run: bool
     complete: bool  # every listing (and, in a real run, every new detail page) was fetched and readable
@@ -58,7 +65,8 @@ class RefreshReport:
     new_printings: tuple[PrintingId, ...] = ()
     missed: tuple[CardNumber, ...] = ()  # existing cards absent from this run's listings (a first or a second miss)
     marked: tuple[CardNumber, ...] = ()  # of those, the ones on their second miss: marked no longer listed
-    changed: tuple[CardNumber, ...] = ()  # existing cards whose data (beyond printings) differs
+    changed: tuple[ChangedCard, ...] = ()  # existing cards with any field-level change (see `changed_fields`)
+    orphans: tuple[PrintingId, ...] = ()  # cached detail pages of cards in no listing and not stored: left out of the catalog
     existing: int = 0  # stored cards not marked no longer listed
     guard_trips: bool = False  # the anomaly guard would refuse this run
     refused: bool = False  # ... and no override was given
@@ -99,10 +107,30 @@ def _shape_checked(pages: Sequence[SourcePage]) -> tuple[list[SourcePage], list[
     return kept, rejected
 
 
-def _comparable(card: CardModel) -> object:
-    """What the anomaly guard compares: everything but the printings, the text-version list and the fetch time, plus the current
-    wording. Gaining a printing or a package is not a change."""
-    return (card.model_dump(exclude={"printings", "text_versions", "fetched_at"}), card.text)
+def _texts_by_printing(card: CardModel) -> dict[PrintingId, str]:
+    return {i: v.text for v in card.text_versions for i in v.printing_ids}
+
+
+def changed_fields(old: CardModel, new: CardModel) -> tuple[str, ...]:
+    """Every field-level difference between a stored card and its rebuild, by name: a card field (`name`, `faq`, ...), `text` for
+    the current wording, `<printing id> <field>` for a printing in both (its wording as `<printing id> text`), and `<printing id>
+    missing` for a stored printing the rebuild lacks. Gaining a printing or a package is not a change; the fetch time is ignored."""
+    skip = {"printings", "text_versions", "fetched_at"}
+    old_dump, new_dump = old.model_dump(exclude=skip), new.model_dump(exclude=skip)
+    fields = [k for k in old_dump.keys() | new_dump.keys() if old_dump.get(k) != new_dump.get(k)]
+    fields = sorted(fields) + (["text"] if old.text != new.text else [])
+    new_printings = {p.id: p for p in new.printings}
+    old_texts, new_texts = _texts_by_printing(old), _texts_by_printing(new)
+    for printing in old.printings:
+        rebuilt = new_printings.get(printing.id)
+        if rebuilt is None:
+            fields.append(f"{printing.id} missing")
+            continue
+        before, after = printing.model_dump(exclude={"package_ids"}), rebuilt.model_dump(exclude={"package_ids"})
+        fields += [f"{printing.id} {k}" for k in sorted(before) if before[k] != after[k]]
+        if old_texts.get(printing.id) != new_texts.get(printing.id):
+            fields.append(f"{printing.id} text")
+    return tuple(fields)
 
 
 def refresh_catalog(
@@ -198,11 +226,13 @@ def refresh_catalog(
             if package_id not in packages_of[printing_id]:
                 packages_of[printing_id].append(package_id)
     loaded = load_source_pages(raw_dir, {k: tuple(v) for k, v in packages_of.items()})
-    pages, page_rejects = _shape_checked(loaded.pages)
+    listed_numbers = frozenset(i.card_number for i in listed)
+    known = listed_numbers | stored_cards.keys()
+    orphans = tuple(sorted((p.printing_id for p in loaded.pages if p.printing_id.card_number not in known), key=str))
+    pages, page_rejects = _shape_checked([p for p in loaded.pages if p.printing_id.card_number in known])
     rejected += page_rejects
     dates = release_dates(tracked + provisional)
     result = build_catalog(pages, dates)
-    listed_numbers = frozenset(i.card_number for i in listed)
     merged = merge_catalog(stored, result.cards, now, listed_numbers)
 
     # ---- plan: misses (read from the merged records, so the report says what is written) and the anomaly guard
@@ -211,8 +241,10 @@ def refresh_catalog(
     missed = tuple(r.number for r in active if merged_records[r.number].missed_once)
     marked = tuple(r.number for r in active if merged_records[r.number].no_longer_listed)
     rebuilt = {c.number: c for c in merged.data}
-    changed = tuple(r.number for r in active if _comparable(rebuilt[r.number]) != _comparable(stored_cards[r.number]))
-    affected = len(set(missed) | set(changed))
+    changed = tuple(
+        ChangedCard(r.number, fields) for r in active if (fields := changed_fields(stored_cards[r.number], rebuilt[r.number]))
+    )
+    affected = len(set(missed) | {c.number for c in changed})
     guard_trips = bool(active) and affected / len(active) > ANOMALY_SHARE
     report = RefreshReport(
         dry_run=dry_run,
@@ -224,6 +256,7 @@ def refresh_catalog(
         missed=missed,
         marked=marked,
         changed=changed,
+        orphans=orphans,
         existing=len(active),
         guard_trips=guard_trips,
         refused=guard_trips and not allow_anomaly,
@@ -259,7 +292,11 @@ def format_report(report: RefreshReport) -> list[str]:
             f"(limit {ANOMALY_SHARE:.0%}): "
             + ("would refuse" if report.guard_trips else "ok")
             + (" (overridden)" if report.guard_trips and not report.refused else ""),
+            *(f"  changed {c.number}: {', '.join(c.fields)}" for c in report.changed),
         ]
+        if report.orphans:
+            lines.append(f"{len(report.orphans)} orphan page(s), in no listing and not in the catalog, not added: "
+                         + " ".join(map(str, report.orphans)))
         if report.refused:
             lines.append("refused by the anomaly guard, nothing written (rerun with --allow-anomaly to proceed)")
         elif report.dry_run:

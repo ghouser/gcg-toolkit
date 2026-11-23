@@ -73,7 +73,7 @@ def tool_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 
 def test_reparse_and_sets_use_only_the_temp_folder(tool_dir: Path, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    detail = tool_dir / "tools" / "gundam_cards" / "data" / "raw" / "detail"
+    detail = tmp_path / "dataset" / "gundam_cards" / "pages" / "detail"  # Bandai's pages are cached in the dataset (safe-refresh)
     detail.mkdir(parents=True)
     for page in PAGES:
         shutil.copyfile(FIXTURES / f"{page}.html", detail / f"{page}.html")
@@ -201,25 +201,28 @@ class Runner:
 
 
 def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
-    tool_dir: Path, network: dict[str, str], capsys: pytest.CaptureFixture[str]
+    tool_dir: Path, tmp_path: Path, network: dict[str, str], capsys: pytest.CaptureFixture[str]
 ) -> None:
     raw_dir, tracked_dir = tool_dir / "tools" / "gundam_cards" / "data" / "raw", tool_dir / "shared" / "data" / "gundam_cards"
+    pages = tmp_path / "dataset" / "gundam_cards" / "pages"  # Bandai's pages are cached in the dataset (safe-refresh)
     site = FakeBandai(Path(), {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])}, products=[("Newtype Rising [GD01]", "July 25,2025")])
     network.update({**bandai_pages(site), **tcgcsv_pages(), RESTRICTIONS_URL: RESTRICTIONS_PAGE})
     run = Runner(capsys)
 
     run(cards_cli.main, ["sync"])
-    assert (raw_dir / LANDING_KEY).is_file() and (raw_dir / list_page_key(PackageId(GD01))).is_file()  # the fetcher's cache
-    assert (raw_dir / detail_page_key(PrintingId("GD01-002"))).is_file()  # sync_printings' pages
-    (raw_dir / detail_page_key(PrintingId("GD01-002"))).unlink()
-    # sync_printings reads the temp folder's cache: one page there, one missing (the repository's folder would differ)
+    assert (pages / LANDING_KEY).is_file() and (pages / list_page_key(PackageId(GD01))).is_file()  # the fetcher's cache
+    assert (pages / detail_page_key(PrintingId("GD01-002"))).is_file()  # sync_printings' pages
+    (pages / detail_page_key(PrintingId("GD01-002"))).unlink()
+    # sync_printings reads the temp dataset's cache: one page there, one missing (the repository's folder would differ)
     assert "2 printings: 1 already cached, 1 fetched, 0 failed" in run(cards_cli.main, ["sync"])
 
     network[DETAIL_URL.format("GD01-001")] = detail("GD01-001", name="Refetched Name")
     assert "1 changed, 0 unchanged, 0 failed" in run(cards_cli.main, ["refetch", "--card", "GD01-001"])
-    assert "Refetched Name" in (raw_dir / detail_page_key(PrintingId("GD01-001"))).read_text(encoding="utf-8")
-    # refetch_printings compares with the temp folder's cached copy, which now matches what Bandai serves
+    assert "Refetched Name" in (pages / detail_page_key(PrintingId("GD01-001"))).read_text(encoding="utf-8")
+    # refetch_printings compares with the temp dataset's cached copy, which now matches what Bandai serves
     assert "0 changed, 1 unchanged, 0 failed" in run(cards_cli.main, ["refetch", "--card", "GD01-001"])
+
+    assert not raw_dir.exists()  # no Bandai page in the checkout's raw folder
 
     run(cards_cli.main, ["sync-tcgplayer"])
     dump = raw_dir / "tcgcsv" / stamp_of(TCGCSV_AT)
@@ -282,9 +285,9 @@ FAILING: list[tuple[Main, list[str]]] = [
 def test_a_command_that_fails_leaves_the_real_files_unchanged(
     tool_dir: Path, tmp_path: Path, network: dict[str, str], main: Main, argv: list[str]
 ) -> None:
-    """The network answers 404 to everything, and the temp raw folder holds a page that is not a card page."""
+    """The network answers 404 to everything, and the temp dataset's Bandai page cache holds a page that is not a card page."""
     dataset_tree(tmp_path / "dataset")  # a catalog and events, so each command gets as far as the network or the raw pages
-    bad = tool_dir / "tools" / "gundam_cards" / "data" / "raw" / detail_page_key(PrintingId("GD01-001"))
+    bad = tmp_path / "dataset" / "gundam_cards" / "pages" / detail_page_key(PrintingId("GD01-001"))
     bad.parent.mkdir(parents=True)
     bad.write_text("<html><body>not a card</body></html>", encoding="utf-8")
     tracked, raw = tracked_bytes(), raw_listing()

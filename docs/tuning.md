@@ -104,7 +104,7 @@ The plan axis is `beatdown = mean(curve, pressure, 10 - interaction, 10 - advant
 
 | Constant | Value | Meaning | Basis |
 |---|---|---|---|
-| `ANOMALY_SHARE` | 0.02 | A refresh is refused when more than this share of existing cards (not marked no longer listed) would be dropped (missed) or changed (anything but printings and fetch time); `--allow-anomaly` overrides | judgment (owner, lowered from 0.10): a normal refresh drops and changes almost nothing, since cached pages are never re-fetched, so more than 1 card in 50 is worth a look first |
+| `ANOMALY_SHARE` | 0.02 | A refresh is refused when more than this share of existing cards (not marked no longer listed) would be dropped (missed) or changed (any field-level change, printing fields and wordings included; gaining a printing or a package and the fetch time are not changes); `--allow-anomaly` overrides | judgment (owner, lowered from 0.10): a normal refresh drops and changes almost nothing, since cached pages are never re-fetched, so more than 1 card in 50 is worth a look first |
 
 ## Legality (`tools/gundam_cards/legality.py`)
 

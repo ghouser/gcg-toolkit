@@ -51,6 +51,7 @@ from tools.gundam_cards.store import (
     load_sets,
     load_source_pages,
     load_tracked_sets,
+    pages_folder,
     raw_dump_stamps,
     raw_folder,
     read_raw_dump,
@@ -96,13 +97,13 @@ def _record_sets(build: SetsBuild) -> None:
 
 
 def refresh_fetcher() -> Fetcher:
-    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in `raw_folder()`."""
-    return Fetcher(raw_folder(), min_interval_s=0.5)
+    """The refresh's fetcher: the toolkit's User-Agent, one request at a time at least 0.5 s apart, pages cached in `pages_folder()`."""
+    return Fetcher(pages_folder(), min_interval_s=0.5)
 
 
 def cmd_refresh(args: argparse.Namespace) -> int:
     report = refresh_catalog(
-        refresh_fetcher(), raw_folder(), dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
+        refresh_fetcher(), pages_folder(), dry_run=args.dry_run, allow_anomaly=args.allow_anomaly, progress=lambda m: print(m, flush=True)
     )
     for line in format_report(report):
         print(line)
@@ -110,7 +111,7 @@ def cmd_refresh(args: argparse.Namespace) -> int:
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
-    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
+    fetcher = Fetcher(pages_folder(), min_interval_s=0.5)
     code = 0
     if args.only in (None, "sets"):
         build = sync_sets(fetcher)
@@ -120,11 +121,11 @@ def cmd_sync(args: argparse.Namespace) -> int:
             print(f"{fetcher.network_requests} network request(s)")
             return code
         # The full sync records the sets once, in the reparse below, from the pages just cached (so each report line appears once).
-    packages = read_packages(raw_folder())
+    packages = read_packages(pages_folder())
     if not packages:
         print("no cached package list; run `sync` (without --only printings) first", file=sys.stderr)
         return 2
-    report = sync_printings(fetcher, raw_folder(), packages, progress=lambda m: print(m, flush=True))
+    report = sync_printings(fetcher, pages_folder(), packages, progress=lambda m: print(m, flush=True))
     print(
         f"{report.listed} printings: {report.already_cached} already cached, {report.fetched} fetched, "
         f"{len(report.failures)} failed; {fetcher.network_requests} network request(s)"
@@ -135,12 +136,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
 
 def cmd_refetch(args: argparse.Namespace) -> int:
-    packages = read_packages(raw_folder())
+    packages = read_packages(pages_folder())
     if not packages:
         print("no cached package list; run `sync` first", file=sys.stderr)
         return 2
     try:
-        ids = select_printings(raw_folder(), packages, card=CardNumber(args.card) if args.card else None, package=args.package)
+        ids = select_printings(pages_folder(), packages, card=CardNumber(args.card) if args.card else None, package=args.package)
     except ValueError as e:
         print(e, file=sys.stderr)
         return 2
@@ -148,8 +149,8 @@ def cmd_refetch(args: argparse.Namespace) -> int:
         print("nothing matches", file=sys.stderr)
         return 1
     print(f"refetching {len(ids)} printing page(s) from Bandai")
-    fetcher = Fetcher(raw_folder(), min_interval_s=0.5)
-    report = refetch_printings(fetcher, raw_folder(), ids, progress=lambda m: print(m, flush=True))
+    fetcher = Fetcher(pages_folder(), min_interval_s=0.5)
+    report = refetch_printings(fetcher, pages_folder(), ids, progress=lambda m: print(m, flush=True))
     print(f"{len(report.changed)} changed, {len(report.unchanged)} unchanged, {len(report.failures)} failed")
     for printing_id in report.changed[:50]:
         print(f"  changed: {printing_id}")
@@ -175,7 +176,7 @@ def cmd_sets(_: argparse.Namespace) -> int:
 
 def cmd_reparse(_: argparse.Namespace) -> int:
     issues: list[Issue] = []
-    rebuilt = sets_from_raw(raw_folder())
+    rebuilt = sets_from_raw(pages_folder())
     if rebuilt is not None:
         _record_sets(rebuilt)
         issues.extend(rebuilt.issues)

@@ -1,7 +1,9 @@
 """Reading the raw page cache and writing the catalog files.
 
-- The set list and the restrictions file are tracked in the repository (`tracked_folder()`); the raw page cache is `raw_folder()`.
-  Both are under `tool_data_root()` (see `shared/dataset.py`), resolved on every call.
+- The set list and the restrictions file are tracked in the repository (`tracked_folder()`); the tcgcsv dumps and the restrictions
+  page are cached in `raw_folder()`. Both are under `tool_data_root()` (see `shared/dataset.py`), resolved on every call.
+- Bandai's card pages (landing, product, list and detail pages) are cached in the dataset (`pages_folder()`), so every checkout pointed
+  at the same dataset shares one cache.
 - The catalog, its vocabularies and the price snapshots live in the local dataset (`data_out_dir()`, see `shared/dataset.py`).
   The catalog only grows; price snapshots are added, never rewritten.
 """
@@ -51,8 +53,13 @@ from tools.gundam_cards.tcgcsv import RawDump
 
 
 def raw_folder() -> Path:
-    """This tool's raw page cache (git-ignored): Bandai pages, tcgcsv dumps, the restrictions page."""
+    """This tool's raw cache in the checkout (git-ignored): tcgcsv dumps and the restrictions page."""
     return tool_data_root() / "tools" / "gundam_cards" / "data" / "raw"
+
+
+def pages_folder() -> Path:
+    """The cache of Bandai's card pages, in the dataset: `$GCG_DATA_DIR/gundam_cards/pages/`."""
+    return data_out_dir() / "pages"
 
 
 def tracked_folder() -> Path:
@@ -83,7 +90,7 @@ def packages_by_printing(raw_dir: Path) -> dict[PrintingId, tuple[PackageId, ...
 def load_source_pages(raw_dir: Path | None = None, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None) -> LoadedPages:
     """Parse every cached detail page. Pages that can't be parsed become issues. Each printing's packages come from `packages_of`,
     or from the cached list pages when it is not given."""
-    raw_dir = raw_dir or raw_folder()
+    raw_dir = raw_dir or pages_folder()
     if packages_of is None:
         packages_of = packages_by_printing(raw_dir)
     pages: list[SourcePage] = []

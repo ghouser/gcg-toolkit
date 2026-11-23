@@ -27,7 +27,7 @@ from tools.gundam_cards.store import (
     load_catalog,
     load_provisional_sets,
     load_sets,
-    raw_folder,
+    pages_folder,
     write_provisional_sets,
 )
 
@@ -127,7 +127,7 @@ def tracked(tmp_path: Path) -> Path:
 @pytest.fixture
 def site(tmp_path: Path) -> FakeBandai:
     return FakeBandai(
-        raw_folder(),
+        pages_folder(),
         {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"]), GD09: ("Future Pack [GD09]", ["GD09-001"])},
         details={"GD09-001": detail("GD09-001", where="Future Pack [GD09]")},
         products=[("Newtype Rising [GD01]", "July 25,2025"), ("Future Pack [GD09]", "March 5,2027")],
@@ -157,8 +157,9 @@ def flags() -> dict[str, tuple[bool, bool]]:
 
 
 def dataset_bytes() -> dict[str, bytes]:
-    root = data_out_dir().parent
-    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()}
+    """Every dataset file but the Bandai page cache (a dry run may cache list pages; "writes nothing" is about the catalog files)."""
+    root, pages = data_out_dir().parent, pages_folder()
+    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file() and pages not in p.parents}
 
 
 # ---- AC-1 --------------------------------------------------------------------------------------------------------------------
@@ -288,7 +289,7 @@ def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_
 
     first, provisional = catalog(), (data_out_dir() / "provisional_sets.json").read_bytes()
     again = run(site, tracked, T3)
-    assert again.written and again.new_cards == again.missed == again.changed == () and again.new_printings == ()
+    assert again.written and again.new_cards == again.missed == () and again.changed == () and again.new_printings == ()
     second = catalog()
     assert (second.data, second.records) == (first.data, first.records)  # only the refresh time moves
     assert (data_out_dir() / "provisional_sets.json").read_bytes() == provisional
@@ -416,7 +417,8 @@ def test_the_anomaly_guard_counts_changed_cards(site: FakeBandai, tracked: Path)
         (site.raw_dir / detail_page_key(PrintingId(number))).write_text(detail(number, name="Renamed"), encoding="utf-8")
     before = dataset_bytes()
     report = run(site, tracked, T2)
-    assert report.refused and report.changed == ("GD01-001", "GD01-002") and report.missed == ()
+    assert report.refused and [(c.number, c.fields) for c in report.changed] == [("GD01-001", ("name",)), ("GD01-002", ("name",))]
+    assert report.missed == ()
     assert dataset_bytes() == before
 
 
@@ -571,7 +573,7 @@ def test_the_refresh_uses_the_polite_fetcher() -> None:
     fetcher = cli.refresh_fetcher()
     assert isinstance(fetcher, Fetcher)
     assert fetcher._min_interval_s >= 0.5 and fetcher._user_agent == DEFAULT_USER_AGENT  # spacing itself: shared/test_fetch.py
-    assert fetcher._cache_dir == raw_folder()
+    assert fetcher._cache_dir == pages_folder()
 
 
 def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:
