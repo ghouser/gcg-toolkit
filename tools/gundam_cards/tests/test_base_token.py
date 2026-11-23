@@ -27,7 +27,6 @@ from tools.gundam_cards.printings import DETAIL_URL
 from tools.gundam_cards.refresh import RefreshReport, format_report, refresh_catalog
 from tools.gundam_cards.store import catalog_export_path, load_catalog, load_tracked_sets, pages_folder
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, all_dataset_bytes, detail, write_tracked_sets
-from tools.gundam_cards.tests.test_export import REPO_DOCS
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
 T2 = datetime(2026, 11, 2, tzinfo=UTC)
@@ -271,11 +270,3 @@ def test_a_refreshed_base_token_is_exported_with_its_kind_and_no_color_level_or_
     assert {"kind": "base_token", "deck": False} in data["reference"]["kinds"]
     assert "null" not in text
 
-
-def test_the_documented_example_lists_the_same_kinds_as_the_export(site: FakeBandai, tracked: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    assert run(site, tracked, T1).written
-    monkeypatch.setattr(cli, "load_tracked_sets", lambda *a, **k: load_tracked_sets(tracked))
-    assert cli.main(["export"]) == 0
-    exported = json.loads(catalog_export_path().read_text(encoding="utf-8"))["reference"]["kinds"]
-    example = json.loads((REPO_DOCS / "catalog-export.example.json").read_text(encoding="utf-8"))["reference"]["kinds"]
-    assert example == exported

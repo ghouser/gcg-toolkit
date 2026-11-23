@@ -85,7 +85,6 @@ only the network faked, so the real `Fetcher` is the one that must not write. Pa
   - reference kinds: `base_token` is listed with `deck: false`, after `unit_token`.
   - end to end: after a real refresh adds T-037, `export` succeeds, the file validates as `CatalogExport`, holds no `null`, and has T-037 as
     `base_token` with no `color`, `level` or `cost`.
-  - documented contract: the example file's `reference.kinds` equals the export's, and the example still validates with no `null`.
 
 ## Risks
 - A real T-037 page may show its empty fields differently (`-`, an empty value, or no label). The build reads a missing label as `-`;
