@@ -54,7 +54,7 @@ from tools.gundam_packages.models import DataSource, DriftFile, OtherRole, Packa
 from tools.gundam_packages.naming import PackageNamer
 from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.report import render_report
-from tools.gundam_packages.store import OUT_DIR, load_name_overrides, load_packages, load_rates, write_drift, write_packages, write_rates
+from tools.gundam_packages.store import load_name_overrides, load_packages, load_rates, tracked_folder, write_drift, write_packages, write_rates
 from tools.gundam_packages.synergy import build_graph
 
 
@@ -484,7 +484,7 @@ def cmd_report(args: argparse.Namespace) -> int:
     base_era = _eras()[EraId(args.base)]
     base_decks, _ = deck_sets(window_events(combined_events(load_events_or_fail()), base_era, ALL_TIERS), cards)
     text = render_report(base, base_decks, drift, new_decks, cards, datetime.now().astimezone())
-    out = Path(args.out) if args.out else OUT_DIR / f"{args.base}_meta_report.md"
+    out = Path(args.out) if args.out else tracked_folder() / f"{args.base}_meta_report.md"
     out.write_text(text, encoding="utf-8")
     print(f"{len(base_decks)} {args.base} decks, {len(new_decks)} {args.new} decks -> {out}")
     return 0

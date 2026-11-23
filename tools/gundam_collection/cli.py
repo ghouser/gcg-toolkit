@@ -25,7 +25,7 @@ from itertools import pairwise
 from pathlib import Path
 
 from shared.basetypes import CardNumber, PrintingId
-from shared.dataset import Kind, NoData
+from shared.dataset import REPO_ROOT, Kind, NoData
 from tools.gundam_cards.export import printing_prices as prices_of_printings
 from tools.gundam_cards.models import CardModel, PricedCard, color_of, cost_of, level_of
 from tools.gundam_cards.legality import Rules
@@ -68,7 +68,7 @@ from tools.gundam_collection.link import (
 )
 from tools.gundam_collection.models import CheckReport, Severity, Stage
 from tools.gundam_collection.collection_file import CollectionRefused, Owned, Source, collection_file_path, read_owned, text_list_path
-from tools.gundam_collection.store import OUT_DIR, REPO_ROOT, load_deck_names, save_deck_names
+from tools.gundam_collection.store import load_deck_names, save_deck_names, tracked_folder
 from tools.gundam_collection.value import DEFAULT_THRESHOLDS, SELL_MIN_CENTS, ValueReport, analyze
 from tools.gundam_packages.models import DataSource, PackageId, PackageRates, PackagesFile, RatesFile, Squad, typical_copies
 from tools.gundam_packages.store import load_packages, load_rates
@@ -463,8 +463,9 @@ def cmd_buy(args: argparse.Namespace) -> int:
     meta = {n: (p.latest_tcg_price.name, p.latest_tcg_price.set_code) for n, p in layers.cards.items() if p.latest_tcg_price is not None and p.latest_tcg_price.name}
     _print_plan(plan, names, members, layers, meta, catalog, args.include_premium, round(args.alt_from * 100))
     if args.export is not None:
-        path = Path(args.export) if args.export else OUT_DIR / f"buy_{re.sub(r'[^a-z0-9]+', '_', asked.casefold()).strip('_')}.txt"
+        path = Path(args.export) if args.export else tracked_folder() / f"buy_{re.sub(r'[^a-z0-9]+', '_', asked.casefold()).strip('_')}.txt"
         entry = mass_entry(plan, meta, {n: p.card.name for n, p in layers.cards.items()})
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("\n".join(entry) + ("\n" if entry else ""), encoding="utf-8")
         print(f"\nwrote {len(entry)} Mass Entry line(s) to {path}")
     return 0
@@ -964,7 +965,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     buy.add_argument("--polish", action="store_true", help="after the Playable steps, also what takes those decks to Complete")
     buy.add_argument("--alt-from", type=float, default=5.0, metavar="DOLLARS", help="show same-job alternatives, and any you already own, for every card of at least this price (default 5.00; never skips the card, only premium cards are skipped)")
     buy.add_argument("--include-premium", action="store_true", help="plan premium cards ($10+) like any other (otherwise they are held back)")
-    buy.add_argument("--export", nargs="?", const="", default=None, metavar="PATH", help="write TCGPlayer Mass Entry lines (default shared/data/gundam_collection/buy_<words>.txt)")
+    buy.add_argument("--export", nargs="?", const="", default=None, metavar="PATH", help="write TCGPlayer Mass Entry lines (default shared/data/gundam_collection/buy_<words>.txt, under $GCG_TOOL_DATA_DIR when set)")
     buy.set_defaults(func=cmd_buy)
     nick = sub.add_parser("nickname", help="give a deck a nickname (by id), remove it, or list them")
     nick.add_argument("deck", nargs="?", help="the deck: its id, nickname, name or words of the name")

@@ -139,6 +139,7 @@ python3 -m tools.gundam_packages.cli report --from gd05 --to gd05_5   # shared/d
 (Run with `.venv/bin/python -m ...` from the repo root.)
 
 ## Outputs: `shared/data/gundam_packages/`
+The folder is found under `tool_data_root()` when a command runs (`$GCG_TOOL_DATA_DIR` when set, else the repository; `store.tracked_folder()`).
 `packages.json` (`PackagesFile`: window, params, packages, package synergies with bridge cards, synergy cards, free floaters, archetypes, reprint groups) and `drift.json` (`DriftFile`). Typed models in `models.py` (frozen pydantic, `mypy --strict`). Package ids are `pkg:` plus the lowest member card number, so a package keeps its id across rebuilds. `tools/gundam_packages/names.json` holds hand-maintained nicknames.
 
 ## Decisions (confirmed with user)
