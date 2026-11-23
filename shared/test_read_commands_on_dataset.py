@@ -298,18 +298,14 @@ class Offline:
         pass
 
 
-@pytest.fixture
-def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    """The fixture dataset, plus one gd05 event so a tournament build has an era to read; the packages and collection folders redirected
-    to temp folders (the raw and popularity folders are in the root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
-    ds = dataset_tree(tmp_path / "ds")
-    monkeypatch.setenv("GCG_DATA_DIR", str(ds))
+def packages_dataset_tree(root: Path) -> Path:
+    """The fixture dataset, plus one gd05 event so a tournament build has an era to read, and a newer example-deck snapshot in which
+    Gundam and its pilot are always played together, so the online build finds a package (and the deck and package commands have one
+    to name)."""
+    ds = dataset_tree(root)
     gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(update={"start_date": date(2026, 8, 3)})
     path = ds / "gundam_meta" / "events" / gd05.source.value / f"{gd05.id}.json"
     path.write_text(pretty(EventFile(data=gd05).model_dump_json()), encoding="utf-8")
-    monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
-    # A newer example-deck snapshot in which Gundam and its pilot are always played together, so the online build finds a package
-    # (and the deck and package commands below have one to name).
     together = ExampleList(url="https://example.test/list/9", share=1.0,
                            cards=(DeckCard(card_number=CardNumber("GD01-001"), qty=4), DeckCard(card_number=CardNumber("GD01-002"), qty=4)))
     archetypes = (ExampleArchetype(slug="gundam", name="Gundam", games=60, sides_analyzed=10, lists=(together,)),
@@ -317,17 +313,17 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     newer = example_decks().model_copy(update={"fetched_at": DECKS_AT + timedelta(days=1), "archetypes": archetypes})
     (ds / "gundam_meta" / "example_decks" / f"{snapshot_key(newer.fetched_at)}.json").write_text(
         pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8")
+    return ds
 
-    packages, coll = tmp_path / "packages", tmp_path / "collection"
-    for folder in (packages, coll):
-        folder.mkdir()
-    for name in ("write_packages", "write_rates", "write_drift"):
-        monkeypatch.setattr(packages_cli, name, partial(getattr(packages_store, name), out_dir=packages))
-    for cli in (packages_cli, collection_cli):
-        monkeypatch.setattr(cli, "load_packages", partial(packages_store.load_packages, packages))
-        monkeypatch.setattr(cli, "load_rates", partial(packages_store.load_rates, packages))
-    monkeypatch.setattr(packages_cli, "OUT_DIR", packages)
 
+@pytest.fixture
+def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    """The packages fixture dataset; the collection folder redirected to a temp folder (the raw, popularity and packages folders are in the
+    root conftest's temp tool data folder); the tournament and online packages built (by the commands under test)."""
+    monkeypatch.setenv("GCG_DATA_DIR", str(packages_dataset_tree(tmp_path / "ds")))
+    monkeypatch.setattr(cards_cli, "raw_dump_stamps", lambda *a, **k: ())
+    coll = tmp_path / "collection"
+    coll.mkdir()
     (coll / "my_tcg_collection").write_text(COLLECTION_LINES, encoding="utf-8")
     monkeypatch.setattr(collection_cli, "OUT_DIR", coll)
     monkeypatch.setattr(collection_cli, "text_list_path", lambda: coll / "my_tcg_collection")

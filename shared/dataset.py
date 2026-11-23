@@ -1,7 +1,7 @@
 """The local dataset: where the raw inputs and their dated history live, outside git.
 
 The folder is `$GCG_DATA_DIR`, or `~/.gcg/data` when it is unset; it is resolved on every call, never at import.
-The cards and meta tools' raw page caches and tracked files are found under `tool_data_root()` (`$GCG_TOOL_DATA_DIR`, else the
+The cards and meta tools' raw page caches and the cards, meta and packages tools' tracked files are found under `tool_data_root()` (`$GCG_TOOL_DATA_DIR`, else the
 repository), resolved the same way.
 History rules shared by the stores: a dated snapshot is added at most once per UTC day and never rewritten (see `add_snapshot`).
 Backstop: while the test suite runs, every file writer refuses a path inside the real `~/.gcg` (see `refuse_real_data_write`).
@@ -28,8 +28,8 @@ def data_dir() -> Path:
 
 
 def tool_data_root() -> Path:
-    """The folder standing in for the repository root for the cards and meta tools' data folders: their raw page caches are
-    `<root>/tools/<tool>/data/raw/` and their tracked files `<root>/shared/data/<tool>/`. `$GCG_TOOL_DATA_DIR`, else the repository."""
+    """The folder standing in for the repository root for the tools' data folders: the cards and meta raw page caches are
+    `<root>/tools/<tool>/data/raw/` and the cards, meta and packages tracked files `<root>/shared/data/<tool>/`. `$GCG_TOOL_DATA_DIR`, else the repository."""
     value = os.environ.get(TOOL_DATA_VAR)
     return Path(value).expanduser() if value else REPO_ROOT
 

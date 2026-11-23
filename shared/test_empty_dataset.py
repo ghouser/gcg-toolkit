@@ -16,7 +16,8 @@ from tools.gundam_meta.models import EraId
 from tools.gundam_meta.store import write_event
 from tools.gundam_meta.tests.test_store_history import event
 from tools.gundam_packages.discover import DEFAULT_PARAMS
-from tools.gundam_packages.models import PackagesFile, Window
+from tools.gundam_packages.models import PackagesFile, RatesFile, Window
+from tools.gundam_packages.store import write_packages, write_rates
 from tools.gundam_packages.tests.helpers import pilot, unit
 
 from tools.gundam_cards import cli as cards_cli
@@ -80,8 +81,18 @@ NOT_DATASET_READS: dict[Main, set[str]] = {
 }
 
 
+@pytest.fixture
+def tracked_packages() -> None:
+    """As on a fresh clone, the tracked packages and rates are there (small stand-ins, in the root conftest's temp tool data folder)."""
+    base = _base_packages()
+    write_packages(base)
+    write_rates(RatesFile(generated_at=CATALOG_AT, window=base.window, total_decks=0, packages=(), archetypes=(), card_index={}))
+
+
 @pytest.mark.parametrize(("main", "argv", "source"), COMMANDS, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a, _ in COMMANDS])
-def test_a_command_on_an_empty_dataset_reports_no_data(main: Main, argv: list[str], source: str, capsys: pytest.CaptureFixture[str]) -> None:
+def test_a_command_on_an_empty_dataset_reports_no_data(
+    tracked_packages: None, main: Main, argv: list[str], source: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     assert main(argv) == 2
     assert f"no data: {source}" in capsys.readouterr().err
 

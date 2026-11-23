@@ -49,7 +49,7 @@ Most views take `--source tournament|online|both`
 ## Refreshing data
 
     .venv/bin/python -m shared.dataset_cli status                  # "data as of" for each source in the local dataset ($GCG_DATA_DIR, default ~/.gcg/data)
-    # the cards and meta tools' raw caches and tracked files: under $GCG_TOOL_DATA_DIR when set (it stands in for the repository root), else the repository
+    # the cards and meta tools' raw caches and the cards, meta and packages tools' tracked files: under $GCG_TOOL_DATA_DIR when set (it stands in for the repository root), else the repository
     # except Bandai's card pages (refresh, sync, refetch, reparse): one cache in the dataset, $GCG_DATA_DIR/gundam_cards/pages/, shared by every checkout
 
     .venv/bin/python -m tools.gundam_cards.cli refresh --dry-run   # what a catalog refresh would add, miss, change (each card and field named), orphan or refuse (lists only, writes nothing)
