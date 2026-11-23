@@ -93,7 +93,6 @@ def _record_sets(build: SetsBuild) -> None:
     print(f"{len(build.sets)} sets on Bandai's list, {len(provisional)} provisional -> {data_out_dir() / 'provisional_sets.json'}")
     for line in reviewed_set_notes(tracked, build.sets):
         print(line)
-    _print_issues(build.issues)
 
 
 def refresh_fetcher() -> Fetcher:
@@ -118,6 +117,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
         code = 1 if build.issues else 0
         if args.only == "sets":
             _record_sets(build)
+            _print_issues(build.issues)  # reparse prints them in its own list instead
             print(f"{fetcher.network_requests} network request(s)")
             return code
         # The full sync records the sets once, in the reparse below, from the pages just cached (so each report line appears once).

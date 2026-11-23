@@ -158,3 +158,33 @@ def test_each_compared_field_is_named_when_bandai_differs(change: dict[str, obje
     mine = reviewed()[0]
     assert reviewed_set_notes((mine,), (mine.model_copy(update=change),)) == (f"reviewed set GD01 differs from Bandai: {label}",)
     assert reviewed_set_notes((mine,), (mine,)) == ()
+
+
+DUPLICATE_LINE = "  [parse_failure] product GD01: two products share this set code"
+
+
+def issue_block(out: str) -> list[str]:
+    """The command's issue list: its `N issue(s): ...` summary line and every issue line, in order."""
+    return [line for line in out.splitlines() if " issue(s): " in line or line.startswith("  [")]
+
+
+def test_reparse_prints_a_set_build_issue_once_and_the_other_issues_unchanged(
+    tracked: bytes, site: Bandai, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """reparse-single-issues AC-1 (toolkit issue #17): the rebuild's issue is printed once, in reparse's own list, counted there."""
+    site.packages[GD09] = ("Future Pack [GD09]", ["GD09-001", "GD09-001_p1"])  # an alt printing whose color differs: a catalog issue
+    site.details["GD09-001_p1"] = detail("GD09-001_p1", color="Red", where="Future Pack [GD09]")
+    assert cli.main(["sync"]) == 0
+    capsys.readouterr()
+    assert cli.main(["reparse"]) == 0
+    [baseline_summary, *baseline_lines] = issue_block(capsys.readouterr().out)
+    assert baseline_summary == "1 issue(s): printing_attribute_mismatch=1" and len(baseline_lines) == 1
+
+    site.products.append(("Newtype Rising Reprint [GD01]", "August 1,2025"))  # a second product with set code GD01
+    assert cli.main(["sync", "--only", "sets"]) == 1  # caches the product list; still prints the issue, once
+    assert capsys.readouterr().out.splitlines().count(DUPLICATE_LINE) == 1
+    assert cli.main(["reparse"]) == 1  # a set-build issue is a parse failure
+    [summary, *lines] = issue_block(capsys.readouterr().out)
+    assert lines.count(DUPLICATE_LINE) == 1
+    assert [line for line in lines if line != DUPLICATE_LINE] == baseline_lines
+    assert summary == "2 issue(s): parse_failure=1, printing_attribute_mismatch=1"
