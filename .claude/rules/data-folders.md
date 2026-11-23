@@ -1,7 +1,9 @@
 # Data folders are resolved when a function runs
 
 A folder that holds data (the local dataset, a raw page cache, a tracked output folder, an export path) is found by calling a
-function when the code runs, never fixed at import.
+function when the code runs, never fixed at import. Read-only configuration files kept with a tool's code, which no command
+writes (such as `tools/gundam_packages/names.json` and `tools/gundam_meta/eras.json`), are not data folders, so this rule does
+not apply to them.
 
 - No module-level constant holds a data folder (`RAW_DIR = REPO_ROOT / ...`), and no default argument value does
   (`def load(out_dir: Path = RAW_DIR)`). Default to `None` and resolve in the body: `(out_dir or tracked_folder()) / "sets.json"`.
