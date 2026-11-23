@@ -42,7 +42,7 @@ Owned by this tool; other tools read these files per the contracts below, throug
 | `prices/<generated_at>.json` | JSON (envelope) | card number | `PriceFile` below: per card the **TCGPlayer market price in integer cents**, the product it came from, and when it was pulled. One dated snapshot per pull; a snapshot is never rewritten, and a pull with the same prices as the newest adds nothing. The newest is the latest price, joined onto the card model on read (`PricedCard`). | `gundam_collection` |
 | `traits.json` | JSON | trait | generated vocabulary of traits (factions): name, card count, card numbers | parser (validation), search |
 | `source_titles.json` | JSON | source title | generated vocabulary: TV series / game names, counts | parser (validation), search |
-| catalog export | JSON (`schema_version` 1), at `$GCG_CATALOG_FILE` (default `~/.gcg/catalog.json`), outside the dataset | card number | written only by `export` (atomically; nothing when a printing's set code is not in the sets): every card with its printings (rarity, set, variant, image, a price per printing) and a `reference` section of sets, kinds with a deck flag, colors and rarities. The contract is `docs/catalog-export.md`; built by `export.py` | the UI (its own repo) |
+| catalog export | JSON (`schema_version` 1), at `$GCG_CATALOG_FILE` (default `~/.gcg/catalog.json`), outside the dataset | card number | written only by `export` (atomically; nothing when a printing's set code is not in the sets): every card with its printings (rarity, set, variant, image, a price per printing) and its set (its first printing's that is not Edition Beta) and a `reference` section of sets, kinds with a deck flag, colors and rarities. The contract is `docs/catalog-export.md`; built by `export.py` | the UI (its own repo) |
 
 Internal schema: our own, not any site's. Card number is the identity. Printings hang off the card. Other tools never depend on Bandai's HTML shape or TCGPlayer's field names. Conventions (envelope, typed models, cents, UTC, no stale derived state) are in `docs/tool-pattern.md`.
 
@@ -59,7 +59,7 @@ A crawl of all 1,149 base cards on 2026-10-06 (plus 24 sampled alt-art/promo pri
 - **Printings differ from the base card in more than rarity.** Across the full 2,011 printings: `block` (1, 2, or `β` for Edition Beta), the card text wording (rules rewordings, reminder text dropped, `-` meaning "no text"), and **source title** (an alt art usually shows a different series, sometimes spelled differently: `Mobile Suit Gundam UC` vs `Mobile Suit Gundam Unicorn`, `New Mobile Report Gundam Wing` vs `Mobile Suit Gundam Wing`). A few alt arts even differ in Link or stats (`Trait [Enhanced Human]` vs `(Cyber-Newtype) Trait`; token and Resource stats), and **Edition Beta stats look shifted/unreliable** (a Resource shows AP 3 / HP 1; tokens carry the neighbouring token's stats). So block, text, and source title are **per printing**, and the **newest wording is the card's text** (see "Which text wins").
 - **Some card numbers exist only as alt arts**: `R-001`, `EXB-001`, `EXR-001` have no base page (Bandai returns an empty page for them), only `_pN` printings. The lowest-numbered alt art becomes the reference printing.
 - **Dirty values:** fullwidth digits in a few stats (`３`, `１`), `-` for "none", names with zero-width spaces, a source title with a duplicated series name (`Mobile Suit Gundam Mobile Suit Gundam GQuuuuuuX`).
-- **Where to get it** is free text; for set cards it ends in `[CODE]`, sometimes without a space (`Steel Requiem[GD03]`), for promos it is an event or product name.
+- **Where to get it** is free text; for set cards it ends in `[CODE]`, sometimes without a space (`Steel Requiem[GD03]`), for promos it is an event or product name, for Edition Beta printings it names no set, and a few resources and tokens show only `-`. A printing with no bracketed code takes the set of the first of its packages that the reviewed `sets.json` knows (`bandai_package_id`): promos `PROMO`, Edition Beta `BETA`, a `-` printing its package's set; a package `sets.json` lacks (or no `sets.json`) leaves it without a set code (promo-beta-set-codes, 2026-11-23).
 - **Block** values: `1`, `2`, `β`, and `-`.
 - Zones: `Space`, `Earth`, and `-` (none). Colors: Blue, Green, White, Red, Purple, and `-` (none).
 
@@ -137,7 +137,7 @@ class Printing(BaseModel, frozen=True):
     block: Block | None             # per printing (reprints/promos can belong to a newer block than the base)
     source_title: SourceTitle | None  # per printing: alt arts often show a different series
     where_to_get: str               # raw free text ("Heroic Beginnings [ST01]", "Store Tournament Participant Pack 05")
-    set_code: SetCode | None        # parsed from the trailing "[CODE]"; None for promos/events
+    set_code: SetCode | None        # the trailing "[CODE]"; else the code sets.json gives its first known package (PROMO, BETA, GD02 for a "-"); None if neither
     package_ids: tuple[PackageId, ...]
     image_url: str
 

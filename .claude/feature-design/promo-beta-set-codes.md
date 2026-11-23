@@ -36,7 +36,8 @@ the spec states the rule by code (`BETA`), so the code is compared directly.
 - `tools/gundam_cards/tests/test_corpus.py` (real-data only): passes the package map like the commands do.
 - Docs: `docs/catalog-export.md` (card `set_code` row: the set of its first printing that is not Edition Beta; the printing row:
   from the bracket, else the package), `tools/gundam_cards/design.md` (printing model comment, "Where to get it" finding, the export
-  row), `docs/glossary.md` (a "Set code" / "Reference printing" entry if it describes set codes), and the superseded statement in
+  row), the set-code line of `.claude/CLAUDE.md`'s domain notes (`docs/glossary.md` and `docs/commands.md` do not describe set
+  codes), and the superseded statement in
   `.claude/feature-design/shared-data-contracts.md` marked inline, as the repo marks superseded decisions (`tools/gundam_collection/design.md`).
   `docs/catalog-export.example.json` shows only ST01 and PB03 cards, which this does not change, so it stays as it is.
 
