@@ -155,6 +155,11 @@ def release_dates(sets: tuple[CardSet, ...]) -> dict[SetCode, date]:
     return {s.code: s.release_date for s in sets if s.release_date is not None}
 
 
+def package_set_codes(sets: tuple[CardSet, ...]) -> dict[PackageId, SetCode]:
+    """Bandai package id -> set code, for sets that have a package id (the build's fallback for a printing whose text names no set)."""
+    return {s.bandai_package_id: s.code for s in sets if s.bandai_package_id is not None}
+
+
 def load_catalog(out_dir: Path | None = None) -> CardsFile | None:
     """The stored catalog, or None when the dataset has none."""
     path = (out_dir or data_out_dir()) / "cards.json"

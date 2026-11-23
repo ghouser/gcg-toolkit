@@ -13,7 +13,15 @@ import pytest
 
 from tools.gundam_cards.build import CatalogResult, IssueKind, build_catalog
 from tools.gundam_cards.models import CardKind, CardsFile, CommandCard, Keyword, Rarity, SourceTitlesFile, TraitsFile
-from tools.gundam_cards.store import load_source_pages, pages_folder, release_dates, load_sets, write_catalog
+from tools.gundam_cards.store import (
+    load_sets,
+    load_source_pages,
+    load_tracked_sets,
+    package_set_codes,
+    pages_folder,
+    release_dates,
+    write_catalog,
+)
 
 pytestmark = pytest.mark.real_data
 needs_raw = pytest.mark.skipif(not (pages_folder() / "detail").is_dir(), reason="the Bandai page cache is not present")
@@ -23,7 +31,7 @@ needs_raw = pytest.mark.skipif(not (pages_folder() / "detail").is_dir(), reason=
 def catalog() -> CatalogResult:
     loaded = load_source_pages()
     assert loaded.issues == ()
-    return build_catalog(loaded.pages, release_dates(load_sets()))
+    return build_catalog(loaded.pages, release_dates(load_sets()), package_set_codes(load_tracked_sets()))
 
 
 @needs_raw

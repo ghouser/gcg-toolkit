@@ -51,6 +51,7 @@ from tools.gundam_cards.store import (
     load_sets,
     load_source_pages,
     load_tracked_sets,
+    package_set_codes,
     pages_folder,
     raw_dump_stamps,
     raw_folder,
@@ -183,7 +184,7 @@ def cmd_reparse(_: argparse.Namespace) -> int:
     dates = release_dates(load_sets())  # a reviewed set's date is the sets.json one
 
     loaded = load_source_pages()
-    result = build_catalog(loaded.pages, dates)
+    result = build_catalog(loaded.pages, dates, package_set_codes(load_tracked_sets()))  # a code-less printing's set: by package
     write_catalog(result, datetime.now(tz=UTC))
     issues.extend([*loaded.issues, *result.issues])
     print(f"{len(loaded.pages)} pages -> {len(result.cards)} cards, {len(result.trait_vocabulary)} traits -> {data_out_dir()}")
