@@ -223,7 +223,8 @@ def test_every_read_command_is_classified_by_the_sources_it_reads(main: Main) ->
 # ---- store readers on an empty dataset: each gives its documented empty answer or raises NoData naming the source -----------
 # One row per public store reader (.claude/rules/store-readers.md). Each gets an empty folder; readers of the dataset and the raw
 # caches ignore it and resolve the root conftest's empty folders, as a run would. Readers of tracked files (sets.json,
-# restrictions.json, names.json) read the empty folder, because the conftest copies the tracked inputs into its tool data folder.
+# restrictions.json, names.json, packages, rates, drift.json, deck_names.json) read the empty folder or a missing path in it,
+# because the conftest copies the tracked inputs into its tool data folder.
 Reader = Callable[[Path], object]
 EMPTY_ANSWERS: list[tuple[str, Reader, object]] = [
     ("cards packages_by_printing", lambda empty: cards_store.packages_by_printing(cards_store.pages_folder()), {}),
@@ -246,15 +247,16 @@ EMPTY_ANSWERS: list[tuple[str, Reader, object]] = [
     ("meta rankings_as_of", lambda empty: meta_store.rankings_as_of(), None),
     ("meta load_decks_snapshot", lambda empty: meta_store.load_decks_snapshot(), None),
     ("meta decks_as_of", lambda empty: meta_store.decks_as_of(), None),
-    ("packages load_packages", lambda empty: packages_store.load_packages(), None),
-    ("packages load_rates", lambda empty: packages_store.load_rates(), None),
-    ("packages load_drift", lambda empty: packages_store.load_drift(), None),
+    ("packages load_packages", lambda empty: packages_store.load_packages(empty), None),
+    ("packages load_rates", lambda empty: packages_store.load_rates(empty), None),
+    ("packages load_drift", lambda empty: packages_store.load_drift(empty), None),
     ("packages load_name_overrides", lambda empty: packages_store.load_name_overrides(empty / "names.json"), {}),
-    ("collection load_deck_names", lambda empty: collection_store.load_deck_names(), {}),
+    ("collection load_deck_names", lambda empty: collection_store.load_deck_names(empty / "deck_names.json"), {}),
 ]
 RAISES_NO_DATA: list[tuple[str, Reader, Kind]] = [
     ("cards load_catalog_or_fail", lambda empty: cards_store.load_catalog_or_fail(), Kind.CATALOG),
     ("cards load_cards_with_prices", lambda empty: cards_store.load_cards_with_prices(), Kind.CATALOG),
+    ("cards read_raw_dump", lambda empty: cards_store.read_raw_dump("20261008T200609Z"), Kind.PRICES),
     ("meta load_events_or_fail", lambda empty: meta_store.load_events_or_fail(), Kind.EVENTS),
 ]
 
