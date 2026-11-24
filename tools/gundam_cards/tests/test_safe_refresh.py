@@ -5,26 +5,21 @@ real `Fetcher` writes the cache wherever the command points it. Expected values 
 """
 from __future__ import annotations
 
-import email.message
-import urllib.error
-import urllib.request
-from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
-from functools import partial
 from pathlib import Path
 
 import pytest
 
 from shared.basetypes import CardNumber, PackageId, PrintingId, SetCode
 from shared.dataset import ENV_VAR, TOOL_DATA_VAR
-from shared.fetch import Fetcher
-from shared.test_tool_data_dir import _Body, bandai_pages
+from shared.test_tool_data_dir import bandai_pages
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardModel, CardSet, SetKind
 from tools.gundam_cards.printings import DETAIL_URL, detail_page_key
 from tools.gundam_cards.refresh import ChangedCard, RefreshReport, format_report, refresh_catalog
 from tools.gundam_cards.sets import CARDS_URL, LANDING_KEY, PRODUCTS_URL, products_page_key
 from tools.gundam_cards.store import data_out_dir, load_catalog, load_provisional_sets, pages_folder
+from tools.gundam_cards.tests.bandai_web import Web, install_web
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, dataset_bytes, detail, write_tracked_sets
 
 T1 = datetime(2026, 11, 1, tzinfo=UTC)
@@ -84,31 +79,9 @@ def cards() -> dict[str, CardModel]:
 
 
 # ---- AC-1: one cache, in the dataset ------------------------------------------------------------------------------------------------
-@dataclass
-class Web:
-    """The network, faked at `urlopen`: url -> page, and every url requested, in order."""
-
-    pages: dict[str, str]
-    requested: list[str] = field(default_factory=list)
-
-    def detail_requests(self) -> list[str]:
-        return [u for u in self.requested if u.startswith(DETAIL_URL.split("{}")[0])]
-
-
 @pytest.fixture
 def web(monkeypatch: pytest.MonkeyPatch) -> Web:
-    site = FakeBandai(Path(), {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])}, products=[("Newtype Rising [GD01]", "July 25,2025")])
-    fake = Web(bandai_pages(site))
-
-    def urlopen(request: urllib.request.Request, timeout: float) -> _Body:
-        fake.requested.append(request.full_url)
-        if request.full_url not in fake.pages:
-            raise urllib.error.HTTPError(request.full_url, 404, "Not Found", email.message.Message(), None)
-        return _Body(fake.pages[request.full_url])
-
-    monkeypatch.setattr(urllib.request, "urlopen", urlopen)
-    monkeypatch.setattr(cli, "Fetcher", partial(Fetcher, sleep=lambda _: None))
-    return fake
+    return install_web(monkeypatch)
 
 
 FUTURE = FakeBandai(Path(), {"616190": ("Future Pack [GD90]", ["GD90-001"])}, products=[("Future Pack [GD90]", "March 5,2027")])

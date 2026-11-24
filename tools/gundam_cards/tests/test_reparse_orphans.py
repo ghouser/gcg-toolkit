@@ -17,8 +17,9 @@ from tools.gundam_cards.printings import detail_page_key
 from tools.gundam_cards.refresh import orphan_line
 from tools.gundam_cards.sets import LANDING_KEY
 from tools.gundam_cards.store import data_out_dir, load_catalog, pages_folder
+from tools.gundam_cards.tests.bandai_web import Web, install_web
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail, write_tracked_sets
-from tools.gundam_cards.tests.test_safe_refresh import GD01, T1, Web, cache, page, run, web  # noqa: F401  (`web` is a fixture)
+from tools.gundam_cards.tests.test_safe_refresh import GD01, T1, cache, page, run
 
 LISTED = ["GD01-001", "GD01-002", "GD01-003"]
 CATALOG_FILES = ("cards.json", "traits.json", "source_titles.json")
@@ -30,6 +31,11 @@ def tracked(tmp_path: Path) -> Path:
                    release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
     write_tracked_sets((gd01,), T1, tmp_path / "tracked")
     return tmp_path / "tracked"
+
+
+@pytest.fixture
+def web(monkeypatch: pytest.MonkeyPatch) -> Web:
+    return install_web(monkeypatch)
 
 
 @pytest.fixture
@@ -156,7 +162,7 @@ def test_with_no_cached_listing_and_no_catalog_reparse_creates_nothing(capsys: p
 
 # ---- AC-2: the commands that end in a reparse behave the same ----------------------------------------------------------------------
 def test_sync_and_refetch_leave_the_orphan_out_and_name_it_too(
-    web: Web, capsys: pytest.CaptureFixture[str]  # noqa: F811
+    web: Web, capsys: pytest.CaptureFixture[str]
 ) -> None:
     assert cli.main(["refresh"]) == 0
     cache("GD99-001", detail("GD99-001"))
