@@ -18,6 +18,7 @@ from tools.gundam_cards.models import (
     CardsFile,
     Color,
     PriceFile,
+    PrintingPriceFile,
     Rarity,
     SetKind,
     color_of,
@@ -149,6 +150,7 @@ def build_export(
     tracked_sets: tuple[CardSet, ...],
     provisional_sets: tuple[CardSet, ...],
     price_history: tuple[PriceFile, ...],
+    printing_price_history: tuple[PrintingPriceFile, ...],
     generated_at: datetime,
 ) -> CatalogExport:
     """Every catalog card (those no longer listed included and flagged) and the reference section. Raises `MissingSetCodes` when a
@@ -165,11 +167,15 @@ def build_export(
         colors=tuple(Color),
         rarities=tuple(Rarity),
     )
-    rows: dict[CardNumber, list[CardPrice]] = defaultdict(list)
-    for snapshot in price_history:
-        for row in snapshot.data:
-            rows[row.card_number].append(row)
-    cards = tuple(_card(c, c.number in unlisted, printing_prices(c, tuple(rows[c.number]))) for c in catalog.data)
+    if printing_price_history:  # each printing's own price, from the newest per-printing snapshot: no stopgap
+        own = {r.printing_id: (r.price_cents, r.fetched_at.date()) for r in printing_price_history[-1].data}
+        cards = tuple(_card(c, c.number in unlisted, {p.id: own[p.id] for p in c.printings if p.id in own}) for c in catalog.data)
+    else:  # until the first per-printing snapshot: the per-card snapshots, matched to the card's one printing in the product's set
+        rows: dict[CardNumber, list[CardPrice]] = defaultdict(list)
+        for snapshot in price_history:
+            for row in snapshot.data:
+                rows[row.card_number].append(row)
+        cards = tuple(_card(c, c.number in unlisted, printing_prices(c, tuple(rows[c.number]))) for c in catalog.data)
     return CatalogExport(generated_at=generated_at, reference=reference, cards=cards)
 
 

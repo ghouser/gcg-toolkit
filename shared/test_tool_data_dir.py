@@ -234,7 +234,7 @@ def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
     dump = raw_dir / "tcgcsv" / stamp_of(TCGCSV_AT)
     assert (dump / "groups.json").is_file() and (dump / "pulled-at.txt").is_file()
     (dump / "pulled-at.txt").write_text("2026-11-05T09:30:00+00:00\n", encoding="utf-8")
-    assert "pulled 2026-11-05 09:30 UTC" in run(cards_cli.main, ["reparse-tcgplayer"])  # the temp folder's dump and its marker
+    assert "printing_prices/2026-11-05T093000Z.json" in run(cards_cli.main, ["reparse-tcgplayer"])  # the temp folder's dump and its marker
 
     run(cards_cli.main, ["sync-restrictions", "--url", RESTRICTIONS_URL])
     assert (raw_dir / "restrictions" / "temp-folder.html").is_file()

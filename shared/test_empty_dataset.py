@@ -85,7 +85,7 @@ SOURCE_REPORTS: list[tuple[Main, list[str]]] = [
 
 # Subcommands that are not reads of the dataset: they fetch over the network, rebuild from saved responses, or read only tracked files.
 NOT_DATASET_READS: dict[Main, set[str]] = {
-    cards_cli.main: {"refresh", "sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
+    cards_cli.main: {"refresh", "refresh-prices", "sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
     meta_cli.main: {"sync", "refetch", "reparse"},
     packages_cli.main: set(),
     collection_cli.main: {"import"},  # prints a pointer to the UI
@@ -235,6 +235,8 @@ EMPTY_ANSWERS: list[tuple[str, Reader, object]] = [
     ("cards load_catalog", lambda empty: cards_store.load_catalog(), None),
     ("cards load_price_history", lambda empty: cards_store.load_price_history(), ()),
     ("cards load_prices", lambda empty: cards_store.load_prices(), None),
+    ("cards load_printing_price_history", lambda empty: cards_store.load_printing_price_history(), ()),
+    ("cards load_printing_prices", lambda empty: cards_store.load_printing_prices(), None),
     ("cards catalog_as_of", lambda empty: cards_store.catalog_as_of(), None),
     ("cards prices_as_of", lambda empty: cards_store.prices_as_of(), None),
     ("cards raw_dump_stamps", lambda empty: cards_store.raw_dump_stamps(), ()),

@@ -7,10 +7,11 @@ about 58). TCGPlayer's own sites and APIs are never contacted.
 Steps, kept apart so each can be tested and redone without the others:
   fetch_dump   the raw responses (network, cached per dump under the raw folder)
   parse_dump   raw text -> products (no network)
-  choose_prices   products + the catalog's card numbers -> one price per card (no network)
+  (matching products to printings is `price_refresh.match_products`; `card_prices_from_printings` derives a card's price on read)
 
 Identifying a product needs its rarity: a trailing `+` or `++` on the rarity marks an alt art, which is never bought. A *buyable single*
-is a product with a card number that is not an alt art and not in a promo group. A card's price is the cheapest buyable product's market price.
+is a product with a card number that is not an alt art and not in a promo group (`price --explain` lists them). A card's price is its cheapest
+non-alt-art printing's price in the newest per-printing snapshot.
 """
 from __future__ import annotations
 
@@ -24,10 +25,11 @@ from pydantic import BaseModel, ConfigDict, TypeAdapter
 
 from shared.basetypes import CardNumber, ProductId
 from shared.fetch import TextFetcher
-from tools.gundam_cards.models import CardPrice, Rarity
+from tools.gundam_cards.models import CardPrice, PriceFile, PrintingPrice, PrintingPriceFile, Rarity
 
 BASE_URL = "https://tcgcsv.com"
 CATEGORY_ID = 86  # Gundam Card Game
+PRICE_KINDS = frozenset({"Normal", "Holofoil", ""})  # "" is a row that names no kind
 PROMO_WORD = "promo"  # a group whose name has this is a promo group (its cards are not buyable singles)
 
 _BASE_RARITY: Mapping[str, Rarity] = {
@@ -47,6 +49,7 @@ class IssueKind(StrEnum):
     NULL_PRICE = "null_price"  # a price row with no market price (ignored)
     MULTIPLE_PRICE_ROWS = "multiple_price_rows"  # more than one price row for a product (the cheapest is used)
     NO_PRICE_ROW = "no_price_row"  # a card product with no price row
+    UNKNOWN_PRICE_KIND = "unknown_price_kind"  # a price row of a kind we do not know (ignored)
 
 
 @dataclass(frozen=True)
@@ -149,6 +152,7 @@ class TcgProduct:
     alt_art_level: int  # 0, or 1 / 2 from a trailing "+" / "++" in the rarity
     promo: bool
     price_cents: int | None  # market price in cents (the cheapest row if there are several); None without one
+    unknown_price_kind: str | None = None  # the first price row kind we do not know, if any (the row is ignored)
 
     @property
     def buyable(self) -> bool:
@@ -176,7 +180,12 @@ def parse_dump(dump: RawDump) -> tuple[tuple[TcgProduct, ...], tuple[Issue, ...]
         promo = PROMO_WORD in group.name.lower()
         rows = TypeAdapter(tuple[_Price, ...]).validate_json(json.dumps(_results(dump.prices[group_id])))
         cents: dict[int, list[int]] = {}
+        unknown_kinds: dict[int, str] = {}
         for row in rows:
+            if row.subTypeName not in PRICE_KINDS:
+                issues.append(Issue(IssueKind.UNKNOWN_PRICE_KIND, f"{label} product {row.productId}: {row.subTypeName!r}"))
+                unknown_kinds.setdefault(row.productId, row.subTypeName)
+                continue
             if row.marketPrice is None:
                 issues.append(Issue(IssueKind.NULL_PRICE, f"{label} product {row.productId}"))
                 continue
@@ -201,6 +210,7 @@ def parse_dump(dump: RawDump) -> tuple[tuple[TcgProduct, ...], tuple[Issue, ...]
             products.append(TcgProduct(
                 product_id=ProductId(product.productId), group_id=group_id, group=label, name=product.name, card_number=number,
                 rarity_raw=rarity_raw, rarity=rarity, alt_art_level=level, promo=promo, price_cents=min(prices) if prices else None,
+                unknown_price_kind=unknown_kinds.get(product.productId),
             ))  # fmt: skip
     return tuple(sorted(products, key=lambda p: p.product_id)), tuple(issues)
 
@@ -215,21 +225,24 @@ def buyable_by_card(products: Collection[TcgProduct]) -> dict[CardNumber, list[T
     return {n: sorted(ps, key=lambda p: (p.price_cents or 0, p.product_id)) for n, ps in found.items()}
 
 
-def choose_prices(
-    products: Collection[TcgProduct], catalog_numbers: Collection[CardNumber], fetched_at: datetime
-) -> tuple[tuple[CardPrice, ...], tuple[CardNumber, ...], tuple[Issue, ...]]:
-    """One price per catalog card (the cheapest buyable product), the catalog cards with none, and products whose number is not in the catalog."""
-    known = set(catalog_numbers)
-    buyable = buyable_by_card(products)
-    prices = tuple(
-        CardPrice(card_number=n, price_cents=ps[0].price_cents or 0, product_id=ps[0].product_id, name=ps[0].name, set_code=ps[0].group, fetched_at=fetched_at)
-        for n, ps in sorted(buyable.items())
-        if n in known
+def card_prices_from_printings(file: PrintingPriceFile) -> PriceFile:
+    """The per-card price of a per-printing snapshot: for each card, its cheapest non-alt-art printing's row (ties: the lower product
+    id), with that row's product, name and group. A card whose only priced printings are alt arts has none."""
+    cheapest: dict[CardNumber, PrintingPrice] = {}
+    for row in file.data:
+        if row.alt_art_level != 0:
+            continue
+        best = cheapest.get(row.printing_id.card_number)
+        if best is None or (row.price_cents, row.product_id) < (best.price_cents, best.product_id):
+            cheapest[row.printing_id.card_number] = row
+    return PriceFile(
+        generated_at=file.generated_at,
+        source_updated_at=file.source_updated_at,
+        data=tuple(
+            CardPrice(card_number=n, price_cents=r.price_cents, product_id=r.product_id, name=r.name, set_code=r.set_code, fetched_at=r.fetched_at)
+            for n, r in sorted(cheapest.items())
+        ),
     )
-    unknown = sorted({p.card_number for p in products if p.card_number is not None and p.card_number not in known})
-    issues = tuple(Issue(IssueKind.NUMBER_NOT_IN_CATALOG, str(n)) for n in unknown)
-    priced = {p.card_number for p in prices}
-    return prices, tuple(sorted(n for n in known if n not in priced)), issues
 
 
 def why_unpriced(number: CardNumber, products: Collection[TcgProduct]) -> str:

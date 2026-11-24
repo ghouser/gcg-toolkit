@@ -8,8 +8,9 @@
     .venv/bin/python -m tools.gundam_cards.cli reparse            # rebuild provisional sets/cards/traits from saved pages (no network)
     .venv/bin/python -m tools.gundam_cards.cli show ST01-001      # print one card
     .venv/bin/python -m tools.gundam_cards.cli changes            # cards whose wording differs between printings (to read)
-    .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer     # latest TCGPlayer market price per card from tcgcsv (network; once a day)
-    .venv/bin/python -m tools.gundam_cards.cli reparse-tcgplayer  # rebuild the latest price snapshot from the saved tcgcsv files (no network)
+    .venv/bin/python -m tools.gundam_cards.cli refresh-prices [--dry-run] [--force]  # per-printing TCGPlayer prices from tcgcsv (network; once a day), all or nothing
+    .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer     # save tcgcsv's raw dump only (network; once a day)
+    .venv/bin/python -m tools.gundam_cards.cli reparse-tcgplayer  # rebuild the per-printing price snapshots from the saved tcgcsv dumps (no network)
     .venv/bin/python -m tools.gundam_cards.cli sync-restrictions  # banned / restricted cards from Bandai's announcement (network, one request)
     .venv/bin/python -m tools.gundam_cards.cli restrictions       # show the banned / restricted list
     .venv/bin/python -m tools.gundam_cards.cli price GD05-002 --explain   # a card's latest price and every product considered (no network)
@@ -27,16 +28,18 @@ from datetime import UTC, date, datetime
 
 from shared.basetypes import CardNumber, SetCode, Trait
 from shared.dataset import Kind, NoData
-from shared.fetch import Fetcher
+from shared.fetch import FetchError, Fetcher
 from tools.gundam_cards.build import Issue, build_catalog
 from tools.gundam_cards.changes import format_change, text_changes
 from tools.gundam_cards.export import MissingSetCodes, build_export
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
+from tools.gundam_cards.price_refresh import REQUEST_DELAY_S, MARKER, match_products, pull_time, refresh_prices, saved_dump
+from tools.gundam_cards.price_refresh import format_report as format_price_report
 from tools.gundam_cards.refresh import format_report, orphan_line, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
 from tools.gundam_cards.sets import SetsBuild, propose_sets, reviewed_set_notes, sets_from_raw, sync_sets
-from tools.gundam_cards.models import PriceFile, RestrictionsFile
+from tools.gundam_cards.models import PrintingPriceFile, RestrictionsFile
 from tools.gundam_cards.restrictions import NEWS_URL, RestrictionsError, parse_restrictions, vanilla_cards
 from tools.gundam_cards.store import (
     load_restrictions,
@@ -46,6 +49,7 @@ from tools.gundam_cards.store import (
     load_catalog,
     load_catalog_or_fail,
     load_price_history,
+    load_printing_price_history,
     load_prices,
     load_provisional_sets,
     load_sets,
@@ -62,14 +66,12 @@ from tools.gundam_cards.store import (
     write_atomic,
     write_catalog,
     write_catalog_export,
-    write_prices,
+    write_printing_prices,
     write_provisional_sets,
 )
 from tools.gundam_cards.tcgcsv import (
-    RawDump,
     TcgcsvError,
     TcgProduct,
-    choose_prices,
     fetch_dump,
     fetch_updated,
     parse_dump,
@@ -258,10 +260,11 @@ def cmd_show(args: argparse.Namespace) -> int:
 def cmd_export(_: argparse.Namespace) -> int:
     catalog = load_catalog_or_fail()
     history = load_price_history()
-    if not history:
+    printing_history = load_printing_price_history()
+    if not history and not printing_history:
         print(f"{NoData(Kind.PRICES)}; printings are exported without prices", file=sys.stderr)
     try:
-        export = build_export(catalog, load_tracked_sets(), load_provisional_sets(), history, datetime.now(UTC).replace(microsecond=0))
+        export = build_export(catalog, load_tracked_sets(), load_provisional_sets(), history, printing_history, datetime.now(UTC).replace(microsecond=0))
     except MissingSetCodes as e:
         print(f"{e}; nothing written (add them to sets.json, or refresh to record them as provisional)", file=sys.stderr)
         return 1
@@ -277,32 +280,6 @@ def cmd_export(_: argparse.Namespace) -> int:
 def _catalog() -> dict[CardNumber, str]:
     """Card number -> name for the whole catalog (raises `NoData` when there is none)."""
     return {c.number: c.name for c in load_catalog_or_fail().data}
-
-
-def _build_prices(dump: RawDump, pulled_at: datetime, names: dict[CardNumber, str]) -> int:
-    products, parse_issues = parse_dump(dump)
-    prices, unpriced, catalog_issues = choose_prices(products, names, pulled_at)
-    path = write_prices(PriceFile(generated_at=pulled_at, source_updated_at=dump.source_updated_at, data=prices))
-    sealed = sum(1 for p in products if p.card_number is None)
-    alt = sum(1 for p in products if p.alt_art_level > 0)
-    promo = sum(1 for p in products if p.promo)
-    print(f"tcgcsv dump of {dump.source_updated_at:%Y-%m-%d %H:%M} UTC, pulled {pulled_at:%Y-%m-%d %H:%M} UTC: {len(products)} products "
-          f"({sealed} without a card number, {alt} alt arts, {promo} in promo groups) -> "
-          + (str(path) if path else "no new snapshot (that date is stored already, or the prices are unchanged)"))
-    print(f"priced {len(prices)} of {len(names)} catalog cards")
-    if unpriced:
-        print(f"{len(unpriced)} catalog cards have no price:")
-        for number in unpriced[:15]:
-            print(f"  {number} {names[number]}: {why_unpriced(number, products)}")
-        if len(unpriced) > 15:
-            print(f"  ... and {len(unpriced) - 15} more")
-    issues = [*parse_issues, *catalog_issues]
-    by_kind = collections.Counter(i.kind for i in issues)
-    print(f"{len(issues)} issue(s): " + (", ".join(f"{k.value}={n}" for k, n in sorted(by_kind.items())) or "none"))
-    for kind in by_kind:
-        for issue in [i for i in issues if i.kind is kind][:5]:
-            print(f"  [{kind.value}] {issue.detail}")
-    return 0
 
 
 def cmd_sync_restrictions(args: argparse.Namespace) -> int:
@@ -354,39 +331,54 @@ def cmd_restrictions(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_refresh_prices(args: argparse.Namespace) -> int:
+    report = refresh_prices(
+        Fetcher(raw_folder() / "tcgcsv", min_interval_s=REQUEST_DELAY_S), raw_folder(), dry_run=args.dry_run, force=args.force,
+        allow_anomaly=args.allow_anomaly, progress=lambda m: print(f"  {m}", flush=True),
+    )
+    for line in format_price_report(report):
+        print(line)
+    return 0 if report.complete and not report.refused else 1
+
+
 def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
-    names = _catalog()
-    fetcher = Fetcher(raw_folder() / "tcgcsv", min_interval_s=0.5)
+    """Only the raw pull: the dump is saved under the raw folder and nothing in the dataset changes (`refresh-prices` and
+    `reparse-tcgplayer` build prices from it)."""
+    fetcher = Fetcher(raw_folder() / "tcgcsv", min_interval_s=REQUEST_DELAY_S)
     try:
         updated = fetch_updated(fetcher)
-        stored = load_prices()
-        if stored is not None and stored.source_updated_at == updated and not args.force:
-            print(f"up to date: tcgcsv last updated {updated:%Y-%m-%d %H:%M} UTC and the newest price snapshot already has it ({fetcher.network_requests} request)")
+        if saved_dump(stamp_of(updated), raw_folder()) is not None and not args.force:
+            print(f"up to date: tcgcsv last updated {updated:%Y-%m-%d %H:%M} UTC and that dump is saved already ({fetcher.network_requests} request)")
             return 0
-        dump = fetch_dump(fetcher, updated, force=args.force, progress=lambda m: print(f"  {m}", flush=True))
-        pulled_at = datetime.now(UTC).replace(microsecond=0)
-        write_atomic(raw_folder() / "tcgcsv" / stamp_of(updated) / "pulled-at.txt", pulled_at.isoformat() + "\n")
-        print(f"{fetcher.network_requests} request(s)")
-        return _build_prices(dump, pulled_at, names)
-    except TcgcsvError as e:
+        fetch_dump(fetcher, updated, force=args.force, progress=lambda m: print(f"  {m}", flush=True))
+        write_atomic(raw_folder() / "tcgcsv" / stamp_of(updated) / MARKER, datetime.now(UTC).replace(microsecond=0).isoformat() + "\n")
+        print(f"{fetcher.network_requests} request(s); saved the dump of {updated:%Y-%m-%d %H:%M} UTC (run `refresh-prices` to price from it)")
+        return 0
+    except (TcgcsvError, FetchError) as e:
         print(f"tcgcsv: {e}", file=sys.stderr)
         return 1
 
 
-def _pulled_at(stamp: str) -> datetime:
-    marker = raw_folder() / "tcgcsv" / stamp / "pulled-at.txt"
-    if marker.is_file():
-        return datetime.fromisoformat(marker.read_text(encoding="utf-8").strip())
-    return datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)  # a dump saved before this marker existed: use the dump's own time
-
-
-def cmd_reparse_tcgplayer(_: argparse.Namespace) -> int:
-    names = _catalog()
+def cmd_reparse_tcgplayer(args: argparse.Namespace) -> int:
+    """Rebuild the per-printing snapshots from every saved dump, oldest first (no network, no guard); a day already stored adds nothing."""
+    catalog = load_catalog_or_fail().data
     stamps = raw_dump_stamps()
     if not stamps:
         print("no saved tcgcsv dump; run `sync-tcgplayer` first", file=sys.stderr)
         return 2
-    return _build_prices(read_raw_dump(stamps[-1]), _pulled_at(stamps[-1]), names)
+    set_codes = {s.code for s in load_sets()}
+    added = 0
+    for stamp in stamps:
+        dump = read_raw_dump(stamp)
+        products, _ = parse_dump(dump)
+        pulled = pull_time(stamp, raw_folder()) or datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)  # no marker: the dump's own time
+        matched = match_products(products, catalog, set_codes, pulled)
+        path = write_printing_prices(PrintingPriceFile(generated_at=pulled, source_updated_at=dump.source_updated_at, data=matched.rows))
+        added += path is not None
+        print(f"{stamp}: {len(matched.rows)} printing(s) matched, {len(matched.unmatched)} product(s) unmatched -> "
+              + (str(path) if path else "no new snapshot (that date is stored already, or the prices are unchanged)"))
+    print(f"{added} snapshot(s) added from {len(stamps)} saved dump(s)")
+    return 0
 
 
 def cmd_price(args: argparse.Namespace) -> int:
@@ -470,7 +462,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     show = sub.add_parser("show", help="print one card from cards.json")
     show.add_argument("card", help="card number, e.g. ST01-001")
     show.set_defaults(func=cmd_show)
-    tcg = sub.add_parser("sync-tcgplayer", help="latest TCGPlayer market price per card, from tcgcsv (network; skips if tcgcsv has nothing new)")
+    prices = sub.add_parser(
+        "refresh-prices",
+        help="refresh the per-printing TCGPlayer prices from tcgcsv (network, at most once in 24 hours): matched by set, card number and art "
+        "tier; a failed, refused or interrupted run writes nothing; tracked files are never changed",
+    )
+    prices.add_argument("--dry-run", action="store_true", help="fetch and plan, report matches, unmatched products, price moves and the guard's verdict; write nothing")
+    prices.add_argument("--force", action="store_true", help="pull again within 24 hours of the last pull")
+    prices.add_argument("--allow-anomaly", action="store_true", help="write even when the guard would refuse (printings no longer matched, a group missing)")
+    prices.set_defaults(func=cmd_refresh_prices)
+    tcg = sub.add_parser("sync-tcgplayer", help="save tcgcsv's raw dump (network; skips if tcgcsv has nothing new); nothing in the dataset changes")
     tcg.add_argument("--force", action="store_true", help="pull again even if tcgcsv has nothing new")
     tcg.set_defaults(func=cmd_sync_tcgplayer)
     rs = sub.add_parser("sync-restrictions", help="banned / restricted cards from Bandai's announcement page (network, one request)")
@@ -478,7 +479,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     rs.add_argument("--force", action="store_true", help="fetch again even if the page is cached")
     rs.set_defaults(func=cmd_sync_restrictions)
     sub.add_parser("restrictions", help="show the banned / restricted list (no network)").set_defaults(func=cmd_restrictions)
-    sub.add_parser("reparse-tcgplayer", help="rebuild the latest price snapshot from the saved tcgcsv files (no network)").set_defaults(func=cmd_reparse_tcgplayer)
+    sub.add_parser("reparse-tcgplayer", help="rebuild the per-printing price snapshots from the saved tcgcsv dumps, oldest first (no network)").set_defaults(func=cmd_reparse_tcgplayer)
     price = sub.add_parser("price", help="a card's latest TCGPlayer price (no network)")
     price.add_argument("card", help="card number, e.g. GD05-002")
     price.add_argument("--explain", action="store_true", help="list every TCGPlayer product for the card and whether it is buyable")
