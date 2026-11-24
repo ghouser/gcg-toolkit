@@ -72,6 +72,7 @@ def test_reparse_leaves_an_orphan_out_of_an_existing_catalog_and_names_it(
     assert code == 0  # an orphan alone does not change the exit status
     assert stored_numbers() == LISTED  # the card count is unchanged by it
     assert ORPHANS in out and "3 pages -> 3 cards" in out  # the same line the refresh prints
+    assert out.count("orphan page(s)") == 1  # one report: the line appears once, not once per phase
     assert orphan_line([PrintingId("GD99-001"), PrintingId("GD99-001_p1")]) == ORPHANS
 
 
@@ -98,6 +99,19 @@ def test_reparse_still_builds_listed_cards_and_stored_cards_no_listing_names(
     assert stored is not None and {str(c.number): c.name for c in stored.data}["GD01-002"] == "Renamed"
 
 
+def test_an_unlisted_printing_page_of_a_listed_card_is_built_not_an_orphan(
+    site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    assert run(site, tracked, T1).written
+    cache("GD01-002_p1", detail("GD01-002_p1"))  # no listing names this printing id, but its card number GD01-002 is listed
+    code, out, _ = reparse(capsys)
+    assert code == 0 and "orphan" not in out and "4 pages -> 3 cards" in out
+    stored = load_catalog()
+    assert stored is not None
+    card = next(c for c in stored.data if str(c.number) == "GD01-002")
+    assert sorted(str(p.id) for p in card.printings) == ["GD01-002", "GD01-002_p1"]
+
+
 def test_no_orphan_line_when_there_is_no_orphan(site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert run(site, tracked, T1).written
     _, out, _ = reparse(capsys)
@@ -116,6 +130,20 @@ def test_with_no_cached_listing_reparse_says_so_and_leaves_the_catalog_as_it_was
     assert code == 2 and "no cached package listings" in err and "cannot tell orphan pages from real cards" in err
     assert "pages ->" not in out and "orphan page" not in out  # it does not call every page an orphan
     assert catalog_bytes() == before and stored_numbers() == LISTED  # and does not build an empty catalog
+
+
+def test_with_the_landing_page_cached_but_no_list_page_reparse_says_so_and_leaves_the_catalog_as_it_was(
+    site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    assert run(site, tracked, T1).written
+    (pages_folder() / "lists" / f"{GD01}.html").unlink()  # the package list is known, but no package's listing is cached
+    assert (pages_folder() / LANDING_KEY).is_file()
+    cache_orphans()
+    before = catalog_bytes()
+    code, out, err = reparse(capsys)
+    assert code == 2 and "no cached package listings" in err
+    assert "pages ->" not in out and "orphan page" not in out
+    assert catalog_bytes() == before and stored_numbers() == LISTED
 
 
 def test_with_no_cached_listing_and_no_catalog_reparse_creates_nothing(capsys: pytest.CaptureFixture[str]) -> None:
