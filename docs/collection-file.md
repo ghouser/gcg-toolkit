@@ -27,7 +27,7 @@ The UI maintains what the owner has in one JSON file. The toolkit's collection c
 - **Identifiers** are printing ids; their shape is defined in `docs/catalog-export.md` (the "Identifiers" table): `ST01-001` is the base printing, `ST01-001_p5` an alternate printing. Case-sensitive, no spaces.
 - **Counts are integers of 1 or more.** A card not owned is left out of `counts`; the file never contains `null` and never a count of 0.
 - The UI writes only these three top-level keys, and its own reader refuses a file with any other top-level key. The toolkit's reader is more lenient: it ignores fields it does not know. An empty `counts` is valid.
-- The UI records the printing it shows for a card: the base printing, or for a card listed only as variants (such as `EXB-001`) its first printing. So the file never holds a printing id the catalog lacks.
+- The UI records a count for each printing it shows: every printing of a card, base or alternate (including each variant of a card listed only as variants, such as `EXB-001`), has its own count. It writes only printing ids from the catalog.
 - A printing id the toolkit's catalog does not know is not an error: the commands name it once on stderr, leave it out, and carry on.
 - Owning any printing of a card counts as owning the card; copies of different printings of one card add up.
 
