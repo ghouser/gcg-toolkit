@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from shared.basetypes import CardNumber, ProductId, Trait
+from shared.dataset import Kind, NoData
 from shared.fetch import Response
 from tools.gundam_cards.build import SourcePage, build_card
 from tools.gundam_cards.models import CardPrice, CardRecord, CardsFile, PriceFile, Rarity
@@ -149,6 +150,22 @@ def test_updated_stamps_parse_and_a_changed_answer_fails_loudly() -> None:
     bad = RawDump(UPDATED, json.dumps({"success": False, "results": []}), {}, {})
     with pytest.raises(TcgcsvError):
         parse_dump(bad)
+
+
+@pytest.mark.parametrize("missing", ["1_products.json", "1_prices.json", "3_products.json", "3_prices.json"])  # first and last listed group
+def test_a_partly_saved_dump_raises_no_data_naming_the_dump_and_the_missing_file(tmp_path: Path, missing: str) -> None:
+    d = dump()
+    folder = tmp_path / "tcgcsv" / stamp_of(UPDATED)
+    folder.mkdir(parents=True)
+    (folder / "groups.json").write_text(d.groups, encoding="utf-8")
+    for gid in d.products:
+        (folder / f"{gid}_products.json").write_text(d.products[gid], encoding="utf-8")
+        (folder / f"{gid}_prices.json").write_text(d.prices[gid], encoding="utf-8")
+    (folder / missing).unlink()  # an interrupted save: groups.json is there, a group's file is not
+    with pytest.raises(NoData) as raised:
+        read_raw_dump("20261008T200609Z", tmp_path)
+    assert raised.value.kind is Kind.PRICES
+    assert "saved price dump 20261008T200609Z is incomplete" in str(raised.value) and missing in str(raised.value)
 
 
 def test_a_saved_dump_reads_back_the_same(tmp_path: Path) -> None:
