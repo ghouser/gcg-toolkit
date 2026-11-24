@@ -163,12 +163,16 @@ def test_sync_and_refetch_leave_the_orphan_out_and_name_it_too(
     capsys.readouterr()
 
     assert cli.main(["sync"]) == 0
-    assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in out
+    assert out.count("orphan page(s)") == 1  # one report, not one from sync and one from its reparse
     assert stored_numbers() == ["GD01-001", "GD01-002"]
 
     cache("GD01-001", page("GD01-001", name="Stale"))  # so the refetch finds a change and reparses
     assert cli.main(["refetch", "--card", "GD01-001"]) == 0
-    assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in out
+    assert out.count("orphan page(s)") == 1
     assert stored_numbers() == ["GD01-001", "GD01-002"]
     assert (pages_folder() / detail_page_key(PrintingId("GD99-001"))).is_file()  # only reported: its page is not deleted
 
