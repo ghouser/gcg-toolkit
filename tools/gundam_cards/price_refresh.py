@@ -220,11 +220,14 @@ def refresh_prices(
     if last is not None and recent and not from_saved:
         return PriceReport(dry_run=False, skipped=f"the last pull was {last[0]:%Y-%m-%d %H:%M} UTC, within 24 hours: nothing fetched, nothing "
                            "written (--allow-anomaly writes it from the saved dump if the guard refused it; --force pulls again)")
+    dump: RawDump | None = None
+    if last is not None and from_saved:  # inside 24 hours: the saved dump or nothing, never a download (that takes --force)
+        dump = saved_dump(last[1], raw_dir)
+        if dump is None or not readable(dump):
+            return PriceReport(dry_run=dry_run, complete=False, failure=f"the saved dump {last[1]} is unreadable or incomplete, and the last pull was within "
+                               "24 hours: nothing fetched, nothing written (rerun with --force to pull again)")
     try:
-        saved = saved_dump(last[1], raw_dir) if last is not None and from_saved else None  # no network
-        if saved is not None and readable(saved):
-            dump = saved
-        else:
+        if dump is None:
             updated = fetch_updated(fetcher)
             cached = None if force else saved_dump(stamp_of(updated), raw_dir)
             if cached is not None and readable(cached):

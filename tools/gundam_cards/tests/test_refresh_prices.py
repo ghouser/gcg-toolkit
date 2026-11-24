@@ -609,6 +609,35 @@ def test_a_run_within_24_hours_of_the_last_pull_fetches_nothing_writes_nothing_a
     assert run(forced_site, T1 + timedelta(hours=25, minutes=30), force=True).written and forced_site.calls
 
 
+@pytest.mark.parametrize("damage", ["garbled", "deleted"])
+@pytest.mark.parametrize("options", [{"allow_anomaly": True}, {"dry_run": True}])
+def test_inside_24_hours_an_unreadable_saved_dump_is_never_downloaded_again_without_force(damage: str, options: dict[str, bool]) -> None:
+    run(FakeTcgcsv(), T1)  # a real pull: its marker is on the saved dump
+    dump_folder = raw_folder() / "tcgcsv" / stamp_of(UPDATED)
+    assert (dump_folder / "pulled-at.txt").is_file()
+    damaged = dump_folder / "2_products.json"
+    if damage == "garbled":
+        damaged.write_text("<html>not json", encoding="utf-8")
+    else:
+        damaged.unlink()
+    before, tracked_before = all_dataset_bytes(), tracked_bytes()
+    site = FakeTcgcsv()
+    report = run(site, T1 + timedelta(hours=1), **options)
+    assert not report.complete and not report.written and site.calls == []  # no request at all
+    assert "unreadable or incomplete" in format_report(report)[0] and "rerun with --force to pull again" in format_report(report)[0]
+    assert all_dataset_bytes() == before and tracked_bytes() == tracked_before
+    forced = run(site, T1 + timedelta(hours=1), force=True)  # --force is the way to pull again
+    assert forced.complete and site.calls
+
+
+def test_a_saved_dump_with_no_pull_marker_is_a_normal_first_pull_even_when_unreadable() -> None:
+    save_dump(make_dump())  # saved by sync-tcgplayer or a dry run: no marker
+    (raw_folder() / "tcgcsv" / stamp_of(UPDATED) / "2_products.json").write_text("<html>not json", encoding="utf-8")
+    site = FakeTcgcsv()
+    report = run(site, T1, allow_anomaly=True)
+    assert report.complete and report.written and stored() == EXPECTED and site.calls  # pulled again, no 24-hour rule applies
+
+
 def test_a_dry_run_inside_24_hours_plans_from_the_saved_dump_with_no_network_and_writes_nothing() -> None:
     run(FakeTcgcsv(), T1)
     before, tracked_before = all_dataset_bytes(), tracked_bytes()
