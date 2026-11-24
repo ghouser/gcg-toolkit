@@ -33,7 +33,7 @@ from tools.gundam_cards.changes import format_change, text_changes
 from tools.gundam_cards.export import MissingSetCodes, build_export
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
-from tools.gundam_cards.refresh import format_report, refresh_catalog
+from tools.gundam_cards.refresh import format_report, orphan_line, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
 from tools.gundam_cards.sets import SetsBuild, propose_sets, reviewed_set_notes, sets_from_raw, sync_sets
 from tools.gundam_cards.models import PriceFile, RestrictionsFile
@@ -52,6 +52,7 @@ from tools.gundam_cards.store import (
     load_source_pages,
     load_tracked_sets,
     package_set_codes,
+    packages_by_printing,
     pages_folder,
     raw_dump_stamps,
     raw_folder,
@@ -183,11 +184,24 @@ def cmd_reparse(_: argparse.Namespace) -> int:
         issues.extend(rebuilt.issues)
     dates = release_dates(load_sets())  # a reviewed set's date is the sets.json one
 
-    loaded = load_source_pages()
-    result = build_catalog(loaded.pages, dates, package_set_codes(load_tracked_sets()))  # a code-less printing's set: by package
+    packages_of = packages_by_printing(pages_folder())
+    if not packages_of:
+        # Without a listing no page can be told from an orphan: build nothing rather than call every page one.
+        print("no cached package listings: cannot tell orphan pages from real cards, catalog left unchanged "
+              "(run `refresh`, or `sync` to fetch them)", file=sys.stderr)
+        _print_issues(issues)
+        return 2
+    loaded = load_source_pages(pages_folder(), packages_of)
+    stored = load_catalog()
+    known = {p.card_number for p in packages_of} | {c.number for c in (stored.data if stored else ())}
+    orphans = tuple(sorted((p.printing_id for p in loaded.pages if p.printing_id.card_number not in known), key=str))
+    pages = [p for p in loaded.pages if p.printing_id.card_number in known]
+    result = build_catalog(pages, dates, package_set_codes(load_tracked_sets()))  # a code-less printing's set: by package
     write_catalog(result, datetime.now(tz=UTC))
     issues.extend([*loaded.issues, *result.issues])
-    print(f"{len(loaded.pages)} pages -> {len(result.cards)} cards, {len(result.trait_vocabulary)} traits -> {data_out_dir()}")
+    print(f"{len(pages)} pages -> {len(result.cards)} cards, {len(result.trait_vocabulary)} traits -> {data_out_dir()}")
+    if orphans:
+        print(orphan_line(orphans))
     if not dates:
         print("note: no set release dates available yet (run `sync --only sets`), so wording recency uses the block only")
     _print_issues(issues)

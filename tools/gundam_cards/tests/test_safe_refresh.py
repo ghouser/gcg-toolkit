@@ -172,8 +172,8 @@ def test_refetch_and_reparse_do_not_read_a_checkouts_old_cache(
 
     assert cli.main(["refetch", "--card", "GD01-001"]) == 2  # the dataset has no package list; the checkout's is not used
     assert "no cached package list" in capsys.readouterr().err
-    cli.main(["reparse"])
-    assert "0 pages -> 0 cards" in capsys.readouterr().out  # the checkout's old detail page is not built
+    assert cli.main(["reparse"]) == 2  # no listings in the dataset to tell cards from orphans: nothing built
+    assert "no cached package listings" in capsys.readouterr().err  # the checkout's old detail page is not built
     assert files_of(checkout) == old and web.requested == []
 
 

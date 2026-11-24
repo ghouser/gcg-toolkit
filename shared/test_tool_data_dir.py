@@ -77,6 +77,12 @@ def test_reparse_and_sets_use_only_the_temp_folder(tool_dir: Path, tmp_path: Pat
     detail.mkdir(parents=True)
     for page in PAGES:
         shutil.copyfile(FIXTURES / f"{page}.html", detail / f"{page}.html")
+    pages = detail.parent  # the cached listings say which cards are real (reparse leaves orphan pages out): one package lists them all
+    (pages / LANDING_KEY).parent.mkdir(parents=True)
+    (pages / LANDING_KEY).write_text('<a data-val="616101">Temp Set [GD01]</a>', encoding="utf-8")
+    (pages / list_page_key(PackageId("616101"))).parent.mkdir(parents=True)
+    (pages / list_page_key(PackageId("616101"))).write_text(
+        "".join(f'<a data-src="detail.php?detailSearch={page}">x</a>' for page in PAGES), encoding="utf-8")
     gd01 = CardSet(code=SetCode("GD01"), name="Temp Set", kind=SetKind.BOOSTER, bandai_package_id=PackageId("616101"),
                    release_date=date(2025, 7, 25), product_category_raw=None, product_url=None)  # fmt: skip
     sets_path = tool_dir / "shared" / "data" / "gundam_cards" / "sets.json"
