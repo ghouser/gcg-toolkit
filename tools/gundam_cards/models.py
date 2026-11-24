@@ -441,7 +441,7 @@ class CardPrice(FrozenModel):
 
 
 class PriceFile(FrozenModel):
-    """`prices/<generated_at>.json` in the dataset: one dated price snapshot, one row per priced card, sorted by card number. A card with no buyable product has no row."""
+    """`prices/<generated_at>.json` in the dataset: one dated per-card price snapshot (the older format, no longer written; `PrintingPriceFile` replaces it), one row per priced card, sorted by card number. A card with no price has no row."""
 
     schema_version: Literal[2] = 2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
     generated_at: datetime

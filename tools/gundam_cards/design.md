@@ -246,7 +246,7 @@ class CardPrice(BaseModel, frozen=True):
 
 class PriceFile(BaseModel, frozen=True):
     source_updated_at: datetime     # tcgcsv last-updated.txt for the dump these prices come from
-    prices: tuple[CardPrice, ...]   # sorted by card number; a card with no buyable product has no row
+    prices: tuple[CardPrice, ...]   # sorted by card number; a card with no price has no row (the older per-card format)
 
 class PricedCard(BaseModel, frozen=True):
     """The master card model joined with its latest price. Built when read (`load_cards_with_prices`), never stored."""

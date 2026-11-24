@@ -488,7 +488,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     sub.add_parser("reparse-tcgplayer", help="rebuild the per-printing price snapshots from the saved tcgcsv dumps, oldest first (no network)").set_defaults(func=cmd_reparse_tcgplayer)
     price = sub.add_parser("price", help="a card's latest TCGPlayer price (no network)")
     price.add_argument("card", help="card number, e.g. GD05-002")
-    price.add_argument("--explain", action="store_true", help="list every TCGPlayer product for the card and whether it is buyable")
+    price.add_argument("--explain", action="store_true", help="list every TCGPlayer product for the card and what the matching did with it (the printing it prices, or why it took no part)")
     price.set_defaults(func=cmd_price)
     args = parser.parse_args(argv)
     try:
