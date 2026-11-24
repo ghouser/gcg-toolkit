@@ -445,6 +445,25 @@ def test_a_card_whose_products_the_matching_rejected_is_not_explained_as_having_
     assert cli.main(["price", "GD01-002"]) == 0  # the priced card is as before
 
 
+def test_price_says_a_card_priced_only_as_an_alt_art_has_no_price(capsys: pytest.CaptureFixture[str]) -> None:
+    run(FakeTcgcsv(make_dump(products={1: [PRODUCTS[1][1]]}, prices={1: [row(11, 5.0)]})))  # only N11, GD01-001's "+" alt art
+    assert cli.main(["price", "GD01-001"]) == 1
+    assert "GD01-001 Gundam: no price (only alt-art printings matched (never bought))" in capsys.readouterr().out
+
+
+def test_price_says_when_no_product_has_the_card_number(capsys: pytest.CaptureFixture[str]) -> None:
+    run(FakeTcgcsv(make_dump(products={1: [PRODUCTS[1][0]]}, prices={1: [row(10, 1.5)]})))  # nothing for ST01-010
+    assert cli.main(["price", "ST01-010"]) == 1
+    assert "ST01-010 Amuro Ray: no price (no TCGPlayer product with this card number)" in capsys.readouterr().out
+
+
+def test_price_says_when_there_is_no_saved_dump_to_explain_it(capsys: pytest.CaptureFixture[str]) -> None:
+    gelgoog = PrintingPrice(printing_id=PrintingId("GD01-004"), price_cents=100, product_id=ProductId(18), name="N18", set_code="GD01", alt_art_level=0, fetched_at=T1)
+    assert write_printing_prices(PrintingPriceFile(generated_at=T1, source_updated_at=UPDATED, data=(gelgoog,))) is not None  # no raw dump saved
+    assert cli.main(["price", "GD01-001"]) == 1
+    assert "GD01-001 Gundam: no price (no saved dump to explain it)" in capsys.readouterr().out
+
+
 def test_until_a_per_printing_snapshot_exists_the_readers_keep_the_per_card_snapshot_and_it_is_never_changed() -> None:
     legacy_row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=777, product_id=ProductId(9), set_code="GD01", fetched_at=T1 - timedelta(days=5))
     path = write_prices(PriceFile(generated_at=T1 - timedelta(days=5), source_updated_at=UPDATED, data=(legacy_row,)))
@@ -497,6 +516,28 @@ def test_a_listing_that_answers_but_is_invalid_or_fails_writes_nothing_and_chang
         report = run(site)
         assert not report.complete and not report.written and format_report(report)[0].startswith("incomplete, nothing written")
     assert all_dataset_bytes() == before and tracked_bytes() == tracked_before and not snapshot_files()
+
+
+def test_the_reported_request_count_is_the_requests_that_reached_the_network_not_cached_answers() -> None:
+    broken = FakeTcgcsv()
+    broken.fail.add(url(3, "prices"))
+    run(broken)  # the listing, groups 1 and 2 and group 3's products are cached; group 3's prices failed
+    resumed = FakeTcgcsv()
+    report = run(resumed)
+    assert report.requests == len(resumed.calls) == 8  # last-updated.txt, group 3's prices, and groups 4 to 6 (two files each)
+    assert format_report(report)[0].startswith("real run: tcgcsv dump of 2026-11-04 20:00 UTC, 8 request(s)")  # not the 14 of a whole pull
+    assert url(1, "products") not in resumed.calls  # a cached answer is not requested, so it is not counted
+
+
+def test_a_run_from_the_saved_dump_inside_24_hours_reports_no_request() -> None:
+    run(FakeTcgcsv(), T1)
+    site = FakeTcgcsv(THIN)
+    refused = run(site, T1 + timedelta(days=2))
+    assert refused.refused and refused.requests == 14
+    allowed = run(site, T1 + timedelta(days=2, hours=1), allow_anomaly=True)
+    assert allowed.written and allowed.requests == 0 and "0 request(s)" in format_report(allowed)[0]
+    dry = run(site, T1 + timedelta(days=2, hours=2), dry_run=True)
+    assert dry.requests == 0 and "0 request(s)" in format_report(dry)[0]
 
 
 def test_a_partly_saved_dump_is_resumed_and_a_garbled_saved_one_is_pulled_again() -> None:
