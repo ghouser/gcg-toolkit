@@ -291,12 +291,16 @@ def raw_dump_stamps(raw_dir: Path | None = None) -> tuple[str, ...]:
 
 
 def read_raw_dump(stamp: str, raw_dir: Path | None = None) -> RawDump:
-    """A saved dump read back from disk (no network). Raises `NoData` naming the dump when it is not stored."""
+    """A saved dump read back from disk (no network). Raises `NoData` naming the dump when it is not stored, or only partly stored
+    (a group's products or prices file is missing)."""
     folder = (raw_dir or raw_folder()) / "tcgcsv" / stamp
     if not (folder / "groups.json").is_file():
         raise NoData(Kind.PRICES, f"saved price dump {stamp} is not in {folder.parent}")
     groups_text = (folder / "groups.json").read_text(encoding="utf-8")
     group_ids = [g["groupId"] for g in json.loads(groups_text)["results"]]
+    for name in (f"{g}_{part}.json" for g in group_ids for part in ("products", "prices")):
+        if not (folder / name).is_file():
+            raise NoData(Kind.PRICES, f"saved price dump {stamp} is incomplete: {name} is missing from {folder}")
     return RawDump(
         source_updated_at=datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC),
         groups=groups_text,

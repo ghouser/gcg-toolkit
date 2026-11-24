@@ -3,6 +3,7 @@
  "generated_at": "2026-11-20T09:15:00Z",
  "reference": {
   "sets": [
+   {"code": "BASIC", "name": "Basic Cards", "kind": "other"},
    {"code": "GD01", "name": "Newtype Rising", "kind": "booster", "release_date": "2025-07-25"},
    {"code": "PB03", "name": "GUNDAM CARD GAME 1st Anniversary Set", "kind": "other", "provisional": true},
    {"code": "ST01", "name": "Heroic Beginnings", "kind": "starter", "release_date": "2025-07-25"}
@@ -26,8 +27,9 @@
    "number": "R-001",
    "name": "Resource",
    "kind": "resource",
+   "set_code": "BASIC",
    "printings": [
-    {"id": "R-001_p4", "rarity": "C", "variant": 4, "alt_art_level": 1, "link_art": false}
+    {"id": "R-001_p4", "rarity": "C", "set_code": "BASIC", "variant": 4, "alt_art_level": 1, "link_art": false}
    ]
   },
   {
