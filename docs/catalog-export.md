@@ -76,12 +76,11 @@ A set:
 | `alt_art_level` | integer | not on a base printing | `0` normal art, `1` "+", `2` "++" |
 | `link_art` | boolean | not on a base printing | Link art ("LK"): shows the linked pilot with the Unit |
 | `image_url` | string | when known | Bandai's image of this printing |
-| `price_cents` | integer | when priced | latest TCGPlayer market price of this printing |
+| `price_cents` | integer | when priced | latest TCGPlayer market price of this printing (from `refresh-prices`: matched to the printing by set, card number and art tier) |
 | `price_as_of` | date | with `price_cents` | when that price was pulled |
 
 There is no card-level price, and no card text, stats, traits or keywords (later versions may add them; see below).
 
-Until the toolkit stores prices per printing, it holds one price per card (its cheapest non-alt-art TCGPlayer product, with that product's set); that price is given to the card's one non-alt-art printing from that set, and to no printing when there is no such printing or more than one.
 
 ## Version policy
 

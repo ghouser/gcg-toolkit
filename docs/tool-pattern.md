@@ -71,7 +71,7 @@ Datasets are kept apart by who owns them, where they come from and how often the
 |---|---|---|---|
 | **Card facts** | what a card is: the one master card model (a `Card` union by kind), printings, text | `cards.json`, `sets.json` | when a set releases |
 | **Association facts** | how cards relate and are played: packages, bridges, synergy, rates, per source | `packages.json`, `rates.json` (and `_online`), the collection | with each meta sync or edit |
-| **Price facts** | what a card costs: one row per card per pull | `prices/<pulled at>.json` (dated snapshots; the newest is the latest price) | daily |
+| **Price facts** | what a printing costs: one row per printing per pull | `printing_prices/<pulled at>.json` (dated snapshots; the newest is the latest price; the older per-card `prices/` files are kept, unread once a per-printing snapshot exists) | daily |
 
 A convenient joined view (a card with its latest price, a card with its package) is a **read model**: built on read by a function in the owning tool's `store.py`, never stored, so a daily price pull never rewrites card facts and a card file never goes stale. History is a time series of rows keyed by `(card number, pulled at)`; "latest" is the newest row per card. If querying across layers gets awkward, the next step is a SQLite database with these layers as tables; the JSON files and their keys already have that shape.
 

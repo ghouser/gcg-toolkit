@@ -104,6 +104,8 @@ The plan axis is `beatdown = mean(curve, pressure, 10 - interaction, 10 - advant
 
 | Constant | Value | Meaning | Basis |
 |---|---|---|---|
+| `MATCH_DROP_SHARE` | 0.05 | `refresh-prices` is refused when more than this share of the newest per-printing snapshot's printings are no longer matched, or when a group that gave that snapshot rows is missing from the pull; `--allow-anomaly` overrides. A large price move never refuses | judgment: a delisted product drops a printing now and then, but a missing or reshaped tcgcsv group loses far more than 1 in 20 |
+| `REQUEST_DELAY_S` | 1.0 | seconds between tcgcsv requests in `refresh-prices` and `sync-tcgplayer` (a pull is about 58 requests, at most one in 24 hours) | judgment: tcgcsv asks only for 0.1 s and the fetcher never goes under 0.5 s; one second costs about a minute a day and is kinder to a free community service |
 | `ANOMALY_SHARE` | 0.02 | A refresh is refused when more than this share of existing cards (not marked no longer listed) would be dropped (missed) or changed (any field-level change, printing fields and wordings included; gaining a printing or a package and the fetch time are not changes); `--allow-anomaly` overrides | judgment (owner, lowered from 0.10): a normal refresh drops and changes almost nothing, since cached pages are never re-fetched, so more than 1 card in 50 is worth a look first |
 
 ## Legality (`tools/gundam_cards/legality.py`)
