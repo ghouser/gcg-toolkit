@@ -152,7 +152,7 @@ def test_updated_stamps_parse_and_a_changed_answer_fails_loudly() -> None:
         parse_dump(bad)
 
 
-@pytest.mark.parametrize("missing", ["1_products.json", "1_prices.json"])
+@pytest.mark.parametrize("missing", ["1_products.json", "1_prices.json", "3_products.json", "3_prices.json"])  # first and last listed group
 def test_a_partly_saved_dump_raises_no_data_naming_the_dump_and_the_missing_file(tmp_path: Path, missing: str) -> None:
     d = dump()
     folder = tmp_path / "tcgcsv" / stamp_of(UPDATED)
