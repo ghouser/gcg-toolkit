@@ -290,6 +290,11 @@ def refresh_catalog(
     return replace(report, written=True)
 
 
+def orphan_line(orphans: Sequence[PrintingId]) -> str:
+    """The report line naming cached pages left out of the catalog because their card is in no listing and not stored."""
+    return f"{len(orphans)} orphan page(s), in no listing and not in the catalog, not added: " + " ".join(map(str, orphans))
+
+
 def format_report(report: RefreshReport) -> list[str]:
     """The run's summary, one line per fact, for the CLI."""
     mode = "dry run" if report.dry_run else "refresh"
@@ -312,8 +317,7 @@ def format_report(report: RefreshReport) -> list[str]:
             *(f"  changed {c.number}: {', '.join(c.fields)}" for c in report.changed),
         ]
         if report.orphans:
-            lines.append(f"{len(report.orphans)} orphan page(s), in no listing and not in the catalog, not added: "
-                         + " ".join(map(str, report.orphans)))
+            lines.append(orphan_line(report.orphans))
         if report.refused:
             lines.append("refused by the anomaly guard, nothing written (rerun with --allow-anomaly to proceed)")
         elif report.dry_run:
