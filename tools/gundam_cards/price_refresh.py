@@ -216,11 +216,12 @@ def refresh_prices(
     previous = load_printing_prices()
     last = last_pull(raw_dir)
     recent = last is not None and now - last[0] < PULL_INTERVAL and not force
-    if last is not None and recent and not dry_run:
+    from_saved = recent and (dry_run or allow_anomaly)  # inside 24 hours only a dry run or an override works, from the saved dump
+    if last is not None and recent and not from_saved:
         return PriceReport(dry_run=False, skipped=f"the last pull was {last[0]:%Y-%m-%d %H:%M} UTC, within 24 hours: nothing fetched, nothing "
-                           "written (--force pulls again)")
+                           "written (--allow-anomaly writes it from the saved dump if the guard refused it; --force pulls again)")
     try:
-        saved = saved_dump(last[1], raw_dir) if last is not None and recent else None  # a dry run inside 24 hours: no network
+        saved = saved_dump(last[1], raw_dir) if last is not None and from_saved else None  # no network
         if saved is not None and readable(saved):
             dump = saved
         else:
@@ -277,7 +278,7 @@ def format_report(report: PriceReport) -> list[str]:
     else:
         lines.append("guard: ok")
     if report.refused:
-        lines.append("refused by the guard, nothing written (rerun with --allow-anomaly to proceed)")
+        lines.append("refused by the guard, nothing written (rerun with --allow-anomaly to write it from the saved dump, with no new request)")
     elif report.dry_run:
         lines.append("dry run: nothing written")
     elif report.stored:

@@ -232,7 +232,7 @@ def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
 
     run(cards_cli.main, ["sync-tcgplayer"])
     dump = raw_dir / "tcgcsv" / stamp_of(TCGCSV_AT)
-    assert (dump / "groups.json").is_file() and (dump / "pulled-at.txt").is_file()
+    assert (dump / "groups.json").is_file() and not (dump / "pulled-at.txt").exists()  # saving the raw dump is not a priced pull
     (dump / "pulled-at.txt").write_text("2026-11-05T09:30:00+00:00\n", encoding="utf-8")
     assert "printing_prices/2026-11-05T093000Z.json" in run(cards_cli.main, ["reparse-tcgplayer"])  # the temp folder's dump and its marker
 

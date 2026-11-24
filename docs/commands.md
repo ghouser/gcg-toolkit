@@ -62,7 +62,7 @@ Most views take `--source tournament|online|both`
     .venv/bin/python -m tools.gundam_cards.cli restrictions        # show the list in force
 
     .venv/bin/python -m tools.gundam_cards.cli refresh-prices --dry-run  # what a price refresh would match, leave unmatched (each product named with the reason), move (the biggest) or refuse; writes no dataset file
-    .venv/bin/python -m tools.gundam_cards.cli refresh-prices            # per-printing prices from tcgcsv, all or nothing, at most once in 24 hours (--force to pull again, --allow-anomaly to override the guard)
+    .venv/bin/python -m tools.gundam_cards.cli refresh-prices            # per-printing prices from tcgcsv, all or nothing, at most once in 24 hours (--force to pull again; after a refusal, --allow-anomaly writes it from the saved dump with no new request)
     .venv/bin/python -m tools.gundam_cards.cli sync-tcgplayer          # only saves tcgcsv's raw dump (--force to refetch); nothing in the dataset changes
     .venv/bin/python -m tools.gundam_cards.cli reparse-tcgplayer       # rebuild the per-printing price snapshots from the saved dumps, oldest first (no network)
     .venv/bin/python -m tools.gundam_cards.cli export              # the catalog export for the UI ($GCG_CATALOG_FILE, default ~/.gcg/catalog.json; contract: docs/catalog-export.md)

@@ -34,7 +34,7 @@ from tools.gundam_cards.changes import format_change, text_changes
 from tools.gundam_cards.export import MissingSetCodes, build_export
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
-from tools.gundam_cards.price_refresh import REQUEST_DELAY_S, MARKER, match_products, pull_time, refresh_prices, saved_dump
+from tools.gundam_cards.price_refresh import REQUEST_DELAY_S, match_products, pull_time, refresh_prices, saved_dump
 from tools.gundam_cards.price_refresh import format_report as format_price_report
 from tools.gundam_cards.refresh import format_report, orphan_line, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
@@ -63,7 +63,6 @@ from tools.gundam_cards.store import (
     read_raw_dump,
     release_dates,
     tracked_folder,
-    write_atomic,
     write_catalog,
     write_catalog_export,
     write_printing_prices,
@@ -351,8 +350,8 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
             print(f"up to date: tcgcsv last updated {updated:%Y-%m-%d %H:%M} UTC and that dump is saved already ({fetcher.network_requests} request)")
             return 0
         fetch_dump(fetcher, updated, force=args.force, progress=lambda m: print(f"  {m}", flush=True))
-        write_atomic(raw_folder() / "tcgcsv" / stamp_of(updated) / MARKER, datetime.now(UTC).replace(microsecond=0).isoformat() + "\n")
-        print(f"{fetcher.network_requests} request(s); saved the dump of {updated:%Y-%m-%d %H:%M} UTC (run `refresh-prices` to price from it)")
+        print(f"{fetcher.network_requests} request(s); saved the dump of {updated:%Y-%m-%d %H:%M} UTC (`refresh-prices` prices from this saved dump, "
+              "with no new download)")
         return 0
     except (TcgcsvError, FetchError) as e:
         print(f"tcgcsv: {e}", file=sys.stderr)
