@@ -238,24 +238,8 @@ def save_catalog(cards: CardsFile, out_dir: Path | None = None) -> None:
 
 
 # ---- prices (tcgcsv) -------------------------------------------------------------------------------------------------
-def _price_content(file: PriceFile) -> object:
-    """What a price snapshot says, without when it was stored (the pull time on the file and on each row)."""
-    return (file.source_updated_at, [row.model_dump(exclude={"fetched_at"}) for row in file.data])
-
-
-def write_prices(file: PriceFile, out_dir: Path | None = None) -> Path | None:
-    """Add a dated price snapshot (`prices/<generated_at>.json`). None, writing nothing, when that UTC day is stored already or the
-    newest snapshot has the same prices."""
-    folder = (out_dir or data_out_dir()) / "prices"
-    same = _price_content(file)
-    return add_snapshot(
-        folder, snapshot_key(file.generated_at), _pretty(file.model_dump_json()),
-        lambda text: _price_content(PriceFile.model_validate_json(text)) == same,
-    )
-
-
 def load_price_history(out_dir: Path | None = None) -> tuple[PriceFile, ...]:
-    """Every stored price snapshot, oldest first (empty when there are none)."""
+    """Every stored per-card price snapshot (the older format, in `prices/`), oldest first (empty when there are none)."""
     return tuple(PriceFile.model_validate_json(p.read_text(encoding="utf-8")) for p in snapshot_paths((out_dir or data_out_dir()) / "prices"))
 
 

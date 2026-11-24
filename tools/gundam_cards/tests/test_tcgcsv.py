@@ -14,7 +14,8 @@ from shared.dataset import Kind, NoData
 from shared.fetch import Response
 from tools.gundam_cards.build import SourcePage, build_card
 from tools.gundam_cards.models import CardPrice, CardRecord, CardsFile, PriceFile, PrintingPrice, PrintingPriceFile, Rarity
-from tools.gundam_cards.store import load_cards_with_prices, load_prices, raw_dump_stamps, read_raw_dump, write_prices
+from tools.gundam_cards.tests.price_files import write_prices
+from tools.gundam_cards.store import load_cards_with_prices, load_prices, raw_dump_stamps, read_raw_dump
 from tools.gundam_cards.tcgcsv import (
     IssueKind,
     RawDump,
@@ -25,7 +26,6 @@ from tools.gundam_cards.tcgcsv import (
     parse_rarity,
     parse_updated,
     stamp_of,
-    why_unpriced,
 )
 
 N = CardNumber
@@ -87,12 +87,12 @@ def test_identification_reads_numbers_alt_arts_promos_and_prices() -> None:
     products, issues = parse_dump(dump())
     by_id = {int(p.product_id): p for p in products}
     assert [int(p.product_id) for p in products] == sorted(by_id)  # sorted, deterministic
-    assert by_id[10].buyable and by_id[10].price_cents == 150 and by_id[10].rarity is Rarity.LR
-    assert by_id[11].alt_art_level == 1 and not by_id[11].buyable  # an alt art is never bought
-    assert by_id[12].card_number is None and not by_id[12].buyable  # a sealed product
-    assert by_id[30].promo and not by_id[30].buyable  # a promo group
+    assert by_id[10].price_cents == 150 and by_id[10].rarity is Rarity.LR and by_id[10].alt_art_level == 0
+    assert by_id[11].alt_art_level == 1  # a "+" rarity is an alt art tier
+    assert by_id[12].card_number is None  # a sealed product
+    assert by_id[30].promo  # a promo group
     assert by_id[17].price_cents == 30  # two price rows: the cheapest
-    assert by_id[14].rarity is None and by_id[14].buyable  # an unknown rarity is reported, not dropped
+    assert by_id[14].rarity is None  # an unknown rarity is reported, not dropped
     kinds = {i.kind for i in issues}
     assert kinds == {IssueKind.BAD_NUMBER, IssueKind.UNKNOWN_RARITY, IssueKind.NULL_PRICE, IssueKind.MULTIPLE_PRICE_ROWS, IssueKind.NO_PRICE_ROW}
 
@@ -112,14 +112,6 @@ def test_a_cards_price_is_its_cheapest_non_alt_art_printings_row() -> None:
     assert got == {N("GD05-001"): (120, 20, "SC01", "V2 Gundam"), N("GD05-004"): (30, 40, "GD05", "V2 Gundam")}
     assert [p.card_number for p in derived.data] == sorted(got)  # sorted by card number
     assert derived.generated_at == PULLED and derived.source_updated_at == UPDATED and all(p.fetched_at == PULLED for p in derived.data)
-
-
-def test_the_reason_a_card_has_no_price_is_given_in_words() -> None:
-    products, _ = parse_dump(dump())
-    assert why_unpriced(N("GD05-006"), products) == "no TCGPlayer product with this card number"
-    assert why_unpriced(N("GD05-003"), products) == "no price row for its products"
-    only_alt = [p for p in products if p.card_number == N("GD05-001") and p.alt_art_level > 0]
-    assert why_unpriced(N("GD05-001"), only_alt) == "only alt-art products (never bought)"
 
 
 class FakeFetcher:

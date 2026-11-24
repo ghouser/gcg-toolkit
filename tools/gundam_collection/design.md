@@ -100,13 +100,13 @@ python3 -m tools.gundam_collection.cli export --format massentry   # the plan as
 |---|---|---|
 | `shared/data/gundam_collection/my_tcg_collection` | me (hand-maintained) | what I own |
 | `cards.json` (local dataset) | `gundam_cards` | card identity, names, printings, kinds |
-| the newest price snapshot (local dataset) | `gundam_cards sync-tcgplayer`, built on tcgcsv (Gundam is `categoryId` 86; market price per product; no per-seller or per-condition data) | per card: latest price in cents, the product it came from, the date pulled; read joined onto the card (`load_cards_with_prices`) |
+| the newest per-printing price snapshot (local dataset) | `gundam_cards refresh-prices`, built on tcgcsv (Gundam is `categoryId` 86; market price per product; no per-seller or per-condition data) | per printing: latest price in cents, the product it came from, the date pulled; the per-card price (the cheapest non-alt-art printing's) is derived on read and joined onto the card (`load_cards_with_prices`) |
 | `shared/data/gundam_packages/packages.json`, `rates.json` | `gundam_packages` | packages, members and roles, bridges, reprint groups, appearance rates |
 | `tools/gundam_collection/preferences.json` | me (optional) | pinned home packages |
 
 **Required additions to other tools' contracts** (both done 2026-10-08: the copy histogram is in `rates.json` and `rates_online.json` as `histogram` on package members and partner cards, with `majority_copies`; prices are `prices.json` read through `load_cards_with_prices`):
 - `gundam_packages` `rates.json`: a **copy-count histogram** per card in each package's decks (decks with 0, 1, 2, 3, 4 copies), so the majority copy count is exact; and the same for reprint groups (copies of any member).
-- `gundam_cards`: `sync-tcgplayer` on tcgcsv (its own design change: a small one; honors tcgcsv's usage rules: custom User-Agent, 100 ms or more between requests, one pull per 24 h after checking `last-updated.txt`).
+- `gundam_cards`: `refresh-prices` on tcgcsv (honors tcgcsv's usage rules: custom User-Agent, 100 ms or more between requests, one pull per 24 h after checking `last-updated.txt`; `sync-tcgplayer` only saves its raw dump).
 
 ## Outputs
 | File | Format | Key | Fields | Consumers |

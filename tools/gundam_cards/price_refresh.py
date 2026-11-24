@@ -13,9 +13,9 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
-from shared.basetypes import PrintingId, SetCode
+from shared.basetypes import CardNumber, PrintingId, ProductId, SetCode
 from shared.dataset import NoData, write_atomic
-from shared.fetch import FetchError, TextFetcher
+from shared.fetch import FetchError, Response, TextFetcher
 from tools.gundam_cards.models import CardModel, PrintingPrice, PrintingPriceFile
 from tools.gundam_cards.store import (
     load_catalog_or_fail,
@@ -40,6 +40,7 @@ MARKER = "pulled-at.txt"  # in each saved dump's folder: when we pulled it
 class Unmatched:
     """A product that took no part in the snapshot, and why."""
 
+    product_id: ProductId
     name: str
     group: str
     number: str  # the product's Number, "-" when it has none
@@ -108,7 +109,7 @@ def match_products(
     sealed = 0
 
     def refuse(p: TcgProduct, reason: str) -> None:
-        unmatched.append(Unmatched(p.name, p.group, str(p.card_number), reason))
+        unmatched.append(Unmatched(p.product_id, p.name, p.group, str(p.card_number), reason))
 
     for p in products:
         if p.card_number is None:
@@ -146,6 +147,24 @@ def match_products(
     return Matched(tuple(rows), tuple(sorted(unmatched, key=str)), sealed)
 
 
+def product_verdicts(matched: Matched) -> dict[ProductId, str]:
+    """What the matching did with each product, in words: the printing it prices, or why it took no part."""
+    verdicts = {r.product_id: f"matched to {r.printing_id} (${r.price_cents / 100:.2f})" for r in matched.rows}
+    verdicts.update({u.product_id: u.reason for u in matched.unmatched})
+    return verdicts
+
+
+def why_unpriced(number: CardNumber, products: Sequence[TcgProduct], matched: Matched) -> str:
+    """Why a card has no price, in words, from what the matching did with its products (for `price`)."""
+    ids = {p.product_id for p in products if p.card_number == number}
+    if not ids:
+        return "no TCGPlayer product with this card number"
+    if any(r.product_id in ids for r in matched.rows):
+        return "only alt-art printings matched (never bought)"
+    reasons = sorted({u.reason for u in matched.unmatched if u.product_id in ids})
+    return "no product matched a printing: " + "; ".join(reasons)
+
+
 def plan_report(
     dump_products: Sequence[TcgProduct], matched: Matched, groups: Collection[str], previous: PrintingPriceFile | None, *,
     allow_anomaly: bool, dry_run: bool, source_updated_at: datetime,
@@ -166,6 +185,19 @@ def plan_report(
         moves=tuple(moves[:BIGGEST_MOVES]), previous=len(old), dropped=dropped, missing_groups=missing,
         guard_trips=trips, refused=trips and not allow_anomaly and not dry_run,
     )  # fmt: skip
+
+
+class _Counting:
+    """A fetcher that counts the requests that reached the network (an answer from the cache is not one), whatever fetcher it wraps."""
+
+    def __init__(self, inner: TextFetcher) -> None:
+        self.inner = inner
+        self.requests = 0
+
+    def get_text(self, url: str, *, cache_key: str | None = None, force: bool = False) -> Response:
+        response = self.inner.get_text(url, cache_key=cache_key, force=force)
+        self.requests += 0 if response.from_cache else 1
+        return response
 
 
 # ---- fetch and write (the shell) ---------------------------------------------------------------------------------------
@@ -211,6 +243,7 @@ def refresh_prices(
     """Pull tcgcsv (at most once in 24 hours), match it to the printings, check the result and add one per-printing snapshot.
     `raw_dir` is the tool's raw folder (the dumps are under `tcgcsv/`). Raises `NoData` when there is no catalog."""
     now = (now or datetime.now(UTC)).replace(microsecond=0)
+    counted = _Counting(fetcher)
     catalog = load_catalog_or_fail().data  # before any request: nothing to match against means nothing to fetch
     set_codes = {s.code for s in load_sets()}
     previous = load_printing_prices()
@@ -228,16 +261,15 @@ def refresh_prices(
                                "24 hours: nothing fetched, nothing written (rerun with --force to pull again)")
     try:
         if dump is None:
-            updated = fetch_updated(fetcher)
+            updated = fetch_updated(counted)
             cached = None if force else saved_dump(stamp_of(updated), raw_dir)
             if cached is not None and readable(cached):
                 dump = cached
             else:  # an unreadable saved dump is pulled again whole; a partly saved one resumes from what is cached
-                dump = fetch_dump(fetcher, updated, force=force or cached is not None, progress=progress)
+                dump = fetch_dump(counted, updated, force=force or cached is not None, progress=progress)
         products, _ = parse_dump(dump)
     except (TcgcsvError, FetchError, ValueError) as e:
         return PriceReport(dry_run=dry_run, complete=False, failure=f"tcgcsv: {e}")
-    requests = getattr(fetcher, "network_requests", 0)
     stamp = stamp_of(dump.source_updated_at)
     pulled = pull_time(stamp, raw_dir) or now
     if not dry_run and pull_time(stamp, raw_dir) is None:
@@ -246,7 +278,7 @@ def refresh_prices(
     groups = {p.group for p in products}
     report = replace(
         plan_report(products, matched, groups, previous, allow_anomaly=allow_anomaly, dry_run=dry_run, source_updated_at=dump.source_updated_at),
-        requests=requests,
+        requests=counted.requests,
     )
     if dry_run or report.refused:
         return report

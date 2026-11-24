@@ -27,6 +27,7 @@ from tools.gundam_cards.price_refresh import (
     plan_report,
     refresh_prices,
 )
+from tools.gundam_cards.tests.price_files import write_prices
 from tools.gundam_cards.store import (
     data_out_dir,
     load_cards_with_prices,
@@ -36,7 +37,6 @@ from tools.gundam_cards.store import (
     load_printing_prices,
     raw_folder,
     tracked_folder,
-    write_prices,
     write_printing_prices,
 )
 from tools.gundam_cards.tcgcsv import BASE_URL, RawDump, parse_dump, stamp_of
@@ -362,6 +362,13 @@ def test_reparse_tcgplayer_rebuilds_the_snapshots_oldest_first_with_no_network_a
 
 
 # ---- AC-3: the per-card readers ------------------------------------------------------------------------------------------------------
+def test_reparse_tcgplayer_says_so_and_exits_2_on_a_garbled_saved_dump(capsys: pytest.CaptureFixture[str]) -> None:
+    save_dump(make_dump())
+    (raw_folder() / "tcgcsv" / stamp_of(UPDATED) / "2_products.json").write_text("<html>not json", encoding="utf-8")
+    assert cli.main(["reparse-tcgplayer"]) == 2
+    assert "the saved dump is unreadable" in capsys.readouterr().err and not snapshot_files()
+
+
 def test_the_per_card_price_is_the_cheapest_non_alt_art_printings_row_and_nothing_stores_it() -> None:
     run(FakeTcgcsv())
     derived = load_prices()
@@ -414,6 +421,28 @@ def test_reparse_tcgplayer_leaves_an_older_per_card_file_untouched(monkeypatch: 
     monkeypatch.setattr(cli, "Fetcher", lambda *a, **k: pytest.fail("reparse-tcgplayer must not fetch"))
     assert cli.main(["reparse-tcgplayer"]) == 0 and len(snapshot_files()) == 1
     assert path.read_bytes() == before and [p.name for p in path.parent.iterdir()] == [path.name]
+
+
+def test_price_explain_tells_what_the_matching_did_with_each_product(capsys: pytest.CaptureFixture[str]) -> None:
+    run(FakeTcgcsv())
+    assert cli.main(["price", "GD01-001", "--explain"]) == 0
+    out = capsys.readouterr().out
+    assert "matched to GD01-001 ($1.50)" in out and "matched to GD01-001_p3 ($0.80)" in out  # the Beta and SC01 reprints are matched
+    assert "N50 Gundam mystery" in out and "group maps to no set" in out and "promo group" in out and "unrecognized rarity 'Mythic'" in out
+    assert cli.main(["price", "ST01-010", "--explain"]) == 1  # two products claim the one printing: neither is used
+    out = capsys.readouterr().out
+    assert "ST01-010 Amuro Ray: no price (no product matched a printing: 2 products match printing ST01-010)" in out
+    assert out.count("2 products match printing ST01-010") == 3  # the summary and the two products
+
+
+def test_a_card_whose_products_the_matching_rejected_is_not_explained_as_having_no_price_row(capsys: pytest.CaptureFixture[str]) -> None:
+    only_zaku_priced = make_dump(products={1: [PRODUCTS[1][2]], 4: PRODUCTS[4], 5: PRODUCTS[5]}, prices={1: [row(12, 2.0)], 4: PRICES[4], 5: PRICES[5]})
+    run(FakeTcgcsv(only_zaku_priced))  # a snapshot exists; GD01-001 has only a promo and an unmapped-group product, both with price rows
+    assert cli.main(["price", "GD01-001", "--explain"]) == 1
+    out = capsys.readouterr().out
+    assert "GD01-001 Gundam: no price (no product matched a printing: group maps to no set; promo group)" in out
+    assert "no price row" not in out and out.count("group maps to no set") == 2
+    assert cli.main(["price", "GD01-002"]) == 0  # the priced card is as before
 
 
 def test_until_a_per_printing_snapshot_exists_the_readers_keep_the_per_card_snapshot_and_it_is_never_changed() -> None:

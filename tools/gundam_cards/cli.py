@@ -34,7 +34,7 @@ from tools.gundam_cards.changes import format_change, text_changes
 from tools.gundam_cards.export import MissingSetCodes, build_export
 from tools.gundam_cards.models import CardKind, Color, Keyword, Rarity
 from tools.gundam_cards.printings import read_packages, refetch_printings, select_printings, sync_printings
-from tools.gundam_cards.price_refresh import REQUEST_DELAY_S, match_products, pull_time, refresh_prices, saved_dump
+from tools.gundam_cards.price_refresh import REQUEST_DELAY_S, Matched, match_products, product_verdicts, pull_time, refresh_prices, saved_dump, why_unpriced
 from tools.gundam_cards.price_refresh import format_report as format_price_report
 from tools.gundam_cards.refresh import format_report, orphan_line, refresh_catalog
 from tools.gundam_cards.search import SearchQuery, format_table, search
@@ -75,7 +75,6 @@ from tools.gundam_cards.tcgcsv import (
     fetch_updated,
     parse_dump,
     stamp_of,
-    why_unpriced,
 )
 
 
@@ -358,7 +357,7 @@ def cmd_sync_tcgplayer(args: argparse.Namespace) -> int:
         return 1
 
 
-def cmd_reparse_tcgplayer(args: argparse.Namespace) -> int:
+def cmd_reparse_tcgplayer(_: argparse.Namespace) -> int:
     """Rebuild the per-printing snapshots from every saved dump, oldest first (no network, no guard); a day already stored adds nothing."""
     catalog = load_catalog_or_fail().data
     stamps = raw_dump_stamps()
@@ -369,7 +368,11 @@ def cmd_reparse_tcgplayer(args: argparse.Namespace) -> int:
     added = 0
     for stamp in stamps:
         dump = read_raw_dump(stamp)
-        products, _ = parse_dump(dump)
+        try:
+            products = parse_dump(dump)[0]
+        except (TcgcsvError, ValueError) as e:
+            print(f"{stamp}: the saved dump is unreadable ({e}); nothing more was written (`sync-tcgplayer --force` saves it again)", file=sys.stderr)
+            return 2
         pulled = pull_time(stamp, raw_folder()) or datetime.strptime(stamp, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)  # no marker: the dump's own time
         matched = match_products(products, catalog, set_codes, pulled)
         path = write_printing_prices(PrintingPriceFile(generated_at=pulled, source_updated_at=dump.source_updated_at, data=matched.rows))
@@ -381,7 +384,8 @@ def cmd_reparse_tcgplayer(args: argparse.Namespace) -> int:
 
 
 def cmd_price(args: argparse.Namespace) -> int:
-    names = _catalog()
+    catalog = load_catalog_or_fail().data
+    names = {c.number: c.name for c in catalog}
     number = CardNumber(args.card)
     if number not in names:
         print(f"no such card: {number}", file=sys.stderr)
@@ -389,20 +393,23 @@ def cmd_price(args: argparse.Namespace) -> int:
     stored = load_prices()
     row = next((p for p in stored.data if p.card_number == number), None) if stored else None
     products: tuple[TcgProduct, ...] = ()
+    matched = Matched((), (), 0)
     stamps = raw_dump_stamps()
     if stamps and (args.explain or row is None):
-        products, _ = parse_dump(read_raw_dump(stamps[-1]))
+        dump = read_raw_dump(stamps[-1])
+        products, _ = parse_dump(dump)
+        matched = match_products(products, catalog, {s.code for s in load_sets()}, dump.source_updated_at)
     if row is not None:
         print(f"{number} {names[number]}: ${row.price_cents / 100:.2f}  (TCGPlayer market price, product {row.product_id}, pulled {row.fetched_at:%Y-%m-%d %H:%M} UTC)")
     elif stored is None:
         print(f"{number} {names[number]}: {NoData(Kind.PRICES)}")
     else:
-        print(f"{number} {names[number]}: no price ({why_unpriced(number, products) if products else 'no saved dump to explain it'})")
+        print(f"{number} {names[number]}: no price ({why_unpriced(number, products, matched) if products else 'no saved dump to explain it'})")
     if args.explain:
+        verdicts = product_verdicts(matched)
         for p in (p for p in products if p.card_number == number):
-            verdict = "buyable" if p.buyable else ("alt art" if p.alt_art_level else "promo group" if p.promo else "no price")
             price = f"${p.price_cents / 100:.2f}" if p.price_cents is not None else "-"
-            print(f"    product {p.product_id:>7} {p.group:8} {p.name:34} {p.rarity_raw or '-':14} {price:>8}  {verdict}")
+            print(f"    product {p.product_id:>7} {p.group:8} {p.name:34} {p.rarity_raw or '-':14} {price:>8}  {verdicts[p.product_id]}")
     return 0 if row is not None else 1
 
 

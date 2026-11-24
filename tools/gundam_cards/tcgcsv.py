@@ -9,14 +9,14 @@ Steps, kept apart so each can be tested and redone without the others:
   parse_dump   raw text -> products (no network)
   (matching products to printings is `price_refresh.match_products`; `card_prices_from_printings` derives a card's price on read)
 
-Identifying a product needs its rarity: a trailing `+` or `++` on the rarity marks an alt art, which is never bought. A *buyable single*
-is a product with a card number that is not an alt art and not in a promo group (`price --explain` lists them). A card's price is its cheapest
-non-alt-art printing's price in the newest per-printing snapshot.
+Identifying a product needs its rarity: a trailing `+` or `++` on the rarity marks an alt art tier. Which printing a product prices is decided
+by `price_refresh.match_products` (set, card number and art tier); a card's price is its cheapest non-alt-art printing's price in the newest
+per-printing snapshot.
 """
 from __future__ import annotations
 
 import json
-from collections.abc import Callable, Collection, Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from enum import StrEnum
@@ -140,7 +140,7 @@ def fetch_dump(fetcher: TextFetcher, source_updated_at: datetime, *, force: bool
 # ---- parsing -----------------------------------------------------------------------------------------------------------
 @dataclass(frozen=True)
 class TcgProduct:
-    """One TCGPlayer product, read from tcgcsv. Internal: only the chosen price per card is stored."""
+    """One TCGPlayer product, read from tcgcsv. Internal: only the prices of products matched to a printing are stored (`price_refresh`)."""
 
     product_id: ProductId
     group_id: int
@@ -153,10 +153,6 @@ class TcgProduct:
     promo: bool
     price_cents: int | None  # market price in cents (the cheapest row if there are several); None without one
     unknown_price_kind: str | None = None  # the first price row kind we do not know, if any (the row is ignored)
-
-    @property
-    def buyable(self) -> bool:
-        return self.card_number is not None and self.alt_art_level == 0 and not self.promo and self.price_cents is not None
 
 
 def parse_rarity(raw: str) -> tuple[Rarity | None, int]:
@@ -215,16 +211,7 @@ def parse_dump(dump: RawDump) -> tuple[tuple[TcgProduct, ...], tuple[Issue, ...]
     return tuple(sorted(products, key=lambda p: p.product_id)), tuple(issues)
 
 
-# ---- choosing the price for each card ------------------------------------------------------------------------------
-def buyable_by_card(products: Collection[TcgProduct]) -> dict[CardNumber, list[TcgProduct]]:
-    """Every buyable product for each card number, cheapest first."""
-    found: dict[CardNumber, list[TcgProduct]] = {}
-    for p in products:
-        if p.buyable and p.card_number is not None:
-            found.setdefault(p.card_number, []).append(p)
-    return {n: sorted(ps, key=lambda p: (p.price_cents or 0, p.product_id)) for n, ps in found.items()}
-
-
+# ---- the price of a card, derived from its printings ----------------------------------------------------------------
 def card_prices_from_printings(file: PrintingPriceFile) -> PriceFile:
     """The per-card price of a per-printing snapshot: for each card, its cheapest non-alt-art printing's row (ties: the lower product
     id), with that row's product, name and group. A card whose only priced printings are alt arts has none."""
@@ -243,15 +230,3 @@ def card_prices_from_printings(file: PrintingPriceFile) -> PriceFile:
             for n, r in sorted(cheapest.items())
         ),
     )
-
-
-def why_unpriced(number: CardNumber, products: Collection[TcgProduct]) -> str:
-    """Why a card has no price, in words (for the coverage report and `price`)."""
-    mine = [p for p in products if p.card_number == number]
-    if not mine:
-        return "no TCGPlayer product with this card number"
-    if all(p.alt_art_level > 0 for p in mine):
-        return "only alt-art products (never bought)"
-    if all(p.promo or p.alt_art_level > 0 for p in mine):
-        return "only promo or alt-art products"
-    return "no price row for its products"
