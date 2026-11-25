@@ -8,8 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from shared.dataset import tool_data_root
-from tools.gundam_meta.store import write_atomic
+from shared.dataset import tool_data_root, write_atomic
 from tools.gundam_packages.models import DataSource, DriftFile, NamesFile, PackageId, PackagesFile, RatesFile
 from tools.gundam_packages.naming import NAMES_PATH
 

@@ -8,9 +8,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from shared.dataset import tool_data_root
+from shared.dataset import tool_data_root, write_atomic
 from tools.gundam_collection.models import DeckNamesFile
-from tools.gundam_meta.store import write_atomic
 
 
 def tracked_folder() -> Path:

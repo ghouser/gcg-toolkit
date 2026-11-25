@@ -12,12 +12,12 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
+from shared.dataset import write_atomic
 from shared.fetch import FetchError, TextFetcher
 from tools.gundam_meta import duelfrontier, egm
 from tools.gundam_meta.models import Event, EventId, Source
 from tools.gundam_meta.store import (
     load_events,
-    write_atomic,
     write_event,
 )
 

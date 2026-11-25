@@ -27,6 +27,7 @@ from tools.gundam_cards.models import CardKind
 from tools.gundam_cards.store import load_catalog_or_fail, load_sets, release_dates
 from tools.gundam_meta import duelfrontier, egm
 from tools.gundam_meta.common import is_complete
+from shared.dataset import write_atomic
 from tools.gundam_meta.dedupe import combined_events, find_duplicate_groups
 from tools.gundam_meta.egm import egm_raw_path
 from tools.gundam_meta.eras import EraError, current_era, find_era, load_era_defs, resolve_eras
@@ -40,7 +41,6 @@ from tools.gundam_meta.store import (
     load_snapshots,
     raw_folder,
     stored_event_ids,
-    write_atomic,
     write_event,
     write_popularity,
 )

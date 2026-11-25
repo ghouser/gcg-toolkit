@@ -8,8 +8,6 @@
 """
 from __future__ import annotations
 
-import os
-import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -19,7 +17,7 @@ from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Protocol
 
-from shared.dataset import refuse_real_data_write
+from shared.dataset import write_atomic
 
 DEFAULT_USER_AGENT = "gcg-toolkit/0.1 (personal hobby tooling; polite rate-limited fetcher)"
 _RETRYABLE_STATUS = frozenset({429, 500, 502, 503, 504})
@@ -89,7 +87,7 @@ class Fetcher:
         text = self._request(url, headers)
         fetched_at = datetime.now(tz=UTC)
         if path is not None:
-            _atomic_write(path, text)
+            write_atomic(path, text)
         return Response(url, text, fetched_at, from_cache=False)
 
     def _cache_path(self, cache_key: str | None) -> Path | None:
@@ -128,16 +126,3 @@ class Fetcher:
             if attempt < self._max_attempts:
                 self._sleep(2.0**attempt)
         raise FetchError(url, f"gave up after {self._max_attempts} attempts ({last_detail})")
-
-
-def _atomic_write(path: Path, text: str) -> None:
-    refuse_real_data_write(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(text)
-        os.replace(tmp_name, path)
-    except BaseException:
-        Path(tmp_name).unlink(missing_ok=True)
-        raise
