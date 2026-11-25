@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import json
 import os
-import tempfile
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
@@ -24,10 +23,10 @@ from shared.dataset import (
     add_snapshot,
     data_dir,
     newest_snapshot,
-    refuse_real_data_write,
     snapshot_key,
     snapshot_paths,
     tool_data_root,
+    write_atomic,
 )
 from tools.gundam_cards.build import CatalogResult, Issue, IssueKind, SourcePage
 from tools.gundam_cards.export import CatalogExport, export_json
@@ -106,19 +105,6 @@ def load_source_pages(raw_dir: Path | None = None, packages_of: dict[PrintingId,
         fetched_at = datetime.fromtimestamp(path.stat().st_mtime, tz=UTC)
         pages.append(SourcePage(printing_id, raw, fetched_at, packages_of.get(printing_id, ())))
     return LoadedPages(tuple(pages), tuple(issues))
-
-
-def write_atomic(path: Path, text: str) -> None:
-    refuse_real_data_write(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(text)
-        os.replace(tmp, path)
-    except BaseException:
-        Path(tmp).unlink(missing_ok=True)
-        raise
 
 
 def load_tracked_sets(out_dir: Path | None = None) -> tuple[CardSet, ...]:

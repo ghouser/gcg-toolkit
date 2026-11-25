@@ -15,6 +15,7 @@ Check every change against this list. A "no" is a finding.
 ## Rules
 - Does it keep `docs/principles.md`, `docs/python-style.md` (functional core and imperative shell, no mutation of data or arguments, no mutable module-level state, frozen models) and `docs/testing.md`?
 - Does it keep the rules in this folder and `docs/tool-pattern.md`?
+- Does every file write go through `shared.dataset.write_atomic`, with no second atomic-write definition (`atomic-write.md`)?
 - No `# noqa`, no lint ignores or exclusions, no tests that scan code or docs.
 
 ## Scope

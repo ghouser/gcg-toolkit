@@ -10,12 +10,10 @@
 from __future__ import annotations
 
 import json
-import os
-import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, refuse_real_data_write, snapshot_paths, tool_data_root
+from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths, tool_data_root, write_atomic
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -43,19 +41,6 @@ def tracked_folder() -> Path:
 def data_out_dir() -> Path:
     """This tool's folder in the local dataset: events/, online_rankings/, example_decks/."""
     return data_dir() / "gundam_meta"
-
-
-def write_atomic(path: Path, text: str) -> None:
-    refuse_real_data_write(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(text)
-        os.replace(tmp, path)
-    except BaseException:
-        Path(tmp).unlink(missing_ok=True)
-        raise
 
 
 def pretty(compact_json: str) -> str:

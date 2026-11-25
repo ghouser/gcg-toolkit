@@ -21,7 +21,7 @@ from collections.abc import Sequence
 from datetime import UTC, date, datetime
 
 from shared.basetypes import CardNumber
-from shared.dataset import Kind, NoData
+from shared.dataset import Kind, NoData, write_atomic
 from shared.fetch import Fetcher
 from tools.gundam_cards.models import CardKind
 from tools.gundam_cards.store import load_catalog_or_fail, load_sets, release_dates
@@ -40,7 +40,6 @@ from tools.gundam_meta.store import (
     load_snapshots,
     raw_folder,
     stored_event_ids,
-    write_atomic,
     write_event,
     write_popularity,
 )
