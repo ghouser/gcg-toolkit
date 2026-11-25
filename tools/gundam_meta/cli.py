@@ -21,13 +21,12 @@ from collections.abc import Sequence
 from datetime import UTC, date, datetime
 
 from shared.basetypes import CardNumber
-from shared.dataset import Kind, NoData
+from shared.dataset import Kind, NoData, write_atomic
 from shared.fetch import Fetcher
 from tools.gundam_cards.models import CardKind
 from tools.gundam_cards.store import load_catalog_or_fail, load_sets, release_dates
 from tools.gundam_meta import duelfrontier, egm
 from tools.gundam_meta.common import is_complete
-from shared.dataset import write_atomic
 from tools.gundam_meta.dedupe import combined_events, find_duplicate_groups
 from tools.gundam_meta.egm import egm_raw_path
 from tools.gundam_meta.eras import EraError, current_era, find_era, load_era_defs, resolve_eras
