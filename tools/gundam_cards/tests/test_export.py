@@ -34,12 +34,12 @@ from tools.gundam_cards.models import (
 )
 from tools.gundam_cards.printings import RefetchReport, SyncReport
 from tools.gundam_cards.sets import SetsBuild
+from tools.gundam_cards.tests.price_files import write_prices
 from tools.gundam_cards.store import (
     CATALOG_FILE_VAR,
     LoadedPages,
     catalog_export_path,
     save_catalog,
-    write_prices,
     write_provisional_sets,
 )
 from tools.gundam_cards.tcgcsv import RawDump, stamp_of

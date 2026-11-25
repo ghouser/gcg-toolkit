@@ -10,7 +10,8 @@ import pytest
 from shared.basetypes import CardNumber, PrintingId, ProductId
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.models import CardPrice, PriceFile
-from tools.gundam_cards.store import write_catalog, write_prices
+from tools.gundam_cards.tests.price_files import write_prices
+from tools.gundam_cards.store import write_catalog
 from tools.gundam_collection import cli
 from tools.gundam_collection.collection_file import ENV_VAR, text_list_path
 from tools.gundam_packages.tests.helpers import unit

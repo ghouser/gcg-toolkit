@@ -81,8 +81,6 @@ A set:
 
 There is no card-level price, and no card text, stats, traits or keywords (later versions may add them; see below).
 
-Until the toolkit stores prices per printing, it holds one price per card (its cheapest non-alt-art TCGPlayer product, with that product's set); that price is given to the card's one non-alt-art printing from that set, and to no printing when there is no such printing or more than one.
-
 ## Version policy
 
 - `schema_version` changes only for a **breaking** change: a field removed or renamed, made required where it was optional, or its type or meaning changed.

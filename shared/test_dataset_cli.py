@@ -11,7 +11,8 @@ from shared.dataset import Kind
 from shared.dataset_cli import as_of_report, main
 from tools.gundam_cards.models import CardPrice, PriceFile
 from tools.gundam_cards.build import CatalogResult
-from tools.gundam_cards.store import write_catalog, write_prices
+from tools.gundam_cards.tests.price_files import write_prices
+from tools.gundam_cards.store import write_catalog
 from tools.gundam_meta.models import Source
 from tools.gundam_meta.store import load_events, write_decks_snapshot, write_event, write_snapshot
 from tools.gundam_meta.tests.test_store_history import T1, T2, decks, event, ranking

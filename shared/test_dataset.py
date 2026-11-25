@@ -12,6 +12,7 @@ from shared.dataset import REPO_ROOT, Kind, NoData, add_snapshot, data_dir, newe
 from tools.gundam_cards import store as cards_store
 from tools.gundam_cards.build import CatalogResult
 from tools.gundam_cards.models import CardPrice, PriceFile
+from tools.gundam_cards.tests.price_files import write_prices
 from tools.gundam_meta import store as meta_store
 from tools.gundam_meta.tests.test_store_history import T1, decks, event, ranking
 from tools.gundam_packages.tests.helpers import unit
@@ -98,7 +99,7 @@ def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchange
 
     pulled = datetime(2026, 10, 9, 21, 0, tzinfo=UTC)
     row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=25, product_id=ProductId(7), fetched_at=pulled)
-    price_path = cards_store.write_prices(PriceFile(generated_at=pulled, source_updated_at=pulled, data=(row,)))
+    price_path = write_prices(PriceFile(generated_at=pulled, source_updated_at=pulled, data=(row,)))
     cards_store.write_catalog(CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()), pulled)
     decks_path = meta_store.write_decks_snapshot(decks(T1))
     assert meta_store.write_snapshot(ranking(T1))

@@ -4,7 +4,7 @@ Prices, the banned list and the packages go stale. The repository ships with dat
 
 | What | Command |
 |---|---|
-| Card prices (tcgcsv, at most once a day) | `gundam_cards sync-tcgplayer` (`--force` to refetch) |
+| Card prices (tcgcsv, at most once a day) | `gundam_cards refresh-prices` (`--dry-run` to look first, `--force` to pull again) |
 | Banned and restricted cards | `gundam_cards sync-restrictions` (pass `--url` for a newer announcement) |
 | Tournament events | `gundam_meta sync` |
 | Re-derive the packages after new data | `gundam_packages build` and `gundam_packages build --source online` |
@@ -21,4 +21,4 @@ The list is applied to the decks the tools find and to the decks they suggest: a
 
 - `value` prints when its prices were pulled.
 - `coverage` and `packages` say which source and window they read (for example, the online example decks since a date).
-- Everything is computed from the data on disk, so run `sync-tcgplayer` before you shop.
+- Everything is computed from the data on disk, so run `refresh-prices` before you shop.

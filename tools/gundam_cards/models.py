@@ -441,12 +441,34 @@ class CardPrice(FrozenModel):
 
 
 class PriceFile(FrozenModel):
-    """`prices/<generated_at>.json` in the dataset: one dated price snapshot, one row per priced card, sorted by card number. A card with no buyable product has no row."""
+    """`prices/<generated_at>.json` in the dataset: one dated per-card price snapshot (the older format, no longer written; `PrintingPriceFile` replaces it), one row per priced card, sorted by card number. A card with no price has no row."""
 
     schema_version: Literal[2] = 2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
     generated_at: datetime
     source_updated_at: datetime  # tcgcsv `last-updated.txt` for the dump these prices come from
     data: tuple[CardPrice, ...]
+
+
+class PrintingPrice(FrozenModel):
+    """The TCGPlayer market price of one printing: one row of a per-printing snapshot (`printing_prices/`)."""
+
+    printing_id: PrintingId  # the printing this price is for (matched by set, card number and art tier)
+    price_cents: int = Field(ge=0)  # tcgcsv marketPrice, converted once with round(x * 100)
+    product_id: ProductId  # the TCGPlayer product it comes from (audit)
+    name: str  # TCGPlayer's own name for that product: what a Mass Entry line needs
+    set_code: str  # that product's group abbreviation ("GD01"; "GD01_b" is the Edition Beta printing)
+    alt_art_level: int = Field(ge=0, le=2)  # the printing's own, 0 for a normal art: the per-card price is the cheapest level-0 row
+    fetched_at: datetime  # when we pulled it (UTC)
+
+
+class PrintingPriceFile(FrozenModel):
+    """`printing_prices/<generated_at>.json` in the dataset: one dated snapshot, one row per matched printing, sorted by printing id.
+    A printing no tcgcsv product matches has no row."""
+
+    schema_version: Literal[1] = 1
+    generated_at: datetime
+    source_updated_at: datetime  # tcgcsv `last-updated.txt` for the dump these prices come from
+    data: tuple[PrintingPrice, ...]
 
 
 class PricedCard(FrozenModel):

@@ -38,6 +38,7 @@ from tools.gundam_cards.models import (
     CardSet,
     CardsFile,
     PriceFile,
+    PrintingPriceFile,
     RestrictionsFile,
     PricedCard,
     SetsFile,
@@ -49,7 +50,7 @@ from tools.gundam_cards.models import (
 )
 from tools.gundam_cards.parse_detail import DetailPageError, parse_detail_html
 from tools.gundam_cards.printings import read_package_lists, read_packages
-from tools.gundam_cards.tcgcsv import RawDump
+from tools.gundam_cards.tcgcsv import RawDump, card_prices_from_printings
 
 
 def raw_folder() -> Path:
@@ -237,31 +238,49 @@ def save_catalog(cards: CardsFile, out_dir: Path | None = None) -> None:
 
 
 # ---- prices (tcgcsv) -------------------------------------------------------------------------------------------------
-def _price_content(file: PriceFile) -> object:
-    """What a price snapshot says, without when it was stored (the pull time on the file and on each row)."""
-    return (file.source_updated_at, [row.model_dump(exclude={"fetched_at"}) for row in file.data])
-
-
-def write_prices(file: PriceFile, out_dir: Path | None = None) -> Path | None:
-    """Add a dated price snapshot (`prices/<generated_at>.json`). None, writing nothing, when that UTC day is stored already or the
-    newest snapshot has the same prices."""
-    folder = (out_dir or data_out_dir()) / "prices"
-    same = _price_content(file)
-    return add_snapshot(
-        folder, snapshot_key(file.generated_at), _pretty(file.model_dump_json()),
-        lambda text: _price_content(PriceFile.model_validate_json(text)) == same,
-    )
-
-
 def load_price_history(out_dir: Path | None = None) -> tuple[PriceFile, ...]:
-    """Every stored price snapshot, oldest first (empty when there are none)."""
+    """Every stored per-card price snapshot (the older format, in `prices/`), oldest first (empty when there are none)."""
     return tuple(PriceFile.model_validate_json(p.read_text(encoding="utf-8")) for p in snapshot_paths((out_dir or data_out_dir()) / "prices"))
 
 
-def load_prices(out_dir: Path | None = None) -> PriceFile | None:
-    """The newest price snapshot, or None."""
+def _load_card_prices(out_dir: Path | None = None) -> PriceFile | None:
+    """The newest per-card snapshot (`prices/`, the older format; never written any more), or None."""
     path = newest_snapshot((out_dir or data_out_dir()) / "prices")
     return PriceFile.model_validate_json(path.read_text(encoding="utf-8")) if path else None
+
+
+def _printing_price_content(file: PrintingPriceFile) -> object:
+    """What a per-printing snapshot says: its rows, without when they were pulled (a new dump with the same prices adds nothing)."""
+    return [row.model_dump(exclude={"fetched_at"}) for row in file.data]
+
+
+def write_printing_prices(file: PrintingPriceFile, out_dir: Path | None = None) -> Path | None:
+    """Add a dated per-printing snapshot (`printing_prices/<generated_at>.json`). None, writing nothing, when that UTC day is stored
+    already or the newest snapshot has the same prices. The older per-card snapshots are never touched."""
+    same = _printing_price_content(file)
+    return add_snapshot(
+        (out_dir or data_out_dir()) / "printing_prices", snapshot_key(file.generated_at), _pretty(file.model_dump_json()),
+        lambda text: _printing_price_content(PrintingPriceFile.model_validate_json(text)) == same,
+    )
+
+
+def load_printing_price_history(out_dir: Path | None = None) -> tuple[PrintingPriceFile, ...]:
+    """Every stored per-printing snapshot, oldest first (empty when there are none)."""
+    folder = (out_dir or data_out_dir()) / "printing_prices"
+    return tuple(PrintingPriceFile.model_validate_json(p.read_text(encoding="utf-8")) for p in snapshot_paths(folder))
+
+
+def load_printing_prices(out_dir: Path | None = None) -> PrintingPriceFile | None:
+    """The newest per-printing snapshot, or None."""
+    path = newest_snapshot((out_dir or data_out_dir()) / "printing_prices")
+    return PrintingPriceFile.model_validate_json(path.read_text(encoding="utf-8")) if path else None
+
+
+def load_prices(out_dir: Path | None = None) -> PriceFile | None:
+    """The newest price per card, or None. From the first per-printing snapshot on it is derived from the newest one (per card, the
+    cheapest non-alt-art printing's row); until then it is the newest per-card snapshot. Nothing stores the derived price."""
+    printing_prices = load_printing_prices(out_dir)
+    return card_prices_from_printings(printing_prices) if printing_prices is not None else _load_card_prices(out_dir)
 
 
 def catalog_as_of(out_dir: Path | None = None) -> date | None:
