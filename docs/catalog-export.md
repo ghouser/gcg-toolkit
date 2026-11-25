@@ -61,7 +61,7 @@ A set:
 | `name` | string | always | |
 | `kind` | string | always | one of `reference.kinds` |
 | `no_longer_listed` | `true` | only when true | the source no longer lists the card; its last known data is kept |
-| `set_code` | set code | when known | the set of its first printing that is not Edition Beta (set code `BETA`, teaching copies never bought or sold), so `EXB-001`, `EXR-001` and `R-001`, the basic cards given in the starter decks, are `BASIC` (the basic package), not `BETA` or their later `SC01` reprint; absent when that printing has no set code or every printing is Edition Beta |
+| `set_code` | set code | when known | the set of its first printing that is neither Edition Beta (set code `BETA`, teaching copies never bought or sold) nor a release-event printing (see the printing's `set_code`), so `EXB-001`, `EXR-001` and `R-001`, the basic cards given in the starter decks, are `BASIC` (the basic package), not `BETA` or their later `SC01` reprint; a card with a booster printing and a release-event printing is its booster's set, not `PROMO`; a card whose printings are all event printings (or Beta and event only) falls back to its first non-Beta printing, so it is `PROMO`; absent when that printing has no set code or every printing is Edition Beta |
 | `color`, `level`, `cost` | string, integer, integer | deck kinds only | |
 | `printings` | array of printing | always (at least one) | the base printing first, then by variant number |
 
@@ -71,7 +71,7 @@ A set:
 |---|---|---|---|
 | `id` | printing id | always | |
 | `rarity` | string | always | one of `reference.rarities` |
-| `set_code` | set code | when known | the set this printing comes from (a reprint's differs from the card's): the code Bandai names in brackets, else the set of its package (`PROMO` for promos, `BETA` for Edition Beta, `BASIC` for the basic cards given in the starter decks) |
+| `set_code` | set code | when known | the set this printing comes from (a reprint's differs from the card's): `PROMO` for a release-event printing, whatever set its text names (its "Where to get it" names a release event, a pre-release event or event-participation items, e.g. `... [GD05] Release Event Commemorative Items for Participants`, `Starter Deck [ST07]/[ST08] Release Event`; matched without regard to case or the spelling Pre-Release/Prerelease/Pre Release; a bare "Event" is not enough); otherwise the code Bandai names in brackets, else the set of its package (`PROMO` for promos, `BETA` for Edition Beta, `BASIC` for the basic cards given in the starter decks) |
 | `variant` | integer | not on a base printing | `N` of `_pN` |
 | `alt_art_level` | integer | not on a base printing | `0` normal art, `1` "+", `2` "++" |
 | `link_art` | boolean | not on a base printing | Link art ("LK"): shows the linked pilot with the Unit |

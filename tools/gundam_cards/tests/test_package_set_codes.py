@@ -94,7 +94,7 @@ LISTED = {
     BASIC: ("Basic Cards", {"GD01-003_p2": "Included in each starter deck"}),
     PROMO: ("Promotion card", {"GD01-002": "Store tournament prize"}),
     BETA: ("Edition Beta", {"GD01-003_p1": "Edition Beta"}),
-    UNKNOWN: ("Future Pack [GD99]", {"GD99-001": "Prerelease event"}),  # sets.json lacks it: the rebuild proposes GD99
+    UNKNOWN: ("Future Pack [GD99]", {"GD99-001": "Launch week giveaway"}),  # sets.json lacks it: the rebuild proposes GD99
 }
 EXPECTED_PRINTING_CODES = {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-003_p2": "BASIC", "GD01-003_p3": "SC01", "GD01-002": "PROMO",
                            "GD01-003_p1": "BETA", "GD99-001": None}  # fmt: skip
