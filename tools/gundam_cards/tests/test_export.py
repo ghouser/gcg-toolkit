@@ -173,7 +173,7 @@ def test_a_failed_write_leaves_the_earlier_export_intact_and_no_temp_file(tracke
         raise OSError("disk full")
 
     store(unlisted=())
-    monkeypatch.setattr("tools.gundam_cards.store.os.replace", fail)
+    monkeypatch.setattr("shared.dataset.os.replace", fail)
     with pytest.raises(OSError):
         cli.main(["export"])
     assert path.read_bytes() == before
