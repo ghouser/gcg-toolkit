@@ -16,6 +16,7 @@ from typing import NamedTuple, TypedDict
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from shared.basetypes import CardNumber, PackageId, PilotName, PrintingId, SetCode, SourceTitle, Trait
+from tools.gundam_cards.events import names_release_event
 from tools.gundam_cards.models import (
     BaseCard,
     BaseTokenCard,
@@ -331,6 +332,7 @@ def pilot_name_in_text(text: str) -> PilotName | None:
 
 # ---- printing and text-version assembly -------------------------------------------------------------
 _SET_CODE_IN_TEXT = re.compile(r"\[([A-Z]{2,4})-?([0-9]{2}[A-Z]?)\]")  # [GD05], [PB01], [PC02A], [EVX-01] -> EVX01
+PROMO_SET_CODE = SetCode("PROMO")  # the set code of a release-event printing (a code `sets.json` already has)
 _COMPARED_FIELDS = ("TYPE", "COLOR", "Lv.", "COST", "AP", "HP", "Trait", "Link", "Zone")  # not Source Title: per printing
 
 
@@ -343,7 +345,10 @@ def _image_url(printing_id: PrintingId, src: str | None) -> str | None:
 
 
 def _set_code(where: str, package_ids: Sequence[PackageId], package_codes: Mapping[PackageId, SetCode]) -> SetCode | None:
-    """The bracketed code in "Where to get it"; else the code of the first of the printing's packages that `package_codes` knows."""
+    """PROMO when "Where to get it" names an event (whatever code it mentions); else the bracketed code in it; else the code of the
+    first of the printing's packages that `package_codes` knows."""
+    if names_release_event(where):
+        return PROMO_SET_CODE
     set_match = _SET_CODE_IN_TEXT.search(where)
     if set_match:
         return SetCode(set_match.group(1) + set_match.group(2))

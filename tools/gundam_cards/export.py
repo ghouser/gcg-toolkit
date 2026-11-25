@@ -10,6 +10,7 @@ from datetime import date, datetime
 from typing import Literal
 
 from shared.basetypes import CardNumber, FrozenModel, PrintingId, SetCode
+from tools.gundam_cards.events import names_release_event
 from tools.gundam_cards.models import (
     CardKind,
     CardModel,
@@ -27,7 +28,7 @@ from tools.gundam_cards.models import (
 )
 
 EXPORT_SCHEMA_VERSION: Literal[1] = 1  # see "Version policy" in docs/catalog-export.md
-_EDITION_BETA = SetCode("BETA")  # teaching copies, never bought or sold: never a card's reference printing
+_EDITION_BETA = SetCode("BETA")  # teaching copies, never bought or sold: never a card's reference printing (nor, if avoidable, an event printing)
 
 
 class ExportPrinting(FrozenModel):
@@ -113,8 +114,11 @@ def _sets(tracked: tuple[CardSet, ...], provisional: tuple[CardSet, ...]) -> tup
 
 
 def _reference_set_code(card: CardModel) -> SetCode | None:
-    """The card's set: that of its first printing whose set code is not BETA; None when it has none (or only Beta printings)."""
-    return next((p.set_code for p in card.printings if p.set_code != _EDITION_BETA), None)
+    """The card's set: that of its first printing that is neither Edition Beta nor a release-event printing. When every printing is one
+    of those, the first non-Beta printing's (an event-only card is PROMO); None when there is none (or only Beta printings)."""
+    non_beta = [p for p in card.printings if p.set_code != _EDITION_BETA]
+    ordinary = [p for p in non_beta if not names_release_event(p.where_to_get)]
+    return next((p.set_code for p in ordinary or non_beta), None)
 
 
 def _card(card: CardModel, no_longer_listed: bool, prices: dict[PrintingId, tuple[int, date]]) -> ExportCard:
