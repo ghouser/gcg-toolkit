@@ -9,6 +9,7 @@ Three relations (see models.Relation):
   SHARED_KEYWORD (the same effect or native keyword at a different level/cost; see functional.py).
 - **Functional reprint** (basically the same thing at a similar level and cost): see functional.py.
 """
+
 from __future__ import annotations
 
 import re
@@ -123,15 +124,31 @@ def build_graph(cards: Sequence[CardModel]) -> SynergyGraph:
                 if isinstance(requirement, PilotNameLink):
                     for pilot_number, (pilot_name, _) in pilots:
                         if requirement.fragment in pilot_name:
-                            edges.append(SynergyEdge(a=card.number, b=pilot_number, kind=SynergyKind.LINK_PILOT, detail=str(requirement.fragment)))
+                            edges.append(
+                                SynergyEdge(
+                                    a=card.number,
+                                    b=pilot_number,
+                                    kind=SynergyKind.LINK_PILOT,
+                                    detail=str(requirement.fragment),
+                                )
+                            )
                 elif isinstance(requirement, TraitLink):
                     for pilot_number, (_, pilot_traits) in pilots:
                         if requirement.trait in pilot_traits:
-                            edges.append(SynergyEdge(a=card.number, b=pilot_number, kind=SynergyKind.LINK_TRAIT, detail=str(requirement.trait)))
+                            edges.append(
+                                SynergyEdge(
+                                    a=card.number,
+                                    b=pilot_number,
+                                    kind=SynergyKind.LINK_TRAIT,
+                                    detail=str(requirement.trait),
+                                )
+                            )
         for fragment in dict.fromkeys(_NAME_REFERENCE.findall(card.text)):
             matches = [o.number for o in cards if o.number != card.number and fragment in o.name]
             if 0 < len(matches) <= MAX_NAME_MATCHES:
-                edges.extend(SynergyEdge(a=card.number, b=m, kind=SynergyKind.NAME_REFERENCE, detail=fragment) for m in matches)
+                edges.extend(
+                    SynergyEdge(a=card.number, b=m, kind=SynergyKind.NAME_REFERENCE, detail=fragment) for m in matches
+                )
         for trait in card.referenced_traits:
             if reference_needs_others(card, trait):
                 edges.extend(

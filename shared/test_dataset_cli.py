@@ -1,4 +1,5 @@
 """AC-3: "data as of" for each source."""
+
 from __future__ import annotations
 
 from datetime import UTC, date, datetime, timedelta
@@ -29,7 +30,9 @@ def _prices() -> PriceFile:
 
 def _dataset(root: Path) -> Path:
     """A small dataset with every source: a catalog, one price snapshot, two events, one ranking and one example-deck snapshot."""
-    build = CatalogResult(cards=(unit("GD01-001", "GD01-001"), unit("GD01-002", "GD01-002")), issues=(), trait_vocabulary=frozenset())
+    build = CatalogResult(
+        cards=(unit("GD01-001", "GD01-001"), unit("GD01-002", "GD01-002")), issues=(), trait_vocabulary=frozenset()
+    )
     write_catalog(build, CATALOG_AT, root / "gundam_cards")
     write_prices(_prices(), root / "gundam_cards")
     meta = root / "gundam_meta"
@@ -51,7 +54,10 @@ def test_an_empty_dataset_reports_no_data_for_every_source(tmp_path: Path, capsy
 def test_each_source_reports_its_newest_date(tmp_path: Path) -> None:
     _dataset(tmp_path / "ds")
     later = PULLED.replace(day=20)
-    write_prices(_prices().model_copy(update={"generated_at": later, "source_updated_at": later}), tmp_path / "ds" / "gundam_cards")
+    write_prices(
+        _prices().model_copy(update={"generated_at": later, "source_updated_at": later}),
+        tmp_path / "ds" / "gundam_cards",
+    )
     assert dict(as_of_report(tmp_path / "ds")) == {
         Kind.CATALOG: CATALOG_AT.date(),  # when it was last refreshed
         Kind.PRICES: later.date(),
@@ -61,11 +67,15 @@ def test_each_source_reports_its_newest_date(tmp_path: Path) -> None:
     }
 
 
-def test_the_catalog_reports_its_latest_refresh(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_the_catalog_reports_its_latest_refresh(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     monkeypatch.setenv("GCG_DATA_DIR", str(tmp_path))
     build = CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset())
     write_catalog(build, T1)
-    write_catalog(CatalogResult(cards=(unit("GD01-002", "Two"),), issues=(), trait_vocabulary=frozenset()), T2)  # a second refresh
+    write_catalog(
+        CatalogResult(cards=(unit("GD01-002", "Two"),), issues=(), trait_vocabulary=frozenset()), T2
+    )  # a second refresh
     assert dict(as_of_report())[Kind.CATALOG] == T2.date()  # not when the first card was recorded
     assert main(["status"]) == 0
     line = next(x for x in capsys.readouterr().out.splitlines() if Kind.CATALOG.value in x)
@@ -75,7 +85,9 @@ def test_the_catalog_reports_its_latest_refresh(tmp_path: Path, monkeypatch: pyt
 def test_events_report_the_newest_collection_date_wherever_it_sorts(tmp_path: Path) -> None:
     newest = T2 + timedelta(days=3)
     stored = (  # in the order written; loading sorts by start date, then source, then id
-        event("a-first", newest).model_copy(update={"start_date": date(2026, 9, 1)}),  # newest collection: first in sort and written first
+        event("a-first", newest).model_copy(
+            update={"start_date": date(2026, 9, 1)}
+        ),  # newest collection: first in sort and written first
         event("m-middle", T1).model_copy(update={"source": Source.DUELFRONTIER, "start_date": date(2026, 10, 5)}),
         event("z-last", T2).model_copy(update={"start_date": date(2026, 10, 20)}),  # last in sort and last written
     )

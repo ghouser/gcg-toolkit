@@ -1,5 +1,6 @@
 """AC-5: on a fresh clone with an empty dataset, the commands that read it say "no data" for the missing source instead of crashing.
 (The root conftest points GCG_DATA_DIR at an empty folder for every test.)"""
+
 from __future__ import annotations
 
 import re
@@ -58,7 +59,11 @@ COMMANDS: list[tuple[Main, list[str], str]] = [
     (packages_cli.main, ["compare"], "card catalog"),
     (packages_cli.main, ["drift"], "card catalog"),
     (packages_cli.main, ["report"], "card catalog"),
-    (collection_cli.main, ["check", "--file", __file__], "card catalog"),  # any existing file: the catalog is needed first
+    (
+        collection_cli.main,
+        ["check", "--file", __file__],
+        "card catalog",
+    ),  # any existing file: the catalog is needed first
     (collection_cli.main, ["coverage"], "card catalog"),
     (collection_cli.main, ["decks"], "card catalog"),
     (collection_cli.main, ["buy", "suletta"], "card catalog"),
@@ -85,7 +90,16 @@ SOURCE_REPORTS: list[tuple[Main, list[str]]] = [
 
 # Subcommands that are not reads of the dataset: they fetch over the network, rebuild from saved responses, or read only tracked files.
 NOT_DATASET_READS: dict[Main, set[str]] = {
-    cards_cli.main: {"refresh", "refresh-prices", "sync", "refetch", "sync-tcgplayer", "sync-restrictions", "reparse", "sets"},
+    cards_cli.main: {
+        "refresh",
+        "refresh-prices",
+        "sync",
+        "refetch",
+        "sync-tcgplayer",
+        "sync-restrictions",
+        "reparse",
+        "sets",
+    },
     meta_cli.main: {"sync", "refetch", "reparse"},
     packages_cli.main: set(),
     collection_cli.main: {"import"},  # prints a pointer to the UI
@@ -98,10 +112,14 @@ def tracked_packages() -> None:
     """As on a fresh clone, the tracked packages and rates are there (small stand-ins, in the root conftest's temp tool data folder)."""
     base = _base_packages()
     write_packages(base)
-    write_rates(RatesFile(generated_at=CATALOG_AT, window=base.window, total_decks=0, packages=(), archetypes=(), card_index={}))
+    write_rates(
+        RatesFile(generated_at=CATALOG_AT, window=base.window, total_decks=0, packages=(), archetypes=(), card_index={})
+    )
 
 
-@pytest.mark.parametrize(("main", "argv", "source"), COMMANDS, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a, _ in COMMANDS])
+@pytest.mark.parametrize(
+    ("main", "argv", "source"), COMMANDS, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a, _ in COMMANDS]
+)
 def test_a_command_on_an_empty_dataset_reports_no_data(
     tracked_packages: None, main: Main, argv: list[str], source: str, capsys: pytest.CaptureFixture[str]
 ) -> None:
@@ -109,7 +127,9 @@ def test_a_command_on_an_empty_dataset_reports_no_data(
     assert f"no data: {source}" in capsys.readouterr().err
 
 
-@pytest.mark.parametrize(("main", "argv", "source"), DEGRADED, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a, _ in DEGRADED])
+@pytest.mark.parametrize(
+    ("main", "argv", "source"), DEGRADED, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a, _ in DEGRADED]
+)
 def test_a_command_that_works_without_the_dataset_says_which_source_has_no_data(
     main: Main, argv: list[str], source: str, capsys: pytest.CaptureFixture[str]
 ) -> None:
@@ -117,7 +137,9 @@ def test_a_command_that_works_without_the_dataset_says_which_source_has_no_data(
     assert f"no data: {source}" in capsys.readouterr().err
 
 
-@pytest.mark.parametrize(("main", "argv"), SOURCE_REPORTS, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a in SOURCE_REPORTS])
+@pytest.mark.parametrize(
+    ("main", "argv"), SOURCE_REPORTS, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a in SOURCE_REPORTS]
+)
 def test_a_source_report_on_an_empty_dataset_says_no_data_for_every_source(
     main: Main, argv: list[str], capsys: pytest.CaptureFixture[str]
 ) -> None:
@@ -168,7 +190,17 @@ OTHER_SOURCE: list[tuple[Main, list[str], str, int]] = [
 CATALOG_ONLY: dict[Main, set[str]] = {
     cards_cli.main: {"search", "changes", "show", "restrictions", "reparse-tcgplayer"},
     meta_cli.main: set(),
-    packages_cli.main: {"packages", "archetypes", "synergy", "package-synergy", "free", "squads", "package", "compare", "card"},
+    packages_cli.main: {
+        "packages",
+        "archetypes",
+        "synergy",
+        "package-synergy",
+        "free",
+        "squads",
+        "package",
+        "compare",
+        "card",
+    },
     collection_cli.main: {"check", "template"},
 }
 CATALOG_AT = datetime(2026, 10, 1, tzinfo=UTC)
@@ -176,7 +208,9 @@ CATALOG_AT = datetime(2026, 10, 1, tzinfo=UTC)
 
 def _base_packages() -> PackagesFile:
     """A saved tournament build for the base era of `drift` and `report`, so they go on to read the events."""
-    window = Window(era=EraId("gd05"), start=date(2026, 1, 1), end=None, tiers=(), events=0, decks=0, decks_not_counted=0)
+    window = Window(
+        era=EraId("gd05"), start=date(2026, 1, 1), end=None, tiers=(), events=0, decks=0, decks_not_counted=0
+    )
     return PackagesFile(generated_at=CATALOG_AT, window=window, params=DEFAULT_PARAMS, packages=(), synergy_cards=(), free_floating=(),
                         archetypes=(), squads=(), package_synergies=(), rare_cards=0)  # fmt: skip
 
@@ -207,7 +241,9 @@ def test_with_only_the_catalog_a_command_names_the_other_source_it_is_missing(
     assert "no data: card catalog" not in captured.err + captured.out
 
 
-def test_popularity_without_a_ranking_says_so_and_builds_from_events(catalog_only: None, capsys: pytest.CaptureFixture[str]) -> None:
+def test_popularity_without_a_ranking_says_so_and_builds_from_events(
+    catalog_only: None, capsys: pytest.CaptureFixture[str]
+) -> None:
     write_event(event("a", datetime(2026, 10, 2, tzinfo=UTC)))
     assert meta_cli.main(["popularity"]) == 0
     assert "no data: online ranking" in capsys.readouterr().err
@@ -228,7 +264,11 @@ def test_every_read_command_is_classified_by_the_sources_it_reads(main: Main) ->
 Reader = Callable[[Path], object]
 EMPTY_ANSWERS: list[tuple[str, Reader, object]] = [
     ("cards packages_by_printing", lambda empty: cards_store.packages_by_printing(cards_store.pages_folder()), {}),
-    ("cards load_source_pages", lambda empty: cards_store.load_source_pages(), cards_store.LoadedPages(pages=(), issues=())),
+    (
+        "cards load_source_pages",
+        lambda empty: cards_store.load_source_pages(),
+        cards_store.LoadedPages(pages=(), issues=()),
+    ),
     ("cards load_tracked_sets", lambda empty: cards_store.load_tracked_sets(empty), ()),
     ("cards load_provisional_sets", lambda empty: cards_store.load_provisional_sets(), ()),
     ("cards load_sets", lambda empty: cards_store.load_sets(empty), ()),
@@ -263,12 +303,18 @@ RAISES_NO_DATA: list[tuple[str, Reader, Kind]] = [
 ]
 
 
-@pytest.mark.parametrize(("reader", "expected"), [(r, e) for _, r, e in EMPTY_ANSWERS], ids=[n for n, _, _ in EMPTY_ANSWERS])
-def test_a_store_reader_on_an_empty_dataset_gives_its_empty_answer(reader: Reader, expected: object, tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    ("reader", "expected"), [(r, e) for _, r, e in EMPTY_ANSWERS], ids=[n for n, _, _ in EMPTY_ANSWERS]
+)
+def test_a_store_reader_on_an_empty_dataset_gives_its_empty_answer(
+    reader: Reader, expected: object, tmp_path: Path
+) -> None:
     assert reader(tmp_path) == expected
 
 
-@pytest.mark.parametrize(("reader", "kind"), [(r, k) for _, r, k in RAISES_NO_DATA], ids=[n for n, _, _ in RAISES_NO_DATA])
+@pytest.mark.parametrize(
+    ("reader", "kind"), [(r, k) for _, r, k in RAISES_NO_DATA], ids=[n for n, _, _ in RAISES_NO_DATA]
+)
 def test_a_store_reader_on_an_empty_dataset_raises_no_data(reader: Reader, kind: Kind, tmp_path: Path) -> None:
     with pytest.raises(NoData) as raised:
         reader(tmp_path)
@@ -281,7 +327,9 @@ def test_reading_a_price_dump_that_is_not_stored_raises_no_data_naming_it(tmp_pa
     with pytest.raises(NoData) as raised:
         cards_store.read_raw_dump(stamp)  # the empty raw cache: no tcgcsv folder at all
     assert raised.value.kind is Kind.PRICES and f"saved price dump {stamp}" in str(raised.value)
-    (tmp_path / "tcgcsv" / stamp).mkdir(parents=True)  # a folder without groups.json is not a stored dump (as for raw_dump_stamps)
+    (tmp_path / "tcgcsv" / stamp).mkdir(
+        parents=True
+    )  # a folder without groups.json is not a stored dump (as for raw_dump_stamps)
     with pytest.raises(NoData) as raised:
         cards_store.read_raw_dump(stamp, tmp_path)
     assert raised.value.kind is Kind.PRICES and f"saved price dump {stamp}" in str(raised.value)

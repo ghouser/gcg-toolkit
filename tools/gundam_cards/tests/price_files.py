@@ -1,4 +1,5 @@
 """Stands in for the dataset of an owner who has older per-card price snapshots (`prices/`): no command writes that format any more."""
+
 from __future__ import annotations
 
 import json

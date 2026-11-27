@@ -5,6 +5,7 @@ raw rates; no judgement) plus its **plan** (aggro / midrange / control, from `st
 archetype, so the archetype shares add up to the meta (not more), and one archetype's share is the sum of its decks' play rates in each source.
 Pure functions over decks and the card catalog.
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -42,7 +43,9 @@ def assign_archetypes(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardMo
         anchors_by_name[name].add(anchor)
 
     def label(anchor: str, name: str, plan: str) -> str:
-        if len(anchors_by_name[name]) > 1:  # two different packages share this name: a color letter tells them apart when it can
+        if (
+            len(anchors_by_name[name]) > 1
+        ):  # two different packages share this name: a color letter tells them apart when it can
             card = catalog.get(CardNumber(anchor))
             color = color_of(card) if card is not None else None
             if color is not None:
@@ -54,7 +57,9 @@ def assign_archetypes(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardMo
     for deck, lab in zip(decks, labels, strict=True):
         for source, rate in deck.rates.items():
             totals[lab][source] += rate
-    return tuple(replace(deck, archetype=lab, archetype_rates=dict(totals[lab])) for deck, lab in zip(decks, labels, strict=True))
+    return tuple(
+        replace(deck, archetype=lab, archetype_rates=dict(totals[lab])) for deck, lab in zip(decks, labels, strict=True)
+    )
 
 
 def group_archetypes(decks: Sequence[Deck]) -> list[Archetype]:
@@ -62,5 +67,8 @@ def group_archetypes(decks: Sequence[Deck]) -> list[Archetype]:
     members: dict[str, list[Deck]] = defaultdict(list)
     for deck in decks:
         members[deck.archetype].append(deck)
-    found = [Archetype(name, group[0].archetype_rates, tuple(sorted(group, key=lambda d: (-d.top_rate, d.name)))) for name, group in members.items()]
+    found = [
+        Archetype(name, group[0].archetype_rates, tuple(sorted(group, key=lambda d: (-d.top_rate, d.name))))
+        for name, group in members.items()
+    ]
     return sorted(found, key=lambda a: (-a.top_rate, a.name))

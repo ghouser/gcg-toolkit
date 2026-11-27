@@ -1,4 +1,5 @@
 """TCGPlayer prices from tcgcsv: identifying products, choosing a price per card, fetching and storing (no network)."""
+
 from __future__ import annotations
 
 import json
@@ -13,7 +14,15 @@ from shared.basetypes import CardNumber, PrintingId, ProductId, Trait
 from shared.dataset import Kind, NoData
 from shared.fetch import Response
 from tools.gundam_cards.build import SourcePage, build_card
-from tools.gundam_cards.models import CardPrice, CardRecord, CardsFile, PriceFile, PrintingPrice, PrintingPriceFile, Rarity
+from tools.gundam_cards.models import (
+    CardPrice,
+    CardRecord,
+    CardsFile,
+    PriceFile,
+    PrintingPrice,
+    PrintingPriceFile,
+    Rarity,
+)
 from tools.gundam_cards.tests.price_files import write_prices
 from tools.gundam_cards.store import load_cards_with_prices, load_prices, raw_dump_stamps, read_raw_dump
 from tools.gundam_cards.tcgcsv import (
@@ -54,13 +63,19 @@ def dump() -> RawDump:
         {"groupId": 3, "name": "Gundam Promotional Cards", "abbreviation": "GCG-PR"},
     ])  # fmt: skip
     products = {
-        1: results([
-            card(10, "V2 Gundam", "GD05-001", "Legend Rare", 1), card(11, "V2 Gundam (LR+)", "GD05-001", "LR+", 1),
-            card(12, "Booster Pack", None, None, 1), card(13, "Bad number", "GD05-1", "Common", 1),
-            card(14, "Odd rarity", "GD05-002", "Mythic", 1), card(15, "No price", "GD05-003", "Rare", 1),
-            card(16, "Not ours", "GD05-099", "Rare", 1), card(17, "Two rows", "GD05-004", "Uncommon", 1),
-            card(18, "Null price", "GD05-005", "Common", 1),
-        ]),
+        1: results(
+            [
+                card(10, "V2 Gundam", "GD05-001", "Legend Rare", 1),
+                card(11, "V2 Gundam (LR+)", "GD05-001", "LR+", 1),
+                card(12, "Booster Pack", None, None, 1),
+                card(13, "Bad number", "GD05-1", "Common", 1),
+                card(14, "Odd rarity", "GD05-002", "Mythic", 1),
+                card(15, "No price", "GD05-003", "Rare", 1),
+                card(16, "Not ours", "GD05-099", "Rare", 1),
+                card(17, "Two rows", "GD05-004", "Uncommon", 1),
+                card(18, "Null price", "GD05-005", "Common", 1),
+            ]
+        ),
         2: results([card(20, "V2 Gundam", "GD05-001", "Legend Rare", 2)]),
         3: results([card(30, "V2 Gundam promo", "GD05-001", "P", 3)]),
     }
@@ -77,8 +92,16 @@ CATALOG = [N(f"GD05-00{i}") for i in range(1, 7)]  # GD05-006 has no product at 
 
 
 def test_rarity_names_and_codes_resolve_and_a_plus_marks_an_alt_art() -> None:
-    assert parse_rarity("Legend Rare") == (Rarity.LR, 0) and parse_rarity("LR+") == (Rarity.LR, 1) and parse_rarity("LR++") == (Rarity.LR, 2)
-    assert parse_rarity("Common") == (Rarity.C, 0) and parse_rarity("C+") == (Rarity.C, 1) and parse_rarity("UC") == (Rarity.U, 0)
+    assert (
+        parse_rarity("Legend Rare") == (Rarity.LR, 0)
+        and parse_rarity("LR+") == (Rarity.LR, 1)
+        and parse_rarity("LR++") == (Rarity.LR, 2)
+    )
+    assert (
+        parse_rarity("Common") == (Rarity.C, 0)
+        and parse_rarity("C+") == (Rarity.C, 1)
+        and parse_rarity("UC") == (Rarity.U, 0)
+    )
     assert parse_rarity("Promo") == (Rarity.P, 0)  # the promo groups write the whole word
     assert parse_rarity("Mythic") == (None, 0) and parse_rarity("Mythic+") == (None, 1)
 
@@ -94,24 +117,50 @@ def test_identification_reads_numbers_alt_arts_promos_and_prices() -> None:
     assert by_id[17].price_cents == 30  # two price rows: the cheapest
     assert by_id[14].rarity is None  # an unknown rarity is reported, not dropped
     kinds = {i.kind for i in issues}
-    assert kinds == {IssueKind.BAD_NUMBER, IssueKind.UNKNOWN_RARITY, IssueKind.NULL_PRICE, IssueKind.MULTIPLE_PRICE_ROWS, IssueKind.NO_PRICE_ROW}
+    assert kinds == {
+        IssueKind.BAD_NUMBER,
+        IssueKind.UNKNOWN_RARITY,
+        IssueKind.NULL_PRICE,
+        IssueKind.MULTIPLE_PRICE_ROWS,
+        IssueKind.NO_PRICE_ROW,
+    }
 
 
 def test_a_cards_price_is_its_cheapest_non_alt_art_printings_row() -> None:
     row = partial(PrintingPrice, name="V2 Gundam", set_code="GD05", fetched_at=PULLED)
-    file = PrintingPriceFile(generated_at=PULLED, source_updated_at=UPDATED, data=(
-        row(printing_id=PrintingId("GD05-001"), price_cents=150, product_id=ProductId(10), alt_art_level=0),
-        row(printing_id=PrintingId("GD05-001_p1"), price_cents=20, product_id=ProductId(11), alt_art_level=1),  # an alt art never counts
-        row(printing_id=PrintingId("GD05-001_p2"), price_cents=120, product_id=ProductId(20), alt_art_level=0, set_code="SC01"),  # the reprint wins
-        row(printing_id=PrintingId("GD05-002_p1"), price_cents=900, product_id=ProductId(30), alt_art_level=2),  # only alt arts: no price
-        row(printing_id=PrintingId("GD05-004"), price_cents=30, product_id=ProductId(41), alt_art_level=0),
-        row(printing_id=PrintingId("GD05-004_p3"), price_cents=30, product_id=ProductId(40), alt_art_level=0),  # a tie: the lower product id
-    ))
+    file = PrintingPriceFile(
+        generated_at=PULLED,
+        source_updated_at=UPDATED,
+        data=(
+            row(printing_id=PrintingId("GD05-001"), price_cents=150, product_id=ProductId(10), alt_art_level=0),
+            row(
+                printing_id=PrintingId("GD05-001_p1"), price_cents=20, product_id=ProductId(11), alt_art_level=1
+            ),  # an alt art never counts
+            row(
+                printing_id=PrintingId("GD05-001_p2"),
+                price_cents=120,
+                product_id=ProductId(20),
+                alt_art_level=0,
+                set_code="SC01",
+            ),  # the reprint wins
+            row(
+                printing_id=PrintingId("GD05-002_p1"), price_cents=900, product_id=ProductId(30), alt_art_level=2
+            ),  # only alt arts: no price
+            row(printing_id=PrintingId("GD05-004"), price_cents=30, product_id=ProductId(41), alt_art_level=0),
+            row(
+                printing_id=PrintingId("GD05-004_p3"), price_cents=30, product_id=ProductId(40), alt_art_level=0
+            ),  # a tie: the lower product id
+        ),
+    )
     derived = card_prices_from_printings(file)
     got = {p.card_number: (p.price_cents, int(p.product_id), p.set_code, p.name) for p in derived.data}
     assert got == {N("GD05-001"): (120, 20, "SC01", "V2 Gundam"), N("GD05-004"): (30, 40, "GD05", "V2 Gundam")}
     assert [p.card_number for p in derived.data] == sorted(got)  # sorted by card number
-    assert derived.generated_at == PULLED and derived.source_updated_at == UPDATED and all(p.fetched_at == PULLED for p in derived.data)
+    assert (
+        derived.generated_at == PULLED
+        and derived.source_updated_at == UPDATED
+        and all(p.fetched_at == PULLED for p in derived.data)
+    )
 
 
 class FakeFetcher:
@@ -150,7 +199,9 @@ def test_updated_stamps_parse_and_a_changed_answer_fails_loudly() -> None:
         parse_dump(bad)
 
 
-@pytest.mark.parametrize("missing", ["1_products.json", "1_prices.json", "3_products.json", "3_prices.json"])  # first and last listed group
+@pytest.mark.parametrize(
+    "missing", ["1_products.json", "1_prices.json", "3_products.json", "3_prices.json"]
+)  # first and last listed group
 def test_a_partly_saved_dump_raises_no_data_naming_the_dump_and_the_missing_file(tmp_path: Path, missing: str) -> None:
     d = dump()
     folder = tmp_path / "tcgcsv" / stamp_of(UPDATED)
@@ -179,23 +230,34 @@ def test_a_saved_dump_reads_back_the_same(tmp_path: Path) -> None:
     assert parse_dump(read_raw_dump("20261008T200609Z", tmp_path)) == parse_dump(d)
 
 
-TRAITS = frozenset(Trait(t) for t in ("Earth Federation", "White Base Team", "G Generation", "Newtype", "Cyber-Newtype", "Teiwaz", "Tekkadan"))
+TRAITS = frozenset(
+    Trait(t)
+    for t in ("Earth Federation", "White Base Team", "G Generation", "Newtype", "Cyber-Newtype", "Teiwaz", "Tekkadan")
+)
 
 
-def test_prices_round_trip_and_join_onto_cards_without_touching_them(tmp_path: Path, page: Callable[[str], SourcePage]) -> None:
+def test_prices_round_trip_and_join_onto_cards_without_touching_them(
+    tmp_path: Path, page: Callable[[str], SourcePage]
+) -> None:
     cards = tuple(build_card([page(i)], TRAITS, {}).card for i in ("ST01-001", "GD05-111", "ST01-010"))
     records = tuple(CardRecord(number=c.number, first_recorded=PULLED, no_longer_listed=False) for c in cards)
     cards_file = CardsFile(generated_at=PULLED, data=cards, records=records)
     (tmp_path / "cards.json").write_text(cards_file.model_dump_json(), encoding="utf-8")
     before = (tmp_path / "cards.json").read_bytes()
-    assert load_prices(tmp_path) is None and all(p.latest_tcg_price is None for p in load_cards_with_prices(tmp_path))  # no prices yet
+    assert load_prices(tmp_path) is None and all(
+        p.latest_tcg_price is None for p in load_cards_with_prices(tmp_path)
+    )  # no prices yet
     row = CardPrice(card_number=N("ST01-001"), price_cents=25, product_id=ProductId(7), fetched_at=PULLED)
     file = PriceFile(generated_at=PULLED, source_updated_at=UPDATED, data=(row,))
     write_prices(file, tmp_path)
     assert load_prices(tmp_path) == file
     joined = load_cards_with_prices(tmp_path)
     assert [str(p.card.number) for p in joined] == [str(c.number) for c in cards]  # every card exactly once, in order
-    assert {str(p.card.number): p.latest_tcg_price for p in joined} == {"ST01-001": row, "GD05-111": None, "ST01-010": None}
+    assert {str(p.card.number): p.latest_tcg_price for p in joined} == {
+        "ST01-001": row,
+        "GD05-111": None,
+        "ST01-010": None,
+    }
     assert (tmp_path / "cards.json").read_bytes() == before  # a price sync never rewrites the card facts
 
 
@@ -222,7 +284,9 @@ def test_same_prices_or_same_date_add_nothing(tmp_path: Path) -> None:
     assert first is not None
     before = first.read_bytes()
     assert write_prices(_prices(PULLED, 99), tmp_path) is None  # the same date again: not rewritten
-    assert write_prices(_prices(PULLED.replace(hour=PULLED.hour + 1), 25), tmp_path) is None  # same prices, pulled later
+    assert (
+        write_prices(_prices(PULLED.replace(hour=PULLED.hour + 1), 25), tmp_path) is None
+    )  # same prices, pulled later
     assert [p.name for p in (tmp_path / "prices").iterdir()] == [first.name] and first.read_bytes() == before
 
 

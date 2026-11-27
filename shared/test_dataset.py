@@ -1,4 +1,5 @@
 """The dataset location and the shared snapshot rule (AC-2)."""
+
 from __future__ import annotations
 
 import os
@@ -23,7 +24,9 @@ def test_the_dataset_is_gcg_data_dir_when_set(tmp_path: Path, monkeypatch: pytes
     assert data_dir() == tmp_path / "elsewhere"
 
 
-def test_the_dataset_defaults_to_dot_gcg_data_in_the_home_folder(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_the_dataset_defaults_to_dot_gcg_data_in_the_home_folder(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.delenv("GCG_DATA_DIR", raising=False)
     monkeypatch.setenv("HOME", str(tmp_path))
     assert data_dir() == tmp_path / ".gcg" / "data"
@@ -59,7 +62,9 @@ def test_a_second_store_on_the_same_utc_day_adds_nothing_even_with_other_data(tm
     first = add_snapshot(tmp_path, snapshot_key(morning), "one\n", _never_same)
     assert first is not None
     assert add_snapshot(tmp_path, snapshot_key(morning.replace(hour=23, minute=59)), "other\n", _never_same) is None
-    late_west = datetime(2026, 10, 1, 19, 0, tzinfo=timezone(timedelta(hours=-5)))  # Oct 2, 00:00 in UTC: the next UTC day
+    late_west = datetime(
+        2026, 10, 1, 19, 0, tzinfo=timezone(timedelta(hours=-5))
+    )  # Oct 2, 00:00 in UTC: the next UTC day
     second = add_snapshot(tmp_path, snapshot_key(late_west), "two\n", _never_same)
     assert second is not None and second.name == "2026-10-02T000000Z.json"
     assert sorted(p.name for p in tmp_path.iterdir()) == [first.name, second.name] and first.read_text() == "one\n"
@@ -91,7 +96,9 @@ def _repository_files(root: Path, skip: set[Path]) -> dict[str, tuple[int, int]]
     return found
 
 
-def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchanged(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchanged(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     ds = tmp_path / "ds"
     monkeypatch.setenv("GCG_DATA_DIR", str(ds))
     skip = {REPO_ROOT / "tools" / tool / "data" / "raw" for tool in ("gundam_cards", "gundam_meta")}
@@ -100,7 +107,9 @@ def test_every_writer_defaults_to_the_dataset_and_leaves_the_repository_unchange
     pulled = datetime(2026, 10, 9, 21, 0, tzinfo=UTC)
     row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=25, product_id=ProductId(7), fetched_at=pulled)
     price_path = write_prices(PriceFile(generated_at=pulled, source_updated_at=pulled, data=(row,)))
-    cards_store.write_catalog(CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()), pulled)
+    cards_store.write_catalog(
+        CatalogResult(cards=(unit("GD01-001", "One"),), issues=(), trait_vocabulary=frozenset()), pulled
+    )
     decks_path = meta_store.write_decks_snapshot(decks(T1))
     assert meta_store.write_snapshot(ranking(T1))
     assert meta_store.write_event(event("a", T1))

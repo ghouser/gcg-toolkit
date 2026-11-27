@@ -16,6 +16,7 @@ Input is a list of decks, each the set of cards in its **main deck** (sideboards
 5. A deck *runs* a package when it has at least `run_share` of its members (and at least two). An **archetype** is the set
    of packages a deck runs.
 """
+
 from __future__ import annotations
 
 import math
@@ -50,7 +51,9 @@ from tools.gundam_packages.synergy import SynergyGraph
 DEFAULT_PARAMS = Params(min_decks=6, mutual_threshold=0.8, run_share=0.75, bridge_share=0.5)
 CORE_SHARE = 0.9  # a member is core when it is in at least this share of the decks that run the package
 MIN_BRIDGE_DECKS = 3
-MIN_CONTROL_DECKS = 3  # decks needed to say a card is carried by another package (it is rare in the rest of the package's decks)
+MIN_CONTROL_DECKS = (
+    3  # decks needed to say a card is carried by another package (it is rare in the rest of the package's decks)
+)
 TYPICAL_SHARE = 0.5  # a card is typical of an archetype when it is in at least this share of its decks
 MAX_AFFINITIES = 3
 MAX_VARIANTS = 8
@@ -190,7 +193,8 @@ def discover(
                 deck_share=len(decks_running) / total if total else 0.0,
                 colors=pkg_colors,
                 variants=tuple(
-                    Variant(optional_members=opt, decks=n) for opt, n in sorted(variant_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:MAX_VARIANTS]
+                    Variant(optional_members=opt, decks=n)
+                    for opt, n in sorted(variant_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:MAX_VARIANTS]
                 ),
             )
         )
@@ -201,7 +205,9 @@ def discover(
     synergy_list, package_synergies = classify_synergy(
         [p.id for p in packages], members_of, running, graph, packaged, params
     )
-    synergy_cards = {h.card_number for h in synergy_list} | {b.card_number for s in package_synergies for b in s.bridges}
+    synergy_cards = {h.card_number for h in synergy_list} | {
+        b.card_number for s in package_synergies for b in s.bridges
+    }
 
     free_floating: list[FreeFloater] = []
     for card in eligible:
@@ -248,7 +254,9 @@ def discover(
         )
     archetypes.sort(key=lambda a: (-a.decks, a.packages))
     squads = _squads(eligible, frequency, decks, graph)
-    return Discovery(tuple(packages), tuple(synergy_list), tuple(free_floating), tuple(archetypes), squads, package_synergies, rare)
+    return Discovery(
+        tuple(packages), tuple(synergy_list), tuple(free_floating), tuple(archetypes), squads, package_synergies, rare
+    )
 
 
 def classify_synergy(
@@ -275,7 +283,9 @@ def classify_synergy(
         for card, n in counts.items():
             ties = graph.ties_to(card, members_of[pid])
             if ties:
-                candidates[(card, pid)] = SynergyCard(card_number=card, package=pid, decks=n, share=n / len(decks_running), edges=ties)
+                candidates[(card, pid)] = SynergyCard(
+                    card_number=card, package=pid, decks=n, share=n / len(decks_running), edges=ties
+                )
 
     package_synergies = _package_synergies(package_ids, members_of, running, graph, packaged, params)
     for synergy in package_synergies:
@@ -284,7 +294,10 @@ def classify_synergy(
                 if (bridge.card_number, own) not in candidates:
                     continue
                 without = [d for d in running[own] if not runs_package(d, members_of[other], params.run_share)]
-                if len(without) >= MIN_CONTROL_DECKS and sum(1 for d in without if bridge.card_number in d) / len(without) < params.bridge_share:
+                if (
+                    len(without) >= MIN_CONTROL_DECKS
+                    and sum(1 for d in without if bridge.card_number in d) / len(without) < params.bridge_share
+                ):
                     del candidates[(bridge.card_number, own)]
     return sorted(candidates.values(), key=lambda h: (h.package, -h.share, h.card_number)), package_synergies
 
@@ -333,7 +346,9 @@ def is_same_job_edge(e: SynergyEdge) -> bool:
     return e.kind in (SynergyKind.FUNCTIONAL_EFFECT, SynergyKind.SIMILAR_ABILITY) and e.detail.startswith("same job")
 
 
-def _maximal_cliques(nodes: Sequence[CardNumber], adjacent: dict[CardNumber, set[CardNumber]]) -> list[list[CardNumber]]:
+def _maximal_cliques(
+    nodes: Sequence[CardNumber], adjacent: dict[CardNumber, set[CardNumber]]
+) -> list[list[CardNumber]]:
     """Bron-Kerbosch with pivoting; deterministic (candidates are visited in sorted order)."""
     found: list[list[CardNumber]] = []
 
@@ -367,11 +382,17 @@ def _squads(
         if len(group) < 2:
             continue
         members = set(group)
-        kinds = sorted({e.kind for c in group for e in graph.edges_of(c) if is_same_job_edge(e) and {e.a, e.b} <= members}, key=lambda k: k.value)
+        kinds = sorted(
+            {e.kind for c in group for e in graph.edges_of(c) if is_same_job_edge(e) and {e.a, e.b} <= members},
+            key=lambda k: k.value,
+        )
         with_any = sum(1 for d in decks if members & d)
         result.append(
             Squad(
-                cards=tuple(SquadCard(card_number=c, decks=frequency[c]) for c in sorted(group, key=lambda c: (-frequency[c], c))),
+                cards=tuple(
+                    SquadCard(card_number=c, decks=frequency[c])
+                    for c in sorted(group, key=lambda c: (-frequency[c], c))
+                ),
                 decks_with_any=with_any,
                 share_with_any=with_any / len(decks) if decks else 0.0,
                 kinds=tuple(kinds),
@@ -381,5 +402,9 @@ def _squads(
 
 
 def _typical(counts: Counter[CardNumber], decks: int, allowed: set[CardNumber]) -> tuple[CardRate, ...]:
-    rated = [CardRate(card_number=c, share=n / decks) for c, n in counts.items() if c in allowed and n / decks >= TYPICAL_SHARE]
+    rated = [
+        CardRate(card_number=c, share=n / decks)
+        for c, n in counts.items()
+        if c in allowed and n / decks >= TYPICAL_SHARE
+    ]
     return tuple(sorted(rated, key=lambda r: (-r.share, r.card_number)))

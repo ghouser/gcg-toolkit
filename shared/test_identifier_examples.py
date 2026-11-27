@@ -3,6 +3,7 @@ documents (docs/catalog-export.md, Identifiers) and the toolkit's own identifier
 one matches neither. Reading the contract here is the stated exception in docs/testing.md.
 
 toolkit-hardening AC-1: an identifier with a non-ASCII digit (Arabic-Indic, fullwidth) is invalid, in the contract and in the toolkit."""
+
 from __future__ import annotations
 
 import json
@@ -24,7 +25,11 @@ INVALID = [(kind, value) for kind in TYPES for value in EXAMPLES[kind]["invalid"
 def documented_patterns() -> dict[str, re.Pattern[str]]:
     """The shape column of the contract's identifier table, by identifier."""
     text = (DOCS / "catalog-export.md").read_text(encoding="utf-8")
-    found = {ROWS[name]: re.compile(shape) for name, shape in re.findall(r"^\| ([^|]+?) \| `([^`]+)` \|", text, flags=re.M) if name in ROWS}
+    found = {
+        ROWS[name]: re.compile(shape)
+        for name, shape in re.findall(r"^\| ([^|]+?) \| `([^`]+)` \|", text, flags=re.M)
+        if name in ROWS
+    }
     assert set(found) == set(TYPES)
     return found
 

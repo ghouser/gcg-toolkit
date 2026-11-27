@@ -7,6 +7,7 @@ the pilots and Links of the deck), real decks play it at least `ALT_MIN_SHARE` a
 Squads (the packages tool) say which played cards are peers; `candidates` also finds unplayed ones in the whole catalog.
 Pure functions over the card catalog and the squads.
 """
+
 from __future__ import annotations
 
 from collections import Counter
@@ -18,7 +19,9 @@ from shared.samejob import Matcher, Standing, Verdict, link_traits_of, pilots_fr
 from tools.gundam_cards.models import CardModel, Color, UnitCard, color_of
 from tools.gundam_packages.models import Squad
 
-ALT_MIN_SHARE = 0.5  # a stand-in counts only if real decks play it at least this often compared with the card it stands in for
+ALT_MIN_SHARE = (
+    0.5  # a stand-in counts only if real decks play it at least this often compared with the card it stands in for
+)
 DECK_COLORS = 2  # a deck plays two colors
 
 
@@ -39,7 +42,9 @@ class Candidate:
     owned: int = 0  # copies of it I own (any printing)
 
 
-def main_colors(numbers: Iterable[CardNumber], catalog: Mapping[CardNumber, CardModel], limit: int = DECK_COLORS) -> frozenset[Color]:
+def main_colors(
+    numbers: Iterable[CardNumber], catalog: Mapping[CardNumber, CardModel], limit: int = DECK_COLORS
+) -> frozenset[Color]:
     """The colors a deck plays: the most common colors among its cards."""
     count = Counter(color_of(catalog[n]) for n in numbers if n in catalog)
     count.pop(None, None)
@@ -90,7 +95,10 @@ def slot_alternatives(
 
 
 def _matches(
-    card: CardNumber, required: Sequence[CardNumber], catalog: Mapping[CardNumber, CardModel], owned: Mapping[CardNumber, int]
+    card: CardNumber,
+    required: Sequence[CardNumber],
+    catalog: Mapping[CardNumber, CardModel],
+    owned: Mapping[CardNumber, int],
 ) -> list[Candidate]:
     """Every card in the catalog that can stand in for `card` against this deck's pilots and Links, excluding the cards the deck already runs."""
     if card not in catalog:
@@ -128,7 +136,10 @@ def candidates(
 
 
 def owned_alternatives(
-    card: CardNumber, required: Sequence[CardNumber], catalog: Mapping[CardNumber, CardModel], owned: Mapping[CardNumber, int]
+    card: CardNumber,
+    required: Sequence[CardNumber],
+    catalog: Mapping[CardNumber, CardModel],
+    owned: Mapping[CardNumber, int],
 ) -> tuple[Candidate, ...]:
     """The same-job alternatives to `card` that I already own (any price, any color; a color the deck does not play is flagged), most copies first."""
     found = [c for c in _matches(card, required, catalog, owned) if c.owned > 0]

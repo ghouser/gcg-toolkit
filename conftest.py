@@ -12,6 +12,7 @@ No test touches the cards and meta tools' real raw caches or the cards, meta, pa
 GCG_DATA_DIR (real-data tests see it as it is). Each test's folder holds a copy of the tracked set list and restrictions file, the
 tracked inputs that tests read; a test that writes them writes the copy.
 """
+
 from __future__ import annotations
 
 import os
@@ -43,7 +44,9 @@ def _tool_data_folder(folder: Path) -> Path:
 
 def pytest_configure(config: pytest.Config) -> None:
     if not REAL_DATA:
-        os.environ[ENV_VAR] = tempfile.mkdtemp(prefix="gcg-test-data-")  # seen by skip conditions evaluated at collection
+        os.environ[ENV_VAR] = tempfile.mkdtemp(
+            prefix="gcg-test-data-"
+        )  # seen by skip conditions evaluated at collection
         os.environ[TOOL_DATA_VAR] = str(_tool_data_folder(Path(tempfile.mkdtemp(prefix="gcg-test-tool-data-"))))
 
 
@@ -57,7 +60,9 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
 
 
 @pytest.fixture(autouse=True)
-def _empty_dataset(request: pytest.FixtureRequest, tmp_path_factory: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch) -> Path | None:
+def _empty_dataset(
+    request: pytest.FixtureRequest, tmp_path_factory: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch
+) -> Path | None:
     monkeypatch.setenv(CATALOG_FILE_VAR, str(tmp_path_factory.mktemp("gcg-export") / "catalog.json"))
     monkeypatch.setenv(COLLECTION_FILE_VAR, str(tmp_path_factory.mktemp("gcg-collection") / "collection.json"))
     if REAL_DATA and request.node.get_closest_marker("real_data") is not None:

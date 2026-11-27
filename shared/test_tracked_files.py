@@ -1,5 +1,6 @@
 """AC-5: the source data is no longer tracked by git and is ignored; the set list, the restrictions file and the analysis outputs stay
 tracked. Skipped outside a git checkout."""
+
 from __future__ import annotations
 
 import shutil
@@ -16,7 +17,8 @@ def _git(*args: str) -> subprocess.CompletedProcess[str]:
 
 
 pytestmark = pytest.mark.skipif(
-    shutil.which("git") is None or _git("rev-parse", "--is-inside-work-tree").stdout.strip() != "true", reason="not inside a git checkout"
+    shutil.which("git") is None or _git("rev-parse", "--is-inside-work-tree").stdout.strip() != "true",
+    reason="not inside a git checkout",
 )
 
 CARDS, META, PACKAGES = "shared/data/gundam_cards", "shared/data/gundam_meta", "shared/data/gundam_packages"

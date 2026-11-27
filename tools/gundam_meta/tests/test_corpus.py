@@ -2,6 +2,7 @@
 
 These pin facts of the 2026-10-06 sync (184 DuelFrontier events, 83 EGM events). Update deliberately when data is added.
 """
+
 from __future__ import annotations
 
 import tempfile
@@ -51,7 +52,9 @@ def test_counted_decks_are_50_card_main_decks() -> None:
 
 @needs_data
 def test_the_only_uncounted_decks_are_private_ones() -> None:
-    causes = Counter("unresolved" if d.unresolved else "private" for e in load_events() for d in e.decks if not d.counted)
+    causes = Counter(
+        "unresolved" if d.unresolved else "private" for e in load_events() for d in e.decks if not d.counted
+    )
     assert causes["unresolved"] == 0  # EGM's "A|B" main/sideboard boundary is understood now
     assert causes["private"] >= 1
 

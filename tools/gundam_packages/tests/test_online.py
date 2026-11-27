@@ -1,4 +1,5 @@
 """Online decks: the weighted example lists as whole decks, the same analysis, and comparing packages across sources."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -20,7 +21,11 @@ A, B, C = N("GD01-001"), N("GD01-002"), N("GD01-003")
 
 
 def lst(cards: dict[CardNumber, int], share: float | None) -> ExampleList:
-    return ExampleList(url=f"https://x/?deck={sorted(cards)}", cards=tuple(DeckCard(card_number=c, qty=q) for c, q in cards.items()), share=share)
+    return ExampleList(
+        url=f"https://x/?deck={sorted(cards)}",
+        cards=tuple(DeckCard(card_number=c, qty=q) for c, q in cards.items()),
+        share=share,
+    )
 
 
 def snapshot(*archetypes: ExampleArchetype) -> ExampleDecksSnapshot:
@@ -37,7 +42,9 @@ def test_apportion_gives_whole_numbers_that_add_up_exactly() -> None:
 
 def test_online_decks_are_the_lists_repeated_in_proportion_to_games_times_share() -> None:
     cards = catalog(unit("GD01-001", "A"), unit("GD01-002", "B"), unit("GD01-003", "C"))
-    big = ExampleArchetype(slug="big", name="Big", games=300, sides_analyzed=500, lists=(lst({A: 4, B: 2}, 0.7), lst({A: 4, C: 1}, 0.3)))
+    big = ExampleArchetype(
+        slug="big", name="Big", games=300, sides_analyzed=500, lists=(lst({A: 4, B: 2}, 0.7), lst({A: 4, C: 1}, 0.3))
+    )
     small = ExampleArchetype(slug="small", name="Small", games=100, sides_analyzed=80, lists=(lst({B: 4}, 1.0),))
     no_shares = ExampleArchetype(slug="none", name="None", games=999, sides_analyzed=None, lists=(lst({C: 4}, None),))
     decks, used = online_copy_decks(snapshot(big, small, no_shares), cards)
@@ -49,7 +56,9 @@ def test_online_decks_are_the_lists_repeated_in_proportion_to_games_times_share(
 def test_online_decks_keep_only_deck_cards_of_the_catalog() -> None:
     cards = catalog(unit("GD01-001", "A"))
     resource = N("R-001")
-    arch = ExampleArchetype(slug="x", name="X", games=10, sides_analyzed=5, lists=(lst({A: 4, resource: 2, N("GD09-999"): 1}, 1.0),))
+    arch = ExampleArchetype(
+        slug="x", name="X", games=10, sides_analyzed=5, lists=(lst({A: 4, resource: 2, N("GD09-999"): 1}, 1.0),)
+    )
     decks, _ = online_copy_decks(snapshot(arch), cards, total=100)
     assert decks == [{A: 4}] * 100
     assert CardKind.RESOURCE.is_deck_card is False
@@ -69,8 +78,16 @@ def test_online_and_tournament_files_are_kept_apart(tmp_path: Path) -> None:
 
 
 def test_packages_match_across_sources_by_the_cards_they_share() -> None:
-    left = {PackageId("l1"): frozenset({A, B, C}), PackageId("l2"): frozenset({N("GD02-001"), N("GD02-002")}), PackageId("l3"): frozenset({N("GD09-001")})}
-    right = {PackageId("r1"): frozenset({A, B, C, N("GD01-004")}), PackageId("r2"): frozenset({N("GD02-001"), N("GD02-002")}), PackageId("r3"): frozenset({N("GD07-001")})}
+    left = {
+        PackageId("l1"): frozenset({A, B, C}),
+        PackageId("l2"): frozenset({N("GD02-001"), N("GD02-002")}),
+        PackageId("l3"): frozenset({N("GD09-001")}),
+    }
+    right = {
+        PackageId("r1"): frozenset({A, B, C, N("GD01-004")}),
+        PackageId("r2"): frozenset({N("GD02-001"), N("GD02-002")}),
+        PackageId("r3"): frozenset({N("GD07-001")}),
+    }
     pairs, left_only, right_only = match_packages(left, right)
     assert [(a, b, round(s, 2)) for a, b, s in pairs] == [("l2", "r2", 1.0), ("l1", "r1", 0.75)]
     assert left_only == ("l3",) and right_only == ("r3",)

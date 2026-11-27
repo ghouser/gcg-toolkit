@@ -6,6 +6,7 @@ repository), resolved the same way.
 History rules shared by the stores: a dated snapshot is added at most once per UTC day and never rewritten (see `add_snapshot`).
 Backstop: while the test suite runs, every file writer refuses a path inside the real `~/.gcg` (see `refuse_real_data_write`).
 """
+
 from __future__ import annotations
 
 import os
@@ -47,8 +48,10 @@ def refuse_real_data_write(path: Path) -> None:
     real = (Path.home() / ".gcg").resolve()
     target = path.resolve()
     if target == real or real in target.parents:
-        raise RealDataWrite(f"refused to write {path}: the test suite is running and this is inside the real {real} folder "
-                            "(tests write only to temp folders: GCG_DATA_DIR, GCG_CATALOG_FILE); nothing was written")
+        raise RealDataWrite(
+            f"refused to write {path}: the test suite is running and this is inside the real {real} folder "
+            "(tests write only to temp folders: GCG_DATA_DIR, GCG_CATALOG_FILE); nothing was written"
+        )
 
 
 class Kind(StrEnum):

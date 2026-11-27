@@ -2,6 +2,7 @@
 
 For a Unit the ability is a bonus ("we want *an* ability, not necessarily the same one"), so any gained good-to-have pays for any lost one.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

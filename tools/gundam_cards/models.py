@@ -2,6 +2,7 @@
 
 Terminology follows the game's Comprehensive Rules: trait, keyword, Link Unit, Pilot.
 """
+
 from __future__ import annotations
 
 import re
@@ -185,7 +186,9 @@ class Printing(FrozenModel):
     block: Block | None
     source_title: SourceTitle | None  # per printing: alt arts often show a different series
     where_to_get: str  # raw free text
-    set_code: SetCode | None  # PROMO if where_to_get names an event (events.py), else "[CODE]" in where_to_get, else the reviewed sets.json code of its first known package; None if neither
+    set_code: (
+        SetCode | None
+    )  # PROMO if where_to_get names an event (events.py), else "[CODE]" in where_to_get, else the reviewed sets.json code of its first known package; None if neither
     package_ids: tuple[PackageId, ...]
     image_url: str | None
 
@@ -246,7 +249,9 @@ class CardBase(FrozenModel):
         # lists as alt arts, e.g. R-001) the lowest-numbered alt art.
         variants = [p.variant for p in self.printings]
         if variants != sorted(variants, key=lambda v: -1 if v is None else v):
-            raise ValueError(f"printings must be ordered base first, then by variant: {[str(p.id) for p in self.printings]}")
+            raise ValueError(
+                f"printings must be ordered base first, then by variant: {[str(p.id) for p in self.printings]}"
+            )
         for printing in self.printings:
             if printing.id.card_number != self.number:
                 raise ValueError(f"printing {printing.id} does not belong to {self.number}")
@@ -326,12 +331,28 @@ class BaseTokenCard(CardBase):
 
 
 Card = Annotated[
-    UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard | BaseTokenCard,
+    UnitCard
+    | PilotCard
+    | CommandCard
+    | BaseCard
+    | ExBaseCard
+    | ResourceCard
+    | ExResourceCard
+    | UnitTokenCard
+    | BaseTokenCard,
     Field(discriminator="kind"),
 ]
 
 CardModel = (
-    UnitCard | PilotCard | CommandCard | BaseCard | ExBaseCard | ResourceCard | ExResourceCard | UnitTokenCard | BaseTokenCard
+    UnitCard
+    | PilotCard
+    | CommandCard
+    | BaseCard
+    | ExBaseCard
+    | ResourceCard
+    | ExResourceCard
+    | UnitTokenCard
+    | BaseTokenCard
 )
 """Union of the concrete card classes, for type annotations (use `Card` when validating)."""
 
@@ -433,7 +454,9 @@ class CardPrice(FrozenModel):
     """The latest TCGPlayer market price for one card. Also exactly one row of a future price history (a time series of these)."""
 
     card_number: CardNumber  # the join key to the master card model
-    price_cents: int = Field(ge=0)  # tcgcsv marketPrice of the cheapest non-alt-art, non-promo product, converted once with round(x * 100)
+    price_cents: int = Field(
+        ge=0
+    )  # tcgcsv marketPrice of the cheapest non-alt-art, non-promo product, converted once with round(x * 100)
     product_id: ProductId  # the product that price comes from (audit: which printing)
     name: str = ""  # TCGPlayer's own name for that product ("Char's Gelgoog"): what a Mass Entry line needs
     set_code: str = ""  # that product's set abbreviation ("GD01"; "GD01_b" is the Edition Beta printing)
@@ -443,7 +466,9 @@ class CardPrice(FrozenModel):
 class PriceFile(FrozenModel):
     """`prices/<generated_at>.json` in the dataset: one dated per-card price snapshot (the older format, no longer written; `PrintingPriceFile` replaces it), one row per priced card, sorted by card number. A card with no price has no row."""
 
-    schema_version: Literal[2] = 2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
+    schema_version: Literal[2] = (
+        2  # 2: each price row also carries the product's name and set code (for Mass Entry lines)
+    )
     generated_at: datetime
     source_updated_at: datetime  # tcgcsv `last-updated.txt` for the dump these prices come from
     data: tuple[CardPrice, ...]
@@ -457,7 +482,9 @@ class PrintingPrice(FrozenModel):
     product_id: ProductId  # the TCGPlayer product it comes from (audit)
     name: str  # TCGPlayer's own name for that product: what a Mass Entry line needs
     set_code: str  # that product's group abbreviation ("GD01"; "GD01_b" is the Edition Beta printing)
-    alt_art_level: int = Field(ge=0, le=2)  # the printing's own, 0 for a normal art: the per-card price is the cheapest level-0 row
+    alt_art_level: int = Field(
+        ge=0, le=2
+    )  # the printing's own, 0 for a normal art: the per-card price is the cheapest level-0 row
     fetched_at: datetime  # when we pulled it (UTC)
 
 
@@ -530,7 +557,9 @@ class Restrictions(FrozenModel):
     limited: tuple[LimitedCard, ...]  # restricted: at most N copies
     banned_pairs: tuple[BannedPair, ...]
     vanilla_description: str  # the page's words for the vanilla group
-    vanilla_group: tuple[CardNumber, ...]  # the cards the page lists as matching it (the rule is the description, matched against the catalog)
+    vanilla_group: tuple[
+        CardNumber, ...
+    ]  # the cards the page lists as matching it (the rule is the description, matched against the catalog)
     group_max_copies: int = 4  # of one card of the vanilla group
 
 

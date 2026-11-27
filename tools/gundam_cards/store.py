@@ -7,6 +7,7 @@
 - The catalog, its vocabularies and the price snapshots live in the local dataset (`data_out_dir()`, see `shared/dataset.py`).
   The catalog only grows; price snapshots are added, never rewritten.
 """
+
 from __future__ import annotations
 
 import json
@@ -87,7 +88,9 @@ def packages_by_printing(raw_dir: Path) -> dict[PrintingId, tuple[PackageId, ...
     return {k: tuple(v) for k, v in inverted.items()}
 
 
-def load_source_pages(raw_dir: Path | None = None, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None) -> LoadedPages:
+def load_source_pages(
+    raw_dir: Path | None = None, packages_of: dict[PrintingId, tuple[PackageId, ...]] | None = None
+) -> LoadedPages:
     """Parse every cached detail page. Pages that can't be parsed become issues. Each printing's packages come from `packages_of`,
     or from the cached list pages when it is not given."""
     raw_dir = raw_dir or pages_folder()
@@ -126,7 +129,10 @@ def write_provisional_sets(sets: tuple[CardSet, ...], generated_at: datetime, ou
     ordered = tuple(sorted(sets, key=lambda s: str(s.code)))
     if ordered == load_provisional_sets(out_dir):
         return False
-    write_atomic((out_dir or data_out_dir()) / "provisional_sets.json", _pretty(SetsFile(generated_at=generated_at, data=ordered).model_dump_json()))
+    write_atomic(
+        (out_dir or data_out_dir()) / "provisional_sets.json",
+        _pretty(SetsFile(generated_at=generated_at, data=ordered).model_dump_json()),
+    )
     return True
 
 
@@ -162,7 +168,10 @@ def load_catalog_or_fail(out_dir: Path | None = None) -> CardsFile:
 
 
 def merge_catalog(
-    stored: CardsFile | None, cards: tuple[Card, ...], generated_at: datetime, listed: frozenset[CardNumber] | None = None
+    stored: CardsFile | None,
+    cards: tuple[Card, ...],
+    generated_at: datetime,
+    listed: frozenset[CardNumber] | None = None,
 ) -> CardsFile:
     """Append-only: every stored card stays. A card in `cards` takes its new data and keeps its first-recorded date; a stored card
     missing from `cards` keeps its last data; a new card is first recorded now. Sorted by number.
@@ -181,13 +190,21 @@ def merge_catalog(
         old = old_records.get(n)
         first = old.first_recorded if old else generated_at
         if listed is None:
-            return CardRecord(number=n, first_recorded=first, no_longer_listed=old.no_longer_listed if old else False,
-                              missed_once=old.missed_once if old else False)
+            return CardRecord(
+                number=n,
+                first_recorded=first,
+                no_longer_listed=old.no_longer_listed if old else False,
+                missed_once=old.missed_once if old else False,
+            )
         if n in listed or old is None:
             return CardRecord(number=n, first_recorded=first, no_longer_listed=False, missed_once=False)
-        return CardRecord(number=n, first_recorded=first, no_longer_listed=old.no_longer_listed or old.missed_once, missed_once=True)
+        return CardRecord(
+            number=n, first_recorded=first, no_longer_listed=old.no_longer_listed or old.missed_once, missed_once=True
+        )
 
-    return CardsFile(generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=tuple(record(n) for n in numbers))
+    return CardsFile(
+        generated_at=generated_at, data=tuple(merged[n] for n in numbers), records=tuple(record(n) for n in numbers)
+    )
 
 
 def write_catalog(result: CatalogResult, generated_at: datetime, out_dir: Path | None = None) -> None:
@@ -226,7 +243,10 @@ def save_catalog(cards: CardsFile, out_dir: Path | None = None) -> None:
 # ---- prices (tcgcsv) -------------------------------------------------------------------------------------------------
 def load_price_history(out_dir: Path | None = None) -> tuple[PriceFile, ...]:
     """Every stored per-card price snapshot (the older format, in `prices/`), oldest first (empty when there are none)."""
-    return tuple(PriceFile.model_validate_json(p.read_text(encoding="utf-8")) for p in snapshot_paths((out_dir or data_out_dir()) / "prices"))
+    return tuple(
+        PriceFile.model_validate_json(p.read_text(encoding="utf-8"))
+        for p in snapshot_paths((out_dir or data_out_dir()) / "prices")
+    )
 
 
 def _load_card_prices(out_dir: Path | None = None) -> PriceFile | None:
@@ -245,7 +265,9 @@ def write_printing_prices(file: PrintingPriceFile, out_dir: Path | None = None) 
     already or the newest snapshot has the same prices. The older per-card snapshots are never touched."""
     same = _printing_price_content(file)
     return add_snapshot(
-        (out_dir or data_out_dir()) / "printing_prices", snapshot_key(file.generated_at), _pretty(file.model_dump_json()),
+        (out_dir or data_out_dir()) / "printing_prices",
+        snapshot_key(file.generated_at),
+        _pretty(file.model_dump_json()),
         lambda text: _printing_price_content(PrintingPriceFile.model_validate_json(text)) == same,
     )
 
@@ -292,7 +314,9 @@ def load_cards_with_prices(out_dir: Path | None = None) -> tuple[PricedCard, ...
 
 def raw_dump_stamps(raw_dir: Path | None = None) -> tuple[str, ...]:
     """The saved tcgcsv dumps (`20261008T200609Z`), oldest first."""
-    return tuple(sorted(p.name for p in ((raw_dir or raw_folder()) / "tcgcsv").glob("*Z") if (p / "groups.json").is_file()))
+    return tuple(
+        sorted(p.name for p in ((raw_dir or raw_folder()) / "tcgcsv").glob("*Z") if (p / "groups.json").is_file())
+    )
 
 
 def read_raw_dump(stamp: str, raw_dir: Path | None = None) -> RawDump:

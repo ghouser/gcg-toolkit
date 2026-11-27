@@ -6,6 +6,7 @@
 - Retries transient failures (429, 5xx, connection errors) with exponential backoff, then raises `FetchError`.
 - Cache writes are atomic (temp file, then rename), and refused inside the real `~/.gcg` while tests run (`shared/dataset.py`).
 """
+
 from __future__ import annotations
 
 import time

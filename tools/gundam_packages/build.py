@@ -1,4 +1,5 @@
 """From stored tournament events to a `PackagesFile`: choose the window's decks, discover, describe."""
+
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
@@ -14,14 +15,18 @@ from tools.gundam_packages.synergy import SynergyGraph, build_graph
 
 ALL_TIERS = (Tier.MAJOR, Tier.LOCAL)
 ONLINE_TOTAL = 10_000  # online decks are counted in whole "pseudo-decks" per this many (so each is 0.01% of the field)
-ONLINE_PARAMS = Params(min_decks=50, mutual_threshold=0.8, run_share=0.75, bridge_share=0.5)  # 50 of 10,000 = a card in 0.5% of the field
+ONLINE_PARAMS = Params(
+    min_decks=50, mutual_threshold=0.8, run_share=0.75, bridge_share=0.5
+)  # 50 of 10,000 = a card in 0.5% of the field
 
 
 def window_events(events: Sequence[Event], era: Era, tiers: Sequence[Tier]) -> list[Event]:
     return [e for e in events if e.tier in tiers and era.contains(e.start_date)]
 
 
-def copy_decks(events: Sequence[Event], cards: Mapping[CardNumber, CardModel]) -> tuple[list[Mapping[CardNumber, int]], int]:
+def copy_decks(
+    events: Sequence[Event], cards: Mapping[CardNumber, CardModel]
+) -> tuple[list[Mapping[CardNumber, int]], int]:
     """Each counted deck's **main deck** as card -> copies (resources, EX cards and tokens left out), and the number of decks that
     couldn't be counted. Sideboards are separate tech and are not part of a deck's identity here."""
     decks: list[Mapping[CardNumber, int]] = []
@@ -46,7 +51,15 @@ def deck_sets(events: Sequence[Event], cards: Mapping[CardNumber, CardModel]) ->
 
 
 def make_window(era: Era, tiers: Sequence[Tier], events: Sequence[Event], decks: int, not_counted: int) -> Window:
-    return Window(era=era.id, start=era.start, end=era.end, tiers=tuple(tiers), events=len(events), decks=decks, decks_not_counted=not_counted)
+    return Window(
+        era=era.id,
+        start=era.start,
+        end=era.end,
+        tiers=tuple(tiers),
+        events=len(events),
+        decks=decks,
+        decks_not_counted=not_counted,
+    )
 
 
 def card_colors(cards: Mapping[CardNumber, CardModel]) -> dict[CardNumber, Color | None]:
@@ -82,13 +95,23 @@ def online_copy_decks(
         if n == 0:
             continue
         used += 1
-        mapping = {c.card_number: c.qty for c in lst.cards if c.card_number in cards and cards[c.card_number].kind.is_deck_card}
+        mapping = {
+            c.card_number: c.qty for c in lst.cards if c.card_number in cards and cards[c.card_number].kind.is_deck_card
+        }
         decks.extend([mapping] * n)
     return decks, used
 
 
 def online_window(snapshot: ExampleDecksSnapshot, decks: int) -> Window:
-    return Window(era=None, start=snapshot.fetched_at.date() - timedelta(days=snapshot.window_days), end=None, tiers=(), events=0, decks=decks, decks_not_counted=0)
+    return Window(
+        era=None,
+        start=snapshot.fetched_at.date() - timedelta(days=snapshot.window_days),
+        end=None,
+        tiers=(),
+        events=0,
+        decks=decks,
+        decks_not_counted=0,
+    )
 
 
 def build_packages(
@@ -104,7 +127,9 @@ def build_packages(
     """Packages, synergy and free-floating cards, and archetypes for one era. `all_events` should already be de-duplicated."""
     events = window_events(all_events, era, tiers)
     decks, not_counted = deck_sets(events, cards)
-    return build_from_decks(decks, make_window(era, tiers, events, len(decks), not_counted), cards, params, overrides, generated_at, graph)
+    return build_from_decks(
+        decks, make_window(era, tiers, events, len(decks), not_counted), cards, params, overrides, generated_at, graph
+    )
 
 
 def build_from_decks(

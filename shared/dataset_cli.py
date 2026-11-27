@@ -4,6 +4,7 @@
 
 The dataset folder is $GCG_DATA_DIR, or ~/.gcg/data when it is unset (see shared/dataset.py).
 """
+
 from __future__ import annotations
 
 import argparse

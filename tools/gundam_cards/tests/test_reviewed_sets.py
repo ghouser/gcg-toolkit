@@ -3,6 +3,7 @@ it byte-identical; a set it lacks goes into the dataset's provisional record (a 
 lists, or lists differently, stays as it is and gets one informational line, with the exit code unchanged.
 
 Bandai is the fake from test_catalog_refresh (no network); the commands run through `main`, in the root conftest's temp folders."""
+
 from __future__ import annotations
 
 import json
@@ -15,7 +16,13 @@ from shared.basetypes import CardNumber, PackageId, SetCode
 from tools.gundam_cards import cli
 from tools.gundam_cards.models import CardSet, SetKind, SetsFile
 from tools.gundam_cards.sets import reviewed_set_notes
-from tools.gundam_cards.store import catalog_export_path, load_catalog, load_provisional_sets, pages_folder, tracked_folder
+from tools.gundam_cards.store import (
+    catalog_export_path,
+    load_catalog,
+    load_provisional_sets,
+    pages_folder,
+    tracked_folder,
+)
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail
 
 GD01, GD09, PB04 = "616101", "616109", "616904"
@@ -46,7 +53,11 @@ def sets_json() -> Path:
 def tracked() -> bytes:
     """The reviewed sets.json in the temp tracked folder; its bytes, to compare after each run."""
     sets_json().write_text(
-        json.dumps(json.loads(SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=reviewed()).model_dump_json()), indent=1) + "\n",
+        json.dumps(
+            json.loads(SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=reviewed()).model_dump_json()),
+            indent=1,
+        )
+        + "\n",
         encoding="utf-8",
     )
     return sets_json().read_bytes()
@@ -91,8 +102,14 @@ def test_a_rebuild_leaves_sets_json_byte_identical_and_proposes_new_sets(
     assert sets_json().read_bytes() == tracked
     assert_reported_once(out)
     found = provisional()
-    assert set(found) >= {"GD09", "PB04"} and "GD01" not in found and "PB03" not in found  # Bandai's GD01 is recorded nowhere
-    assert (found["GD09"].kind, found["GD09"].name, found["GD09"].release_date) == (SetKind.BOOSTER, "Future Pack", date(2027, 3, 5))
+    assert (
+        set(found) >= {"GD09", "PB04"} and "GD01" not in found and "PB03" not in found
+    )  # Bandai's GD01 is recorded nowhere
+    assert (found["GD09"].kind, found["GD09"].name, found["GD09"].release_date) == (
+        SetKind.BOOSTER,
+        "Future Pack",
+        date(2027, 3, 5),
+    )
     assert found["PB04"].kind is SetKind.PROMO  # a new PB code is a promo set
     if argv != ["sync", "--only", "sets"]:  # the runs that rebuild the catalog
         assert gd01_as_of() == date(2025, 7, 25)  # the sets.json date, not Bandai's August 1
@@ -104,7 +121,9 @@ def test_reparse_and_refetch_leave_sets_json_byte_identical_and_take_release_dat
     assert cli.main(["sync"]) == 0  # caches the pages
     capsys.readouterr()
     for argv in (["reparse"], ["refetch", "--card", "GD01-001"]):
-        site.details["GD01-001"] = detail("GD01-001", name="Renamed on Bandai")  # so the refetch finds a change and reparses
+        site.details["GD01-001"] = detail(
+            "GD01-001", name="Renamed on Bandai"
+        )  # so the refetch finds a change and reparses
         assert cli.main(argv) == 0
         out = capsys.readouterr().out
         assert sets_json().read_bytes() == tracked
@@ -112,14 +131,20 @@ def test_reparse_and_refetch_leave_sets_json_byte_identical_and_take_release_dat
     assert gd01_as_of() == date(2025, 7, 25)  # the sets.json date, not Bandai's August 1
 
 
-def test_a_matching_list_gives_the_same_exit_code_and_no_report_line(site: Bandai, capsys: pytest.CaptureFixture[str]) -> None:
+def test_a_matching_list_gives_the_same_exit_code_and_no_report_line(
+    site: Bandai, capsys: pytest.CaptureFixture[str]
+) -> None:
     gd01 = reviewed()[0].model_copy(update={"name": "Newtype Rising", "release_date": date(2025, 8, 1)})
-    sets_json().write_text(SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=(gd01,)).model_dump_json(), encoding="utf-8")
+    sets_json().write_text(
+        SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=(gd01,)).model_dump_json(), encoding="utf-8"
+    )
     assert cli.main(["sync", "--only", "sets"]) == 0
     assert "reviewed set" not in capsys.readouterr().out
 
 
-def test_a_later_rebuild_updates_a_provisional_set_and_keeps_one_bandai_no_longer_lists(tracked: bytes, site: Bandai) -> None:
+def test_a_later_rebuild_updates_a_provisional_set_and_keeps_one_bandai_no_longer_lists(
+    tracked: bytes, site: Bandai
+) -> None:
     assert cli.main(["sync", "--only", "sets"]) == 0
     site.packages[GD09] = ("Future Pack Renamed [GD09]", ["GD09-001"])
     site.products[1] = ("Future Pack Renamed [GD09]", "March 5,2027")
@@ -137,7 +162,9 @@ def test_the_export_still_builds_with_a_reviewed_set_bandai_does_not_list(tracke
     assert {"GD01", "PB03", "GD09", "PB04"} <= codes
 
 
-def test_with_no_tracked_set_list_every_set_is_proposed_and_none_is_created(site: Bandai, capsys: pytest.CaptureFixture[str]) -> None:
+def test_with_no_tracked_set_list_every_set_is_proposed_and_none_is_created(
+    site: Bandai, capsys: pytest.CaptureFixture[str]
+) -> None:
     sets_json().unlink()  # the root conftest's copy
     assert cli.main(["sync", "--only", "sets"]) == 0
     assert not sets_json().exists()
@@ -156,7 +183,9 @@ def test_with_no_tracked_set_list_every_set_is_proposed_and_none_is_created(site
 ], ids=lambda v: v if isinstance(v, str) else "")  # fmt: skip
 def test_each_compared_field_is_named_when_bandai_differs(change: dict[str, object], label: str) -> None:
     mine = reviewed()[0]
-    assert reviewed_set_notes((mine,), (mine.model_copy(update=change),)) == (f"reviewed set GD01 differs from Bandai: {label}",)
+    assert reviewed_set_notes((mine,), (mine.model_copy(update=change),)) == (
+        f"reviewed set GD01 differs from Bandai: {label}",
+    )
     assert reviewed_set_notes((mine,), (mine,)) == ()
 
 
@@ -172,7 +201,10 @@ def test_reparse_prints_a_set_build_issue_once_and_the_other_issues_unchanged(
     tracked: bytes, site: Bandai, capsys: pytest.CaptureFixture[str]
 ) -> None:
     """reparse-single-issues AC-1 (toolkit issue #17): the rebuild's issue is printed once, in reparse's own list, counted there."""
-    site.packages[GD09] = ("Future Pack [GD09]", ["GD09-001", "GD09-001_p1"])  # an alt printing whose color differs: a catalog issue
+    site.packages[GD09] = (
+        "Future Pack [GD09]",
+        ["GD09-001", "GD09-001_p1"],
+    )  # an alt printing whose color differs: a catalog issue
     site.details["GD09-001_p1"] = detail("GD09-001_p1", color="Red", where="Future Pack [GD09]")
     assert cli.main(["sync"]) == 0
     capsys.readouterr()

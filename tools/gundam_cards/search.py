@@ -3,6 +3,7 @@
 Keyword filters are meant for narrowing: search on a keyword, then read the cards to judge which really have it
 (`keywords` includes keywords a card grants or references, by design).
 """
+
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
@@ -80,5 +81,7 @@ def format_table(cards: Sequence[CardModel]) -> str:
         level, cost = level_of(card), cost_of(card)
         stats = f"Lv{level} C{cost}" if level is not None else ""
         keywords = ",".join(sorted(k.value for k in card.keywords))
-        lines.append(f"{card.number:9} {card.kind.value:11} {card.name[:34]:34} {color.value if color else '-':7} {stats:9} {keywords}")
+        lines.append(
+            f"{card.number:9} {card.kind.value:11} {card.name[:34]:34} {color.value if color else '-':7} {stats:9} {keywords}"
+        )
     return "\n".join(lines)

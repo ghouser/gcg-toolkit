@@ -6,6 +6,7 @@ Not read: nicknames set in one temp folder are not listed once the setting point
 the setting points when the command runs. Not changed: after every command the repository's collection folder has the same files with
 the same bytes and modification times. The commands run for real (`main` with arguments) over the packages fixture dataset, with the
 packages built in the temp folder."""
+
 from __future__ import annotations
 
 import json
@@ -32,7 +33,10 @@ def real_folder() -> dict[str, tuple[bytes, int]]:
 def tool_data(folder: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """`folder` as the tool data folder, with the tracked set list the eras need and the packages built in it."""
     (folder / "shared" / "data" / "gundam_cards").mkdir(parents=True)
-    shutil.copyfile(REPO / "shared" / "data" / "gundam_cards" / "sets.json", folder / "shared" / "data" / "gundam_cards" / "sets.json")
+    shutil.copyfile(
+        REPO / "shared" / "data" / "gundam_cards" / "sets.json",
+        folder / "shared" / "data" / "gundam_cards" / "sets.json",
+    )
     monkeypatch.setenv(TOOL_DATA_VAR, str(folder))
     assert packages_cli.main(["build"]) == 0
     assert packages_cli.main(["build", "--source", "online"]) == 0

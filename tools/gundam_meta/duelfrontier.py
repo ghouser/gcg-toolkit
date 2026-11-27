@@ -6,6 +6,7 @@
   Private decks answer HTTP 200 with `succeeded: false` ("not authorized to view this deck"); they are recorded, never bypassed.
 The numeric-id event route needs auth and is not used.
 """
+
 from __future__ import annotations
 
 from collections import Counter
@@ -111,7 +112,9 @@ def parse_event_page(text: str) -> tuple[tuple[ListedEvent, ...], int]:
     page = _EventPage.model_validate_json(text)
     if not page.succeeded:
         raise ValueError("DuelFrontier event list reported failure")
-    return tuple(ListedEvent(EventId(e.slug), e.startDate.date(), e.endDate.date(), e.type) for e in page.data), page.totalPages
+    return tuple(
+        ListedEvent(EventId(e.slug), e.startDate.date(), e.endDate.date(), e.type) for e in page.data
+    ), page.totalPages
 
 
 def list_events(fetcher: TextFetcher) -> tuple[ListedEvent, ...]:
@@ -134,7 +137,16 @@ def is_private(response: _DeckResponse) -> bool:
 def parse_deck(player: _Player, deck_text: str | None) -> Deck:
     """A player's deck. `deck_text` is the raw `/v1/decks/<slug>` response (None if it could not be obtained)."""
     deck_id = DeckId(player.deckSlug)
-    hidden = Deck(id=deck_id, player_name=player.name, placement=player.standing, name=None, available=False, main=(), side=(), unresolved=())
+    hidden = Deck(
+        id=deck_id,
+        player_name=player.name,
+        placement=player.standing,
+        name=None,
+        available=False,
+        main=(),
+        side=(),
+        unresolved=(),
+    )
     if deck_text is None:
         return hidden
     response = _DeckResponse.model_validate_json(deck_text)
@@ -247,7 +259,9 @@ def sync_events(
     waiting = 0
     for n, listing in enumerate(todo, start=1):
         try:
-            response = fetcher.get_text(f"{API}/events/{listing.slug}?Include=Players", cache_key=event_key(listing.slug))
+            response = fetcher.get_text(
+                f"{API}/events/{listing.slug}?Include=Players", cache_key=event_key(listing.slug)
+            )
             players = _EventResponse.model_validate_json(response.text).data.players
             deck_texts: dict[str, str | None] = {}
             for player in players:
@@ -266,5 +280,11 @@ def sync_events(
         if n % 10 == 0 or n == len(todo):
             progress(f"{n}/{len(todo)} events fetched ({len(failures)} failed)")
     skipped_incomplete = sum(1 for e in listed if e.slug not in stored and not is_complete(e.end_date, today))
-    return SyncResult(tuple(new), len(listed), sum(1 for e in listed if e.slug in stored), skipped_incomplete, waiting, tuple(failures))
-
+    return SyncResult(
+        tuple(new),
+        len(listed),
+        sum(1 for e in listed if e.slug in stored),
+        skipped_incomplete,
+        waiting,
+        tuple(failures),
+    )

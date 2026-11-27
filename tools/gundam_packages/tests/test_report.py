@@ -1,4 +1,5 @@
 """The markdown report on the synthetic world: sections, counts, and formatting."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime

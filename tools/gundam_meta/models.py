@@ -2,6 +2,7 @@
 
 See tools/gundam_meta/design.md. Card identity is always the card number; names live in the gundam_cards catalog.
 """
+
 from __future__ import annotations
 
 from datetime import date, datetime
@@ -162,7 +163,9 @@ class ExampleList(FrozenModel):
 
     url: str  # the EGM deck-builder link the list was published as
     cards: tuple[DeckCard, ...]  # main deck, parsed from the link
-    share: float | None = Field(default=None, ge=0, le=1)  # share of the archetype's analysed decks matching this list; None if unknown
+    share: float | None = Field(
+        default=None, ge=0, le=1
+    )  # share of the archetype's analysed decks matching this list; None if unknown
 
 
 class ExampleArchetype(FrozenModel):
@@ -180,7 +183,9 @@ class ExampleDecksSnapshot(FrozenModel):
     window_days: int
     season: str
     archetypes: tuple[ExampleArchetype, ...]
-    slugs_without_archetype: tuple[str, ...]  # list slugs with no matching archetype in the breakdown (reported, never guessed)
+    slugs_without_archetype: tuple[
+        str, ...
+    ]  # list slugs with no matching archetype in the breakdown (reported, never guessed)
     unresolved_lists: tuple[str, ...]  # list links we could not parse into a main deck
 
 

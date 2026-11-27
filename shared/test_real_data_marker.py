@@ -3,6 +3,7 @@
 With the variable unset nothing sees the real dataset, not even code run at collection (module level, `skipif` conditions); with it
 set, the repo's real-data tests skip rather than fail on an empty dataset.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -50,7 +51,9 @@ def project(pytester: pytest.Pytester, monkeypatch: pytest.MonkeyPatch) -> pytes
     return pytester
 
 
-def test_a_real_data_test_is_skipped_when_the_variable_is_unset(project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_a_real_data_test_is_skipped_when_the_variable_is_unset(
+    project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.delenv("GCG_TEST_REAL_DATA", raising=False)
     result = project.runpytest_subprocess("-rs")
     result.assert_outcomes(passed=1, skipped=1)
@@ -70,12 +73,16 @@ def test_with_the_variable_not_1_collection_never_sees_the_real_dataset(
     result.assert_outcomes(passed=1)  # a skip here means the skipif condition saw the real dataset
 
 
-def test_a_real_data_test_is_skipped_when_the_variable_is_not_1(project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_a_real_data_test_is_skipped_when_the_variable_is_not_1(
+    project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.setenv("GCG_TEST_REAL_DATA", "yes")
     project.runpytest_subprocess().assert_outcomes(passed=1, skipped=1)
 
 
-def test_with_the_variable_1_the_real_data_test_runs_on_the_dataset_and_the_others_keep_an_empty_one(project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_with_the_variable_1_the_real_data_test_runs_on_the_dataset_and_the_others_keep_an_empty_one(
+    project: pytest.Pytester, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.setenv("GCG_TEST_REAL_DATA", "1")
     project.runpytest_subprocess().assert_outcomes(passed=2)
 

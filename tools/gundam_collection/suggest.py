@@ -11,6 +11,7 @@ like any deck) and a pool of the next best cards. Deterministic and explainable;
    list), with only a few novel swaps (`novelty`), each labeled.
 5. The pool is the best cards left over, by kind.
 """
+
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
@@ -26,20 +27,32 @@ from tools.gundam_collection.styles import CardSignals, Plan, Style, card_signal
 MAX_COPIES = 4
 KINDS = (CardKind.UNIT, CardKind.PILOT, CardKind.COMMAND, CardKind.BASE)
 KIND_SLACK = 3  # a kind may exceed its target by this many copies
-PLAN_SCORE = {Plan.AGGRO: 70, Plan.MIDRANGE: 50, Plan.CONTROL: 30}  # the beatdown score a plan aims for (inside its band, with room)
+PLAN_SCORE = {
+    Plan.AGGRO: 70,
+    Plan.MIDRANGE: 50,
+    Plan.CONTROL: 30,
+}  # the beatdown score a plan aims for (inside its band, with room)
 MAX_SWAPS = 14
 MAX_BUNDLES = 2  # partner packages brought in whole
 BUNDLE_MIN = 0.15  # a partner package must be this strong (its share of the reference decks, plus fit) to be brought in
-PILOT_UNITS = 5  # an other pilot is ranked by the plan fit of the best Units it Links, however they are not in the deck yet
+PILOT_UNITS = (
+    5  # an other pilot is ranked by the plan fit of the best Units it Links, however they are not in the deck yet
+)
 PAIRED_HASTE = 0.2  # a Linked Unit with its pilot is usable the turn it is played: worth something to every plan
-MIN_PILOT_PAIRS = 2  # a pilot picked on its own (not with a partner package) must make at least this many Link pairs ...
+MIN_PILOT_PAIRS = (
+    2  # a pilot picked on its own (not with a partner package) must make at least this many Link pairs ...
+)
 PILOT_KEEP = 0.3  # ... or push the plan itself this much (align), else it is a filler slot and is left out
 PILOT_EXTRA = 4  # pilots that make Link pairs may exceed the usual pilot count by this many
 LINK_BONUS = 0.25  # a Linked Unit with its pilot in the deck, or a pilot that Links Units in the deck
 UNLINKED_PENALTY = 0.1  # a Linked Unit with no pilot for it: a weaker body, but real decks run them
 POOL_SIZE = 8
 FILL_FLOOR = -0.25  # a known card this badly aligned with the plan is only added to reach 50, after the better ones
-DEFAULT_SHAPE = {Plan.AGGRO: (38, 9, 2, 1), Plan.MIDRANGE: (30, 10, 8, 2), Plan.CONTROL: (24, 8, 14, 4)}  # Units, Pilots, Commands, Bases, when no found deck says
+DEFAULT_SHAPE = {
+    Plan.AGGRO: (38, 9, 2, 1),
+    Plan.MIDRANGE: (30, 10, 8, 2),
+    Plan.CONTROL: (24, 8, 14, 4),
+}  # Units, Pilots, Commands, Bases, when no found deck says
 
 
 class Prefer(StrEnum):
@@ -97,7 +110,12 @@ class Suggestion:
 
     def requirements(self) -> tuple[Requirement, ...]:
         """The 50 as a card table (the package core is core, the rest staples) so it can be rated and priced like any deck."""
-        return tuple(Requirement(p.card, Layer.CORE if p.role == "core" else Layer.STAPLE, p.copies, max(p.known, 0.01), (p.why,)) for p in self.picks)
+        return tuple(
+            Requirement(
+                p.card, Layer.CORE if p.role == "core" else Layer.STAPLE, p.copies, max(p.known, 0.01), (p.why,)
+            )
+            for p in self.picks
+        )
 
 
 def align(sig: CardSignals, plan: Plan) -> float:
@@ -118,7 +136,9 @@ def align(sig: CardSignals, plan: Plan) -> float:
     return max(-1.0, min(1.0, min(abs(aggro), 0.5) + 0.3 * sig.finisher - 0.2 * (1 if sig.is_command else 0)))
 
 
-def _known(decks: Sequence[Deck], colors: frozenset[str], signals: Mapping[CardNumber, CardSignals | None]) -> dict[CardNumber, tuple[float, int]]:
+def _known(
+    decks: Sequence[Deck], colors: frozenset[str], signals: Mapping[CardNumber, CardSignals | None]
+) -> dict[CardNumber, tuple[float, int]]:
     """Per card: how often these decks run it (weighted by how played each deck is) and the copy count they usually run."""
     total = sum(d.top_rate for d in decks)
     seen: dict[CardNumber, float] = {}
@@ -134,7 +154,10 @@ def _known(decks: Sequence[Deck], colors: frozenset[str], signals: Mapping[CardN
     for card, weight in seen.items():
         pairs = copies[card]
         mass = sum(w for w, _ in pairs)
-        out[card] = (weight / total if total else 0.0, max(1, min(MAX_COPIES, round(sum(w * n for w, n in pairs) / mass))))
+        out[card] = (
+            weight / total if total else 0.0,
+            max(1, min(MAX_COPIES, round(sum(w * n for w, n in pairs) / mass))),
+        )
     return out
 
 
@@ -166,7 +189,9 @@ def _pilot_serves(card: CardModel, chosen: Mapping[CardNumber, int], catalog: Ma
     return sum(n for c, n in chosen.items() if satisfies(catalog[c], card))
 
 
-def pairs_for(pilot: CardNumber, chosen: Mapping[CardNumber, int], catalog: Mapping[CardNumber, CardModel]) -> list[tuple[CardNumber, int]]:
+def pairs_for(
+    pilot: CardNumber, chosen: Mapping[CardNumber, int], catalog: Mapping[CardNumber, CardModel]
+) -> list[tuple[CardNumber, int]]:
     """The Linked Units in the deck that a pilot's Link is satisfied by, with their copies."""
     return [(c, n) for c, n in sorted(chosen.items()) if satisfies(catalog[c], catalog[pilot])]
 
@@ -180,23 +205,39 @@ class Bundle:
     weight: float  # the share of the reference decks that run it
 
 
-def _bundles(references: Sequence[Deck], colors: frozenset[str], signals: Mapping[CardNumber, CardSignals | None], own_package: str) -> list[Bundle]:
+def _bundles(
+    references: Sequence[Deck],
+    colors: frozenset[str],
+    signals: Mapping[CardNumber, CardSignals | None],
+    own_package: str,
+) -> list[Bundle]:
     total = sum(d.top_rate for d in references)
     found: dict[str, dict[CardNumber, int]] = {}
     weight: dict[str, float] = {}
     for d in references:
-        names = {r.why[0].removeprefix("core of ").split(";")[0] for r in d.requirements if r.why and r.why[0].startswith("core of ")}
+        names = {
+            r.why[0].removeprefix("core of ").split(";")[0]
+            for r in d.requirements
+            if r.why and r.why[0].startswith("core of ")
+        }
         for name in names - {own_package}:
             members: dict[CardNumber, int] = {}
             for r in d.requirements:
                 sig = signals.get(r.card)
-                if r.why and r.why[0].removeprefix("core of ").split(";")[0] == name and sig is not None and (sig.letter is None or sig.letter in colors):
+                if (
+                    r.why
+                    and r.why[0].removeprefix("core of ").split(";")[0] == name
+                    and sig is not None
+                    and (sig.letter is None or sig.letter in colors)
+                ):
                     members[r.card] = r.need
             if len(members) >= 2:
                 weight[name] = weight.get(name, 0.0) + d.top_rate
                 for card, need in members.items():
                     found.setdefault(name, {})[card] = max(found.get(name, {}).get(card, 0), need)
-    return sorted((Bundle(n, c, weight[n] / total if total else 0.0) for n, c in found.items()), key=lambda b: (-b.weight, b.name))
+    return sorted(
+        (Bundle(n, c, weight[n] / total if total else 0.0) for n, c in found.items()), key=lambda b: (-b.weight, b.name)
+    )
 
 
 def build_suggestion(
@@ -218,10 +259,14 @@ def build_suggestion(
     notes: list[str] = []
     same_plan = [d for d in references if style_of(d.requirements, catalog, signals).plan is plan]
     if same_plan and len(same_plan) < len(references):
-        notes.append(f"{len(references) - len(same_plan)} found deck(s) with this package are another plan and were not used for known cards")
+        notes.append(
+            f"{len(references) - len(same_plan)} found deck(s) with this package are another plan and were not used for known cards"
+        )
         references = same_plan
     elif references and not same_plan:
-        notes.append(f"no found deck with this package in these colors plays {plan.value}; the known cards come from its other plans and the plan staples")
+        notes.append(
+            f"no found deck with this package in these colors plays {plan.value}; the known cards come from its other plans and the plan staples"
+        )
     ref_known = _known(references, colors, signals)
     plan_known = _known(plan_decks, colors, signals)
     known: dict[CardNumber, tuple[float, int]] = {}
@@ -251,7 +296,11 @@ def build_suggestion(
         that pairs with Linked Units in the deck, scores higher; a Linked Unit with no pilot is a weaker body (not excluded: real decks run them)."""
         c = catalog[card]
         if isinstance(c, UnitCard) and c.link is not None:
-            return LINK_BONUS if any(isinstance(catalog[x], PilotCard) and satisfies(c, catalog[x]) for x in chosen) else -UNLINKED_PENALTY
+            return (
+                LINK_BONUS
+                if any(isinstance(catalog[x], PilotCard) and satisfies(c, catalog[x]) for x in chosen)
+                else -UNLINKED_PENALTY
+            )
         if isinstance(c, PilotCard):
             served = _pilot_serves(c, chosen, catalog)
             return LINK_BONUS * min(1.0, served / MAX_COPIES) + 0.1 * (c.ap_bonus + c.hp_bonus) / 4
@@ -273,20 +322,36 @@ def build_suggestion(
             continue
         add(card, min(copies, MAX_COPIES, rules.copy_limit(card)), "core")
     locked = set(chosen)
-    universe = [n for n, sig in signals.items() if sig is not None and (sig.letter is None or sig.letter in colors) and n not in locked and rules.copy_limit(n) > 0]
+    universe = [
+        n
+        for n, sig in signals.items()
+        if sig is not None
+        and (sig.letter is None or sig.letter in colors)
+        and n not in locked
+        and rules.copy_limit(n) > 0
+    ]
 
-    strict = [True]  # while True, a kind may not take the slots the other kinds still need for their own shape; relaxed at the end so the deck reaches 50
+    strict = [
+        True
+    ]  # while True, a kind may not take the slots the other kinds still need for their own shape; relaxed at the end so the deck reaches 50
 
     def room(kind: CardKind, extra: int = 0) -> int:
         """How many more of a kind fit: its shape plus slack, and (while strict) never so many that the other kinds cannot reach their own shape within 50."""
-        reserved = sum(max(0, shape.get(k, 0) - kind_count.get(k, 0)) for k in KINDS if k is not kind) if strict[0] else 0
-        return min(shape.get(kind, 0) + KIND_SLACK + extra - kind_count.get(kind, 0), DECK_SIZE - sum(kind_count.values()) - reserved)
+        reserved = (
+            sum(max(0, shape.get(k, 0) - kind_count.get(k, 0)) for k in KINDS if k is not kind) if strict[0] else 0
+        )
+        return min(
+            shape.get(kind, 0) + KIND_SLACK + extra - kind_count.get(kind, 0),
+            DECK_SIZE - sum(kind_count.values()) - reserved,
+        )
 
     def total() -> int:
         return sum(chosen.values())
 
     def fill(candidates: Sequence[CardNumber], tag: str, cap: int) -> None:
-        for card in sorted(candidates, key=lambda c: (-(score(c) + link_bonus(c)), c)):  # the Link bonus depends on what is in the deck so far
+        for card in sorted(
+            candidates, key=lambda c: (-(score(c) + link_bonus(c)), c)
+        ):  # the Link bonus depends on what is in the deck so far
             if total() >= DECK_SIZE or card in chosen:
                 continue
             sig = signals[card]
@@ -294,9 +359,17 @@ def build_suggestion(
             kind = catalog[card].kind
             want = known.get(card, (0.0, 0))[1] or cap
             served = _pilot_serves(catalog[card], chosen, catalog)
-            if kind is CardKind.PILOT:  # a pilot that pairs with Linked Units in the deck may go beyond the usual pilot count; one that pairs with nothing is only a stat bonus
+            if (
+                kind is CardKind.PILOT
+            ):  # a pilot that pairs with Linked Units in the deck may go beyond the usual pilot count; one that pairs with nothing is only a stat bonus
                 limit = min(want, served) if served else (1 if known.get(card, (0.0, 0))[0] >= 0.25 else 0)
-                copies = min(MAX_COPIES, limit, DECK_SIZE - total(), room(kind, PILOT_EXTRA if served else 0), rules.copy_limit(card))
+                copies = min(
+                    MAX_COPIES,
+                    limit,
+                    DECK_SIZE - total(),
+                    room(kind, PILOT_EXTRA if served else 0),
+                    rules.copy_limit(card),
+                )
             else:
                 copies = min(MAX_COPIES, want, DECK_SIZE - total(), room(kind), rules.copy_limit(card))
             if kind is CardKind.PILOT and copies < MIN_PILOT_PAIRS and align(sig, plan) < PILOT_KEEP:
@@ -306,13 +379,20 @@ def build_suggestion(
             add(card, copies, tag)
 
     def fill_by_kind(candidates: Sequence[CardNumber], tag: str, cap: int) -> None:
-        for kind in (CardKind.UNIT, CardKind.PILOT, CardKind.COMMAND, CardKind.BASE):  # Units first, then the pilots that pair with them
+        for kind in (
+            CardKind.UNIT,
+            CardKind.PILOT,
+            CardKind.COMMAND,
+            CardKind.BASE,
+        ):  # Units first, then the pilots that pair with them
             fill([c for c in candidates if catalog[c].kind is kind], tag, cap)
 
     def bring_in_bundles() -> None:
         """Partner packages from the reference decks, whole: a pilot arrives with the Units it Links (Char Aznable with Char's Z'Gok)."""
         brought = 0
-        strict[0] = False  # a partner package comes in whole; the reservation for the other kinds applies to the cards chosen one by one
+        strict[0] = (
+            False  # a partner package comes in whole; the reservation for the other kinds applies to the cards chosen one by one
+        )
         for bundle in _bundles(references, colors, signals, package):
             if brought >= MAX_BUNDLES or bundle.weight < BUNDLE_MIN:
                 continue
@@ -322,8 +402,16 @@ def build_suggestion(
             if bundle.weight + 0.3 * fit < BUNDLE_MIN or any(rules.conflicts(c, chosen) for c in members):
                 continue
             added = 0
-            for c in sorted(members, key=lambda c: (catalog[c].kind is not CardKind.PILOT, c)):  # the pilot first, so its Units are paired
-                copies = min(bundle.cards[c], MAX_COPIES, rules.copy_limit(c), DECK_SIZE - total(), room(catalog[c].kind, PILOT_EXTRA if catalog[c].kind is CardKind.PILOT else 0))
+            for c in sorted(
+                members, key=lambda c: (catalog[c].kind is not CardKind.PILOT, c)
+            ):  # the pilot first, so its Units are paired
+                copies = min(
+                    bundle.cards[c],
+                    MAX_COPIES,
+                    rules.copy_limit(c),
+                    DECK_SIZE - total(),
+                    room(catalog[c].kind, PILOT_EXTRA if catalog[c].kind is CardKind.PILOT else 0),
+                )
                 if copies > 0 and not rules.conflicts(c, chosen):
                     add(c, copies, "known", bundle.name)
                     added += 1
@@ -349,7 +437,16 @@ def build_suggestion(
         fill_by_kind(by_score, "known", 4)
 
     def requirements() -> list[Requirement]:
-        return [Requirement(c, Layer.CORE if role[c] == "core" else Layer.STAPLE, n, max(known.get(c, (0.01, 0))[0], 0.01), (role[c],)) for c, n in chosen.items()]
+        return [
+            Requirement(
+                c,
+                Layer.CORE if role[c] == "core" else Layer.STAPLE,
+                n,
+                max(known.get(c, (0.01, 0))[0], 0.01),
+                (role[c],),
+            )
+            for c, n in chosen.items()
+        ]
 
     style = style_of(requirements(), catalog, signals)
     novel_budget = round(novelty * 10)
@@ -364,7 +461,10 @@ def build_suggestion(
     while not reached(style) and swaps < MAX_SWAPS:
         novel_used = sum(1 for c in chosen if role[c] == "novel")
         best: tuple[int, CardNumber, CardNumber] | None = None
-        weakest = sorted((c for c in chosen if c not in locked), key=lambda c: (align(signals[c], plan), -known.get(c, (0.0, 0))[0], c))[:12]  # type: ignore[arg-type]
+        weakest = sorted(
+            (c for c in chosen if c not in locked),
+            key=lambda c: (align(signals[c], plan), -known.get(c, (0.0, 0))[0], c),
+        )[:12]  # type: ignore[arg-type]
         for out_card in weakest:
             out_kind = catalog[out_card].kind
             for in_card in by_score:
@@ -380,7 +480,10 @@ def build_suggestion(
                 if rules.conflicts(in_card, trial):
                     continue
                 trial[in_card] = min(copies, MAX_COPIES, rules.copy_limit(in_card))
-                rows = [Requirement(c, Layer.CORE if role.get(c) == "core" else Layer.STAPLE, n, 0.5, ()) for c, n in trial.items()]
+                rows = [
+                    Requirement(c, Layer.CORE if role.get(c) == "core" else Layer.STAPLE, n, 0.5, ())
+                    for c, n in trial.items()
+                ]
                 after = style_of(rows, catalog, signals)
                 gain = miss(style) - miss(after)
                 if gain > 0 and (best is None or gain > best[0]):
@@ -398,12 +501,33 @@ def build_suggestion(
     if broken:
         notes.append("not legal: " + "; ".join(broken))
     if not reached(style):
-        notes.append(f"stayed {style.plan.value} (beatdown {style.beatdown / 10:.1f}) instead of {plan.value}: no swap within the novelty budget moved it closer")
+        notes.append(
+            f"stayed {style.plan.value} (beatdown {style.beatdown / 10:.1f}) instead of {plan.value}: no swap within the novelty budget moved it closer"
+        )
 
     picks = tuple(
-        Pick(c, n, role[c], known.get(c, (0.0, 0))[0], align(signals[c], plan), _why(c, role[c], known, signals, plan, group.get(c, "")), group.get(c, ""))  # type: ignore[arg-type]
-        for c, n in sorted(chosen.items(), key=lambda kv: (role[kv[0]] != "core", role[kv[0]] == "novel", group.get(kv[0], "~") == "~", group.get(kv[0], ""), -known.get(kv[0], (0.0, 0))[0], kv[0]))
+        Pick(
+            c,
+            n,
+            role[c],
+            known.get(c, (0.0, 0))[0],
+            align(signals[c], plan),
+            _why(c, role[c], known, signals, plan, group.get(c, "")),
+            group.get(c, ""),
+        )  # type: ignore[arg-type]
+        for c, n in sorted(
+            chosen.items(),
+            key=lambda kv: (
+                role[kv[0]] != "core",
+                role[kv[0]] == "novel",
+                group.get(kv[0], "~") == "~",
+                group.get(kv[0], ""),
+                -known.get(kv[0], (0.0, 0))[0],
+                kv[0],
+            ),
+        )
     )
+
     def paired_fit(unit: CardNumber, pilot: PilotCard) -> float:
         """How well a Unit suits the plan once this pilot is on it: the pilot's stats added, plus a flat bonus for being usable the turn it is played."""
         base = catalog[unit]
@@ -421,21 +545,49 @@ def build_suggestion(
         in_deck = sum(chosen[u] for u in linked if u in chosen)
         fits = sorted((paired_fit(u, pilot_card) + known.get(u, (0.0, 0))[0] for u in linked), reverse=True)
         fit = sum(fits[:PILOT_UNITS]) + 0.1 * in_deck + 0.1 * (pilot_card.ap_bonus + pilot_card.hp_bonus) / 4
-        options.append(PilotOption(c, in_deck, tuple(u for u in linked if u not in chosen)[:3], known.get(c, (0.0, 0))[0], fit))
+        options.append(
+            PilotOption(c, in_deck, tuple(u for u in linked if u not in chosen)[:3], known.get(c, (0.0, 0))[0], fit)
+        )
     options.sort(key=lambda o: (-o.fit, -o.pairs_in_deck, o.card))
     pool: dict[CardKind, tuple[PoolCard, ...]] = {}
     for kind in KINDS:
         cards = [c for c in by_score if c not in chosen and catalog[c].kind is kind and not rules.conflicts(c, chosen)]
-        pool[kind] = tuple(PoolCard(c, known.get(c, (0.0, 0))[0], align(signals[c], plan), "known" if c in known else "novel") for c in cards[:POOL_SIZE])  # type: ignore[arg-type]
-    return Suggestion(package, plan, tuple(sorted(colors)), picks, pool, tuple(d.name for d in references), style, tuple(notes), link_pairs(chosen, catalog), tuple(options))
+        pool[kind] = tuple(
+            PoolCard(c, known.get(c, (0.0, 0))[0], align(signals[c], plan), "known" if c in known else "novel")
+            for c in cards[:POOL_SIZE]
+        )  # type: ignore[arg-type]
+    return Suggestion(
+        package,
+        plan,
+        tuple(sorted(colors)),
+        picks,
+        pool,
+        tuple(d.name for d in references),
+        style,
+        tuple(notes),
+        link_pairs(chosen, catalog),
+        tuple(options),
+    )
 
 
-def _why(card: CardNumber, role: str, known: Mapping[CardNumber, tuple[float, int]], signals: Mapping[CardNumber, CardSignals | None], plan: Plan, bundle: str = "") -> str:
+def _why(
+    card: CardNumber,
+    role: str,
+    known: Mapping[CardNumber, tuple[float, int]],
+    signals: Mapping[CardNumber, CardSignals | None],
+    plan: Plan,
+    bundle: str = "",
+) -> str:
     if role == "core":
         return "the package's core"
     if bundle:
-        return f"partner package {bundle}: in {known[card][0]:.0%} of the reference decks" if card in known else f"partner package {bundle}"
+        return (
+            f"partner package {bundle}: in {known[card][0]:.0%} of the reference decks"
+            if card in known
+            else f"partner package {bundle}"
+        )
     sig = signals[card]
     fit = align(sig, plan) if sig is not None else 0.0
-    return (f"in {known[card][0]:.0%} of the reference decks" if card in known else "in no found list") + f"; {plan.value} fit {fit:+.1f}"
-
+    return (
+        f"in {known[card][0]:.0%} of the reference decks" if card in known else "in no found list"
+    ) + f"; {plan.value} fit {fit:+.1f}"

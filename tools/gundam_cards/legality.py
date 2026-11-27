@@ -5,6 +5,7 @@
 - the vanilla group (a Unit that is Lv2, cost 1, 2 AP, 2 HP and without effects, matched against the catalog) allows one card, up to four copies:
   any two different ones are a banned pair.
 """
+
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping

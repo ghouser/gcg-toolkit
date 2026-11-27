@@ -9,6 +9,7 @@ The one body of code for that question. Pure functions over card models; no I/O.
 The rules live one module per kind of card: `units`, `commands`, `pilots`, `bases`, on a shared `vocabulary`. Color is never part of the
 match (a deck decides which colors it can use).
 """
+
 from __future__ import annotations
 
 from shared.samejob.matcher import Matcher, link_traits_of, pilots_from, profile, stands_in

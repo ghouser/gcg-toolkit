@@ -3,6 +3,7 @@
 The packages, appearance rates, drift and meta reports are tracked in `shared/data/gundam_packages/` under `tool_data_root()` (the
 repository unless `$GCG_TOOL_DATA_DIR` stands in, see `shared/dataset.py`), resolved on every call.
 """
+
 from __future__ import annotations
 
 import json
@@ -11,7 +12,6 @@ from pathlib import Path
 from shared.dataset import tool_data_root, write_atomic
 from tools.gundam_packages.models import DataSource, DriftFile, NamesFile, PackageId, PackagesFile, RatesFile
 from tools.gundam_packages.naming import NAMES_PATH
-
 
 
 def tracked_folder() -> Path:

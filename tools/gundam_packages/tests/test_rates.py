@@ -1,4 +1,5 @@
 """Appearance rates on synthetic worlds with known answers (the arithmetic in appearance-rates.md)."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -8,7 +9,15 @@ from pydantic import ValidationError
 
 from shared.basetypes import CardNumber
 from tools.gundam_packages.discover import Discovery
-from tools.gundam_packages.models import ArchetypeRole, OtherRole, PackageId, PackagesFile, RatedCard, RatesFile, majority_copies
+from tools.gundam_packages.models import (
+    ArchetypeRole,
+    OtherRole,
+    PackageId,
+    PackagesFile,
+    RatedCard,
+    RatesFile,
+    majority_copies,
+)
 from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.tests import test_package_synergy as ps
 from tools.gundam_packages.tests.test_discover import A1, A2, A3, B1, B2, B3, B4, F1, H, O1, PARAMS, S1, S2, world
@@ -52,15 +61,22 @@ def test_alone_rate_and_other_cards_are_measured_over_the_perspective_packages_g
     a = package(rates(), PKG_A)
     assert a.alone_decks == 20 and a.alone_rate == 20 / 25
     others = {o.card_number: o for o in a.others}
-    assert others[H].role is OtherRole.SYNERGY and others[H].copies == 2 * 14 and others[H].possible == 4 * 25  # not multiplied by anything
-    assert others[F1].role is OtherRole.FREE_FLOATING and others[F1].copies == 2 * 15  # no tie to A: a rate, not a claim of synergy
+    assert (
+        others[H].role is OtherRole.SYNERGY and others[H].copies == 2 * 14 and others[H].possible == 4 * 25
+    )  # not multiplied by anything
+    assert (
+        others[F1].role is OtherRole.FREE_FLOATING and others[F1].copies == 2 * 15
+    )  # no tie to A: a rate, not a claim of synergy
     assert others[O1].role is OtherRole.FREE_FLOATING and others[O1].copies == 2 * 25 and others[O1].rate == 0.5
     assert B1 not in others  # B's cards are listed under the partner
 
 
 def test_archetype_rates_add_up_and_every_card_has_an_index_entry() -> None:
     file = rates()
-    assert sum(a.rate for a in file.archetypes) == pytest.approx(1.0) and sum(a.decks for a in file.archetypes) == file.total_decks == 60
+    assert (
+        sum(a.rate for a in file.archetypes) == pytest.approx(1.0)
+        and sum(a.decks for a in file.archetypes) == file.total_decks == 60
+    )
     cards = {c for d in world() for c in d}
     assert set(file.card_index) == cards
     assert file.card_index[A1] == PKG_A and file.card_index[B3] == PKG_B and file.card_index[S1] is None
@@ -86,17 +102,33 @@ def test_a_bridge_card_is_multiplied_by_the_combined_rate_and_reported_to_its_pa
     file = compute_rates(base, [dict.fromkeys(d, 2) for d in decks], NOW)
     x, y = PackageId("pkg:GD01-001"), PackageId("pkg:GD02-001")
     partner = package(file, x).partners[0]
-    assert partner.package == y and partner.synergistic and partner.pair_decks == 20 and partner.combined_rate == 20 / 80
+    assert (
+        partner.package == y and partner.synergistic and partner.pair_decks == 20 and partner.combined_rate == 20 / 80
+    )
     (bridge,) = partner.bridges
-    assert bridge.card_number == ps.R and bridge.rate_in_combo == 0.5  # 2 copies of 4 possible in every deck that plays both
+    assert (
+        bridge.card_number == ps.R and bridge.rate_in_combo == 0.5
+    )  # 2 copies of 4 possible in every deck that plays both
     assert bridge.rate_from_x == pytest.approx(0.25 * 0.5) == pytest.approx(40 / (4 * 80))
     from_y = package(file, y).partners[0]
-    assert from_y.package == x and from_y.combined_rate == 20 / 24 and from_y.bridges[0].rate_from_x == pytest.approx(20 / 24 * 0.5)
+    assert (
+        from_y.package == x
+        and from_y.combined_rate == 20 / 24
+        and from_y.bridges[0].rate_from_x == pytest.approx(20 / 24 * 0.5)
+    )
 
 
 def test_the_majority_copy_count_is_the_most_copies_that_half_the_decks_run() -> None:
-    assert majority_copies((0, 0, 0, 0, 10)) == 4 and majority_copies((0, 0, 5, 5, 0)) == 3 and majority_copies((0, 0, 4, 6, 0)) == 3
-    assert majority_copies((0, 0, 6, 4, 0)) == 2 and majority_copies((0, 10, 0, 0, 0)) == 1 and majority_copies((10, 0, 0, 0, 0)) == 0
+    assert (
+        majority_copies((0, 0, 0, 0, 10)) == 4
+        and majority_copies((0, 0, 5, 5, 0)) == 3
+        and majority_copies((0, 0, 4, 6, 0)) == 3
+    )
+    assert (
+        majority_copies((0, 0, 6, 4, 0)) == 2
+        and majority_copies((0, 10, 0, 0, 0)) == 1
+        and majority_copies((10, 0, 0, 0, 0)) == 0
+    )
     assert majority_copies((4, 0, 0, 0, 6)) == 4  # 6 of 10 decks run four
 
 
@@ -116,11 +148,15 @@ def test_each_archetype_has_a_card_table_with_roles_shares_and_copy_histograms()
     table = {c.card_number: c for c in only_a.cards}
     assert [table[c].role for c in (A1, A2, A3)] == [ArchetypeRole.CORE] * 3
     assert table[A1].histogram == (0, 0, 0, 0, 20) and table[A1].majority_copies == 4
-    assert table[H].role is ArchetypeRole.SYNERGY and table[H].decks == 14 and table[H].share == 14 / 20  # tied to A1, in 14 of the 20 decks
+    assert (
+        table[H].role is ArchetypeRole.SYNERGY and table[H].decks == 14 and table[H].share == 14 / 20
+    )  # tied to A1, in 14 of the 20 decks
     assert table[H].histogram == (6, 0, 14, 0, 0) and table[H].majority_copies == 2
     assert table[F1].role is ArchetypeRole.FREE_FLOATING and table[S2].share == 0.5
     assert B1 not in table  # B's cards are not in an archetype that does not run B
-    both = next(a for a in file.archetypes if set(a.packages) == {PKG_A, PKG_B})  # signatures follow the packages' order, B first
+    both = next(
+        a for a in file.archetypes if set(a.packages) == {PKG_A, PKG_B}
+    )  # signatures follow the packages' order, B first
     assert both.decks == 5 and both.low_sample  # few decks: the copy counts are flagged
     assert {c.card_number for c in both.cards} >= {A1, A2, A3, B1, B2, B3, B4}
 
@@ -130,5 +166,7 @@ def test_the_no_package_archetype_has_no_card_table_and_every_table_matches_its_
     nothing = next(a for a in file.archetypes if a.packages == ())
     assert nothing.cards == ()
     for a in file.archetypes:
-        assert all(sum(c.histogram) == a.decks for c in a.cards)  # the model checks this too; here it is a test of the data
+        assert all(
+            sum(c.histogram) == a.decks for c in a.cards
+        )  # the model checks this too; here it is a test of the data
         assert all(c.share >= 0.25 or c.role in (ArchetypeRole.CORE, ArchetypeRole.OPTIONAL) for c in a.cards)

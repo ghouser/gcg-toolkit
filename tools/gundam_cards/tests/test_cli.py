@@ -1,4 +1,5 @@
 """The CLI parses arguments sensibly (commands that touch the network or real data are covered elsewhere)."""
+
 from __future__ import annotations
 
 import pytest

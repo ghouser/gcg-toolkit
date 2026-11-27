@@ -5,6 +5,7 @@ cards have a structural tie to a package and are usually in its decks; **free fl
 synergy** is two packages that work together (a tie between them, or a bridge card tied to both). An **archetype** is a
 combination of packages that decks run together.
 """
+
 from __future__ import annotations
 
 from datetime import date, datetime
@@ -31,7 +32,9 @@ class Relation(StrEnum):
 
     COMBO = "combo"  # must be played together: an ability that only works with another card, names it, or needs a specific pilot
     SYNERGY = "synergy"  # work better together: similar keywords, similar abilities, or abilities that work together
-    FUNCTIONAL_REPRINT = "functional_reprint"  # basically the same thing at a similar level and cost (play 4 of A and 4 of B)
+    FUNCTIONAL_REPRINT = (
+        "functional_reprint"  # basically the same thing at a similar level and cost (play 4 of A and 4 of B)
+    )
 
 
 class SynergyKind(StrEnum):
@@ -39,7 +42,9 @@ class SynergyKind(StrEnum):
     NAME_REFERENCE = "name_reference"  # card text names another card: `a Unit with "Master Gundam" in its card name`
     LINK_TRAIT = "link_trait"  # a Unit's trait Link is satisfied by a Pilot with that trait
     TRAIT_REFERENCE = "trait_reference"  # an ability that needs OTHER cards with a trait (Tekkadan from your trash)
-    SIMILAR_ABILITY = "similar_ability"  # the same or a contained effect, at a different level/cost (Tekkadan's "1 damage to both")
+    SIMILAR_ABILITY = (
+        "similar_ability"  # the same or a contained effect, at a different level/cost (Tekkadan's "1 damage to both")
+    )
     SHARED_KEYWORD = "shared_keyword"  # the same native keyword (Blocker), at a different level/cost
     FUNCTIONAL_EFFECT = "functional_effect"  # the same or a contained effect, same color, similar level and cost
     FUNCTIONAL_ROLE = "functional_role"  # the same native keyword, same color, similar level and cost
@@ -297,8 +302,13 @@ class ComboCard(FrozenModel):
     def _rate_is_copies_over_possible(self) -> ComboCard:
         if self.copies > self.possible or abs(self.rate_in_combo - self.copies / self.possible) > RATE_TOLERANCE:
             raise ValueError(f"{self.card_number}: rate {self.rate_in_combo} is not {self.copies}/{self.possible}")
-        if sum(n * d for n, d in enumerate(self.histogram)) != self.copies or sum(self.histogram) * MAX_COPIES != self.possible:
-            raise ValueError(f"{self.card_number}: histogram {self.histogram} does not match {self.copies} of {self.possible}")
+        if (
+            sum(n * d for n, d in enumerate(self.histogram)) != self.copies
+            or sum(self.histogram) * MAX_COPIES != self.possible
+        ):
+            raise ValueError(
+                f"{self.card_number}: histogram {self.histogram} does not match {self.copies} of {self.possible}"
+            )
         return self
 
     @property
@@ -338,10 +348,14 @@ class PackageRates(FrozenModel):
     def _combined_rates_are_over_this_packages_games(self) -> PackageRates:
         for partner in self.partners:
             if abs(partner.combined_rate - partner.pair_decks / self.package_decks) > RATE_TOLERANCE:
-                raise ValueError(f"{self.package} with {partner.package}: combined rate is not {partner.pair_decks}/{self.package_decks}")
+                raise ValueError(
+                    f"{self.package} with {partner.package}: combined rate is not {partner.pair_decks}/{self.package_decks}"
+                )
             for card in (*partner.cards, *partner.bridges):
                 if abs(card.rate_from_x - partner.combined_rate * card.rate_in_combo) > RATE_TOLERANCE:
-                    raise ValueError(f"{card.card_number}: rate from {self.package} is not combined rate x rate in combo")
+                    raise ValueError(
+                        f"{card.card_number}: rate from {self.package} is not combined rate x rate in combo"
+                    )
         return self
 
 
@@ -385,7 +399,9 @@ class ArchetypeRate(FrozenModel):
     name: str
     decks: int
     rate: float  # decks / all decks; these sum to 1
-    cards: tuple[ArchetypeCard, ...] = ()  # every package member and every card in at least a quarter of its decks (none for "no package")
+    cards: tuple[
+        ArchetypeCard, ...
+    ] = ()  # every package member and every card in at least a quarter of its decks (none for "no package")
     low_sample: bool = False  # too few decks for the copy counts to be trusted
 
     @model_validator(mode="after")

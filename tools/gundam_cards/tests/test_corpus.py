@@ -3,6 +3,7 @@
 These pin the facts of the 2026-10-06 sync: 2,011 printing pages. If Bandai's data changes, or a rule here
 changes, they fail on purpose; update the expectations deliberately.
 """
+
 from __future__ import annotations
 
 import collections

@@ -2,6 +2,7 @@
 
 Every case here is a real one found in Bandai's data (fixtures are saved pages).
 """
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -30,7 +31,9 @@ DATES = {
     SetCode("GD05"): date(2026, 7, 24),
     SetCode("SC01"): date(2026, 7, 24),
 }
-TRAITS = frozenset(Trait(t) for t in ("Londo Bell", "Neo Zeon", "Cyber-Newtype", "Earth Federation", "White Base Team", "Zeon", "ZAFT"))
+TRAITS = frozenset(
+    Trait(t) for t in ("Londo Bell", "Neo Zeon", "Cyber-Newtype", "Earth Federation", "White Base Team", "Zeon", "ZAFT")
+)
 
 
 def build(page: Page, *ids: str) -> BuildResult:
@@ -39,7 +42,6 @@ def build(page: Page, *ids: str) -> BuildResult:
 
 def kinds(result: BuildResult) -> list[IssueKind]:
     return [i.kind for i in result.issues]
-
 
 
 # ---- rarity: two alt-art tiers and the GD05 "LK" rarities ------------------------------------------------
@@ -69,7 +71,10 @@ def test_unknown_rarity_and_three_plusses_still_fail() -> None:
 
 def test_alt_art_levels_on_real_printings(page: Page) -> None:
     card = build(page, "GD01-067", "GD01-067_p2").card
-    assert [(p.rarity, p.alt_art_level, p.alt_art) for p in card.printings] == [(Rarity.LR, 0, False), (Rarity.LR, 2, True)]
+    assert [(p.rarity, p.alt_art_level, p.alt_art) for p in card.printings] == [
+        (Rarity.LR, 0, False),
+        (Rarity.LR, 2, True),
+    ]
 
 
 def test_link_art_is_an_alt_art_of_the_underlying_rarity(page: Page) -> None:
@@ -108,7 +113,9 @@ def test_card_with_only_alt_arts_uses_the_lowest_as_reference(page: Page) -> Non
     result = build(page, "R-001_p5", "R-001_p4")  # passed out of order on purpose
     assert result.issues[0].kind is IssueKind.NO_BASE_PRINTING and "R-001_p4" in result.issues[0].detail
     # Bandai's Beta data is unreliable: these two printings of a Resource even disagree on AP/HP.
-    assert [i.kind for i in result.issues[1:]] == [IssueKind.PRINTING_ATTRIBUTE_MISMATCH] and "AP" in result.issues[1].detail
+    assert [i.kind for i in result.issues[1:]] == [IssueKind.PRINTING_ATTRIBUTE_MISMATCH] and "AP" in result.issues[
+        1
+    ].detail
     card = result.card
     assert card.kind is CardKind.RESOURCE
     assert [str(p.id) for p in card.printings] == ["R-001_p4", "R-001_p5"]
@@ -205,7 +212,7 @@ def test_substantive_tie_between_two_non_alt_art_wordings_is_still_raised(page: 
 
 
 def test_cosmetic_wording_differences_are_not_substantive() -> None:
-    a = "Return it to its owner's hand. If \"Awakened Potential\" is in your trash, this unit draws 1."
-    b = "Return it to its owner' s hand. If \" Awakened Potential\" is in your trash, this Unit draws 1. (Reminder.)"
+    a = 'Return it to its owner\'s hand. If "Awakened Potential" is in your trash, this unit draws 1.'
+    b = 'Return it to its owner\' s hand. If " Awakened Potential" is in your trash, this Unit draws 1. (Reminder.)'
     assert comparison_core(a, TRAITS)[0] == comparison_core(b, TRAITS)[0]
     assert comparison_core(a, TRAITS)[0] != comparison_core("Return it to its owner's hand. Draw 2.", TRAITS)[0]

@@ -3,6 +3,7 @@
 The tcgcsv site is faked at the fetcher; the catalog, the sets and the dataset are small fixtures in the root conftest's temp folders. Expected
 values are worked out by hand from the dump below; nothing touches the network, the real dataset or `~/.gcg`.
 """
+
 from __future__ import annotations
 
 import json
@@ -52,22 +53,41 @@ UPDATED2 = datetime(2026, 11, 6, 20, tzinfo=UTC)
 # ---- the catalog and the tcgcsv dump ------------------------------------------------------------------------------------------------
 def card(number: str, name: str, printings: tuple[tuple[str, str, int, bool], ...]) -> Any:
     """A unit card whose printings are `(id, set code, alt art level, link art)`."""
-    return unit(number, name).model_copy(update={"printings": tuple(printing(i, s, alt=a, link=k) for i, s, a, k in printings)})
+    return unit(number, name).model_copy(
+        update={"printings": tuple(printing(i, s, alt=a, link=k) for i, s, a, k in printings)}
+    )
 
 
 GUNDAM = card("GD01-001", "Gundam", (("GD01-001", "GD01", 0, False), ("GD01-001_p1", "GD01", 1, False),
                                      ("GD01-001_p2", "SC01", 0, False), ("GD01-001_p3", "BETA", 0, False)))  # fmt: skip
-ZAKU = card("GD01-002", "Zaku", (("GD01-002", "GD01", 0, False), ("GD01-002_p1", "GD01", 1, True)))  # a link art, matched as an alt art
-DOM = card("GD01-003", "Dom", (("GD01-003", "GD01", 0, False), ("GD01-003_p1", "GD01", 1, False), ("GD01-003_p2", "GD01", 1, False)))
-GELGOOG = card("GD01-004", "Gelgoog", (("GD01-004", "GD01", 0, False), ("GD01-004_p1", "GD01", 1, False), ("GD01-004_p2", "GD01", 2, False)))
+ZAKU = card(
+    "GD01-002", "Zaku", (("GD01-002", "GD01", 0, False), ("GD01-002_p1", "GD01", 1, True))
+)  # a link art, matched as an alt art
+DOM = card(
+    "GD01-003",
+    "Dom",
+    (("GD01-003", "GD01", 0, False), ("GD01-003_p1", "GD01", 1, False), ("GD01-003_p2", "GD01", 1, False)),
+)
+GELGOOG = card(
+    "GD01-004",
+    "Gelgoog",
+    (("GD01-004", "GD01", 0, False), ("GD01-004_p1", "GD01", 1, False), ("GD01-004_p2", "GD01", 2, False)),
+)
 AMURO = card("ST01-010", "Amuro Ray", (("ST01-010", "ST01", 0, False),))
 CATALOG = (GUNDAM, ZAKU, DOM, GELGOOG, AMURO)
 
 
 def sets() -> tuple[CardSet, ...]:
     return tuple(
-        CardSet(code=SetCode(code), name=code, kind=SetKind.BOOSTER, bandai_package_id=PackageId(f"6160{i}"), release_date=date(2025, 7, 25),
-                product_category_raw=None, product_url=None)
+        CardSet(
+            code=SetCode(code),
+            name=code,
+            kind=SetKind.BOOSTER,
+            bandai_package_id=PackageId(f"6160{i}"),
+            release_date=date(2025, 7, 25),
+            product_category_raw=None,
+            product_url=None,
+        )
         for i, code in enumerate(("GD01", "SC01", "ST01"))
     )
 
@@ -95,20 +115,34 @@ GROUPS = [
     {"groupId": 6, "name": "Heroic Beginnings", "abbreviation": "ST01"},
 ]
 PRODUCTS = {
-    1: [product(10, "N10 Gundam", "GD01-001", "Rare", 1), product(11, "N11 Gundam alt", "GD01-001", "Rare+", 1),
-        product(12, "N12 Zaku", "GD01-002", "Rare", 1), product(13, "N13 Zaku link", "GD01-002", "Rare+", 1),
-        product(14, "N14 Dom", "GD01-003", "Rare", 1), product(15, "N15 Dom alt", "GD01-003", "Rare+", 1),  # two printings: ambiguous
-        product(60, "N60 Not ours", "GD01-099", "Rare", 1), product(61, "N61 Mythic", "GD01-001", "Mythic", 1),
-        product(62, "N62 Foil etched", "GD01-002", "Rare", 1), product(63, "N63 No price", "GD01-003", "Rare", 1),
-        product(18, "N18 Gelgoog", "GD01-004", "Rare", 1), product(19, "N19 Gelgoog +", "GD01-004", "Rare+", 1),
+    1: [
+        product(10, "N10 Gundam", "GD01-001", "Rare", 1),
+        product(11, "N11 Gundam alt", "GD01-001", "Rare+", 1),
+        product(12, "N12 Zaku", "GD01-002", "Rare", 1),
+        product(13, "N13 Zaku link", "GD01-002", "Rare+", 1),
+        product(14, "N14 Dom", "GD01-003", "Rare", 1),
+        product(15, "N15 Dom alt", "GD01-003", "Rare+", 1),  # two printings: ambiguous
+        product(60, "N60 Not ours", "GD01-099", "Rare", 1),
+        product(61, "N61 Mythic", "GD01-001", "Mythic", 1),
+        product(62, "N62 Foil etched", "GD01-002", "Rare", 1),
+        product(63, "N63 No price", "GD01-003", "Rare", 1),
+        product(18, "N18 Gelgoog", "GD01-004", "Rare", 1),
+        product(19, "N19 Gelgoog +", "GD01-004", "Rare+", 1),
         product(21, "N21 Gelgoog ++", "GD01-004", "Rare++", 1),
         product(23, "N23 Gundam ++", "GD01-001", "Rare++", 1),  # no ++ printing of GD01-001
-        product(70, "N70 Booster Pack", None, None, 1)],
-    2: [product(20, "N20 Gundam SC01", "GD01-001", "Rare", 2), product(22, "N22 Zaku in SC01", "GD01-002", "Rare", 2)],  # no SC01 printing of Zaku
+        product(70, "N70 Booster Pack", None, None, 1),
+    ],
+    2: [
+        product(20, "N20 Gundam SC01", "GD01-001", "Rare", 2),
+        product(22, "N22 Zaku in SC01", "GD01-002", "Rare", 2),
+    ],  # no SC01 printing of Zaku
     3: [product(30, "N30 Gundam Beta", "GD01-001", "Rare", 3)],
     4: [product(40, "N40 Gundam promo", "GD01-001", "Promo", 4)],
     5: [product(50, "N50 Gundam mystery", "GD01-001", "Rare", 5)],
-    6: [product(16, "N16 Amuro", "ST01-010", "Rare", 6), product(17, "N17 Amuro again", "ST01-010", "Rare", 6)],  # two products, one printing
+    6: [
+        product(16, "N16 Amuro", "ST01-010", "Rare", 6),
+        product(17, "N17 Amuro again", "ST01-010", "Rare", 6),
+    ],  # two products, one printing
 }
 PRICES = {
     1: [row(10, 1.50), row(11, 5.00), row(12, 2.00), row(13, 9.00), row(14, 0.50), row(15, 3.00), row(60, 1.0), row(61, 1.0),
@@ -116,14 +150,25 @@ PRICES = {
     2: [row(20, 1.20), row(22, 1.1)], 3: [row(30, 0.80)], 4: [row(40, 0.10)], 5: [row(50, 0.20)], 6: [row(16, 0.40), row(17, 0.45)],
 }  # fmt: skip
 EXPECTED = {  # printing -> (cents, product id, alt art level): matched exactly once, both ways
-    "GD01-001": (150, 10, 0), "GD01-001_p1": (500, 11, 1), "GD01-001_p2": (120, 20, 0), "GD01-001_p3": (80, 30, 0),
-    "GD01-002": (200, 12, 0), "GD01-002_p1": (900, 13, 1), "GD01-003": (50, 14, 0),
-    "GD01-004": (100, 18, 0), "GD01-004_p1": (200, 19, 1), "GD01-004_p2": (400, 21, 2),  # each tier matches only its own printing
+    "GD01-001": (150, 10, 0),
+    "GD01-001_p1": (500, 11, 1),
+    "GD01-001_p2": (120, 20, 0),
+    "GD01-001_p3": (80, 30, 0),
+    "GD01-002": (200, 12, 0),
+    "GD01-002_p1": (900, 13, 1),
+    "GD01-003": (50, 14, 0),
+    "GD01-004": (100, 18, 0),
+    "GD01-004_p1": (200, 19, 1),
+    "GD01-004_p2": (400, 21, 2),  # each tier matches only its own printing
 }
 
 
-def make_dump(updated: datetime = UPDATED, *, products: dict[int, list[dict[str, object]]] | None = None,
-              prices: dict[int, list[dict[str, object]]] | None = None) -> RawDump:
+def make_dump(
+    updated: datetime = UPDATED,
+    *,
+    products: dict[int, list[dict[str, object]]] | None = None,
+    prices: dict[int, list[dict[str, object]]] | None = None,
+) -> RawDump:
     products, prices = products or PRODUCTS, prices or PRICES
     return RawDump(updated, results(list(GROUPS)), {g: results(products.get(g, [])) for g in range(1, 7)},
                    {g: results(prices.get(g, [])) for g in range(1, 7)})  # fmt: skip
@@ -157,7 +202,9 @@ class FakeTcgcsv:
 
     def get_text(self, url: str, *, cache_key: str | None = None, force: bool = False) -> Response:
         cached = raw_folder() / "tcgcsv" / cache_key if cache_key is not None else None
-        if cached is not None and cached.is_file() and not force:  # like the real fetcher: a cached page is not requested again
+        if (
+            cached is not None and cached.is_file() and not force
+        ):  # like the real fetcher: a cached page is not requested again
             return Response(url, cached.read_text(encoding="utf-8"), T1, from_cache=True)
         self.calls.append(url)
         if url in self.interrupt:
@@ -213,7 +260,9 @@ def test_a_product_matches_the_printing_of_its_set_card_number_and_art_tier() ->
     result = matched()
     assert {str(r.printing_id): (r.price_cents, int(r.product_id), r.alt_art_level) for r in result.rows} == EXPECTED
     by_id = {str(r.printing_id): r for r in result.rows}
-    assert by_id["GD01-001_p3"].set_code == "GD01_b" and by_id["GD01-001_p2"].set_code == "SC01"  # Beta and SC01 reprints price on their own
+    assert (
+        by_id["GD01-001_p3"].set_code == "GD01_b" and by_id["GD01-001_p2"].set_code == "SC01"
+    )  # Beta and SC01 reprints price on their own
     assert by_id["GD01-002_p1"].price_cents == 900  # a link art matched as an alt art
     assert [str(r.printing_id) for r in result.rows] == sorted(by_id)  # sorted by printing id
     assert all(r.fetched_at == T1 for r in result.rows) and result.sealed == 1
@@ -235,14 +284,21 @@ def test_everything_not_matched_exactly_once_is_reported_with_the_reason_and_tak
         "N16 Amuro": "2 products match printing ST01-010",
         "N17 Amuro again": "2 products match printing ST01-010",
     }
-    assert {u.name: (u.group, u.number) for u in result.unmatched}["N50 Gundam mystery"] == ("ZZ99", "GD01-001")  # name, group and Number
-    assert not {"GD01-003_p1", "GD01-003_p2", "ST01-010"} & {str(r.printing_id) for r in result.rows}  # a printing with no product: no row
+    assert {u.name: (u.group, u.number) for u in result.unmatched}["N50 Gundam mystery"] == (
+        "ZZ99",
+        "GD01-001",
+    )  # name, group and Number
+    assert not {"GD01-003_p1", "GD01-003_p2", "ST01-010"} & {
+        str(r.printing_id) for r in result.rows
+    }  # a printing with no product: no row
 
 
 def test_a_group_maps_to_a_known_set_code_or_edition_beta_and_nothing_else() -> None:
     codes = {s.code for s in sets()}
     products, _ = parse_dump(make_dump())
-    by_group = {p.group: p for p in products if int(p.product_id) in (10, 20, 30, 50)}  # GD01-001's plain Rare in four groups
+    by_group = {
+        p.group: p for p in products if int(p.product_id) in (10, 20, 30, 50)
+    }  # GD01-001's plain Rare in four groups
     assert set(by_group) == {"GD01", "SC01", "GD01_b", "ZZ99"}
     got = {m.set_code for m in match_products(list(by_group.values()), CATALOG, codes, T1).rows}
     assert got == {"GD01", "SC01", "GD01_b"}  # ZZ99 maps to no set
@@ -256,7 +312,9 @@ def test_a_real_run_adds_one_dated_snapshot_with_a_row_per_matched_printing() ->
     [path] = snapshot_files()
     assert path.name == "2026-11-04T210000Z.json"
     file = load_printing_prices()
-    assert file is not None and file.generated_at == T1 and file.source_updated_at == UPDATED and file.schema_version == 1
+    assert (
+        file is not None and file.generated_at == T1 and file.source_updated_at == UPDATED and file.schema_version == 1
+    )
     assert all(r.fetched_at == T1 for r in file.data)  # the as-of date, and cents are integers
     assert [r.price_cents for r in file.data if str(r.printing_id) == "GD01-001"] == [150]
 
@@ -287,25 +345,57 @@ def test_a_second_pull_on_the_same_utc_day_with_different_prices_adds_nothing() 
     run(FakeTcgcsv())
     [first] = snapshot_files()
     before = first.read_bytes()
-    cheaper = {**PRICES, 1: [row(10, 1.25), *PRICES[1][1:]]}  # a different dump, other prices, 21:00 and 23:00 on the same UTC day
-    report = run(FakeTcgcsv(make_dump(UPDATED + timedelta(hours=1), prices=cheaper)), T1 + timedelta(hours=2), force=True)
-    assert report.written and not report.stored and report.changed == 1  # the prices did change: only the same-day rule refuses it
+    cheaper = {
+        **PRICES,
+        1: [row(10, 1.25), *PRICES[1][1:]],
+    }  # a different dump, other prices, 21:00 and 23:00 on the same UTC day
+    report = run(
+        FakeTcgcsv(make_dump(UPDATED + timedelta(hours=1), prices=cheaper)), T1 + timedelta(hours=2), force=True
+    )
+    assert (
+        report.written and not report.stored and report.changed == 1
+    )  # the prices did change: only the same-day rule refuses it
     assert snapshot_files() == [first] and first.read_bytes() == before
 
 
 def test_the_export_gives_each_printing_its_own_price_and_no_card_level_price() -> None:
     run(FakeTcgcsv())
-    beta = CardSet(code=SetCode("BETA"), name="Edition Beta", kind=SetKind.OTHER, bandai_package_id=None, release_date=None, product_category_raw=None, product_url=None)
+    beta = CardSet(
+        code=SetCode("BETA"),
+        name="Edition Beta",
+        kind=SetKind.OTHER,
+        bandai_package_id=None,
+        release_date=None,
+        product_category_raw=None,
+        product_url=None,
+    )
     export = build_export(load_catalog_or_fail(), (*sets(), beta), (), (), load_printing_price_history(), T1)
     prices = {p.id: (p.price_cents, p.price_as_of) for c in export.cards for p in c.printings}
-    assert prices[PrintingId("GD01-001")] == (150, date(2026, 11, 4)) and prices[PrintingId("GD01-001_p1")] == (500, date(2026, 11, 4))
-    assert prices[PrintingId("GD01-001_p2")] == (120, date(2026, 11, 4)) and prices[PrintingId("GD01-001_p3")] == (80, date(2026, 11, 4))
-    assert prices[PrintingId("GD01-003_p1")] == (None, None) and prices[PrintingId("ST01-010")] == (None, None)  # no row, no price
+    assert prices[PrintingId("GD01-001")] == (150, date(2026, 11, 4)) and prices[PrintingId("GD01-001_p1")] == (
+        500,
+        date(2026, 11, 4),
+    )
+    assert prices[PrintingId("GD01-001_p2")] == (120, date(2026, 11, 4)) and prices[PrintingId("GD01-001_p3")] == (
+        80,
+        date(2026, 11, 4),
+    )
+    assert prices[PrintingId("GD01-003_p1")] == (None, None) and prices[PrintingId("ST01-010")] == (
+        None,
+        None,
+    )  # no row, no price
     assert export.schema_version == 1 and all("price_cents" not in c.model_dump() for c in export.cards)
 
 
 def beta() -> CardSet:
-    return CardSet(code=SetCode("BETA"), name="Edition Beta", kind=SetKind.OTHER, bandai_package_id=None, release_date=None, product_category_raw=None, product_url=None)
+    return CardSet(
+        code=SetCode("BETA"),
+        name="Edition Beta",
+        kind=SetKind.OTHER,
+        bandai_package_id=None,
+        release_date=None,
+        product_category_raw=None,
+        product_url=None,
+    )
 
 
 def test_the_export_uses_only_the_newest_per_printing_snapshot() -> None:
@@ -313,7 +403,9 @@ def test_the_export_uses_only_the_newest_per_printing_snapshot() -> None:
     without_the_alt = {1: [p for p in PRODUCTS[1] if p["productId"] != 11]}
     without_prices = {1: [r for r in PRICES[1] if r["productId"] != 11]}
     newest = make_dump(UPDATED2, products={**PRODUCTS, **without_the_alt}, prices={**PRICES, **without_prices})
-    assert run(FakeTcgcsv(newest), T1 + timedelta(days=2), allow_anomaly=True).stored  # one printing of ten gone: the guard would refuse
+    assert run(
+        FakeTcgcsv(newest), T1 + timedelta(days=2), allow_anomaly=True
+    ).stored  # one printing of ten gone: the guard would refuse
     history = load_printing_price_history()
     assert len(history) == 2 and "GD01-001_p1" in {str(r.printing_id) for r in history[0].data}
     export = build_export(load_catalog_or_fail(), (*sets(), beta()), (), (), history, T1)
@@ -322,15 +414,21 @@ def test_the_export_uses_only_the_newest_per_printing_snapshot() -> None:
 
 
 def test_once_a_per_printing_snapshot_exists_the_export_ignores_the_per_card_snapshot_and_its_stopgap() -> None:
-    old_row = CardPrice(card_number=CardNumber("ST01-010"), price_cents=333, product_id=ProductId(9), set_code="ST01", fetched_at=T1)
+    old_row = CardPrice(
+        card_number=CardNumber("ST01-010"), price_cents=333, product_id=ProductId(9), set_code="ST01", fetched_at=T1
+    )
     legacy = PriceFile(generated_at=T1 - timedelta(days=5), source_updated_at=UPDATED, data=(old_row,))
     write_prices(legacy)
     catalog, all_sets = load_catalog_or_fail(), (*sets(), beta())
-    stopgap = build_export(catalog, all_sets, (), (legacy,), (), T1)  # without a per-printing snapshot the per-card price is given out
+    stopgap = build_export(
+        catalog, all_sets, (), (legacy,), (), T1
+    )  # without a per-printing snapshot the per-card price is given out
     assert {str(p.id): p.price_cents for c in stopgap.cards for p in c.printings}["ST01-010"] == 333
     run(FakeTcgcsv())  # ST01-010 has no row: two products claim it
     export = build_export(catalog, all_sets, (), (legacy,), load_printing_price_history(), T1)
-    assert {str(p.id): p.price_cents for c in export.cards for p in c.printings}["ST01-010"] is None  # the per-card file is not read any more
+    assert {str(p.id): p.price_cents for c in export.cards for p in c.printings}[
+        "ST01-010"
+    ] is None  # the per-card file is not read any more
 
 
 def save_dump(dump: RawDump, marker: str | None = None) -> None:
@@ -354,7 +452,9 @@ def test_reparse_tcgplayer_rebuilds_the_snapshots_oldest_first_with_no_network_a
     assert cli.main(["reparse-tcgplayer"]) == 0
     assert "2 snapshot(s) added from 2 saved dump(s)" in capsys.readouterr().out
     first, second = load_printing_price_history()
-    assert first.generated_at == UPDATED and second.generated_at == datetime(2026, 11, 6, 21, tzinfo=UTC)  # no marker: the dump's own time
+    assert first.generated_at == UPDATED and second.generated_at == datetime(
+        2026, 11, 6, 21, tzinfo=UTC
+    )  # no marker: the dump's own time
     assert first.data[0].price_cents == 150 and second.data[0].price_cents == 125  # oldest first, each from its dump
     before = [p.read_bytes() for p in snapshot_files()]
     assert cli.main(["reparse-tcgplayer"]) == 0
@@ -374,10 +474,15 @@ def test_the_per_card_price_is_the_cheapest_non_alt_art_printings_row_and_nothin
     derived = load_prices()
     assert derived is not None
     got = {str(p.card_number): (p.price_cents, int(p.product_id), p.set_code, p.name) for p in derived.data}
-    assert got == {  # GD01-001: the Beta printing's 80 beats 120 and 150, and the alt art never counts; GD01-002's link art never counts
-        "GD01-001": (80, 30, "GD01_b", "N30 Gundam Beta"), "GD01-002": (200, 12, "GD01", "N12 Zaku"), "GD01-003": (50, 14, "GD01", "N14 Dom"),
-        "GD01-004": (100, 18, "GD01", "N18 Gelgoog"),
-    }
+    assert (
+        got
+        == {  # GD01-001: the Beta printing's 80 beats 120 and 150, and the alt art never counts; GD01-002's link art never counts
+            "GD01-001": (80, 30, "GD01_b", "N30 Gundam Beta"),
+            "GD01-002": (200, 12, "GD01", "N12 Zaku"),
+            "GD01-003": (50, 14, "GD01", "N14 Dom"),
+            "GD01-004": (100, 18, "GD01", "N18 Gelgoog"),
+        }
+    )
     assert not (data_out_dir() / "prices").exists()  # the per-card price is derived on read, not stored a second time
     priced = {str(p.card.number): p.latest_tcg_price for p in load_cards_with_prices()}
     assert priced["ST01-010"] is None and priced["GD01-001"] is not None and priced["GD01-001"].price_cents == 80
@@ -394,13 +499,22 @@ def test_a_card_whose_only_priced_printings_are_alt_arts_has_no_price() -> None:
 def test_the_price_command_prints_what_the_per_card_snapshot_gave(capsys: pytest.CaptureFixture[str]) -> None:
     run(FakeTcgcsv())
     assert cli.main(["price", "GD01-001"]) == 0
-    assert "GD01-001 Gundam: $0.80  (TCGPlayer market price, product 30, pulled 2026-11-04 21:00 UTC)" in capsys.readouterr().out
+    assert (
+        "GD01-001 Gundam: $0.80  (TCGPlayer market price, product 30, pulled 2026-11-04 21:00 UTC)"
+        in capsys.readouterr().out
+    )
 
 
 def test_the_readers_use_only_the_newest_per_printing_snapshot() -> None:
     run(FakeTcgcsv())
-    gelgoog_gone = {1: [p for p in PRODUCTS[1] if p["productId"] != 14], 3: PRODUCTS[3]}  # GD01-003's base product is gone
-    prices = {1: [r for r in PRICES[1] if r["productId"] != 14], 3: [row(30, 2.0)]}  # and the Beta printing of GD01-001 now costs $2.00
+    gelgoog_gone = {
+        1: [p for p in PRODUCTS[1] if p["productId"] != 14],
+        3: PRODUCTS[3],
+    }  # GD01-003's base product is gone
+    prices = {
+        1: [r for r in PRICES[1] if r["productId"] != 14],
+        3: [row(30, 2.0)],
+    }  # and the Beta printing of GD01-001 now costs $2.00
     newest = make_dump(UPDATED2, products={**PRODUCTS, **gelgoog_gone}, prices={**PRICES, **prices})
     assert run(FakeTcgcsv(newest), T1 + timedelta(days=2), allow_anomaly=True).stored
     derived = load_prices()
@@ -413,7 +527,13 @@ def test_the_readers_use_only_the_newest_per_printing_snapshot() -> None:
 
 
 def test_reparse_tcgplayer_leaves_an_older_per_card_file_untouched(monkeypatch: pytest.MonkeyPatch) -> None:
-    legacy_row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=777, product_id=ProductId(9), set_code="GD01", fetched_at=T1 - timedelta(days=5))
+    legacy_row = CardPrice(
+        card_number=CardNumber("GD01-001"),
+        price_cents=777,
+        product_id=ProductId(9),
+        set_code="GD01",
+        fetched_at=T1 - timedelta(days=5),
+    )
     path = write_prices(PriceFile(generated_at=T1 - timedelta(days=5), source_updated_at=UPDATED, data=(legacy_row,)))
     assert path is not None
     before = path.read_bytes()
@@ -427,17 +547,31 @@ def test_price_explain_tells_what_the_matching_did_with_each_product(capsys: pyt
     run(FakeTcgcsv())
     assert cli.main(["price", "GD01-001", "--explain"]) == 0
     out = capsys.readouterr().out
-    assert "matched to GD01-001 ($1.50)" in out and "matched to GD01-001_p3 ($0.80)" in out  # the Beta and SC01 reprints are matched
-    assert "N50 Gundam mystery" in out and "group maps to no set" in out and "promo group" in out and "unrecognized rarity 'Mythic'" in out
+    assert (
+        "matched to GD01-001 ($1.50)" in out and "matched to GD01-001_p3 ($0.80)" in out
+    )  # the Beta and SC01 reprints are matched
+    assert (
+        "N50 Gundam mystery" in out
+        and "group maps to no set" in out
+        and "promo group" in out
+        and "unrecognized rarity 'Mythic'" in out
+    )
     assert cli.main(["price", "ST01-010", "--explain"]) == 1  # two products claim the one printing: neither is used
     out = capsys.readouterr().out
     assert "ST01-010 Amuro Ray: no price (no product matched a printing: 2 products match printing ST01-010)" in out
     assert out.count("2 products match printing ST01-010") == 3  # the summary and the two products
 
 
-def test_a_card_whose_products_the_matching_rejected_is_not_explained_as_having_no_price_row(capsys: pytest.CaptureFixture[str]) -> None:
-    only_zaku_priced = make_dump(products={1: [PRODUCTS[1][2]], 4: PRODUCTS[4], 5: PRODUCTS[5]}, prices={1: [row(12, 2.0)], 4: PRICES[4], 5: PRICES[5]})
-    run(FakeTcgcsv(only_zaku_priced))  # a snapshot exists; GD01-001 has only a promo and an unmapped-group product, both with price rows
+def test_a_card_whose_products_the_matching_rejected_is_not_explained_as_having_no_price_row(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    only_zaku_priced = make_dump(
+        products={1: [PRODUCTS[1][2]], 4: PRODUCTS[4], 5: PRODUCTS[5]},
+        prices={1: [row(12, 2.0)], 4: PRICES[4], 5: PRICES[5]},
+    )
+    run(
+        FakeTcgcsv(only_zaku_priced)
+    )  # a snapshot exists; GD01-001 has only a promo and an unmapped-group product, both with price rows
     assert cli.main(["price", "GD01-001", "--explain"]) == 1
     out = capsys.readouterr().out
     assert "GD01-001 Gundam: no price (no product matched a printing: group maps to no set; promo group)" in out
@@ -446,7 +580,9 @@ def test_a_card_whose_products_the_matching_rejected_is_not_explained_as_having_
 
 
 def test_price_says_a_card_priced_only_as_an_alt_art_has_no_price(capsys: pytest.CaptureFixture[str]) -> None:
-    run(FakeTcgcsv(make_dump(products={1: [PRODUCTS[1][1]]}, prices={1: [row(11, 5.0)]})))  # only N11, GD01-001's "+" alt art
+    run(
+        FakeTcgcsv(make_dump(products={1: [PRODUCTS[1][1]]}, prices={1: [row(11, 5.0)]}))
+    )  # only N11, GD01-001's "+" alt art
     assert cli.main(["price", "GD01-001"]) == 1
     assert "GD01-001 Gundam: no price (only alt-art printings matched (never bought))" in capsys.readouterr().out
 
@@ -458,14 +594,31 @@ def test_price_says_when_no_product_has_the_card_number(capsys: pytest.CaptureFi
 
 
 def test_price_says_when_there_is_no_saved_dump_to_explain_it(capsys: pytest.CaptureFixture[str]) -> None:
-    gelgoog = PrintingPrice(printing_id=PrintingId("GD01-004"), price_cents=100, product_id=ProductId(18), name="N18", set_code="GD01", alt_art_level=0, fetched_at=T1)
-    assert write_printing_prices(PrintingPriceFile(generated_at=T1, source_updated_at=UPDATED, data=(gelgoog,))) is not None  # no raw dump saved
+    gelgoog = PrintingPrice(
+        printing_id=PrintingId("GD01-004"),
+        price_cents=100,
+        product_id=ProductId(18),
+        name="N18",
+        set_code="GD01",
+        alt_art_level=0,
+        fetched_at=T1,
+    )
+    assert (
+        write_printing_prices(PrintingPriceFile(generated_at=T1, source_updated_at=UPDATED, data=(gelgoog,)))
+        is not None
+    )  # no raw dump saved
     assert cli.main(["price", "GD01-001"]) == 1
     assert "GD01-001 Gundam: no price (no saved dump to explain it)" in capsys.readouterr().out
 
 
 def test_until_a_per_printing_snapshot_exists_the_readers_keep_the_per_card_snapshot_and_it_is_never_changed() -> None:
-    legacy_row = CardPrice(card_number=CardNumber("GD01-001"), price_cents=777, product_id=ProductId(9), set_code="GD01", fetched_at=T1 - timedelta(days=5))
+    legacy_row = CardPrice(
+        card_number=CardNumber("GD01-001"),
+        price_cents=777,
+        product_id=ProductId(9),
+        set_code="GD01",
+        fetched_at=T1 - timedelta(days=5),
+    )
     path = write_prices(PriceFile(generated_at=T1 - timedelta(days=5), source_updated_at=UPDATED, data=(legacy_row,)))
     assert path is not None
     before = path.read_bytes()
@@ -474,8 +627,12 @@ def test_until_a_per_printing_snapshot_exists_the_readers_keep_the_per_card_snap
     assert legacy is not None and [(str(p.card_number), p.price_cents) for p in legacy.data] == [("GD01-001", 777)]
     run(FakeTcgcsv())
     derived = load_prices()
-    assert derived is not None and {str(p.card_number): p.price_cents for p in derived.data}["GD01-001"] == 80  # from now on only the new ones
-    assert path.read_bytes() == before and [p.name for p in path.parent.iterdir()] == [path.name]  # the old file is untouched
+    assert (
+        derived is not None and {str(p.card_number): p.price_cents for p in derived.data}["GD01-001"] == 80
+    )  # from now on only the new ones
+    assert path.read_bytes() == before and [p.name for p in path.parent.iterdir()] == [
+        path.name
+    ]  # the old file is untouched
 
 
 # ---- AC-4: nothing is written unless everything is ----------------------------------------------------------------------------------
@@ -494,7 +651,9 @@ def test_a_failed_or_unreadable_group_or_an_interruption_writes_nothing() -> Non
         assert all_dataset_bytes() == before and tracked_bytes() == tracked_before
 
 
-@pytest.mark.parametrize("how", ["garbled listing", "listing says failure", "bad last-updated", "failed listing", "interrupted listing"])
+@pytest.mark.parametrize(
+    "how", ["garbled listing", "listing says failure", "bad last-updated", "failed listing", "interrupted listing"]
+)
 def test_a_listing_that_answers_but_is_invalid_or_fails_writes_nothing_and_changes_no_tracked_file(how: str) -> None:
     before, tracked_before = all_dataset_bytes(), tracked_bytes()
     site = FakeTcgcsv()
@@ -514,7 +673,11 @@ def test_a_listing_that_answers_but_is_invalid_or_fails_writes_nothing_and_chang
             run(site)
     else:
         report = run(site)
-        assert not report.complete and not report.written and format_report(report)[0].startswith("incomplete, nothing written")
+        assert (
+            not report.complete
+            and not report.written
+            and format_report(report)[0].startswith("incomplete, nothing written")
+        )
     assert all_dataset_bytes() == before and tracked_bytes() == tracked_before and not snapshot_files()
 
 
@@ -524,8 +687,12 @@ def test_the_reported_request_count_is_the_requests_that_reached_the_network_not
     run(broken)  # the listing, groups 1 and 2 and group 3's products are cached; group 3's prices failed
     resumed = FakeTcgcsv()
     report = run(resumed)
-    assert report.requests == len(resumed.calls) == 8  # last-updated.txt, group 3's prices, and groups 4 to 6 (two files each)
-    assert format_report(report)[0].startswith("real run: tcgcsv dump of 2026-11-04 20:00 UTC, 8 request(s)")  # not the 14 of a whole pull
+    assert (
+        report.requests == len(resumed.calls) == 8
+    )  # last-updated.txt, group 3's prices, and groups 4 to 6 (two files each)
+    assert format_report(report)[0].startswith(
+        "real run: tcgcsv dump of 2026-11-04 20:00 UTC, 8 request(s)"
+    )  # not the 14 of a whole pull
     assert url(1, "products") not in resumed.calls  # a cached answer is not requested, so it is not counted
 
 
@@ -547,14 +714,18 @@ def test_a_partly_saved_dump_is_resumed_and_a_garbled_saved_one_is_pulled_again(
     resumed = FakeTcgcsv()
     report = run(resumed)
     assert report.written and stored() == EXPECTED
-    assert url(1, "products") not in resumed.calls and url(3, "prices") in resumed.calls  # only what was missing is requested again
+    assert (
+        url(1, "products") not in resumed.calls and url(3, "prices") in resumed.calls
+    )  # only what was missing is requested again
 
     garbled = FakeTcgcsv(make_dump(UPDATED2))
     garbled.garbled.add(url(2, "products"))
     assert not run(garbled, T1 + timedelta(days=2)).complete  # the garbled answer is saved by the cache
     fixed = FakeTcgcsv(make_dump(UPDATED2))
     again = run(fixed, T1 + timedelta(days=2))
-    assert again.complete and url(2, "products") in fixed.calls  # a saved dump that does not parse is pulled again, not used for ever
+    assert (
+        again.complete and url(2, "products") in fixed.calls
+    )  # a saved dump that does not parse is pulled again, not used for ever
 
 
 def _previous(count: int, groups: tuple[str, ...] = ("GD01",)) -> PrintingPriceFile:
@@ -570,27 +741,78 @@ def _now(previous: PrintingPriceFile, kept: int, groups: set[str]) -> Matched:
 def test_the_guard_refuses_when_more_than_the_share_of_printings_is_no_longer_matched_and_not_at_the_limit() -> None:
     assert MATCH_DROP_SHARE == 0.05
     previous = _previous(20)
-    at_limit = plan_report((), _now(previous, 19, {"GD01"}), {"GD01"}, previous, allow_anomaly=False, dry_run=False, source_updated_at=UPDATED)
+    at_limit = plan_report(
+        (),
+        _now(previous, 19, {"GD01"}),
+        {"GD01"},
+        previous,
+        allow_anomaly=False,
+        dry_run=False,
+        source_updated_at=UPDATED,
+    )
     assert at_limit.dropped == 1 and not at_limit.guard_trips and not at_limit.refused  # exactly 5%: written
-    over = plan_report((), _now(previous, 18, {"GD01"}), {"GD01"}, previous, allow_anomaly=False, dry_run=False, source_updated_at=UPDATED)
+    over = plan_report(
+        (),
+        _now(previous, 18, {"GD01"}),
+        {"GD01"},
+        previous,
+        allow_anomaly=False,
+        dry_run=False,
+        source_updated_at=UPDATED,
+    )
     assert over.dropped == 2 and over.guard_trips and over.refused  # 10%: refused
     assert "refused: 2 of 20 printings no longer matched (limit 5%)" in format_report(over)[-2]
-    overridden = plan_report((), _now(previous, 18, {"GD01"}), {"GD01"}, previous, allow_anomaly=True, dry_run=False, source_updated_at=UPDATED)
+    overridden = plan_report(
+        (),
+        _now(previous, 18, {"GD01"}),
+        {"GD01"},
+        previous,
+        allow_anomaly=True,
+        dry_run=False,
+        source_updated_at=UPDATED,
+    )
     assert overridden.guard_trips and not overridden.refused
-    dry = plan_report((), _now(previous, 18, {"GD01"}), {"GD01"}, previous, allow_anomaly=False, dry_run=True, source_updated_at=UPDATED)
+    dry = plan_report(
+        (),
+        _now(previous, 18, {"GD01"}),
+        {"GD01"},
+        previous,
+        allow_anomaly=False,
+        dry_run=True,
+        source_updated_at=UPDATED,
+    )
     assert dry.guard_trips and not dry.refused and "guard: would refuse: 2 of 20" in format_report(dry)[-2]
 
 
 def test_the_guard_refuses_when_a_group_that_gave_the_last_snapshot_rows_is_missing() -> None:
     previous = _previous(20, ("GD01", "SC01"))
-    report = plan_report((), _now(previous, 20, {"GD01"}), {"GD01"}, previous, allow_anomaly=False, dry_run=False, source_updated_at=UPDATED)
-    assert report.dropped == 0 and report.missing_groups == ("SC01",) and report.refused  # every printing matched, one group gone
+    report = plan_report(
+        (),
+        _now(previous, 20, {"GD01"}),
+        {"GD01"},
+        previous,
+        allow_anomaly=False,
+        dry_run=False,
+        source_updated_at=UPDATED,
+    )
+    assert (
+        report.dropped == 0 and report.missing_groups == ("SC01",) and report.refused
+    )  # every printing matched, one group gone
     assert "groups missing from the pull: SC01" in "\n".join(format_report(report))
-    assert not plan_report((), _now(previous, 20, {"GD01"}), {"GD01", "SC01"}, previous, allow_anomaly=False, dry_run=False,
-                           source_updated_at=UPDATED).guard_trips
+    assert not plan_report(
+        (),
+        _now(previous, 20, {"GD01"}),
+        {"GD01", "SC01"},
+        previous,
+        allow_anomaly=False,
+        dry_run=False,
+        source_updated_at=UPDATED,
+    ).guard_trips
 
 
-THIN = make_dump(UPDATED2, products={1: PRODUCTS[1][:1]}, prices={1: PRICES[1][:1]})  # one printing matched of the last run's ten
+THIN = make_dump(
+    UPDATED2, products={1: PRODUCTS[1][:1]}, prices={1: PRICES[1][:1]}
+)  # one printing matched of the last run's ten
 
 
 def test_a_refused_run_writes_nothing_and_leaves_the_tracked_files_alone() -> None:
@@ -607,11 +829,18 @@ def test_after_a_refusal_allow_anomaly_without_force_writes_from_the_saved_dump_
     site = FakeTcgcsv(THIN)
     refused = run(site, T1 + timedelta(days=2))
     assert refused.refused
-    assert format_report(refused)[-1] == "refused by the guard, nothing written (rerun with --allow-anomaly to write it from the saved dump, with no new request)"
+    assert (
+        format_report(refused)[-1]
+        == "refused by the guard, nothing written (rerun with --allow-anomaly to write it from the saved dump, with no new request)"
+    )
     requests = len(site.calls)
     later = T1 + timedelta(days=2, hours=1)  # no clock jump: inside the 24 hours the refused pull started
     plain = run(site, later)
-    assert plain.skipped is not None and "--allow-anomaly writes it from the saved dump" in format_report(plain)[0] and len(snapshot_files()) == 1
+    assert (
+        plain.skipped is not None
+        and "--allow-anomaly writes it from the saved dump" in format_report(plain)[0]
+        and len(snapshot_files()) == 1
+    )
     allowed = run(site, later, allow_anomaly=True)  # no --force
     assert allowed.written and allowed.stored and not allowed.refused and len(site.calls) == requests  # no new request
     assert len(snapshot_files()) == 2 and set(stored()) == {"GD01-001"}
@@ -621,12 +850,21 @@ def test_the_command_after_a_refusal_writes_with_allow_anomaly_and_no_new_reques
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     previous = matched().rows
-    assert write_printing_prices(PrintingPriceFile(generated_at=datetime.now(UTC) - timedelta(days=3), source_updated_at=UPDATED, data=previous)) is not None
+    assert (
+        write_printing_prices(
+            PrintingPriceFile(
+                generated_at=datetime.now(UTC) - timedelta(days=3), source_updated_at=UPDATED, data=previous
+            )
+        )
+        is not None
+    )
     site = FakeTcgcsv(THIN)
     monkeypatch.setattr(cli, "Fetcher", lambda *a, **k: site)
     assert cli.main(["refresh-prices"]) == 1 and "rerun with --allow-anomaly" in capsys.readouterr().out
     requests = len(site.calls)
-    assert cli.main(["refresh-prices"]) == 0 and "within 24 hours" in capsys.readouterr().out  # the plain rerun still waits
+    assert (
+        cli.main(["refresh-prices"]) == 0 and "within 24 hours" in capsys.readouterr().out
+    )  # the plain rerun still waits
     assert cli.main(["refresh-prices", "--allow-anomaly"]) == 0 and "snapshot written" in capsys.readouterr().out
     assert len(site.calls) == requests and set(stored()) == {"GD01-001"}
 
@@ -639,7 +877,10 @@ def test_a_large_price_move_never_refuses_and_the_biggest_moves_are_reported_in_
     real = run(site, T1 + timedelta(days=2))
     for report in (dry, real):
         assert not report.guard_trips and report.changed == 2
-        assert [(str(m.printing_id), m.old_cents, m.new_cents) for m in report.moves] == [("GD01-001", 150, 1500), ("GD01-001_p1", 500, 10)]
+        assert [(str(m.printing_id), m.old_cents, m.new_cents) for m in report.moves] == [
+            ("GD01-001", 150, 1500),
+            ("GD01-001_p1", 500, 10),
+        ]
         assert "  move GD01-001: $1.50 -> $15.00" in format_report(report)
     assert real.written and not dry.written
 
@@ -652,7 +893,9 @@ def test_requests_go_to_tcgcsv_only_one_at_a_time_and_a_pull_is_about_one_reques
     assert all(u.startswith("https://tcgcsv.com/") for u in site.calls)
 
 
-def test_the_command_fetches_with_the_toolkit_user_agent_no_closer_than_the_delay(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_the_command_fetches_with_the_toolkit_user_agent_no_closer_than_the_delay(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     made: list[dict[str, Any]] = []
     site = FakeTcgcsv()
 
@@ -663,7 +906,9 @@ def test_the_command_fetches_with_the_toolkit_user_agent_no_closer_than_the_dela
     monkeypatch.setattr(cli, "Fetcher", fetcher)
     assert REQUEST_DELAY_S >= 0.5
     assert cli.main(["refresh-prices", "--dry-run"]) == 0
-    assert made == [{"folder": raw_folder() / "tcgcsv", "min_interval_s": REQUEST_DELAY_S}]  # the default User-Agent: none given
+    assert made == [
+        {"folder": raw_folder() / "tcgcsv", "min_interval_s": REQUEST_DELAY_S}
+    ]  # the default User-Agent: none given
 
 
 def test_a_run_within_24_hours_of_the_last_pull_fetches_nothing_writes_nothing_and_says_so_unless_forced() -> None:
@@ -681,7 +926,9 @@ def test_a_run_within_24_hours_of_the_last_pull_fetches_nothing_writes_nothing_a
 
 @pytest.mark.parametrize("damage", ["garbled", "deleted"])
 @pytest.mark.parametrize("options", [{"allow_anomaly": True}, {"dry_run": True}])
-def test_inside_24_hours_an_unreadable_saved_dump_is_never_downloaded_again_without_force(damage: str, options: dict[str, bool]) -> None:
+def test_inside_24_hours_an_unreadable_saved_dump_is_never_downloaded_again_without_force(
+    damage: str, options: dict[str, bool]
+) -> None:
     run(FakeTcgcsv(), T1)  # a real pull: its marker is on the saved dump
     dump_folder = raw_folder() / "tcgcsv" / stamp_of(UPDATED)
     assert (dump_folder / "pulled-at.txt").is_file()
@@ -694,7 +941,10 @@ def test_inside_24_hours_an_unreadable_saved_dump_is_never_downloaded_again_with
     site = FakeTcgcsv()
     report = run(site, T1 + timedelta(hours=1), **options)
     assert not report.complete and not report.written and site.calls == []  # no request at all
-    assert "unreadable or incomplete" in format_report(report)[0] and "rerun with --force to pull again" in format_report(report)[0]
+    assert (
+        "unreadable or incomplete" in format_report(report)[0]
+        and "rerun with --force to pull again" in format_report(report)[0]
+    )
     assert all_dataset_bytes() == before and tracked_bytes() == tracked_before
     forced = run(site, T1 + timedelta(hours=1), force=True)  # --force is the way to pull again
     assert forced.complete and site.calls
@@ -705,7 +955,9 @@ def test_a_saved_dump_with_no_pull_marker_is_a_normal_first_pull_even_when_unrea
     (raw_folder() / "tcgcsv" / stamp_of(UPDATED) / "2_products.json").write_text("<html>not json", encoding="utf-8")
     site = FakeTcgcsv()
     report = run(site, T1, allow_anomaly=True)
-    assert report.complete and report.written and stored() == EXPECTED and site.calls  # pulled again, no 24-hour rule applies
+    assert (
+        report.complete and report.written and stored() == EXPECTED and site.calls
+    )  # pulled again, no 24-hour rule applies
 
 
 def test_a_dry_run_inside_24_hours_plans_from_the_saved_dump_with_no_network_and_writes_nothing() -> None:
@@ -717,18 +969,24 @@ def test_a_dry_run_inside_24_hours_plans_from_the_saved_dump_with_no_network_and
     assert all_dataset_bytes() == before and tracked_bytes() == tracked_before
 
 
-def test_a_dry_run_reports_matches_unmatched_changes_and_the_verdict_and_writes_no_dataset_file_then_a_real_run_still_works() -> None:
+def test_a_dry_run_reports_matches_unmatched_changes_and_the_verdict_and_writes_no_dataset_file_then_a_real_run_still_works() -> (
+    None
+):
     before, tracked_before = all_dataset_bytes(), tracked_bytes()
     site = FakeTcgcsv()
     dry = run(site, dry_run=True)
-    assert all_dataset_bytes() == before and not snapshot_files()  # the raw dump may be saved; the dataset is not touched
+    assert (
+        all_dataset_bytes() == before and not snapshot_files()
+    )  # the raw dump may be saved; the dataset is not touched
     assert tracked_bytes() == tracked_before  # and no tracked file is changed
     lines = format_report(dry)
     assert lines[0].startswith("dry run: tcgcsv dump of 2026-11-04 20:00 UTC, 14 request(s)")
     assert any(line.startswith("10 printing(s) matched, 11 product(s) unmatched or ambiguous") for line in lines)
     assert "  unmatched GD01 GD01-099 N60 Not ours: card number is not in the catalog" in lines
     assert lines[-2:] == ["guard: ok", "dry run: nothing written"]
-    real = run(site, T1)  # the dry run left no pull marker: it did not use up the day, and the saved dump is not fetched again
+    real = run(
+        site, T1
+    )  # the dry run left no pull marker: it did not use up the day, and the saved dump is not fetched again
     assert real.written and real.stored and len(site.calls) == 14 + 1  # one more last-updated check only
     assert stored() == EXPECTED
 
@@ -752,10 +1010,14 @@ def test_sync_tcgplayer_only_saves_the_raw_dump_and_changes_nothing_in_the_datas
     assert all_dataset_bytes() == before
     capsys.readouterr()
     calls = len(site.calls)
-    assert cli.main(["sync-tcgplayer"]) == 0 and "up to date" in capsys.readouterr().out and len(site.calls) == calls + 1  # one request: last-updated
+    assert (
+        cli.main(["sync-tcgplayer"]) == 0 and "up to date" in capsys.readouterr().out and len(site.calls) == calls + 1
+    )  # one request: last-updated
 
 
-def test_sync_tcgplayer_does_not_call_a_partly_saved_dump_up_to_date(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_sync_tcgplayer_does_not_call_a_partly_saved_dump_up_to_date(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     site = FakeTcgcsv()
     site.fail.add(url(3, "prices"))
     monkeypatch.setattr(cli, "Fetcher", lambda *a, **k: site)
@@ -772,9 +1034,13 @@ def test_refresh_prices_after_sync_tcgplayer_prices_from_the_saved_dump_with_one
     site = FakeTcgcsv()
     monkeypatch.setattr(cli, "Fetcher", lambda *a, **k: site)
     assert cli.main(["sync-tcgplayer"]) == 0
-    assert "`refresh-prices` prices from this saved dump, with no new download" in capsys.readouterr().out  # what the message promises:
+    assert (
+        "`refresh-prices` prices from this saved dump, with no new download" in capsys.readouterr().out
+    )  # what the message promises:
     saved = len(site.calls)
-    assert cli.main(["refresh-prices"]) == 0 and "snapshot written" in capsys.readouterr().out  # no wait of 24 hours, no re-download
+    assert (
+        cli.main(["refresh-prices"]) == 0 and "snapshot written" in capsys.readouterr().out
+    )  # no wait of 24 hours, no re-download
     assert len(site.calls) == saved + 1 and stored() == EXPECTED  # only last-updated.txt was asked
 
 
@@ -788,4 +1054,3 @@ def test_the_refresh_prices_command_exits_1_when_refused_and_0_when_written(
     site.dump = make_dump(UPDATED2, products={1: PRODUCTS[1][:1]}, prices={1: PRICES[1][:1]})
     assert cli.main(["refresh-prices", "--force"]) == 1 and "refused by the guard" in capsys.readouterr().out
     assert stored() == EXPECTED
-

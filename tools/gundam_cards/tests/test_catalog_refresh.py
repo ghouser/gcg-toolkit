@@ -1,4 +1,5 @@
 """refresh-cards: the catalog refresh from Bandai, with a fake Bandai (no network) and small synthetic pages."""
+
 from __future__ import annotations
 
 import json
@@ -55,13 +56,26 @@ def detail(
 ) -> str:
     """A minimal Bandai detail page that the real parser reads. `shown` overrides field values; a None value leaves the label out."""
     number = printing_id.split("_p")[0]
-    fields = {"Lv.": "2", "COST": "1", "COLOR": color, "TYPE": kind, "Zone": "Space", "Trait": "(Earth Federation)", "Link": "-",
-              "AP": "1", "HP": "2", "Source Title": "-", "Where to get it": where}
+    fields = {
+        "Lv.": "2",
+        "COST": "1",
+        "COLOR": color,
+        "TYPE": kind,
+        "Zone": "Space",
+        "Trait": "(Earth Federation)",
+        "Link": "-",
+        "AP": "1",
+        "HP": "2",
+        "Source Title": "-",
+        "Where to get it": where,
+    }
     fields = {k: v for k, v in {**fields, **(shown or {})}.items() if v is not None}
     rows = "".join(f'<dt class="dataTit">{k}</dt><dd class="dataTxt">{v}</dd>' for k, v in fields.items())
-    return (f'<html><body><div class="cardNo">{card_no or number}</div><div class="rarity">{rarity}</div>'
-            f'<div class="blockIcon">1</div><h1 class="cardName">{name or "Card " + number}</h1><dl>{rows}</dl>'
-            f'<div class="dataTxt isRegular">-</div></body></html>')
+    return (
+        f'<html><body><div class="cardNo">{card_no or number}</div><div class="rarity">{rarity}</div>'
+        f'<div class="blockIcon">1</div><h1 class="cardName">{name or "Card " + number}</h1><dl>{rows}</dl>'
+        f'<div class="dataTxt isRegular">-</div></body></html>'
+    )
 
 
 @dataclass
@@ -114,15 +128,24 @@ class FakeBandai:
 def write_tracked_sets(sets: tuple[CardSet, ...], generated_at: datetime, folder: Path) -> None:
     """A reviewed sets.json, as the owner keeps it by hand (no toolkit code writes it)."""
     folder.mkdir(parents=True, exist_ok=True)
-    (folder / "sets.json").write_text(SetsFile(generated_at=generated_at, data=sets).model_dump_json(), encoding="utf-8")
+    (folder / "sets.json").write_text(
+        SetsFile(generated_at=generated_at, data=sets).model_dump_json(), encoding="utf-8"
+    )
 
 
 @pytest.fixture
 def tracked(tmp_path: Path) -> Path:
     """A tracked folder with the reviewed sets.json: GD01 only."""
     folder = tmp_path / "tracked"
-    gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising (reviewed)", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
-                   release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
+    gd01 = CardSet(
+        code=SetCode("GD01"),
+        name="Newtype Rising (reviewed)",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=PackageId(GD01),
+        release_date=date(2025, 7, 25),
+        product_category_raw="BOOSTER PACK",
+        product_url=None,
+    )
     write_tracked_sets((gd01,), T1, folder)
     return folder
 
@@ -137,8 +160,12 @@ def site(tmp_path: Path) -> FakeBandai:
     )
 
 
-def run(site: FakeBandai, tracked: Path, when: datetime, *, dry_run: bool = False, allow_anomaly: bool = False) -> RefreshReport:
-    return refresh_catalog(site, site.raw_dir, tracked_dir=tracked, now=when, dry_run=dry_run, allow_anomaly=allow_anomaly)
+def run(
+    site: FakeBandai, tracked: Path, when: datetime, *, dry_run: bool = False, allow_anomaly: bool = False
+) -> RefreshReport:
+    return refresh_catalog(
+        site, site.raw_dir, tracked_dir=tracked, now=when, dry_run=dry_run, allow_anomaly=allow_anomaly
+    )
 
 
 def catalog() -> CardsFile:
@@ -162,7 +189,11 @@ def flags() -> dict[str, tuple[bool, bool]]:
 def dataset_bytes() -> dict[str, bytes]:
     """Every dataset file but the Bandai page cache (a failed real run may have cached pages; "writes nothing" is about the catalog files)."""
     root, pages = data_out_dir().parent, pages_folder()
-    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file() and pages not in p.parents}
+    return {
+        str(p.relative_to(root)): p.read_bytes()
+        for p in sorted(root.rglob("*"))
+        if p.is_file() and pages not in p.parents
+    }
 
 
 def all_dataset_bytes() -> dict[str, bytes]:
@@ -181,14 +212,21 @@ def test_first_refresh_builds_the_catalog_from_bandai_and_records_an_unknown_pac
     assert report.complete and report.written and not report.rejected
     assert numbers() == ["GD01-001", "GD01-002", "GD09-001"]  # crawled with no hand-entered data
     [gd09] = load_provisional_sets()
-    assert (gd09.code, gd09.name, gd09.bandai_package_id, gd09.release_date) == ("GD09", "Future Pack", GD09, date(2027, 3, 5))
+    assert (gd09.code, gd09.name, gd09.bandai_package_id, gd09.release_date) == (
+        "GD09",
+        "Future Pack",
+        GD09,
+        date(2027, 3, 5),
+    )
     assert [s.code for s in report.provisional] == ["GD09"]
     assert (tracked / "sets.json").read_bytes() == tracked_before  # the golden list is never edited
     assert {s.code: s.name for s in load_sets(tracked)} == {"GD01": "Newtype Rising (reviewed)", "GD09": "Future Pack"}
     assert card("GD09-001").printings[0].package_ids == (GD09,)
 
 
-def test_a_package_bandai_gives_no_release_date_for_is_still_recorded_and_crawled(site: FakeBandai, tracked: Path) -> None:
+def test_a_package_bandai_gives_no_release_date_for_is_still_recorded_and_crawled(
+    site: FakeBandai, tracked: Path
+) -> None:
     site.packages[RP02] = ("Reprint Box [RP02]", ["RP02-001"])  # no product page: Bandai gives no release date
     site.details["RP02-001"] = detail("RP02-001", where="Reprint Box [RP02]")
     report = run(site, tracked, T1)
@@ -201,8 +239,15 @@ def test_a_package_bandai_gives_no_release_date_for_is_still_recorded_and_crawle
 
 
 def test_readers_of_sets_prefer_the_tracked_entry_when_a_code_is_in_both(tracked: Path) -> None:
-    clash = CardSet(code=SetCode("GD01"), name="Bandai's name", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
-                    release_date=date(2025, 8, 1), product_category_raw=None, product_url=None)
+    clash = CardSet(
+        code=SetCode("GD01"),
+        name="Bandai's name",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=PackageId(GD01),
+        release_date=date(2025, 8, 1),
+        product_category_raw=None,
+        product_url=None,
+    )
     write_provisional_sets((clash,), T1)
     [gd01] = load_sets(tracked)
     assert gd01.name == "Newtype Rising (reviewed)" and gd01.release_date == date(2025, 7, 25)
@@ -221,7 +266,9 @@ def test_a_second_refresh_adds_new_cards_and_printings_and_removes_nothing(site:
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="needs git")
-def test_a_refresh_reading_the_real_tracked_folder_changes_no_tracked_file(site: FakeBandai, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_a_refresh_reading_the_real_tracked_folder_changes_no_tracked_file(
+    site: FakeBandai, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.delenv(TOOL_DATA_VAR)  # the repository's own tracked folder; the pages stay in the temp folder
     repo = REPO_ROOT
     status = ["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=no"]
@@ -238,7 +285,9 @@ def test_a_reprint_package_adds_printings_to_existing_cards_and_creates_none(sit
     run(site, tracked, T1)
     before = card("GD01-001")
     site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-001_p2", "GD01-002_p2"])
-    site.details["GD01-001_p2"] = detail("GD01-001_p2", name="A different name on the reprint", where="Reprint Box [RP02]")
+    site.details["GD01-001_p2"] = detail(
+        "GD01-001_p2", name="A different name on the reprint", where="Reprint Box [RP02]"
+    )
     site.details["GD01-002_p2"] = detail("GD01-002_p2", where="Reprint Box [RP02]")
     report = run(site, tracked, T2)
 
@@ -250,11 +299,17 @@ def test_a_reprint_package_adds_printings_to_existing_cards_and_creates_none(sit
     assert (after.number, after.name) == (before.number, before.name)
     base, reprint = after.printings
     assert (base.id, base.set_code, base.package_ids) == ("GD01-001", "GD01", (GD01,))  # its original set
-    assert (reprint.id, reprint.set_code, reprint.package_ids) == ("GD01-001_p2", "RP02", (RP02,))  # the printing records the package
+    assert (reprint.id, reprint.set_code, reprint.package_ids) == (
+        "GD01-001_p2",
+        "RP02",
+        (RP02,),
+    )  # the printing records the package
     assert [str(p.id) for p in card("GD01-002").printings] == ["GD01-002", "GD01-002_p2"]
 
 
-def test_a_package_listing_existing_printing_ids_adds_itself_to_those_printings(site: FakeBandai, tracked: Path) -> None:
+def test_a_package_listing_existing_printing_ids_adds_itself_to_those_printings(
+    site: FakeBandai, tracked: Path
+) -> None:
     run(site, tracked, T1)
     site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-001"])
     report = run(site, tracked, T2)
@@ -275,18 +330,28 @@ def test_a_printing_that_leaves_one_package_listing_keeps_that_package(site: Fak
     assert printing.package_ids == (GD01, RP02)  # a refresh never takes a package away (owner decision 2026-11-20)
 
 
-def test_a_printing_no_listing_names_keeps_its_packages_while_its_card_is_listed(site: FakeBandai, tracked: Path) -> None:
+def test_a_printing_no_listing_names_keeps_its_packages_while_its_card_is_listed(
+    site: FakeBandai, tracked: Path
+) -> None:
     site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", "GD01-002"])
     run(site, tracked, T1)
-    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])  # GD01-001_p1 on no listing; GD01-001 still is
+    site.packages[GD01] = (
+        "Newtype Rising [GD01]",
+        ["GD01-001", "GD01-002"],
+    )  # GD01-001_p1 on no listing; GD01-001 still is
     dry = run(site, tracked, T2, dry_run=True)
     report = run(site, tracked, T2)
     assert report.written and report.missed == () and report.changed == () and not report.guard_trips
     assert (dry.missed, dry.changed, dry.guard_trips) == (report.missed, report.changed, report.guard_trips)
-    assert [(str(p.id), p.package_ids) for p in card("GD01-001").printings] == [("GD01-001", (GD01,)), ("GD01-001_p1", (GD01,))]
+    assert [(str(p.id), p.package_ids) for p in card("GD01-001").printings] == [
+        ("GD01-001", (GD01,)),
+        ("GD01-001_p1", (GD01,)),
+    ]
 
 
-def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_nothing(site: FakeBandai, tracked: Path) -> None:
+def test_a_mixed_package_creates_cards_only_for_new_numbers_and_a_rerun_changes_nothing(
+    site: FakeBandai, tracked: Path
+) -> None:
     run(site, tracked, T1)
     site.packages[RP02] = ("Reprint Box [RP02]", ["GD01-002_p3", "RP02-001"])
     site.details["GD01-002_p3"] = detail("GD01-002_p3", where="Reprint Box [RP02]")
@@ -331,7 +396,9 @@ def test_a_missed_card_keeps_its_stored_data_including_its_packages(site: FakeBa
     assert stored.printings[0].package_ids == (GD01,)
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])  # GD01-050 gone
     # its cached page now reads differently, so a rebuild of it would differ from what is stored
-    (site.raw_dir / detail_page_key(PrintingId("GD01-050"))).write_text(detail("GD01-050", name="Renamed"), encoding="utf-8")
+    (site.raw_dir / detail_page_key(PrintingId("GD01-050"))).write_text(
+        detail("GD01-050", name="Renamed"), encoding="utf-8"
+    )
 
     first_miss = run(site, tracked, T2)
     assert first_miss.missed == ("GD01-050",) and flags()["GD01-050"] == (True, False)
@@ -368,15 +435,19 @@ def test_an_incomplete_run_counts_no_miss(site: FakeBandai, tracked: Path) -> No
 
 # ---- AC-4 --------------------------------------------------------------------------------------------------------------------
 def test_shape_check_rejects_bad_cards_and_printings_and_keeps_the_rest(site: FakeBandai, tracked: Path) -> None:
-    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "gd01-9", "GD01-003", "GD01-004", "GD01-005", "GD01-006",
-                                                     "GD01-007", "GD01-007_p1"])
-    site.details.update({
-        "GD01-003": detail("GD01-003", kind="SPELL"),
-        "GD01-004": detail("GD01-004", color="Orange"),
-        "GD01-005": detail("GD01-005", rarity="SSR"),
-        "GD01-006": detail("GD01-006", card_no="GD-01-006"),
-        "GD01-007_p1": detail("GD01-007_p1", rarity="Q +"),
-    })
+    site.packages[GD01] = (
+        "Newtype Rising [GD01]",
+        ["GD01-001", "gd01-9", "GD01-003", "GD01-004", "GD01-005", "GD01-006", "GD01-007", "GD01-007_p1"],
+    )
+    site.details.update(
+        {
+            "GD01-003": detail("GD01-003", kind="SPELL"),
+            "GD01-004": detail("GD01-004", color="Orange"),
+            "GD01-005": detail("GD01-005", rarity="SSR"),
+            "GD01-006": detail("GD01-006", card_no="GD-01-006"),
+            "GD01-007_p1": detail("GD01-007_p1", rarity="Q +"),
+        }
+    )
     report = run(site, tracked, T1)
 
     assert report.written
@@ -395,7 +466,9 @@ def test_shape_check_rejects_bad_cards_and_printings_and_keeps_the_rest(site: Fa
 def test_a_rejected_page_never_replaces_a_stored_card(site: FakeBandai, tracked: Path) -> None:
     run(site, tracked, T1)
     before = card("GD01-002")
-    (site.raw_dir / detail_page_key(PrintingId("GD01-002"))).write_text(detail("GD01-002", kind="SPELL"), encoding="utf-8")
+    (site.raw_dir / detail_page_key(PrintingId("GD01-002"))).write_text(
+        detail("GD01-002", kind="SPELL"), encoding="utf-8"
+    )
     report = run(site, tracked, T2)
     assert [r.subject for r in report.rejected] == ["GD01-002"] and "whole card left out" in report.rejected[0].reason
     assert card("GD01-002") == before
@@ -423,10 +496,15 @@ def test_the_anomaly_guard_refuses_a_run_that_drops_too_many_cards(site: FakeBan
 def test_the_anomaly_guard_counts_changed_cards(site: FakeBandai, tracked: Path) -> None:
     _ten_cards(site, tracked)
     for number in ("GD01-001", "GD01-002"):
-        (site.raw_dir / detail_page_key(PrintingId(number))).write_text(detail(number, name="Renamed"), encoding="utf-8")
+        (site.raw_dir / detail_page_key(PrintingId(number))).write_text(
+            detail(number, name="Renamed"), encoding="utf-8"
+        )
     before = dataset_bytes()
     report = run(site, tracked, T2)
-    assert report.refused and [(c.number, c.fields) for c in report.changed] == [("GD01-001", ("name",)), ("GD01-002", ("name",))]
+    assert report.refused and [(c.number, c.fields) for c in report.changed] == [
+        ("GD01-001", ("name",)),
+        ("GD01-002", ("name",)),
+    ]
     assert report.missed == ()
     assert dataset_bytes() == before
 
@@ -451,7 +529,9 @@ def test_the_refresh_command_refuses_with_a_nonzero_exit_and_allow_anomaly_overr
 
 
 @pytest.mark.parametrize(("existing", "written"), [(50, True), (49, False)])
-def test_the_anomaly_guard_boundary_is_two_percent(site: FakeBandai, tracked: Path, existing: int, written: bool) -> None:
+def test_the_anomaly_guard_boundary_is_two_percent(
+    site: FakeBandai, tracked: Path, existing: int, written: bool
+) -> None:
     assert ANOMALY_SHARE == 0.02
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, existing)])
     run(site, tracked, T1)  # existing - 1 + GD09-001 = existing cards
@@ -463,8 +543,17 @@ def test_the_anomaly_guard_boundary_is_two_percent(site: FakeBandai, tracked: Pa
 
 @pytest.mark.parametrize(
     "breakage",
-    ["package list fails", "package list unreadable", "listing fails", "listing unreadable", "detail fails", "detail unreadable",
-     "interrupted at the package list", "interrupted at a listing", "interrupted"],
+    [
+        "package list fails",
+        "package list unreadable",
+        "listing fails",
+        "listing unreadable",
+        "detail fails",
+        "detail unreadable",
+        "interrupted at the package list",
+        "interrupted at a listing",
+        "interrupted",
+    ],
 )
 def test_a_failed_or_interrupted_run_writes_nothing(site: FakeBandai, tracked: Path, breakage: str) -> None:
     run(site, tracked, T1)
@@ -551,15 +640,20 @@ def test_an_interruption_during_the_write_phase_never_leaves_a_file_partly_writt
     assert not [name for name in after if ".tmp-" in name]  # no stray temporary file
     for name, content in after.items():
         assert content == before.get(name) or json.loads(content)  # each file is the old one or a whole new one
-    assert (after["gundam_cards/cards.json"] != before["gundam_cards/cards.json"]) is (nth > 1)  # cards.json is written first
+    assert (after["gundam_cards/cards.json"] != before["gundam_cards/cards.json"]) is (
+        nth > 1
+    )  # cards.json is written first
     provisional = "gundam_cards/provisional_sets.json"
     assert after[provisional] == before[provisional]  # written last: an interruption at any write leaves the old one
     assert "GD10" not in {s.code for s in load_provisional_sets()}
 
     assert run(site, tracked, T3).written  # the next run repairs any derived file left behind
     assert "GD10" in {s.code for s in load_provisional_sets()}  # ... and records the package left out
-    stamps = {json.loads(after_bytes)["generated_at"] for name, after_bytes in dataset_bytes().items()
-              if name in ("gundam_cards/cards.json", "gundam_cards/traits.json", "gundam_cards/source_titles.json")}
+    stamps = {
+        json.loads(after_bytes)["generated_at"]
+        for name, after_bytes in dataset_bytes().items()
+        if name in ("gundam_cards/cards.json", "gundam_cards/traits.json", "gundam_cards/source_titles.json")
+    }
     assert len(stamps) == 1
 
 
@@ -572,7 +666,9 @@ def test_a_failed_first_run_creates_no_dataset(site: FakeBandai, tracked: Path) 
 # ---- AC-5 --------------------------------------------------------------------------------------------------------------------
 def test_a_run_with_nothing_new_requests_only_the_package_list_and_listings(site: FakeBandai, tracked: Path) -> None:
     run(site, tracked, T1)
-    assert sorted(site.detail_calls()) == [DETAIL_URL.format(i) for i in ("GD01-001", "GD01-002", "GD09-001")]  # each once
+    assert sorted(site.detail_calls()) == [
+        DETAIL_URL.format(i) for i in ("GD01-001", "GD01-002", "GD09-001")
+    ]  # each once
     site.calls.clear()
     run(site, tracked, T2)
     assert site.calls == [CARDS_URL, f"{PRODUCTS_URL}?page=1", LIST_URL.format(GD01), LIST_URL.format(GD09)]
@@ -581,14 +677,19 @@ def test_a_run_with_nothing_new_requests_only_the_package_list_and_listings(site
 def test_the_refresh_uses_the_polite_fetcher() -> None:
     fetcher = cli.refresh_fetcher()
     assert isinstance(fetcher, Fetcher)
-    assert fetcher._min_interval_s >= 0.5 and fetcher._user_agent == DEFAULT_USER_AGENT  # spacing itself: shared/test_fetch.py
+    assert (
+        fetcher._min_interval_s >= 0.5 and fetcher._user_agent == DEFAULT_USER_AGENT
+    )  # spacing itself: shared/test_fetch.py
     assert fetcher._cache_dir == pages_folder()
 
 
 def _changes_for_a_dry_run(site: FakeBandai, tracked: Path) -> None:
     site.packages[GD01] = ("Newtype Rising [GD01]", [f"GD01-{n:03}" for n in range(1, 50)])
     run(site, tracked, T1)  # 49 + GD09-001 = 50 existing cards
-    site.packages[GD01] = ("Newtype Rising [GD01]", ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(3, 50)]])
+    site.packages[GD01] = (
+        "Newtype Rising [GD01]",
+        ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(3, 50)]],
+    )
     site.packages[PackageId("616110")] = ("Next Pack [GD10]", ["GD10-001"])
     site.products.append(("Next Pack [GD10]", "June 4,2027"))
 
@@ -599,17 +700,25 @@ def test_a_dry_run_reports_what_a_real_run_would_do_and_changes_nothing(site: Fa
     site.calls.clear()
     report = run(site, tracked, T2, dry_run=True)
 
-    assert site.detail_calls() == [DETAIL_URL.format(i) for i in ("GD01-001_p1", "GD10-001")] and not report.written  # fetched, not stored
+    assert (
+        site.detail_calls() == [DETAIL_URL.format(i) for i in ("GD01-001_p1", "GD10-001")] and not report.written
+    )  # fetched, not stored
     assert all_dataset_bytes() == before and (tracked / "sets.json").read_bytes() == tracked_before
     assert [s.code for s in report.provisional] == ["GD10"]
     assert report.packages_with_new == (("Newtype Rising [GD01]", False), ("Next Pack [GD10]", True))
     assert report.new_cards == ("GD10-001",) and report.new_printings == ("GD01-001_p1", "GD10-001")
     assert report.missed == ("GD01-002",) and not report.guard_trips
     lines = "\n".join(format_report(report))
-    for expected in ("provisional GD10 Next Pack (released 2027-06-04)", "Next Pack [GD10] (provisional)",
-                     "Newtype Rising [GD01] (known)", "1 new card number(s): GD10-001", "2 new printing(s): GD01-001_p1 GD10-001",
-                     "1 card(s) missed: GD01-002", "anomaly guard: 1 dropped, 0 changed of 50 existing cards (limit 2%): ok",
-                     "dry run: nothing written"):
+    for expected in (
+        "provisional GD10 Next Pack (released 2027-06-04)",
+        "Next Pack [GD10] (provisional)",
+        "Newtype Rising [GD01] (known)",
+        "1 new card number(s): GD10-001",
+        "2 new printing(s): GD01-001_p1 GD10-001",
+        "1 card(s) missed: GD01-002",
+        "anomaly guard: 1 dropped, 0 changed of 50 existing cards (limit 2%): ok",
+        "dry run: nothing written",
+    ):
         assert expected in lines
 
     real = run(site, tracked, T2)  # the real run does what the dry run said
@@ -620,10 +729,24 @@ def test_a_tracked_set_without_a_package_id_is_reported_known_and_an_untracked_o
     site: FakeBandai, tmp_path: Path
 ) -> None:
     folder = tmp_path / "tracked_gd06"
-    gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
-                   release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
-    gd06 = CardSet(code=SetCode("GD06"), name="Stardust Trails", kind=SetKind.BOOSTER, bandai_package_id=None,
-                   release_date=date(2026, 9, 1), product_category_raw="BOOSTER PACK", product_url=None)
+    gd01 = CardSet(
+        code=SetCode("GD01"),
+        name="Newtype Rising",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=PackageId(GD01),
+        release_date=date(2025, 7, 25),
+        product_category_raw="BOOSTER PACK",
+        product_url=None,
+    )
+    gd06 = CardSet(
+        code=SetCode("GD06"),
+        name="Stardust Trails",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=None,
+        release_date=date(2026, 9, 1),
+        product_category_raw="BOOSTER PACK",
+        product_url=None,
+    )
     write_tracked_sets((gd01, gd06), T1, folder)
     run(site, folder, T1)
     site.packages[PackageId("616106")] = ("Stardust Trails [GD06]", ["GD06-001"])
@@ -652,7 +775,9 @@ def test_the_refresh_fetcher_sends_the_toolkit_user_agent() -> None:
     assert _Handler.agents == [DEFAULT_USER_AGENT]
 
 
-def test_the_refresh_command_dry_run(site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_the_refresh_command_dry_run(
+    site: FakeBandai, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     monkeypatch.setattr(cli, "refresh_fetcher", lambda: site)
     assert cli.main(["refresh", "--dry-run"]) == 0
     out = capsys.readouterr().out

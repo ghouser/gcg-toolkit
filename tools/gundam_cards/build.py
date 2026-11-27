@@ -3,6 +3,7 @@
 Every rule here is documented in tools/gundam_cards/design.md ("Parser rules" and "Which text wins").
 Anything the parser can't classify raises `ParseError` (and the card is reported) or lands in `unknown_tags`.
 """
+
 from __future__ import annotations
 
 import re
@@ -62,7 +63,9 @@ class IssueKind(StrEnum):
     PRINTING_ATTRIBUTE_MISMATCH = "printing_attribute_mismatch"
     AMBIGUOUS_RECENCY = "ambiguous_recency"
     KEYWORDS_CHANGED = "keywords_changed_between_versions"
-    NO_BASE_PRINTING = "no_base_printing"  # a card number Bandai only lists as alt arts; the lowest one is the reference
+    NO_BASE_PRINTING = (
+        "no_base_printing"  # a card number Bandai only lists as alt arts; the lowest one is the reference
+    )
 
 
 @dataclass(frozen=True)
@@ -178,7 +181,9 @@ def parse_block(value: str, subject: str) -> Block | None:
     try:
         return Block(value)
     except ValueError as e:
-        raise ParseError(subject, f"unknown block {value!r} (a new block means a new rules era: review the enums)") from e
+        raise ParseError(
+            subject, f"unknown block {value!r} (a new block means a new rules era: review the enums)"
+        ) from e
 
 
 _KIND_BY_TYPE = {
@@ -333,7 +338,17 @@ def pilot_name_in_text(text: str) -> PilotName | None:
 # ---- printing and text-version assembly -------------------------------------------------------------
 _SET_CODE_IN_TEXT = re.compile(r"\[([A-Z]{2,4})-?([0-9]{2}[A-Z]?)\]")  # [GD05], [PB01], [PC02A], [EVX-01] -> EVX01
 PROMO_SET_CODE = SetCode("PROMO")  # the set code of a release-event printing (a code `sets.json` already has)
-_COMPARED_FIELDS = ("TYPE", "COLOR", "Lv.", "COST", "AP", "HP", "Trait", "Link", "Zone")  # not Source Title: per printing
+_COMPARED_FIELDS = (
+    "TYPE",
+    "COLOR",
+    "Lv.",
+    "COST",
+    "AP",
+    "HP",
+    "Trait",
+    "Link",
+    "Zone",
+)  # not Source Title: per printing
 
 
 def _image_url(printing_id: PrintingId, src: str | None) -> str | None:
@@ -344,7 +359,9 @@ def _image_url(printing_id: PrintingId, src: str | None) -> str | None:
     return urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))  # drop the cache-busting query
 
 
-def _set_code(where: str, package_ids: Sequence[PackageId], package_codes: Mapping[PackageId, SetCode]) -> SetCode | None:
+def _set_code(
+    where: str, package_ids: Sequence[PackageId], package_codes: Mapping[PackageId, SetCode]
+) -> SetCode | None:
     """PROMO when "Where to get it" names an event (whatever code it mentions); else the bracketed code in it; else the code of the
     first of the printing's packages that `package_codes` knows."""
     if names_release_event(where):
@@ -386,7 +403,9 @@ class _Group:
         return max(blocks, key=lambda b: b.rank) if blocks else None
 
     def as_of(self, release_dates: Mapping[SetCode, date]) -> date | None:
-        dates = [release_dates[p.set_code] for p in self.printings if p.set_code is not None and p.set_code in release_dates]
+        dates = [
+            release_dates[p.set_code] for p in self.printings if p.set_code is not None and p.set_code in release_dates
+        ]
         return max(dates) if dates else None
 
     def rank(self, release_dates: Mapping[SetCode, date]) -> tuple[int, date]:
@@ -523,7 +542,9 @@ def build_card(
         try:
             printings.append(build_printing(page, package_codes))
         except ParseError as e:
-            issues.append(Issue(IssueKind.PARSE_FAILURE, e.subject, f"{e.detail} (printing left out; the card is kept)"))
+            issues.append(
+                Issue(IssueKind.PARSE_FAILURE, e.subject, f"{e.detail} (printing left out; the card is kept)")
+            )
             continue
         kept.append(page)
         diffs = [
@@ -648,10 +669,17 @@ def _build_variant(base: SourcePage, common: _Common, current_text: str) -> Card
             elif ap is not None or hp is not None:
                 raise ParseError(subject, "Command shows AP/HP but its text has no 【Pilot】[Name] effect")
             return CommandCard(
-                **common, color=color, level=level, cost=cost, traits=parse_traits(field_value("Trait"), subject), pilot=pilot
+                **common,
+                color=color,
+                level=level,
+                cost=cost,
+                traits=parse_traits(field_value("Trait"), subject),
+                pilot=pilot,
             )
         case CardKind.BASE | CardKind.BASE_TOKEN:  # a page never says base token: it is inferred here
-            if parse_color(f.get("COLOR", "-"), subject) is None and base.printing_id.card_number.startswith(TOKEN_SERIES):
+            if parse_color(f.get("COLOR", "-"), subject) is None and base.printing_id.card_number.startswith(
+                TOKEN_SERIES
+            ):
                 return BaseTokenCard(
                     **common,
                     level=parse_int(f.get("Lv.", "-"), subject, "Lv."),

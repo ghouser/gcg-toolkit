@@ -1,4 +1,5 @@
 """The links between my collection, prices and associations, on the synthetic worlds."""
+
 from __future__ import annotations
 
 
@@ -54,7 +55,9 @@ def test_a_peer_never_covers_a_core_member_it_is_only_a_suggestion() -> None:
     owned = {A1: 4, A2: 1, twin: 4, wrong: 9, A3: 2}
     coverage = package_coverage(a, packages.squads, owned, {A2: 100, twin: 40, wrong: 5}, cards)
     slot = next(s for s in coverage.slots if A2 in s.members)
-    assert slot.members == (A2,) and slot.alternates == () and set(slot.similar) == {twin, wrong}  # peers are redundant, not substitutes
+    assert (
+        slot.members == (A2,) and slot.alternates == () and set(slot.similar) == {twin, wrong}
+    )  # peers are redundant, not substitutes
     assert slot.owned == 1 and slot.critical_need == 2 and slot.critical_missing == 1  # I still need the second A2
     assert (slot.option, slot.unit_cents) == (A2, 100)
 
@@ -73,7 +76,10 @@ def test_packages_are_home_adjacent_or_new_from_what_i_own() -> None:
     coverage = {pid: package_coverage(p, base.squads, owned, {}, {}) for pid, p in by_id.items()}
     stages = classify(coverage, rates_file)
     assert stages[y] is Stage.HOME and stages[x] is Stage.ADJACENT  # X shares the bridge with the home package
-    assert classify({pid: package_coverage(p, base.squads, {}, {}, {}) for pid, p in by_id.items()}, rates_file) == {x: Stage.NEW, y: Stage.NEW}
+    assert classify({pid: package_coverage(p, base.squads, {}, {}, {}) for pid, p in by_id.items()}, rates_file) == {
+        x: Stage.NEW,
+        y: Stage.NEW,
+    }
 
 
 def test_associated_cards_come_with_need_owned_and_price_and_skip_the_card_asked_about() -> None:
@@ -81,6 +87,15 @@ def test_associated_cards_come_with_need_owned_and_price_and_skip_the_card_asked
     a = next(p for p in rates_file.packages if p.package == PKG_A)
     rows = associated_cards(a, {PKG_A: "A", PKG_B: "B"}, {A1: 3}, {A1: 500, B1: 25}, limit=2, skip=A3)
     by_card = {r.card: r for r in rows}
-    assert A3 not in by_card and by_card[A1].why.startswith("its package") and (by_card[A1].needed, by_card[A1].owned, by_card[A1].price_cents) == (4, 3, 500)
-    assert by_card[B1].why == "with B" and by_card[B1].needed == 2 and by_card[B1].owned == 0 and by_card[B1].price_cents == 25
+    assert (
+        A3 not in by_card
+        and by_card[A1].why.startswith("its package")
+        and (by_card[A1].needed, by_card[A1].owned, by_card[A1].price_cents) == (4, 3, 500)
+    )
+    assert (
+        by_card[B1].why == "with B"
+        and by_card[B1].needed == 2
+        and by_card[B1].owned == 0
+        and by_card[B1].price_cents == 25
+    )
     assert any(r.why == "synergy" and r.needed is None for r in rows)

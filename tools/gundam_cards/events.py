@@ -3,6 +3,7 @@
 The one place that decides it: `build.py` gives such a printing the set code PROMO, and `export.py` skips it when choosing a card's
 reference printing. The wording is documented in `docs/catalog-export.md` and `tools/gundam_cards/design.md`.
 """
+
 from __future__ import annotations
 
 import re

@@ -1,5 +1,6 @@
 """The card catalog is append-only. Cards are never removed; each card keeps its first-recorded date and only its latest data.
 A rebuild without listings (`reparse`) never marks a card; marking takes two consecutive complete refreshes (refresh-cards AC-3)."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime

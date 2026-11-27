@@ -6,6 +6,7 @@ the first deck already needs are free); and so on. Premium cards ($10 or more) a
 one stays in the plan with its regular copies, the premium copies are **skipped** (not bought, not in the totals), and it is marked as not reaching Playable
 until they are approved; such decks come after the decks that can be finished. Nothing here buys or fetches anything.
 """
+
 from __future__ import annotations
 
 import re
@@ -42,7 +43,9 @@ class Line:
 class Step:
     deck: Deck
     lines: tuple[Line, ...]  # to buy
-    held_back: tuple[Line, ...]  # premium copies this deck needs: skipped (not in the cost, not counted as bought), they need approval
+    held_back: tuple[
+        Line, ...
+    ]  # premium copies this deck needs: skipped (not in the cost, not counted as bought), they need approval
     cost_cents: int
     unpriced: int  # copies with no price (so the cost is a minimum)
     running_cents: int  # the total so far, this step included
@@ -74,7 +77,11 @@ def decks_with_package(decks: Sequence[Deck], text: str) -> list[Deck]:
     found = []
     for deck in decks:
         by_anchor = anchor is not None and anchor.group(1).upper() in {a.upper() for a in deck.anchors}
-        by_name = anchor is None and bool(query) and any(query in label.casefold() for label in (deck.package_labels or (deck.plain_name,)))
+        by_name = (
+            anchor is None
+            and bool(query)
+            and any(query in label.casefold() for label in (deck.package_labels or (deck.plain_name,)))
+        )
         if by_anchor or by_name:
             found.append(deck)
     return found
@@ -125,7 +132,9 @@ def plan_buy(
             lines = _lines(cov, cost_to(cov.needs(), Band.PLAYABLE), others)
             regular, held = _split(lines, include_premium)
             cents, unpriced = _cost(regular)
-            options.append((((bool(held), unpriced > 0, cents, -d.top_rate, d.name)), d, regular, held, (cents, unpriced)))  # decks that can be finished come first
+            options.append(
+                (((bool(held), unpriced > 0, cents, -d.top_rate, d.name)), d, regular, held, (cents, unpriced))
+            )  # decks that can be finished come first
         if not options:
             break
         _, deck, lines, held, (cents, unpriced) = min(options, key=lambda o: o[0])
@@ -133,7 +142,11 @@ def plan_buy(
         for ln in lines:
             have[ln.card] = have.get(ln.card, 0) + ln.copies
         running += cents
-        moved = tuple((o.name, before[o.id], coverage_of(o, have).band) for o in decks if o.id != deck.id and coverage_of(o, have).band != before[o.id])
+        moved = tuple(
+            (o.name, before[o.id], coverage_of(o, have).band)
+            for o in decks
+            if o.id != deck.id and coverage_of(o, have).band != before[o.id]
+        )
         out.append(Step(deck, tuple(lines), tuple(held), cents, unpriced, running, moved))
         chosen.append(deck)
         todo = [d for d in todo if d.id != deck.id]
@@ -146,7 +159,9 @@ def plan_buy(
                 cov = coverage_of(d, have)
                 regular, held = _split(_lines(cov, cost_to(cov.needs(), Band.COMPLETE), []), include_premium)
                 cents, unpriced = _cost(regular)
-                options.append(((bool(held), unpriced > 0, cents, -d.top_rate, d.name), d, regular, held, (cents, unpriced)))
+                options.append(
+                    ((bool(held), unpriced > 0, cents, -d.top_rate, d.name), d, regular, held, (cents, unpriced))
+                )
             _, deck, regular, held, (cents, unpriced) = min(options, key=lambda o: o[0])
             for ln in regular:
                 have[ln.card] = have.get(ln.card, 0) + ln.copies
@@ -167,4 +182,3 @@ def mass_entry(plan: BuyPlan, meta: Mapping[CardNumber, tuple[str, str]], names:
         name, set_code = meta.get(card, (names.get(card, str(card)), str(card).split("-")[0]))
         lines.append(f"{copies} {name} [{set_code}]")
     return lines
-

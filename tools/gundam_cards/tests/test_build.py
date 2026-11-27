@@ -1,4 +1,5 @@
 """Building typed cards from parsed pages, including the "newest wording wins" rules."""
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -42,7 +43,16 @@ Page = Callable[[str], SourcePage]
 NO_DATES: dict[SetCode, date] = {}
 TRAITS = frozenset(
     Trait(t)
-    for t in ("Earth Federation", "White Base Team", "G Generation", "Newtype", "Cyber-Newtype", "Teiwaz", "Tekkadan", "Zeon")
+    for t in (
+        "Earth Federation",
+        "White Base Team",
+        "G Generation",
+        "Newtype",
+        "Cyber-Newtype",
+        "Teiwaz",
+        "Tekkadan",
+        "Zeon",
+    )
 )
 
 
@@ -59,7 +69,11 @@ def test_unit(page: Page) -> None:
     assert card.traits == (Trait("Earth Federation"), Trait("White Base Team"))
     assert card.link is not None and card.link.any_of == (PilotNameLink(fragment=PilotName("Amuro Ray")),)
     assert card.keywords == {Keyword.REPAIR, Keyword.DURING_PAIR}
-    assert (card.printings[0].rarity, card.printings[0].alt_art, card.printings[0].block) == (Rarity.LR, False, Block.ONE)
+    assert (card.printings[0].rarity, card.printings[0].alt_art, card.printings[0].block) == (
+        Rarity.LR,
+        False,
+        Block.ONE,
+    )
     assert card.printings[0].set_code == "ST01"
     assert [f.id for f in card.faq] == ["Q113"] and card.faq[0].updated == date(2025, 7, 4)
     assert result.issues == ()
@@ -158,7 +172,10 @@ def test_trait_alternatives_link(page: Page) -> None:
 def test_pilot_name_alternatives_link(page: Page) -> None:
     card = build(page, "GD03-001").card
     assert isinstance(card, UnitCard) and card.link is not None
-    assert [r.fragment for r in card.link.any_of if isinstance(r, PilotNameLink)] == ["Christina Mackenzie", "Amuro Ray"]
+    assert [r.fragment for r in card.link.any_of if isinstance(r, PilotNameLink)] == [
+        "Christina Mackenzie",
+        "Amuro Ray",
+    ]
 
 
 def test_pilot_name_with_parentheses(page: Page) -> None:
@@ -178,7 +195,13 @@ def test_bare_trait_alternative_is_a_trait(page: Page) -> None:
 
 def test_set_codes_in_where_to_get_accept_all_known_shapes(page: Page) -> None:
     p = page("ST01-001")
-    for where, expected in [("Steel Requiem[GD03]", "GD03"), ("X -Wing- [PB01]", "PB01"), ("Y [PC02A]", "PC02A"), ("Z [EVX-01]", "EVX01"), ("Events", None)]:
+    for where, expected in [
+        ("Steel Requiem[GD03]", "GD03"),
+        ("X -Wing- [PB01]", "PB01"),
+        ("Y [PC02A]", "PC02A"),
+        ("Z [EVX-01]", "EVX01"),
+        ("Events", None),
+    ]:
         fields = dict(p.raw.fields, **{"Where to get it": where})
         card = build_card([replace(p, raw=replace(p.raw, fields=fields))], TRAITS, NO_DATES).card
         assert card.printings[0].set_code == expected
@@ -265,7 +288,12 @@ def test_parse_int_rejects_garbage() -> None:
 
 @pytest.mark.parametrize(
     ("value", "expected"),
-    [("C", (Rarity.C, 0, False)), ("C +", (Rarity.C, 1, False)), ("LR", (Rarity.LR, 0, False)), ("P", (Rarity.P, 0, False))],
+    [
+        ("C", (Rarity.C, 0, False)),
+        ("C +", (Rarity.C, 1, False)),
+        ("LR", (Rarity.LR, 0, False)),
+        ("P", (Rarity.P, 0, False)),
+    ],
 )
 def test_parse_rarity(value: str, expected: tuple[Rarity, int, bool]) -> None:
     assert parse_rarity(value, "t") == expected

@@ -12,6 +12,7 @@ Coincidental matches (the same popular list at unrelated events) don't share pla
 When an event is duplicated, one copy is kept (the one with more counted decks; DuelFrontier on a tie, since it also records
 sideboards), and any deck it couldn't read (private, or EGM's unreadable slots) is filled in from the other copy.
 """
+
 from __future__ import annotations
 
 import unicodedata
@@ -107,7 +108,17 @@ def _fill_unreadable_decks(kept: Event, other: Event) -> tuple[Event, tuple[str,
     for deck in kept.decks:
         donor = donors.get(normalize_player(deck.player_name))
         if not deck.counted and donor is not None:
-            decks.append(deck.model_copy(update={"available": True, "main": donor.main, "side": donor.side, "unresolved": (), "name": deck.name or donor.name}))
+            decks.append(
+                deck.model_copy(
+                    update={
+                        "available": True,
+                        "main": donor.main,
+                        "side": donor.side,
+                        "unresolved": (),
+                        "name": deck.name or donor.name,
+                    }
+                )
+            )
             borrowed.append(deck.player_name)
         else:
             decks.append(deck)

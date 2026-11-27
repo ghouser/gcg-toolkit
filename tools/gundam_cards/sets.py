@@ -7,6 +7,7 @@ Both are HTML; both are parsed with `html.parser`, never by eye.
 The reviewed `sets.json` is never written here or anywhere in the toolkit: a rebuild only proposes sets it lacks (`propose_sets`, into
 the dataset's provisional record) and reports how Bandai's list differs from it (`reviewed_set_notes`).
 """
+
 from __future__ import annotations
 
 import re
@@ -171,7 +172,13 @@ def parse_release_date(text: str) -> date | None:
     return datetime.strptime(" ".join(match.groups()), "%B %d %Y").date()
 
 
-_PREFIX_KINDS = {"GD": SetKind.BOOSTER, "ST": SetKind.STARTER, "EB": SetKind.EXTRA_BOOSTER, "SC": SetKind.DECK_BUILD_BOX, "PB": SetKind.PROMO}
+_PREFIX_KINDS = {
+    "GD": SetKind.BOOSTER,
+    "ST": SetKind.STARTER,
+    "EB": SetKind.EXTRA_BOOSTER,
+    "SC": SetKind.DECK_BUILD_BOX,
+    "PB": SetKind.PROMO,
+}
 _SYNTHETIC_PACKAGES = {
     "Promotion card": (SetCode("PROMO"), SetKind.PROMO),
     "Edition Beta": (SetCode("BETA"), SetKind.BETA),
@@ -220,7 +227,9 @@ def build_sets(packages: tuple[PackageEntry, ...], products: tuple[RawProduct, .
             synthetic_code, kind = _SYNTHETIC_PACKAGES[package.label]
             drafts[synthetic_code] = _Draft(package.label, kind, package_id=package.id)
         else:
-            issues.append(Issue(IssueKind.PARSE_FAILURE, f"package {package.id}", f"unknown uncoded package {package.label!r}"))
+            issues.append(
+                Issue(IssueKind.PARSE_FAILURE, f"package {package.id}", f"unknown uncoded package {package.label!r}")
+            )
 
     for product in products:
         name, code = split_title(product.title)
@@ -264,7 +273,9 @@ _COMPARED = (("name", "name"), ("kind", "kind"), ("release_date", "release date"
              ("product_category_raw", "category"), ("product_url", "url"))  # fmt: skip
 
 
-def propose_sets(tracked: Sequence[CardSet], stored: Sequence[CardSet], bandai: Sequence[CardSet]) -> tuple[CardSet, ...]:
+def propose_sets(
+    tracked: Sequence[CardSet], stored: Sequence[CardSet], bandai: Sequence[CardSet]
+) -> tuple[CardSet, ...]:
     """The provisional record after a rebuild, by code: the stored entries, updated or added from Bandai's list. An entry Bandai no
     longer lists stays; a code in the reviewed `sets.json` is never in it (Bandai's version of a reviewed set is recorded nowhere)."""
     tracked_codes = {s.code for s in tracked}

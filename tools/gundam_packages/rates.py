@@ -8,6 +8,7 @@ of X's members. For perspective package X with Y decks out of Z:
 - W's cards and bridge cards, from X's perspective: combined rate x (copies in the YY decks / (4 x YY)) = copies / (4 x Y);
 - synergy, free-floating and other cards: copies in X's Y decks / (4 x Y), not multiplied.
 """
+
 from __future__ import annotations
 
 from collections import Counter
@@ -35,7 +36,9 @@ from tools.gundam_packages.models import (
 )
 
 CopyDeck = Mapping[CardNumber, int]
-ARCHETYPE_CARD_MIN_SHARE = 0.25  # a card is in an archetype's table when at least this share of its decks run it (package members always are)
+ARCHETYPE_CARD_MIN_SHARE = (
+    0.25  # a card is in an archetype's table when at least this share of its decks run it (package members always are)
+)
 LOW_SAMPLE_DECKS = 20  # an archetype with fewer decks has copy counts that should not be trusted
 
 
@@ -88,10 +91,14 @@ def _archetype(
         else:
             role = ArchetypeRole.OTHER
         if role in (ArchetypeRole.CORE, ArchetypeRole.OPTIONAL) or share >= ARCHETYPE_CARD_MIN_SHARE:
-            cards.append(ArchetypeCard(card_number=card, role=role, decks=count, share=share, histogram=_histogram(decks, card)))
+            cards.append(
+                ArchetypeCard(card_number=card, role=role, decks=count, share=share, histogram=_histogram(decks, card))
+            )
     order = {r: i for i, r in enumerate(ArchetypeRole)}
     cards.sort(key=lambda c: (order[c.role], -c.share, c.card_number))
-    return ArchetypeRate(packages=signature, name=name, decks=n, rate=n / total, cards=tuple(cards), low_sample=n < LOW_SAMPLE_DECKS)
+    return ArchetypeRate(
+        packages=signature, name=name, decks=n, rate=n / total, cards=tuple(cards), low_sample=n < LOW_SAMPLE_DECKS
+    )
 
 
 def compute_rates(base: PackagesFile, decks: Sequence[CopyDeck], generated_at: datetime) -> RatesFile:
@@ -102,7 +109,10 @@ def compute_rates(base: PackagesFile, decks: Sequence[CopyDeck], generated_at: d
     owner = {card: pid for pid, members in members_of.items() for card in members}
     order = {p.id: i for i, p in enumerate(base.packages)}
     names = {p.id: p.name for p in base.packages}
-    plays = [frozenset(pid for pid, members in members_of.items() if runs_package(frozenset(d), members, run_share)) for d in decks]
+    plays = [
+        frozenset(pid for pid, members in members_of.items() if runs_package(frozenset(d), members, run_share))
+        for d in decks
+    ]
 
     bridges: dict[tuple[PackageId, PackageId], tuple[CardNumber, ...]] = {}
     synergistic: set[tuple[PackageId, PackageId]] = set()
@@ -160,8 +170,23 @@ def compute_rates(base: PackagesFile, decks: Sequence[CopyDeck], generated_at: d
         for card, n in copies.items():
             if card in own or card in partner_members:
                 continue
-            role = OtherRole.SYNERGY if (card, x) in synergy_of else OtherRole.FREE_FLOATING if card in floating else OtherRole.OTHER
-            others.append(OtherCard(card_number=card, copies=n, possible=possible, rate=n / possible, role=role, belongs_to=owner.get(card)))
+            role = (
+                OtherRole.SYNERGY
+                if (card, x) in synergy_of
+                else OtherRole.FREE_FLOATING
+                if card in floating
+                else OtherRole.OTHER
+            )
+            others.append(
+                OtherCard(
+                    card_number=card,
+                    copies=n,
+                    possible=possible,
+                    rate=n / possible,
+                    role=role,
+                    belongs_to=owner.get(card),
+                )
+            )
         others.sort(key=lambda o: (-o.rate, o.card_number))
 
         alone = sum(1 for i in in_x if plays[i] == {x})
@@ -175,10 +200,22 @@ def compute_rates(base: PackagesFile, decks: Sequence[CopyDeck], generated_at: d
     sig_of = [tuple(sorted(p, key=order.__getitem__)) for p in plays]
     signatures = Counter(sig_of)
     member_of = {
-        m.card_number: (p.id, ArchetypeRole.CORE if m.role is Role.CORE else ArchetypeRole.OPTIONAL) for p in base.packages for m in p.members
+        m.card_number: (p.id, ArchetypeRole.CORE if m.role is Role.CORE else ArchetypeRole.OPTIONAL)
+        for p in base.packages
+        for m in p.members
     }
     archetypes = tuple(
-        _archetype(sig, n, total, [decks[i] for i in range(total) if sig_of[i] == sig], names, member_of, bridges, synergy_of, floating)
+        _archetype(
+            sig,
+            n,
+            total,
+            [decks[i] for i in range(total) if sig_of[i] == sig],
+            names,
+            member_of,
+            bridges,
+            synergy_of,
+            floating,
+        )
         for sig, n in sorted(signatures.items(), key=lambda kv: (-kv[1], kv[0]))
     )
     seen = sorted({card for d in decks for card in d})

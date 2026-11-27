@@ -3,6 +3,7 @@
 An orphan is a cached detail page whose card is in no cached package listing and not in the catalog. Expected values are worked out by
 hand from the pages each test writes; the fake Bandai and the page helpers are those of the refresh tests.
 """
+
 from __future__ import annotations
 
 from datetime import date
@@ -27,8 +28,15 @@ CATALOG_FILES = ("cards.json", "traits.json", "source_titles.json")
 
 @pytest.fixture
 def tracked(tmp_path: Path) -> Path:
-    gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
-                   release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
+    gd01 = CardSet(
+        code=SetCode("GD01"),
+        name="Newtype Rising",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=PackageId(GD01),
+        release_date=date(2025, 7, 25),
+        product_category_raw="BOOSTER PACK",
+        product_url=None,
+    )
     write_tracked_sets((gd01,), T1, tmp_path / "tracked")
     return tmp_path / "tracked"
 
@@ -40,7 +48,11 @@ def web(monkeypatch: pytest.MonkeyPatch) -> Web:
 
 @pytest.fixture
 def site() -> FakeBandai:
-    return FakeBandai(pages_folder(), {GD01: ("Newtype Rising [GD01]", list(LISTED))}, products=[("Newtype Rising [GD01]", "July 25,2025")])
+    return FakeBandai(
+        pages_folder(),
+        {GD01: ("Newtype Rising [GD01]", list(LISTED))},
+        products=[("Newtype Rising [GD01]", "July 25,2025")],
+    )
 
 
 def stored_numbers() -> list[str]:
@@ -82,7 +94,9 @@ def test_reparse_leaves_an_orphan_out_of_an_existing_catalog_and_names_it(
     assert orphan_line([PrintingId("GD99-001"), PrintingId("GD99-001_p1")]) == ORPHANS
 
 
-def test_reparse_builds_a_first_catalog_without_the_orphan(site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_reparse_builds_a_first_catalog_without_the_orphan(
+    site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     assert run(site, tracked, T1).written
     (data_out_dir() / "cards.json").unlink()  # no catalog yet: only the cached pages are left
     cache_orphans()
@@ -96,7 +110,10 @@ def test_reparse_still_builds_listed_cards_and_stored_cards_no_listing_names(
 ) -> None:
     assert run(site, tracked, T1).written
     listing = pages_folder() / "lists" / f"{GD01}.html"
-    listing.write_text(listing.read_text(encoding="utf-8").replace('<a data-src="detail.php?detailSearch=GD01-003">x</a>', ""), encoding="utf-8")
+    listing.write_text(
+        listing.read_text(encoding="utf-8").replace('<a data-src="detail.php?detailSearch=GD01-003">x</a>', ""),
+        encoding="utf-8",
+    )
     cache("GD01-002", page("GD01-002", name="Renamed"))  # a listed card is rebuilt as before
     code, out, _ = reparse(capsys)  # GD01-003 is stored but now unlisted: not an orphan
     assert code == 0 and "orphan" not in out and "3 pages -> 3 cards" in out
@@ -109,7 +126,9 @@ def test_an_unlisted_printing_page_of_a_listed_card_is_built_not_an_orphan(
     site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     assert run(site, tracked, T1).written
-    cache("GD01-002_p1", detail("GD01-002_p1"))  # no listing names this printing id, but its card number GD01-002 is listed
+    cache(
+        "GD01-002_p1", detail("GD01-002_p1")
+    )  # no listing names this printing id, but its card number GD01-002 is listed
     code, out, _ = reparse(capsys)
     assert code == 0 and "orphan" not in out and "4 pages -> 3 cards" in out
     stored = load_catalog()
@@ -118,7 +137,9 @@ def test_an_unlisted_printing_page_of_a_listed_card_is_built_not_an_orphan(
     assert sorted(str(p.id) for p in card.printings) == ["GD01-002", "GD01-002_p1"]
 
 
-def test_no_orphan_line_when_there_is_no_orphan(site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_no_orphan_line_when_there_is_no_orphan(
+    site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     assert run(site, tracked, T1).written
     _, out, _ = reparse(capsys)
     assert "orphan" not in out
@@ -142,7 +163,9 @@ def test_with_the_landing_page_cached_but_no_list_page_reparse_says_so_and_leave
     site: FakeBandai, tracked: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     assert run(site, tracked, T1).written
-    (pages_folder() / "lists" / f"{GD01}.html").unlink()  # the package list is known, but no package's listing is cached
+    (
+        pages_folder() / "lists" / f"{GD01}.html"
+    ).unlink()  # the package list is known, but no package's listing is cached
     assert (pages_folder() / LANDING_KEY).is_file()
     cache_orphans()
     before = catalog_bytes()
@@ -161,9 +184,7 @@ def test_with_no_cached_listing_and_no_catalog_reparse_creates_nothing(capsys: p
 
 
 # ---- AC-2: the commands that end in a reparse behave the same ----------------------------------------------------------------------
-def test_sync_and_refetch_leave_the_orphan_out_and_name_it_too(
-    web: Web, capsys: pytest.CaptureFixture[str]
-) -> None:
+def test_sync_and_refetch_leave_the_orphan_out_and_name_it_too(web: Web, capsys: pytest.CaptureFixture[str]) -> None:
     assert cli.main(["refresh"]) == 0
     cache("GD99-001", detail("GD99-001"))
     capsys.readouterr()
@@ -180,5 +201,6 @@ def test_sync_and_refetch_leave_the_orphan_out_and_name_it_too(
     assert "1 orphan page(s), in no listing and not in the catalog, not added: GD99-001" in out
     assert out.count("orphan page(s)") == 1
     assert stored_numbers() == ["GD01-001", "GD01-002"]
-    assert (pages_folder() / detail_page_key(PrintingId("GD99-001"))).is_file()  # only reported: its page is not deleted
-
+    assert (
+        pages_folder() / detail_page_key(PrintingId("GD99-001"))
+    ).is_file()  # only reported: its page is not deleted

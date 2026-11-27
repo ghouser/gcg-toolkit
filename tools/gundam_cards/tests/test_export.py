@@ -1,5 +1,6 @@
 """The catalog export (`gundam_cards export`), run end to end on a small catalog in the temp dataset. The root conftest points
 GCG_CATALOG_FILE at a temp file for every test. Expected values are worked out by hand from the cards below."""
+
 from __future__ import annotations
 
 import json
@@ -63,7 +64,9 @@ GUNDAM = unit("GD01-001", "Gundam", level=4, cost=3).model_copy(update={"printin
     printing("GD01-001_p2", "GD01", alt=1, link=True),
     printing("GD01-001_p3", "ST01"),
 )})  # fmt: skip
-AMURO = pilot("ST01-010", "Amuro Ray").model_copy(update={"printings": (printing("ST01-010", "ST01"), printing("ST01-010_p1", "ST01"))})
+AMURO = pilot("ST01-010", "Amuro Ray").model_copy(
+    update={"printings": (printing("ST01-010", "ST01"), printing("ST01-010_p1", "ST01"))}
+)
 RESOURCE = ResourceCard(
     number=CardNumber("R-001"), name="Resource",
     text_versions=(TextVersion(text="", printing_ids=(PrintingId("R-001_p4"),), block=None, as_of=None, substantive=False),),
@@ -84,11 +87,16 @@ def bandai(code: str, name: str) -> CardSet:
 
 
 def price(number: str, set_code: str, cents: int, at: datetime) -> CardPrice:
-    return CardPrice(card_number=CardNumber(number), price_cents=cents, product_id=ProductId(1), set_code=set_code, fetched_at=at)
+    return CardPrice(
+        card_number=CardNumber(number), price_cents=cents, product_id=ProductId(1), set_code=set_code, fetched_at=at
+    )
 
 
 def store(cards: tuple[Any, ...] = CARDS, *, unlisted: tuple[str, ...] = ("ST01-010",)) -> None:
-    records = tuple(CardRecord(number=c.number, first_recorded=CATALOG_AT, no_longer_listed=str(c.number) in unlisted) for c in cards)
+    records = tuple(
+        CardRecord(number=c.number, first_recorded=CATALOG_AT, no_longer_listed=str(c.number) in unlisted)
+        for c in cards
+    )
     save_catalog(CardsFile(generated_at=CATALOG_AT, data=cards, records=records))
 
 
@@ -141,7 +149,11 @@ def test_export_writes_every_card_with_its_printings_to_the_configured_file(trac
     assert datetime.fromisoformat(data["generated_at"]).tzinfo is not None
     assert set(data["reference"]) == {"sets", "kinds", "colors", "rarities"}
     assert [c["number"] for c in data["cards"]] == ["R-001", "GD01-001", "ST01-010"]
-    assert [(c["name"], c["kind"]) for c in data["cards"]] == [("Resource", "resource"), ("Gundam", "unit"), ("Amuro Ray", "pilot")]
+    assert [(c["name"], c["kind"]) for c in data["cards"]] == [
+        ("Resource", "resource"),
+        ("Gundam", "unit"),
+        ("Amuro Ray", "pilot"),
+    ]
     assert [[(p["id"], p["rarity"]) for p in c["printings"]] for c in data["cards"]] == [
         [("R-001_p4", "C")],
         [("GD01-001", "R"), ("GD01-001_p1", "R"), ("GD01-001_p2", "R"), ("GD01-001_p3", "R")],
@@ -157,13 +169,17 @@ def test_a_card_no_longer_listed_is_exported_and_flagged_and_only_it_carries_the
     assert "no_longer_listed" not in cards["GD01-001"] and "no_longer_listed" not in cards["R-001"]
 
 
-def test_without_the_variable_the_export_goes_to_dot_gcg_catalog_json_in_home(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_without_the_variable_the_export_goes_to_dot_gcg_catalog_json_in_home(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.delenv(CATALOG_FILE_VAR)
     monkeypatch.setenv("HOME", str(tmp_path))
     assert catalog_export_path() == tmp_path / ".gcg" / "catalog.json"
 
 
-def test_a_failed_write_leaves_the_earlier_export_intact_and_no_temp_file(tracked: None, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_a_failed_write_leaves_the_earlier_export_intact_and_no_temp_file(
+    tracked: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
     store()
     export()
     path = catalog_export_path()
@@ -193,6 +209,7 @@ TCGCSV_AT = datetime(2026, 11, 4, 20, tzinfo=UTC)
 
 def tcgcsv_dump() -> RawDump:
     """One GD01 product for GD01-001, priced."""
+
     def results(rows: list[dict[str, object]]) -> str:
         return json.dumps({"totalItems": len(rows), "success": True, "errors": [], "results": rows})
 
@@ -240,7 +257,11 @@ def offline(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
 ], ids=" ".join)  # fmt: skip
 def test_no_other_command_writes_the_export(offline: None, argv: list[str]) -> None:
     store()
-    write_prices(PriceFile(generated_at=CATALOG_AT, source_updated_at=CATALOG_AT, data=(price("GD01-001", "GD01", 150, CATALOG_AT),)))
+    write_prices(
+        PriceFile(
+            generated_at=CATALOG_AT, source_updated_at=CATALOG_AT, data=(price("GD01-001", "GD01", 150, CATALOG_AT),)
+        )
+    )
     assert cli.main(argv) == 0
     assert not catalog_export_path().exists()
 
@@ -248,10 +269,26 @@ def test_no_other_command_writes_the_export(offline: None, argv: list[str]) -> N
 # ---- AC-2 --------------------------------------------------------------------------------------------------------------------
 def test_the_export_holds_no_null_and_no_card_text_stats_or_price_on_the_card(tracked: None) -> None:
     store()
-    write_prices(PriceFile(generated_at=CATALOG_AT, source_updated_at=CATALOG_AT, data=(price("GD01-001", "GD01", 150, CATALOG_AT),)))
+    write_prices(
+        PriceFile(
+            generated_at=CATALOG_AT, source_updated_at=CATALOG_AT, data=(price("GD01-001", "GD01", 150, CATALOG_AT),)
+        )
+    )
     data = export()
     assert None not in values(data)
-    excluded = {"text", "text_versions", "ap", "hp", "traits", "keywords", "referenced_traits", "faq", "zones", "link", "pilot"}
+    excluded = {
+        "text",
+        "text_versions",
+        "ap",
+        "hp",
+        "traits",
+        "keywords",
+        "referenced_traits",
+        "faq",
+        "zones",
+        "link",
+        "pilot",
+    }
     assert not keys(data) & excluded
     assert all("price_cents" not in c and "price_as_of" not in c for c in data["cards"])
 
@@ -306,7 +343,9 @@ def a_set(code: str, kind: SetKind) -> CardSet:
                    product_url=None)  # fmt: skip
 
 
-def test_the_card_set_code_skips_edition_beta_so_the_starter_deck_basics_are_basic(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_the_card_set_code_skips_edition_beta_so_the_starter_deck_basics_are_basic(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """promo-beta-set-codes AC-3: the reference printing is the first one whose set is not BETA. EXB-001, EXR-001 and R-001 on
     the real data (the basic cards given in the starter decks): a Beta first printing, then one in the basic package, then a
     bracketed SC01 reprint, so the card's set is BASIC, not SC01; the Beta printing keeps BETA."""
@@ -315,8 +354,12 @@ def test_the_card_set_code_skips_edition_beta_so_the_starter_deck_basics_are_bas
     beta_first = RESOURCE.model_copy(update={"printings": (printing("R-001_p1", "BETA", rarity=Rarity.C, alt=1),
                                                            printing("R-001_p2", "BASIC", rarity=Rarity.C, alt=1),
                                                            printing("R-001_p4", "SC01", rarity=Rarity.C, alt=1))})  # fmt: skip
-    beta_later = GUNDAM.model_copy(update={"printings": (printing("GD01-001", "GD01"), printing("GD01-001_p1", "BETA", alt=1))})
-    beta_only = RESOURCE.model_copy(update={"number": CardNumber("R-002"), "printings": (printing("R-002_p1", "BETA", rarity=Rarity.C, alt=1),)})
+    beta_later = GUNDAM.model_copy(
+        update={"printings": (printing("GD01-001", "GD01"), printing("GD01-001_p1", "BETA", alt=1))}
+    )
+    beta_only = RESOURCE.model_copy(
+        update={"number": CardNumber("R-002"), "printings": (printing("R-002_p1", "BETA", rarity=Rarity.C, alt=1),)}
+    )
     beta_then_none = RESOURCE.model_copy(update={"number": CardNumber("R-003"), "printings": (
         printing("R-003_p1", "BETA", rarity=Rarity.C, alt=1), printing("R-003_p2", None, rarity=Rarity.C, alt=1),
         printing("R-003_p3", "SC01", rarity=Rarity.C, alt=1))})  # fmt: skip
@@ -334,14 +377,25 @@ def test_the_card_set_code_skips_edition_beta_so_the_starter_deck_basics_are_bas
 def test_each_printing_carries_only_what_applies_to_it(tracked: None) -> None:
     store()
     printings = printings_by_id(export())
-    assert printings["GD01-001"] == {"id": "GD01-001", "rarity": "R", "set_code": "GD01", "image_url": "https://img/GD01-001.webp"}
+    assert printings["GD01-001"] == {
+        "id": "GD01-001",
+        "rarity": "R",
+        "set_code": "GD01",
+        "image_url": "https://img/GD01-001.webp",
+    }
     assert printings["GD01-001_p1"] == {"id": "GD01-001_p1", "rarity": "R", "set_code": "GD01", "variant": 1, "alt_art_level": 1,
                                         "link_art": False, "image_url": "https://img/GD01-001_p1.webp"}  # fmt: skip
     assert printings["GD01-001_p2"] == {"id": "GD01-001_p2", "rarity": "R", "set_code": "GD01", "variant": 2, "alt_art_level": 1,
                                         "link_art": True}  # fmt: skip
     assert printings["GD01-001_p3"] == {"id": "GD01-001_p3", "rarity": "R", "set_code": "ST01", "variant": 3, "alt_art_level": 0,
                                         "link_art": False}  # fmt: skip
-    assert printings["R-001_p4"] == {"id": "R-001_p4", "rarity": "C", "variant": 4, "alt_art_level": 1, "link_art": False}
+    assert printings["R-001_p4"] == {
+        "id": "R-001_p4",
+        "rarity": "C",
+        "variant": 4,
+        "alt_art_level": 1,
+        "link_art": False,
+    }
 
 
 def test_a_printing_carries_its_latest_price_in_cents_with_its_as_of_date(tracked: None) -> None:
@@ -361,7 +415,9 @@ def test_a_printing_carries_its_latest_price_in_cents_with_its_as_of_date(tracke
 
 
 def test_a_price_whose_set_matches_no_single_non_alt_printing_prices_none(tracked: None) -> None:
-    zaku = unit("GD01-002", "Zaku").model_copy(update={"printings": (printing("GD01-002", "GD01"), printing("GD01-002_p1", "ST01", alt=1))})
+    zaku = unit("GD01-002", "Zaku").model_copy(
+        update={"printings": (printing("GD01-002", "GD01"), printing("GD01-002_p1", "ST01", alt=1))}
+    )
     store((zaku, GUNDAM), unlisted=())
     write_prices(PriceFile(generated_at=CATALOG_AT, source_updated_at=CATALOG_AT, data=(
         price("GD01-001", "GD01_b", 300, CATALOG_AT),  # a set no printing has
@@ -370,7 +426,9 @@ def test_a_price_whose_set_matches_no_single_non_alt_printing_prices_none(tracke
     assert not {"price_cents", "price_as_of"} & keys(export())
 
 
-def test_without_prices_the_export_is_written_and_says_prices_are_missing(tracked: None, capsys: pytest.CaptureFixture[str]) -> None:
+def test_without_prices_the_export_is_written_and_says_prices_are_missing(
+    tracked: None, capsys: pytest.CaptureFixture[str]
+) -> None:
     store()
     data = export()
     assert "no data: prices" in capsys.readouterr().err
@@ -384,17 +442,28 @@ def test_the_reference_section_comes_from_the_sets_and_the_vocabularies(tracked:
     reference = export()["reference"]
     assert reference["sets"] == [
         {"code": "GD01", "name": "Newtype Rising", "kind": "booster", "release_date": "2025-07-25"},
-        {"code": "PB03", "name": "1st Anniversary Set", "kind": "booster", "release_date": "2027-01-01", "provisional": True},
+        {
+            "code": "PB03",
+            "name": "1st Anniversary Set",
+            "kind": "booster",
+            "release_date": "2027-01-01",
+            "provisional": True,
+        },
         {"code": "ST01", "name": "Heroic Beginnings", "kind": "starter"},
     ]
     deck = {"unit", "pilot", "command", "base"}
     others = {"ex_base", "resource", "ex_resource", "unit_token", "base_token"}
-    assert {k["kind"]: k["deck"] for k in reference["kinds"]} == {**dict.fromkeys(deck, True), **dict.fromkeys(others, False)}
+    assert {k["kind"]: k["deck"] for k in reference["kinds"]} == {
+        **dict.fromkeys(deck, True),
+        **dict.fromkeys(others, False),
+    }
     assert reference["colors"] == ["blue", "green", "white", "red", "purple"]
     assert reference["rarities"] == ["C", "U", "R", "LR", "P"]
 
 
-def test_a_set_code_missing_from_the_reference_fails_naming_it_and_writes_nothing(tracked: None, capsys: pytest.CaptureFixture[str]) -> None:
+def test_a_set_code_missing_from_the_reference_fails_naming_it_and_writes_nothing(
+    tracked: None, capsys: pytest.CaptureFixture[str]
+) -> None:
     store()
     export()
     path = catalog_export_path()
@@ -414,7 +483,14 @@ def test_a_printing_in_a_set_known_only_as_provisional_is_exported(tracked: None
 
 
 def test_every_missing_set_code_is_named(tracked: None, capsys: pytest.CaptureFixture[str]) -> None:
-    store((GUNDAM.model_copy(update={"printings": (printing("GD01-001", "EB01"), printing("GD01-001_p1", "PB03", alt=1))}),), unlisted=())
+    store(
+        (
+            GUNDAM.model_copy(
+                update={"printings": (printing("GD01-001", "EB01"), printing("GD01-001_p1", "PB03", alt=1))}
+            ),
+        ),
+        unlisted=(),
+    )
     assert cli.main(["export"]) == 1
     err = capsys.readouterr().err
     assert "EB01" in err and "PB03" in err

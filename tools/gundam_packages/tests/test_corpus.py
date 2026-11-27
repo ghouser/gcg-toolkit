@@ -1,4 +1,5 @@
 """Your own examples, checked against the real GD05 decks (marked `real_data`; skipped when the dataset is empty)."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -13,7 +14,15 @@ from tools.gundam_meta.dedupe import combined_events
 from tools.gundam_meta.eras import load_era_defs, resolve_eras
 from tools.gundam_meta.models import Era, EraId, Event
 from tools.gundam_meta.store import data_out_dir, load_events
-from tools.gundam_packages.build import ALL_TIERS, build_packages, card_colors, copy_decks, deck_sets, make_window, window_events
+from tools.gundam_packages.build import (
+    ALL_TIERS,
+    build_packages,
+    card_colors,
+    copy_decks,
+    deck_sets,
+    make_window,
+    window_events,
+)
 from tools.gundam_packages.drift import compute_drift, introduced_dates
 from tools.gundam_packages.models import PackageId, PackagesFile, RatesFile
 from tools.gundam_packages.naming import PackageNamer
@@ -63,17 +72,29 @@ def test_the_barbatos_trio_is_one_package(gd05: PackagesFile) -> None:
     # Barbatos Adapt, Barbatos 1st Form and Mikazuki Augus: "you will never see one without the other two".
     assert members(gd05, "GD03-056") == frozenset({N("GD03-056"), N("GD02-054"), N("ST05-010")})
     package = next(p for p in gd05.packages if N("GD03-056") in {m.card_number for m in p.members})
-    assert package.name == "Mikazuki Barbatos" and package.decks_running == package.decks_running_all  # always all three
+    assert (
+        package.name == "Mikazuki Barbatos" and package.decks_running == package.decks_running_all
+    )  # always all three
 
 
 @needs_data
 def test_the_other_packages_named_by_players(gd05: PackagesFile) -> None:
     assert members(gd05, "GD05-002") == frozenset({N("GD05-002"), N("GD05-081")})  # Strike Freedom + Kira Yamato
     assert members(gd05, "GD05-089") == frozenset({N("GD05-033"), N("GD05-089")})  # Master Gundam + Master Asia (red)
-    assert {N("GD05-066"), N("GD05-097")} <= (members(gd05, "GD05-097") or frozenset())  # Shining Gundam, Domon (white): its own package
-    assert {N("ST03-006"), N("GD04-017"), N("ST03-011")} <= (members(gd05, "ST03-011") or frozenset())  # the Char package
-    assert members(gd05, "GD01-093") == frozenset({N("GD01-093"), N("GD01-044")})  # Marida + Kshatriya (red); the blue Unicorn 02 is outside it
-    assert {(h.card_number, h.share) for h in gd05.synergy_cards if h.package == next(p.id for p in gd05.packages if N("GD01-093") in {m.card_number for m in p.members})} >= {(N("GD01-003"), 1.0)}
+    assert {N("GD05-066"), N("GD05-097")} <= (
+        members(gd05, "GD05-097") or frozenset()
+    )  # Shining Gundam, Domon (white): its own package
+    assert {N("ST03-006"), N("GD04-017"), N("ST03-011")} <= (
+        members(gd05, "ST03-011") or frozenset()
+    )  # the Char package
+    assert members(gd05, "GD01-093") == frozenset(
+        {N("GD01-093"), N("GD01-044")}
+    )  # Marida + Kshatriya (red); the blue Unicorn 02 is outside it
+    assert {
+        (h.card_number, h.share)
+        for h in gd05.synergy_cards
+        if h.package == next(p.id for p in gd05.packages if N("GD01-093") in {m.card_number for m in p.members})
+    } >= {(N("GD01-003"), 1.0)}
     assert {N("GD05-085"), N("GD05-017")} <= (members(gd05, "GD05-017") or frozenset())  # Amuro Ray + Nu Gundam
 
 
@@ -88,8 +109,12 @@ def test_cards_that_are_simply_good_are_free_floating(gd05: PackagesFile) -> Non
 @needs_data
 def test_exia_repair_is_often_played_with_a_package_but_that_is_not_synergy(gd05: PackagesFile) -> None:
     exia = next(f for f in gd05.free_floating if f.card_number == N("GD05-050"))
-    assert exia.affinities and exia.affinities[0].share > 0.5  # in GD05 main decks it mostly goes with the Char package (68%)
-    assert N("GD05-050") not in {h.card_number for h in gd05.synergy_cards}  # its only tie is a link to Setsuna, who isn't in these decks
+    assert (
+        exia.affinities and exia.affinities[0].share > 0.5
+    )  # in GD05 main decks it mostly goes with the Char package (68%)
+    assert N("GD05-050") not in {
+        h.card_number for h in gd05.synergy_cards
+    }  # its only tie is a link to Setsuna, who isn't in these decks
 
 
 @needs_data
@@ -112,7 +137,9 @@ def test_every_card_is_in_at_most_one_package_and_packages_are_sound(gd05: Packa
 
 
 @needs_data
-def test_rebuilding_gives_identical_output(cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...], gd05: PackagesFile) -> None:
+def test_rebuilding_gives_identical_output(
+    cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...], gd05: PackagesFile
+) -> None:
     again, _ = build_packages(events, cards, eras[EraId("gd05")], generated_at=gd05.generated_at)
     assert again == gd05
 
@@ -125,7 +152,9 @@ def test_files_round_trip(gd05: PackagesFile, tmp_path: Path) -> None:
 
 
 @needs_data
-def test_gd05_5_drift_shows_the_new_cards(cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...], gd05: PackagesFile) -> None:
+def test_gd05_5_drift_shows_the_new_cards(
+    cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...], gd05: PackagesFile
+) -> None:
     new_era = eras[EraId("gd05_5")]
     new_events = window_events(events, new_era, ALL_TIERS)
     decks, not_counted = deck_sets(new_events, cards)
@@ -143,14 +172,20 @@ def test_gd05_5_drift_shows_the_new_cards(cards: dict[CardNumber, CardModel], er
 @needs_data
 def test_a_trait_check_that_counts_itself_is_not_a_package(cards: dict[CardNumber, CardModel]) -> None:
     # Kapool: "a friendly (Marine) Unit is in play" is satisfied by Kapool itself, so Marine gives it no ties.
-    own = [e for e in build_graph(list(cards.values())).edges_of(N("ST11-009")) if e.a == N("ST11-009") and e.kind.value == "trait_reference"]
+    own = [
+        e
+        for e in build_graph(list(cards.values())).edges_of(N("ST11-009"))
+        if e.a == N("ST11-009") and e.kind.value == "trait_reference"
+    ]
     assert own == []
 
 
 @needs_data
 def test_tekkadan_is_a_trait_package_built_from_abilities_that_need_other_cards(gd05: PackagesFile) -> None:
     tekkadan = members(gd05, "GD03-050")  # Barbatos Lupus: "Choose 3 (Tekkadan)/(Teiwaz) Unit cards from your trash"
-    assert tekkadan is not None and {N("ST05-006"), N("ST05-004"), N("GD02-055")} <= tekkadan  # Hyakuren, Graze Custom, Gusion Rebake
+    assert (
+        tekkadan is not None and {N("ST05-006"), N("ST05-004"), N("GD02-055")} <= tekkadan
+    )  # Hyakuren, Graze Custom, Gusion Rebake
     package = next(p for p in gd05.packages if N("GD03-050") in {m.card_number for m in p.members})
     assert package.name == "Tekkadan" and {e.kind.value for e in package.edges} == {"trait_reference"}
 
@@ -159,21 +194,35 @@ def test_tekkadan_is_a_trait_package_built_from_abilities_that_need_other_cards(
 def test_darkness_finger_and_close_combat_are_the_same_job(cards: dict[CardNumber, CardModel]) -> None:
     # Both deal damage to 1 enemy Unit in Main/Action (Darkness Finger also draws, Close Combat is cheaper to lose): level and cost no longer matter.
     ties = build_graph(list(cards.values())).edges_between(N("GD05-110"), N("ST03-013"))
-    assert {e.kind.value for e in ties} == {"functional_effect"} and {e.kind.relation.value for e in ties} == {"functional_reprint"}
+    assert {e.kind.value for e in ties} == {"functional_effect"} and {e.kind.relation.value for e in ties} == {
+        "functional_reprint"
+    }
 
 
 @needs_data
 def test_damage_commands_form_overlapping_squads(gd05: PackagesFile) -> None:
     squads = [{c.card_number for c in g.cards} for g in gd05.squads]
-    assert {N("GD05-110"), N("ST03-013"), N("GD01-111")} in squads  # Darkness Finger, Close Combat, Battle of Aces: every pair are peers
+    assert {
+        N("GD05-110"),
+        N("ST03-013"),
+        N("GD01-111"),
+    } in squads  # Darkness Finger, Close Combat, Battle of Aces: every pair are peers
     assert {N("ST03-013"), N("GD03-109"), N("GD01-111")} in squads  # Close Combat, Improved Technique, Battle of Aces
-    assert not any({N("ST03-013"), N("GD04-109")} <= s for s in squads)  # Overwhelming Pressure deals 4: too far from Close Combat's 2
+    assert not any(
+        {N("ST03-013"), N("GD04-109")} <= s for s in squads
+    )  # Overwhelming Pressure deals 4: too far from Close Combat's 2
 
 
 @needs_data
-def test_tekkadan_units_with_the_same_ability_at_different_levels_are_synergy(cards: dict[CardNumber, CardModel]) -> None:
+def test_tekkadan_units_with_the_same_ability_at_different_levels_are_synergy(
+    cards: dict[CardNumber, CardModel],
+) -> None:
     graph = build_graph(list(cards.values()))
-    for a, b in (("GD02-055", "GD03-050"), ("GD02-055", "GD03-056"), ("GD03-050", "GD03-056")):  # Gusion Rebake, Lupus, Barbatos Adapt
+    for a, b in (
+        ("GD02-055", "GD03-050"),
+        ("GD02-055", "GD03-056"),
+        ("GD03-050", "GD03-056"),
+    ):  # Gusion Rebake, Lupus, Barbatos Adapt
         relations = {e.kind.relation.value for e in graph.edges_between(N(a), N(b))}
         assert "functional_reprint" not in relations  # Lv5/cost4, Lv7/cost6 and Lv4/cost2 are not substitutes
 
@@ -181,7 +230,9 @@ def test_tekkadan_units_with_the_same_ability_at_different_levels_are_synergy(ca
 @needs_data
 def test_white_blockers_are_effective_duplicates_and_join_the_aile_strike_package(gd05: PackagesFile) -> None:
     aile = members(gd05, "ST04-001")
-    assert aile is not None and {N("GD01-086"), N("GD02-079")} <= aile  # Gundam Lfrith and Rick Dias: white Units with Blocker
+    assert (
+        aile is not None and {N("GD01-086"), N("GD02-079")} <= aile
+    )  # Gundam Lfrith and Rick Dias: white Units with Blocker
     package = next(p for p in gd05.packages if N("ST04-001") in {m.card_number for m in p.members})
     assert {"combo", "functional_reprint"} <= {e.kind.relation.value for e in package.edges}
 
@@ -200,11 +251,15 @@ def test_strike_rouge_is_a_bridge_between_the_strike_freedom_and_tekkadan_packag
     pair = next(s for s in gd05.package_synergies if {s.package_a, s.package_b} == {freedom, tekkadan})
     assert N("GD05-005") in {b.card_number for b in pair.bridges}
     assert (N("GD05-005"), tekkadan) not in {(h.card_number, h.package) for h in gd05.synergy_cards}
-    assert (N("GD05-005"), freedom) in {(h.card_number, h.package) for h in gd05.synergy_cards}  # it does stand on its own in Strike Freedom's decks
+    assert (N("GD05-005"), freedom) in {
+        (h.card_number, h.package) for h in gd05.synergy_cards
+    }  # it does stand on its own in Strike Freedom's decks
 
 
 @pytest.fixture(scope="module")
-def gd05_rates(gd05: PackagesFile, cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...]) -> RatesFile:
+def gd05_rates(
+    gd05: PackagesFile, cards: dict[CardNumber, CardModel], eras: dict[EraId, Era], events: tuple[Event, ...]
+) -> RatesFile:
     listed, _ = copy_decks(window_events(events, eras[EraId("gd05")], ALL_TIERS), cards)
     return compute_rates(gd05, listed, datetime(2026, 10, 7, tzinfo=UTC))
 
@@ -219,7 +274,9 @@ def test_rates_for_mikazuki_barbatos_match_the_hand_checked_numbers(gd05: Packag
     tekkadan = next(w for w in mika.partners if gd05_rates_name(gd05_rates, w.package) == "Tekkadan")
     assert (tekkadan.pair_decks, tekkadan.combined_rate, tekkadan.joint_rate) == (24, 24 / 54, 24 / 253)
     graze = next(c for c in tekkadan.cards if c.card_number == N("ST05-004"))
-    assert graze.rate_from_x == pytest.approx(92 / 216)  # 92 copies of 216 possible in Mika's 54 decks: the figure in appearance-rates.md
+    assert graze.rate_from_x == pytest.approx(
+        92 / 216
+    )  # 92 copies of 216 possible in Mika's 54 decks: the figure in appearance-rates.md
 
 
 def gd05_rates_name(file: RatesFile, package: PackageId) -> str:

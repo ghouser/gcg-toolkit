@@ -1,4 +1,5 @@
 """Appearance-rate buckets for the online ranking: a card's share of sampled games decides how often it counts as played."""
+
 from __future__ import annotations
 
 from tools.gundam_meta.models import MsaBucket

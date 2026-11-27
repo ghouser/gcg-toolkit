@@ -1,4 +1,5 @@
 """The collection file reader: the schema, what is refused, the text-list fallback, and the card and printing views."""
+
 from __future__ import annotations
 
 import json
@@ -30,7 +31,11 @@ def doc(**changes: object) -> str:
 
 
 def test_the_documented_example_is_a_valid_file() -> None:
-    assert parse_collection_file(EXAMPLE.read_text(encoding="utf-8")) == {P("ST01-001"): 2, P("ST01-001_p5"): 1, P("GD02-041"): 4}
+    assert parse_collection_file(EXAMPLE.read_text(encoding="utf-8")) == {
+        P("ST01-001"): 2,
+        P("ST01-001_p5"): 1,
+        P("GD02-041"): 4,
+    }
 
 
 def test_an_unsupported_version_is_refused_naming_the_version_found_and_those_supported() -> None:
@@ -76,7 +81,9 @@ def test_the_path_is_read_from_the_environment_each_time(monkeypatch: pytest.Mon
     assert collection_file_path() == Path.home() / ".gcg" / "collection.json"
 
 
-def test_counts_are_printing_to_count_with_card_totals_adding_up_printings(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_counts_are_printing_to_count_with_card_totals_adding_up_printings(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     path = tmp_path / "c.json"
     path.write_text(doc(counts={"ST01-001": 2, "ST01-001_p5": 1, "GD02-041": 4}), encoding="utf-8")
     monkeypatch.setenv(ENV_VAR, str(path))
@@ -93,7 +100,9 @@ def test_an_alternate_alone_counts_as_its_card(monkeypatch: pytest.MonkeyPatch, 
     assert read_owned(KNOWN).cards == {"ST01-001": 1}
 
 
-def test_ids_the_catalog_does_not_know_are_set_apart_once_each_and_the_rest_kept(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_ids_the_catalog_does_not_know_are_set_apart_once_each_and_the_rest_kept(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     path = tmp_path / "c.json"
     path.write_text(doc(counts={"ST01-001": 2, "ST01-001_p9": 1, "ZZ99-999": 3}), encoding="utf-8")
     monkeypatch.setenv(ENV_VAR, str(path))
@@ -101,7 +110,9 @@ def test_ids_the_catalog_does_not_know_are_set_apart_once_each_and_the_rest_kept
     assert owned.unknown == (P("ST01-001_p9"), P("ZZ99-999")) and owned.printings == {P("ST01-001"): 2}
 
 
-def test_an_invalid_file_is_refused_with_its_path_and_the_text_list_is_not_used(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_an_invalid_file_is_refused_with_its_path_and_the_text_list_is_not_used(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     bad = tmp_path / "c.json"
     bad.write_text(doc(counts={"ST01-001": 0}), encoding="utf-8")
     monkeypatch.setenv(ENV_VAR, str(bad))
@@ -112,7 +123,9 @@ def test_an_invalid_file_is_refused_with_its_path_and_the_text_list_is_not_used(
         read_owned(KNOWN)
 
 
-def test_a_file_is_read_and_never_changed_nor_joined_by_other_files(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_a_file_is_read_and_never_changed_nor_joined_by_other_files(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     folder = tmp_path / "ui"
     folder.mkdir()
     path = folder / "collection.json"
@@ -123,10 +136,14 @@ def test_a_file_is_read_and_never_changed_nor_joined_by_other_files(monkeypatch:
     assert path.read_bytes() == before and [p.name for p in folder.iterdir()] == ["collection.json"]
 
 
-def test_the_text_list_is_the_fallback_and_every_line_is_a_base_printing_counting_the_markers(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_the_text_list_is_the_fallback_and_every_line_is_a_base_printing_counting_the_markers(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.setenv(TOOL_DATA_VAR, str(tmp_path))
     text_list_path().parent.mkdir(parents=True)
-    text_list_path().write_text("# mine\nST01-001 2\n2 GD02-041+\nGD02-041LK x1\nST01-001 ?\nXX01-001 5\n", encoding="utf-8")
+    text_list_path().write_text(
+        "# mine\nST01-001 2\n2 GD02-041+\nGD02-041LK x1\nST01-001 ?\nXX01-001 5\n", encoding="utf-8"
+    )
     owned = read_owned(KNOWN)
     assert owned.source is Source.TEXT_LIST and owned.markers == 2
     assert owned.printings == {P("GD02-041"): 3, P("ST01-001"): 2}

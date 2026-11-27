@@ -8,6 +8,7 @@ and staple copy (the cards I need for a working deck), *close* when I own at lea
 The same deck in tournament and online decks (its packages match by the cards they share) is one deck; a card is critical if it
 is critical in either source, at the larger copy count. Everything joins on the card number. Pure functions: no files, no network.
 """
+
 from __future__ import annotations
 
 import re
@@ -50,7 +51,13 @@ class Layer(StrEnum):
 
 LAYERS = (Layer.CORE, Layer.STAPLE, Layer.OPTION)
 _RANK = {layer: i for i, layer in enumerate(LAYERS)}
-_LETTER = {"red": "R", "blue": "B", "green": "G", "white": "W", "purple": "P"}  # a color in a package name, only where it tells packages apart
+_LETTER = {
+    "red": "R",
+    "blue": "B",
+    "green": "G",
+    "white": "W",
+    "purple": "P",
+}  # a color in a package name, only where it tells packages apart
 
 
 @dataclass(frozen=True)
@@ -67,19 +74,31 @@ class Requirement:
 @dataclass(frozen=True)
 class Deck:
     name: str
-    package_refs: tuple[tuple[str, DataSource, PackageId], ...]  # each package: its name, and the source and id it is known by
+    package_refs: tuple[
+        tuple[str, DataSource, PackageId], ...
+    ]  # each package: its name, and the source and id it is known by
     rates: Mapping[DataSource, float]  # how often the deck is played, in each source that has it
     low_sample: bool
     requirements: tuple[Requirement, ...]
-    anchors: tuple[str, ...] = ()  # the anchor card of each package (aligned with package_refs), the same for a package found in both sources
-    package_labels: tuple[str, ...] = ()  # each package's name as shown in the deck's name, with a color letter where it tells packages apart (aligned with package_refs)
-    package_rates: tuple[float, ...] = ()  # how often each package is played (aligned with package_refs): its mean rate in the sources this deck is played in
+    anchors: tuple[
+        str, ...
+    ] = ()  # the anchor card of each package (aligned with package_refs), the same for a package found in both sources
+    package_labels: tuple[
+        str, ...
+    ] = ()  # each package's name as shown in the deck's name, with a color letter where it tells packages apart (aligned with package_refs)
+    package_rates: tuple[
+        float, ...
+    ] = ()  # how often each package is played (aligned with package_refs): its mean rate in the sources this deck is played in
     id: str = ""  # stable: the anchor cards of its packages, like GD02-054+ST11-001 (see deck_id)
     plain_name: str = ""  # the generated name, before a nickname or a qualifier (set by label_decks)
     nickname: str | None = None
-    illegal: tuple[str, ...] = ()  # why it is not a legal deck under the current banned / restricted list (a found deck can predate the list)
+    illegal: tuple[
+        str, ...
+    ] = ()  # why it is not a legal deck under the current banned / restricted list (a found deck can predate the list)
     archetype: str = ""  # its primary package and plan: "Kira Strike Freedom control" (set by assign_archetypes)
-    archetype_rates: Mapping[DataSource, float] = field(default_factory=dict)  # how often the whole archetype is played, per source
+    archetype_rates: Mapping[DataSource, float] = field(
+        default_factory=dict
+    )  # how often the whole archetype is played, per source
 
     @property
     def top_rate(self) -> float:
@@ -88,7 +107,13 @@ class Deck:
     @property
     def primary(self) -> int:
         """Index (in package_refs) of the deck's primary package: the most-played one, ties to the lower anchor card. Raw data, no judgement."""
-        order = sorted(range(len(self.package_refs)), key=lambda i: (-(self.package_rates[i] if i < len(self.package_rates) else 0.0), self.anchors[i] if i < len(self.anchors) else ""))
+        order = sorted(
+            range(len(self.package_refs)),
+            key=lambda i: (
+                -(self.package_rates[i] if i < len(self.package_rates) else 0.0),
+                self.anchors[i] if i < len(self.anchors) else "",
+            ),
+        )
         return order[0] if order else 0
 
 
@@ -103,7 +128,9 @@ def _layer(card: ArchetypeCard) -> Layer | None:
     return Layer.OPTION if card.share >= OPTION_MIN_SHARE else None
 
 
-def _why(card: ArchetypeCard, layer: Layer, names: Mapping[PackageId, str], rates: RatesFile, signature: Sequence[PackageId]) -> str:
+def _why(
+    card: ArchetypeCard, layer: Layer, names: Mapping[PackageId, str], rates: RatesFile, signature: Sequence[PackageId]
+) -> str:
     if card.role is ArchetypeRole.CORE:
         owner = rates.card_index.get(card.card_number)
         return f"core of {names[owner]}" if owner is not None and owner in names else "core"
@@ -113,7 +140,9 @@ def _why(card: ArchetypeCard, layer: Layer, names: Mapping[PackageId, str], rate
             for x in rates.packages
             if x.package in signature
             for w in x.partners
-            if w.package in signature and x.package < w.package and any(b.card_number == card.card_number for b in w.bridges)
+            if w.package in signature
+            and x.package < w.package
+            and any(b.card_number == card.card_number for b in w.bridges)
         ]
         return f"bridge between {pairs[0]}" if pairs else "bridge"
     if card.role is ArchetypeRole.OPTIONAL:
@@ -151,8 +180,13 @@ def fit_to_deck(requirements: Sequence[Requirement], size: int = DECK_SIZE) -> t
 def _shared_package_ids(sources: Mapping[DataSource, SourceData]) -> dict[tuple[DataSource, PackageId], str]:
     """Each package's id in one shared namespace: a package found in both sources gets the first source's id."""
     ordered = list(sources)
-    members = {s: {p.package: frozenset(m.card_number for m in p.members) for p in rates.packages} for s, (_, rates) in sources.items()}
-    shared = {(s, pid): (str(pid) if i == 0 else f"{s.value}:{pid}") for i, s in enumerate(ordered) for pid in members[s]}
+    members = {
+        s: {p.package: frozenset(m.card_number for m in p.members) for p in rates.packages}
+        for s, (_, rates) in sources.items()
+    }
+    shared = {
+        (s, pid): (str(pid) if i == 0 else f"{s.value}:{pid}") for i, s in enumerate(ordered) for pid in members[s]
+    }
     if len(ordered) == 2:
         pairs, _, _ = match_groups(members[ordered[0]], members[ordered[1]])
         for first_id, second_id, _ in pairs:
@@ -160,7 +194,9 @@ def _shared_package_ids(sources: Mapping[DataSource, SourceData]) -> dict[tuple[
     return shared
 
 
-def build_decks(sources: Mapping[DataSource, SourceData], min_rate: float = MIN_PLAY_RATE, rules: Rules | None = None) -> tuple[Deck, ...]:
+def build_decks(
+    sources: Mapping[DataSource, SourceData], min_rate: float = MIN_PLAY_RATE, rules: Rules | None = None
+) -> tuple[Deck, ...]:
     """Every deck played in at least `min_rate` of decks in some source, with the same deck in both sources merged into one."""
     shared = _shared_package_ids(sources)
     found: dict[frozenset[str], dict[DataSource, ArchetypeRate]] = {}
@@ -168,12 +204,19 @@ def build_decks(sources: Mapping[DataSource, SourceData], min_rate: float = MIN_
         for arch in rates.archetypes:
             if arch.packages:  # decks that run no package have no card table
                 found.setdefault(frozenset(shared[(source, p)] for p in arch.packages), {})[source] = arch
-    decks = [_merge(by_source, sources, shared, rules) for by_source in found.values() if any(a.rate >= min_rate for a in by_source.values())]
+    decks = [
+        _merge(by_source, sources, shared, rules)
+        for by_source in found.values()
+        if any(a.rate >= min_rate for a in by_source.values())
+    ]
     return tuple(sorted(decks, key=lambda d: (-d.top_rate, d.name)))
 
 
 def _merge(
-    by_source: Mapping[DataSource, ArchetypeRate], sources: Mapping[DataSource, SourceData], shared: Mapping[tuple[DataSource, PackageId], str], rules: Rules | None = None
+    by_source: Mapping[DataSource, ArchetypeRate],
+    sources: Mapping[DataSource, SourceData],
+    shared: Mapping[tuple[DataSource, PackageId], str],
+    rules: Rules | None = None,
 ) -> Deck:
     best: dict[CardNumber, Requirement] = {}
     refs: tuple[tuple[str, DataSource, PackageId], ...] = ()
@@ -194,27 +237,46 @@ def _merge(
         anchors = anchors or tuple(anchor_of(shared[(source, p)]) for p in arch.packages)
         for card in arch.cards:
             layer = _layer(card)
-            need = card.majority_copies or card.typical_copies  # a card under half the lists has no majority: use what its decks run most
+            need = (
+                card.majority_copies or card.typical_copies
+            )  # a card under half the lists has no majority: use what its decks run most
             if layer is None or need == 0:
                 continue
-            req = Requirement(card.card_number, layer, need, card.share, (_why(card, layer, names, rates, arch.packages),))
+            req = Requirement(
+                card.card_number, layer, need, card.share, (_why(card, layer, names, rates, arch.packages),)
+            )
             old = best.get(card.card_number)
             if old is None:
                 best[card.card_number] = req
                 continue
             keep = req if _RANK[req.layer] < _RANK[old.layer] else old  # critical in either source wins
             best[card.card_number] = Requirement(
-                card.card_number, keep.layer, max(old.need, req.need), max(old.share, req.share), tuple(dict.fromkeys((*keep.why, *old.why, *req.why)))
+                card.card_number,
+                keep.layer,
+                max(old.need, req.need),
+                max(old.share, req.share),
+                tuple(dict.fromkeys((*keep.why, *old.why, *req.why))),
             )
     ordered = sorted((_collapse(r) for r in best.values()), key=lambda r: (_RANK[r.layer], -r.share, r.card))
-    if rules is not None:  # the banned / restricted list: a banned card is not needed at all, a restricted one only up to its limit
-        ordered = [replace(r, need=min(r.need, rules.copy_limit(r.card))) for r in ordered if rules.copy_limit(r.card) > 0]
-    package_rate = {(src, shared[(src, pk.package)]): pk.rate for src, (_, rate_file) in sources.items() for pk in rate_file.packages}
+    if (
+        rules is not None
+    ):  # the banned / restricted list: a banned card is not needed at all, a restricted one only up to its limit
+        ordered = [
+            replace(r, need=min(r.need, rules.copy_limit(r.card))) for r in ordered if rules.copy_limit(r.card) > 0
+        ]
+    package_rate = {
+        (src, shared[(src, pk.package)]): pk.rate
+        for src, (_, rate_file) in sources.items()
+        for pk in rate_file.packages
+    }
     popularity = tuple(
-        sum(package_rate.get((src, shared[(ref_source, pid)]), 0.0) for src in by_source) / len(by_source) for _, ref_source, pid in refs
+        sum(package_rate.get((src, shared[(ref_source, pid)]), 0.0) for src in by_source) / len(by_source)
+        for _, ref_source, pid in refs
     )  # a package's rate in each source the deck is played in, averaged: the same package found in both sources counts in both
     table = fit_to_deck(ordered)
-    illegal = rules.violations({r.card: r.need for r in table if r.layer is not Layer.OPTION}) if rules is not None else ()
+    illegal = (
+        rules.violations({r.card: r.need for r in table if r.layer is not Layer.OPTION}) if rules is not None else ()
+    )
     return Deck(name=name, package_refs=refs, rates=rates_by_source, low_sample=low, requirements=table, anchors=anchors,
                 package_rates=popularity, id=deck_id(anchors), plain_name=name, illegal=illegal)  # fmt: skip
 
@@ -240,7 +302,9 @@ def id_tokens(text: str) -> frozenset[str]:
     return frozenset(re.findall(r"[A-Z]+[0-9]+", re.sub(r"[-\s+,]", "", text).upper()))
 
 
-def label_decks(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardModel], nicknames: Mapping[str, str]) -> tuple[Deck, ...]:
+def label_decks(
+    decks: Sequence[Deck], catalog: Mapping[CardNumber, CardModel], nicknames: Mapping[str, str]
+) -> tuple[Deck, ...]:
     """Give every deck a name that is unique and readable, an id, and its nickname if it has one.
 
     A package name shared by different packages (two Char Aznable packages) gets its color letter (R/B/G/W/P) in the decks that use it; two decks that
@@ -258,7 +322,12 @@ def label_decks(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardModel], 
         color = color_of(anchor) if anchor is not None else None
         return f"{name} ({_LETTER[color.value]})" if color is not None else name
 
-    labels = [" + ".join(tagged(name, a) for (name, _, _), a in zip(deck.package_refs, deck.anchors, strict=False)) if deck.package_refs else deck.name for deck in decks]
+    labels = [
+        " + ".join(tagged(name, a) for (name, _, _), a in zip(deck.package_refs, deck.anchors, strict=False))
+        if deck.package_refs
+        else deck.name
+        for deck in decks
+    ]
     by_label: dict[str, list[int]] = {}
     for i, label in enumerate(labels):
         by_label.setdefault(label, []).append(i)
@@ -273,7 +342,11 @@ def label_decks(decks: Sequence[Deck], catalog: Mapping[CardNumber, CardModel], 
     for deck, label in zip(decks, labels, strict=True):
         nick = nicknames.get(deck.id)
         shown = tuple(tagged(name, a) for (name, _, _), a in zip(deck.package_refs, deck.anchors, strict=False))
-        out.append(replace(deck, name=nick or label, plain_name=deck.plain_name or deck.name, nickname=nick, package_labels=shown))
+        out.append(
+            replace(
+                deck, name=nick or label, plain_name=deck.plain_name or deck.name, nickname=nick, package_labels=shown
+            )
+        )
     return tuple(out)
 
 
@@ -359,7 +432,9 @@ def deck_slots(
     catalog: Mapping[CardNumber, CardModel],
 ) -> tuple[DeckSlot, ...]:
     by_card = {r.card: r for r in deck.requirements}
-    alternatives = slot_alternatives(list(by_card), frozenset(r.card for r in deck.requirements if r.layer is Layer.OPTION), groups, catalog)
+    alternatives = slot_alternatives(
+        list(by_card), frozenset(r.card for r in deck.requirements if r.layer is Layer.OPTION), groups, catalog
+    )
     slots: list[DeckSlot] = []
     for n, req in by_card.items():
         found = alternatives[n]
@@ -379,7 +454,9 @@ def deck_slots(
                 why={layer: req.why if req.layer is layer else () for layer in LAYERS},
             )
         )
-    return tuple(sorted(slots, key=lambda s: (min(_RANK[layer] for layer in LAYERS if s.need(layer)), -s.share, s.members)))
+    return tuple(
+        sorted(slots, key=lambda s: (min(_RANK[layer] for layer in LAYERS if s.need(layer)), -s.share, s.members))
+    )
 
 
 @dataclass(frozen=True)
@@ -520,8 +597,25 @@ def picks(cov: DeckCoverage, durable: Mapping[CardNumber, tuple[tuple[str, float
             if not missing:
                 continue
             card = s.option or s.members[0]
-            pick = Pick(layer, card, s.members, missing, s.unit_cents, s.share, s.why[layer], tuple(n for n, _ in others), s.similar)
+            pick = Pick(
+                layer,
+                card,
+                s.members,
+                missing,
+                s.unit_cents,
+                s.share,
+                s.why[layer],
+                tuple(n for n, _ in others),
+                s.similar,
+            )
             price = s.unit_cents if s.unit_cents is not None else 10**9
-            key: tuple[object, ...] = (_RANK[layer], -s.share if layer is Layer.STAPLE else 0.0, -len(others), -sum(r for _, r in others), price, card)
+            key: tuple[object, ...] = (
+                _RANK[layer],
+                -s.share if layer is Layer.STAPLE else 0.0,
+                -len(others),
+                -sum(r for _, r in others),
+                price,
+                card,
+            )
             found.append((key, pick))
     return tuple(p for _, p in sorted(found, key=lambda kv: kv[0]))
