@@ -463,8 +463,8 @@ def build_suggestion(
         best: tuple[int, CardNumber, CardNumber] | None = None
         weakest = sorted(
             (c for c in chosen if c not in locked),
-            key=lambda c: (align(signals[c], plan), -known.get(c, (0.0, 0))[0], c),
-        )[:12]  # type: ignore[arg-type]
+            key=lambda c: (align(signals[c], plan), -known.get(c, (0.0, 0))[0], c),  # type: ignore[arg-type]
+        )[:12]
         for out_card in weakest:
             out_kind = catalog[out_card].kind
             for in_card in by_score:
@@ -511,10 +511,10 @@ def build_suggestion(
             n,
             role[c],
             known.get(c, (0.0, 0))[0],
-            align(signals[c], plan),
+            align(signals[c], plan),  # type: ignore[arg-type]
             _why(c, role[c], known, signals, plan, group.get(c, "")),
             group.get(c, ""),
-        )  # type: ignore[arg-type]
+        )
         for c, n in sorted(
             chosen.items(),
             key=lambda kv: (
@@ -553,9 +553,9 @@ def build_suggestion(
     for kind in KINDS:
         cards = [c for c in by_score if c not in chosen and catalog[c].kind is kind and not rules.conflicts(c, chosen)]
         pool[kind] = tuple(
-            PoolCard(c, known.get(c, (0.0, 0))[0], align(signals[c], plan), "known" if c in known else "novel")
+            PoolCard(c, known.get(c, (0.0, 0))[0], align(signals[c], plan), "known" if c in known else "novel")  # type: ignore[arg-type]
             for c in cards[:POOL_SIZE]
-        )  # type: ignore[arg-type]
+        )
     return Suggestion(
         package,
         plan,
