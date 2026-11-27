@@ -9,6 +9,7 @@ package over time. This takes the base era's packages as given and looks at the 
 - **emerging** packages: groups found in the new era's decks that contain a new card and share fewer than two cards with any existing package (sharing two or more means an existing package growing, reported as joined cards).
 The new era is small right after a release, so thresholds are relaxed and results are flagged `low_sample`.
 """
+
 from __future__ import annotations
 
 from collections import Counter
@@ -38,11 +39,15 @@ LOW_SAMPLE_DECKS = 100
 DROPPED_BELOW = 0.5
 
 
-def introduced_dates(cards: Mapping[CardNumber, CardModel], release_dates: Mapping[SetCode, date]) -> dict[CardNumber, date]:
+def introduced_dates(
+    cards: Mapping[CardNumber, CardModel], release_dates: Mapping[SetCode, date]
+) -> dict[CardNumber, date]:
     """When each card first became available: its earliest printing from a set with a known release date."""
     result: dict[CardNumber, date] = {}
     for number, card in cards.items():
-        dates = [release_dates[p.set_code] for p in card.printings if p.set_code is not None and p.set_code in release_dates]
+        dates = [
+            release_dates[p.set_code] for p in card.printings if p.set_code is not None and p.set_code in release_dates
+        ]
         if dates:
             result[number] = min(dates)
     return result
@@ -67,9 +72,13 @@ def compute_drift(
     base_synergy = {(h.package, h.card_number) for h in base.synergy_cards}
 
     members_of = {p.id: [m.card_number for m in p.members] for p in base.packages}
-    running = {pid: [d for d in new_decks if runs_package(d, members, params.run_share)] for pid, members in members_of.items()}
+    running = {
+        pid: [d for d in new_decks if runs_package(d, members, params.run_share)] for pid, members in members_of.items()
+    }
     usable = [pid for pid in members_of if len(running[pid]) >= MIN_DRIFT_DECKS]
-    in_new, _ = classify_synergy(usable, members_of, running, graph, packaged_before, params)  # the same rules as the base window
+    in_new, _ = classify_synergy(
+        usable, members_of, running, graph, packaged_before, params
+    )  # the same rules as the base window
 
     drifts: list[PackageDrift] = []
     for package in base.packages:
@@ -82,7 +91,8 @@ def compute_drift(
             dropped = [
                 m.card_number
                 for m in package.members
-                if m.role is Role.CORE and sum(1 for d in decks_running if m.card_number in d) / len(decks_running) < DROPPED_BELOW
+                if m.role is Role.CORE
+                and sum(1 for d in decks_running if m.card_number in d) / len(decks_running) < DROPPED_BELOW
             ]
             for entry in (h for h in in_new if h.package == package.id):
                 if entry.card_number in is_new:
@@ -133,7 +143,9 @@ def compute_drift(
     for package in found.packages:
         member_set = frozenset(m.card_number for m in package.members)
         fresh = tuple(sorted(c for c in member_set if c in is_new))
-        if fresh and not any(len(member_set & old) >= 2 for old in old_member_sets):  # sharing 2+ cards = an existing package growing
+        if fresh and not any(
+            len(member_set & old) >= 2 for old in old_member_sets
+        ):  # sharing 2+ cards = an existing package growing
             emerging.append(EmergingPackage(package=package, new_cards=fresh, low_sample=total < LOW_SAMPLE_DECKS))
 
     return DriftFile(

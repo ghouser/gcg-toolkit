@@ -1,4 +1,5 @@
 """Keyword, trait-mention and reminder-text analysis."""
+
 from __future__ import annotations
 
 from shared.basetypes import PilotName, Trait
@@ -21,12 +22,16 @@ def test_slash_separated_tags_are_both_keywords() -> None:
 
 
 def test_activate_keywords_use_either_separator() -> None:
-    keywords, _ = extract_keywords("【Activate･Main】【Once per Turn】②\uff1aDraw 1.\n【Activate・Action】Rest this.", TRAITS)
+    keywords, _ = extract_keywords(
+        "【Activate･Main】【Once per Turn】②\uff1aDraw 1.\n【Activate・Action】Rest this.", TRAITS
+    )
     assert keywords == {Keyword.ACTIVATE_MAIN, Keyword.ACTIVATE_ACTION, Keyword.ONCE_PER_TURN}
 
 
 def test_development_rides_inside_another_keyword() -> None:
-    keywords, unknown = extract_keywords("【Deploy・Development 2】■Draw 1.\n【When Paired・Development 1】■Draw 1.", TRAITS)
+    keywords, unknown = extract_keywords(
+        "【Deploy・Development 2】■Draw 1.\n【When Paired・Development 1】■Draw 1.", TRAITS
+    )
     assert keywords == {Keyword.DEPLOY, Keyword.DEVELOPMENT, Keyword.WHEN_PAIRED}
     assert unknown == ()
 
@@ -63,5 +68,7 @@ def test_referenced_traits_only_known_traits_including_inside_reminders() -> Non
 
 
 def test_pilot_name_in_text() -> None:
-    assert pilot_name_in_text("【Main】Draw 1.\n【Pilot】[Amate Yuzuriha (Machu)]") == PilotName("Amate Yuzuriha (Machu)")
+    assert pilot_name_in_text("【Main】Draw 1.\n【Pilot】[Amate Yuzuriha (Machu)]") == PilotName(
+        "Amate Yuzuriha (Machu)"
+    )
     assert pilot_name_in_text("【Main】Draw 1.") is None

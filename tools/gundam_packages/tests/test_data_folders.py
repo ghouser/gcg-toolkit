@@ -5,6 +5,7 @@ reads and writes only under the temp folder, and the repository's own packages f
 Not read: the repository's folder holds built packages and rates (tracked), so a command that read them would find some; with none in
 the temp folder every reading command reports that nothing is built. Not changed: after every command the repository's folder has the
 same files with the same bytes and modification times. The commands run for real (`main` with arguments) over the fixture dataset."""
+
 from __future__ import annotations
 
 import shutil
@@ -46,7 +47,10 @@ def temp(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """The temp tool data folder (with the tracked set list the eras need); the fixture dataset in the temp dataset folder."""
     folder = tmp_path / "tool-data"
     (folder / "shared" / "data" / "gundam_cards").mkdir(parents=True)
-    shutil.copyfile(REPO / "shared" / "data" / "gundam_cards" / "sets.json", folder / "shared" / "data" / "gundam_cards" / "sets.json")
+    shutil.copyfile(
+        REPO / "shared" / "data" / "gundam_cards" / "sets.json",
+        folder / "shared" / "data" / "gundam_cards" / "sets.json",
+    )
     monkeypatch.setenv(TOOL_DATA_VAR, str(folder))
     monkeypatch.setenv(ENV_VAR, str(packages_dataset_tree(tmp_path / "dataset")))
     return folder
@@ -77,7 +81,9 @@ def test_with_nothing_built_in_the_temp_folder_a_reading_command_finds_nothing(
     assert real_folder() == before
 
 
-def test_pairs_without_rates_in_the_temp_folder_reports_none_built(temp: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_pairs_without_rates_in_the_temp_folder_reports_none_built(
+    temp: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     before = real_folder()
     assert packages_cli.main(["pairs", "GD01-001"]) == 0
     assert "no rates built" in capsys.readouterr().out  # the repository's rates.json is not read

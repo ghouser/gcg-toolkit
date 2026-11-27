@@ -1,5 +1,6 @@
 """AC-2 for the meta sources: online ranking and example-deck snapshots and in-person events are dated entries that are added, never
 rewritten, and not duplicated."""
+
 from __future__ import annotations
 
 from datetime import UTC, date, datetime, timedelta
@@ -8,7 +9,15 @@ from pathlib import Path
 import pytest
 
 from shared.basetypes import CardNumber
-from tools.gundam_meta.models import Event, EventId, EventType, ExampleDecksSnapshot, OnlineRankedCard, OnlineRankingSnapshot, Source
+from tools.gundam_meta.models import (
+    Event,
+    EventId,
+    EventType,
+    ExampleDecksSnapshot,
+    OnlineRankedCard,
+    OnlineRankingSnapshot,
+    Source,
+)
 from tools.gundam_meta.store import (
     data_out_dir,
     decks_as_of,
@@ -80,7 +89,9 @@ def test_two_ranking_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_
 def test_two_deck_stores_on_one_utc_day_keep_only_the_first_and_the_next_day_adds_one(tmp_path: Path) -> None:
     first = write_decks_snapshot(decks(T1), tmp_path)
     before = first.read_bytes()
-    assert write_decks_snapshot(decks(T1.replace(hour=1), season="other"), tmp_path) == first  # other lists, same UTC day
+    assert (
+        write_decks_snapshot(decks(T1.replace(hour=1), season="other"), tmp_path) == first
+    )  # other lists, same UTC day
     assert first.read_bytes() == before and len(_files(tmp_path / "example_decks")) == 1
     second = write_decks_snapshot(decks(T1 + timedelta(days=1), season="other"), tmp_path)
     assert second != first and first.read_bytes() == before and len(_files(tmp_path / "example_decks")) == 2
@@ -129,7 +140,9 @@ def test_without_a_folder_the_store_writes_into_the_dataset(tmp_path: Path, monk
     assert data_out_dir() == tmp_path / "ds" / "gundam_meta"
     write_snapshot(ranking(T1))
     write_event(event("a", T1))
-    assert (tmp_path / "ds" / "gundam_meta" / "online_rankings").is_dir() and (tmp_path / "ds" / "gundam_meta" / "events" / "egm" / "a.json").is_file()
+    assert (tmp_path / "ds" / "gundam_meta" / "online_rankings").is_dir() and (
+        tmp_path / "ds" / "gundam_meta" / "events" / "egm" / "a.json"
+    ).is_file()
 
 
 def test_example_decks_report_the_newest_of_several_snapshots(tmp_path: Path) -> None:

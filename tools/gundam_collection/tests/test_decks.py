@@ -1,4 +1,5 @@
 """Which decks I support, which I am close to, and what to get: on the synthetic worlds with known answers."""
+
 from __future__ import annotations
 
 
@@ -39,7 +40,10 @@ def tournament() -> dict[DataSource, tuple[PackagesFile, RatesFile]]:
 
 
 def both() -> dict[DataSource, tuple[PackagesFile, RatesFile]]:
-    online = (base_file().model_copy(update={"source": DataSource.ONLINE}), rates().model_copy(update={"source": DataSource.ONLINE}))
+    online = (
+        base_file().model_copy(update={"source": DataSource.ONLINE}),
+        rates().model_copy(update={"source": DataSource.ONLINE}),
+    )
     return {**tournament(), DataSource.ONLINE: online}
 
 
@@ -51,11 +55,23 @@ def test_a_deck_is_layered_into_core_staples_and_options_with_copy_counts_from_i
     deck = deck_a()
     by_card = {r.card: r for r in deck.requirements}
     assert [by_card[c].layer for c in (A1, A2, A3)] == [Layer.CORE] * 3
-    assert (by_card[A1].need, by_card[A2].need) == (4, 2)  # the majority copy count: A1 is a 4-of, A2 a 2-of in all 20 decks
+    assert (by_card[A1].need, by_card[A2].need) == (
+        4,
+        2,
+    )  # the majority copy count: A1 is a 4-of, A2 a 2-of in all 20 decks
     assert by_card[A1].why == ("core of pkg:GD01-001",)
-    assert by_card[H].layer is Layer.STAPLE and by_card[H].need == 2 and by_card[H].share == 0.7 and by_card[H].why == ("in 70% of its lists",)
-    assert by_card[F1].layer is Layer.STAPLE and by_card[O1].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE  # half of the lists or more
-    assert deck.requirements == tuple(sorted(deck.requirements, key=lambda r: (list(Layer).index(r.layer), -r.share, r.card)))  # core first, staples most-run first
+    assert (
+        by_card[H].layer is Layer.STAPLE
+        and by_card[H].need == 2
+        and by_card[H].share == 0.7
+        and by_card[H].why == ("in 70% of its lists",)
+    )
+    assert (
+        by_card[F1].layer is Layer.STAPLE and by_card[O1].layer is Layer.STAPLE and by_card[S2].layer is Layer.STAPLE
+    )  # half of the lists or more
+    assert deck.requirements == tuple(
+        sorted(deck.requirements, key=lambda r: (list(Layer).index(r.layer), -r.share, r.card))
+    )  # core first, staples most-run first
 
 
 def test_the_same_deck_in_both_sources_is_one_deck_with_both_play_rates() -> None:
@@ -63,7 +79,9 @@ def test_the_same_deck_in_both_sources_is_one_deck_with_both_play_rates() -> Non
     two = build_decks(both(), min_rate=0.0)
     assert len(two) == len(one)  # the matching packages merge the decks
     merged = next(d for d in two if [r for _, _, r in d.package_refs] == [PKG_A])
-    assert set(merged.rates) == {DataSource.TOURNAMENT, DataSource.ONLINE} and merged.requirements == deck_a().requirements
+    assert (
+        set(merged.rates) == {DataSource.TOURNAMENT, DataSource.ONLINE} and merged.requirements == deck_a().requirements
+    )
 
 
 def test_decks_below_the_play_rate_floor_are_left_out() -> None:
@@ -80,14 +98,23 @@ def test_a_deck_is_perfect_only_when_every_core_and_staple_copy_is_owned() -> No
     deck = deck_a()
     prices = {r.card: 100 for r in deck.requirements}
     full = coverage(deck, (), own_everything(deck), prices, {})
-    assert full.band is Band.PERFECT and full.working_share == 1.0 and full.cost_cents(Layer.CORE, Layer.STAPLE) == 0 and full.next_band is None
+    assert (
+        full.band is Band.PERFECT
+        and full.working_share == 1.0
+        and full.cost_cents(Layer.CORE, Layer.STAPLE) == 0
+        and full.next_band is None
+    )
     owned = own_everything(deck)
     del owned[H]  # all the core, but a staple is missing
     core_only = coverage(deck, (), owned, prices, {})
-    assert core_only.have(Layer.CORE) == core_only.need(Layer.CORE) and core_only.band is not Band.PERFECT  # staples count toward the band
+    assert (
+        core_only.have(Layer.CORE) == core_only.need(Layer.CORE) and core_only.band is not Band.PERFECT
+    )  # staples count toward the band
     assert core_only.cost_cents(Layer.CORE, Layer.STAPLE) == 2 * 100  # two copies of H are missing
     up = core_only.next_band
-    assert up is not None and up.band is Band.COMPLETE and dict(up.buys) == {H: 1} and up.cost_cents == 100  # one copy gets to 90%
+    assert (
+        up is not None and up.band is Band.COMPLETE and dict(up.buys) == {H: 1} and up.cost_cents == 100
+    )  # one copy gets to 90%
     assert core_only.band is Band.PLAYABLE
 
 
@@ -99,9 +126,14 @@ def test_a_deck_with_a_core_card_at_one_of_four_is_not_playable_however_much_els
     cov = coverage(deck, (), owned, prices, {})
     assert cov.working_share > 0.75 and cov.band is Band.REACHABLE and not cov.playable  # the key-card guard
     up = cov.next_band
-    assert up is not None and up.band is Band.PLAYABLE and dict(up.buys) == {A1: 1}  # one more copy of the key card, nothing else
+    assert (
+        up is not None and up.band is Band.PLAYABLE and dict(up.buys) == {A1: 1}
+    )  # one more copy of the key card, nothing else
     owned[A1] = 2
-    assert coverage(deck, (), owned, prices, {}).band in (Band.PLAYABLE, Band.COMPLETE) and coverage(deck, (), owned, prices, {}).playable
+    assert (
+        coverage(deck, (), owned, prices, {}).band in (Band.PLAYABLE, Band.COMPLETE)
+        and coverage(deck, (), owned, prices, {}).playable
+    )
 
 
 def test_nothing_owned_is_not_happening_and_a_missing_price_makes_the_cost_a_minimum() -> None:
@@ -119,7 +151,9 @@ def test_the_overview_puts_perfect_first_by_how_played_and_every_other_band_chea
     prices = {n: 100 for d in decks for n in (r.card for r in d.requirements)}
     owned = dict.fromkeys(prices, 4)
     groups = overview([coverage(d, (), owned, prices, {}) for d in decks])
-    assert [c.deck.top_rate for c in groups[Band.PERFECT]] == sorted((c.deck.top_rate for c in groups[Band.PERFECT]), reverse=True)
+    assert [c.deck.top_rate for c in groups[Band.PERFECT]] == sorted(
+        (c.deck.top_rate for c in groups[Band.PERFECT]), reverse=True
+    )
     some = {n: (4 if i % 5 else 0) for i, n in enumerate(prices)}
     for band, rows in overview([coverage(d, (), some, prices, {}) for d in decks]).items():
         if band is not Band.PERFECT:
@@ -135,11 +169,17 @@ def test_picks_come_core_first_then_staples_most_run_first_then_cheapest_and_exp
     layers = [p.layer for p in buy]
     assert layers == sorted(layers, key=list(Layer).index)  # core, then staples
     core = [p for p in buy if p.layer is Layer.CORE]
-    assert [p.card for p in core] == [A2, A3, A1]  # the cheapest first (no other deck shares them); the premium one last
+    assert [p.card for p in core] == [
+        A2,
+        A3,
+        A1,
+    ]  # the cheapest first (no other deck shares them); the premium one last
     assert core[-1].premium and not core[0].premium and core[-1].copies == 4 and core[-1].line_cents == 6000
     staples = [p for p in buy if p.layer is Layer.STAPLE]
     assert [p.share for p in staples] == sorted((p.share for p in staples), reverse=True)  # the most-run staples first
-    assert sum(p.copies for p in buy if p.layer in (Layer.CORE, Layer.STAPLE)) == cov.need(Layer.CORE, Layer.STAPLE)  # every missing copy is in exactly one pick
+    assert sum(p.copies for p in buy if p.layer in (Layer.CORE, Layer.STAPLE)) == cov.need(
+        Layer.CORE, Layer.STAPLE
+    )  # every missing copy is in exactly one pick
     assert all(p.why for p in buy)
 
 
@@ -149,7 +189,10 @@ def test_a_card_other_supported_or_close_decks_also_need_comes_first_and_says_so
     cov = coverage(deck, (), {}, prices, {})
     durable = {A3: (("Another deck", 0.3), ("Third deck", 0.1)), A2: (("Another deck", 0.3),)}
     core = [p for p in picks(cov, durable) if p.layer is Layer.CORE]
-    assert [p.card for p in core][:2] == [A3, A2] and core[0].also_needed_by == ("Another deck", "Third deck")  # needed by two others, then by one
+    assert [p.card for p in core][:2] == [A3, A2] and core[0].also_needed_by == (
+        "Another deck",
+        "Third deck",
+    )  # needed by two others, then by one
     own_deck = {A3: (("Master", 0.5),)}
     assert next(p for p in picks(cov, own_deck) if p.card == A3).also_needed_by == ("Master",)
     assert needed_by([]) == {}
@@ -175,15 +218,30 @@ def test_a_decks_packages_are_tagged_home_adjacent_or_new_in_the_source_they_are
 def test_core_plus_staples_never_need_more_copies_than_a_deck_holds() -> None:
     assert DECK_SIZE == 50
     reqs = [Requirement(N(f"C-00{i}"), Layer.CORE, 4, 1.0, ("core",)) for i in range(1, 8)]  # 28 core copies
-    reqs += [Requirement(N(f"S-0{i:02d}"), Layer.STAPLE, 4, 0.9 - i / 100, ("staple",)) for i in range(1, 9)]  # 32 staple copies, most-run first
+    reqs += [
+        Requirement(N(f"S-0{i:02d}"), Layer.STAPLE, 4, 0.9 - i / 100, ("staple",)) for i in range(1, 9)
+    ]  # 32 staple copies, most-run first
     fitted = fit_to_deck(reqs)
     working = [r for r in fitted if r.layer in (Layer.CORE, Layer.STAPLE)]
     assert sum(r.need for r in working) == 50  # the staples fill the 22 copies of room
     staples = [r for r in fitted if r.layer is Layer.STAPLE]
-    assert [(r.card, r.need) for r in staples] == [("S-001", 4), ("S-002", 4), ("S-003", 4), ("S-004", 4), ("S-005", 4), ("S-006", 2)]  # the sixth fits in part
-    assert [(r.card, r.layer, r.need) for r in fitted if r.layer is Layer.OPTION] == [("S-007", Layer.OPTION, 4), ("S-008", Layer.OPTION, 4)]  # the rest become options
+    assert [(r.card, r.need) for r in staples] == [
+        ("S-001", 4),
+        ("S-002", 4),
+        ("S-003", 4),
+        ("S-004", 4),
+        ("S-005", 4),
+        ("S-006", 2),
+    ]  # the sixth fits in part
+    assert [(r.card, r.layer, r.need) for r in fitted if r.layer is Layer.OPTION] == [
+        ("S-007", Layer.OPTION, 4),
+        ("S-008", Layer.OPTION, 4),
+    ]  # the rest become options
     assert fit_to_deck(reqs[:7]) == tuple(reqs[:7])  # no staples: nothing to cut
-    short = [Requirement(N("C-001"), Layer.CORE, 4, 1.0, ("core",)), Requirement(N("S-001"), Layer.STAPLE, 4, 0.8, ("staple",))]
+    short = [
+        Requirement(N("C-001"), Layer.CORE, 4, 1.0, ("core",)),
+        Requirement(N("S-001"), Layer.STAPLE, 4, 0.8, ("staple",)),
+    ]
     assert fit_to_deck(short) == tuple(short)  # a small deck is unchanged
 
 
@@ -200,7 +258,9 @@ def test_the_banned_and_restricted_list_clamps_needs_drops_banned_cards_and_flag
     from tools.gundam_cards.legality import Rules
 
     rules = Rules(banned=frozenset({H}), limits={A2: 1}, pairs=frozenset({frozenset({A1, A3})}), vanilla=frozenset())
-    deck = next(d for d in build_decks(tournament(), min_rate=0.0, rules=rules) if [r for _, _, r in d.package_refs] == [PKG_A])
+    deck = next(
+        d for d in build_decks(tournament(), min_rate=0.0, rules=rules) if [r for _, _, r in d.package_refs] == [PKG_A]
+    )
     by_card = {r.card: r for r in deck.requirements}
     assert H not in by_card  # banned: not needed at all
     assert by_card[A2].need == 1  # restricted to 1 (the lists run 2)

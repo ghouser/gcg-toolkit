@@ -1,4 +1,5 @@
 """Local search over typed cards."""
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -10,8 +11,23 @@ from tools.gundam_cards.build import SourcePage, build_card
 from tools.gundam_cards.models import CardKind, CardModel, Color, Keyword, Rarity
 from tools.gundam_cards.search import SearchQuery, format_table, search
 
-TRAITS = frozenset(Trait(t) for t in ("Earth Federation", "White Base Team", "G Generation", "Newtype", "Cyber-Newtype", "Teiwaz", "Tekkadan"))
-IDS = ["ST01-001", "ST01-010", "ST01-015", "GD05-111", "EB01-076", "GD01-047", "T-001", "R-002", "EXB-002", "EB01-008", "GD01-046"]
+TRAITS = frozenset(
+    Trait(t)
+    for t in ("Earth Federation", "White Base Team", "G Generation", "Newtype", "Cyber-Newtype", "Teiwaz", "Tekkadan")
+)
+IDS = [
+    "ST01-001",
+    "ST01-010",
+    "ST01-015",
+    "GD05-111",
+    "EB01-076",
+    "GD01-047",
+    "T-001",
+    "R-002",
+    "EXB-002",
+    "EB01-008",
+    "GD01-046",
+]
 
 
 @pytest.fixture
@@ -36,7 +52,11 @@ def test_name_and_text_are_case_insensitive_substrings(cards: list[CardModel]) -
 
 def test_kind_and_color(cards: list[CardModel]) -> None:
     assert numbers(cards, kinds={CardKind.PILOT}) == ["ST01-010"]
-    assert numbers(cards, kinds={CardKind.UNIT, CardKind.BASE}, colors={Color.BLUE}) == ["EB01-008", "ST01-001", "ST01-015"]
+    assert numbers(cards, kinds={CardKind.UNIT, CardKind.BASE}, colors={Color.BLUE}) == [
+        "EB01-008",
+        "ST01-001",
+        "ST01-015",
+    ]
     assert numbers(cards, kinds={CardKind.RESOURCE}, colors={Color.BLUE}) == []  # resources have no color
 
 
@@ -52,7 +72,12 @@ def test_keyword_filters_require_all(cards: list[CardModel]) -> None:
 
 
 def test_trait_filters(cards: list[CardModel]) -> None:
-    assert numbers(cards, traits={Trait("White Base Team")}) == ["ST01-001", "ST01-010", "ST01-015", "T-001"]  # T-001: the token
+    assert numbers(cards, traits={Trait("White Base Team")}) == [
+        "ST01-001",
+        "ST01-010",
+        "ST01-015",
+        "T-001",
+    ]  # T-001: the token
     assert numbers(cards, traits={Trait("White Base Team"), Trait("Warship")}) == ["ST01-015"]
     assert numbers(cards, mentions={Trait("G Generation")}) == ["EB01-008", "EB01-076"]
     assert numbers(cards, mentions={Trait("White Base Team")}) == ["ST01-015"]  # the base's tokens name that trait

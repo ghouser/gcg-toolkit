@@ -1,5 +1,6 @@
 """A faked Bandai network for the command tests: `urlopen` serves the pages of a small fake site and records every url asked for,
 and the real `Fetcher` (no sleeping) writes the page cache wherever the command points it."""
+
 from __future__ import annotations
 
 import email.message
@@ -34,7 +35,9 @@ class Web:
 def install_web(monkeypatch: pytest.MonkeyPatch) -> Web:
     """Fake the network with a site of one package, GD01, listing GD01-001 and GD01-002."""
     site = FakeBandai(
-        Path(), {GD01_PACKAGE: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])}, products=[("Newtype Rising [GD01]", "July 25,2025")]
+        Path(),
+        {GD01_PACKAGE: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])},
+        products=[("Newtype Rising [GD01]", "July 25,2025")],
     )
     fake = Web(bandai_pages(site))
 

@@ -5,6 +5,7 @@ never writes it. Its schema is `docs/collection-file.md`. The text list (`my_tcg
 file exists; the two are never merged. Both are read into `Owned`: printing id -> count, with derived card and printing views.
 Paths are resolved when a function runs (`.claude/rules/data-folders.md`).
 """
+
 from __future__ import annotations
 
 import json
@@ -72,7 +73,9 @@ def parse_collection_file(text: str) -> dict[PrintingId, int]:
         raise CollectionRefused("the top level is not a JSON object")
     version = data.get("schema_version")
     if isinstance(version, bool) or version not in SUPPORTED_VERSIONS:
-        raise CollectionRefused(f"schema_version is {version!r}; this toolkit supports version {', '.join(map(str, SUPPORTED_VERSIONS))}")
+        raise CollectionRefused(
+            f"schema_version is {version!r}; this toolkit supports version {', '.join(map(str, SUPPORTED_VERSIONS))}"
+        )
     stamp = data.get("updated_at")
     if not isinstance(stamp, str):
         raise CollectionRefused("updated_at is missing or not a time string")

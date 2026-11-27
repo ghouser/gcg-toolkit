@@ -1,4 +1,5 @@
 """Parsing and checking the collection file on a tiny fake catalog."""
+
 from __future__ import annotations
 
 from shared.basetypes import CardNumber
@@ -21,7 +22,14 @@ def codes(report_lines: list[str]) -> list[tuple[int | None, IssueCode]]:
 
 
 def test_the_users_format_and_the_other_orders_all_parse() -> None:
-    expected = {"GD05-002 1": 1, "4 GD05-002": 4, "GD05-002 x2": 2, "GD05-002 3x": 3, "gd05-002, 2": 2, "GD05-002\t5": 5}
+    expected = {
+        "GD05-002 1": 1,
+        "4 GD05-002": 4,
+        "GD05-002 x2": 2,
+        "GD05-002 3x": 3,
+        "gd05-002, 2": 2,
+        "GD05-002\t5": 5,
+    }
     for raw, copies in expected.items():
         entry = parse_line(1, raw)
         assert isinstance(entry, Entry), raw
@@ -60,8 +68,15 @@ def test_a_printing_the_card_does_not_have_is_an_error() -> None:
 def test_the_same_card_on_two_lines_is_a_duplicate_warning_and_adds_up() -> None:
     report = check_lines(["GD02-041 1", "GD05-002 2", "GD02-041 3", "GD02-041+ 1"], CATALOG)
     dup = [i for i in report.issues if i.code is IssueCode.DUPLICATE]
-    assert len(dup) == 1 and dup[0].severity is Severity.WARNING and "lines 1, 3" in dup[0].message and "4" in dup[0].message
-    assert report.total_copies == 7 and report.distinct_cards == 2  # the + art is a different line, the same card number
+    assert (
+        len(dup) == 1
+        and dup[0].severity is Severity.WARNING
+        and "lines 1, 3" in dup[0].message
+        and "4" in dup[0].message
+    )
+    assert (
+        report.total_copies == 7 and report.distinct_cards == 2
+    )  # the + art is a different line, the same card number
     assert report.ok  # a duplicate is a warning, not an error
 
 

@@ -1,4 +1,5 @@
 """Discovery on a synthetic world with a known answer."""
+
 from __future__ import annotations
 
 from shared.basetypes import CardNumber
@@ -63,9 +64,13 @@ def test_packages_need_both_co_play_and_synergy() -> None:
 
 def test_a_card_that_always_comes_along_but_has_no_synergy_is_not_in_the_package() -> None:
     result = run()
-    assert O1 not in {m.card_number for p in result.packages for m in p.members}  # co-plays with A 100%, no structural tie
+    assert O1 not in {
+        m.card_number for p in result.packages for m in p.members
+    }  # co-plays with A 100%, no structural tie
     floater = next(f for f in result.free_floating if f.card_number == O1)
-    assert floater.decks == 25 and [(a.package, a.share) for a in floater.affinities] == [(PackageId("pkg:GD01-001"), 1.0)]
+    assert floater.decks == 25 and [(a.package, a.share) for a in floater.affinities] == [
+        (PackageId("pkg:GD01-001"), 1.0)
+    ]
 
 
 def test_staples_and_unconnected_pairs_stay_free_floating() -> None:
@@ -87,12 +92,21 @@ def test_a_card_with_a_structural_tie_is_synergy_and_its_share_is_the_score() ->
 
 def test_any_appearance_of_a_tied_card_is_synergy_but_an_untied_card_never_is() -> None:
     tied, untied = N("GD07-001"), N("GD07-002")
-    graph = SynergyGraph([*GRAPH.edges_among([A1, A2, A3, B1, B2, B3, B4, H]), edge(tied, A2, SynergyKind.SIMILAR_ABILITY, "same effect")])
-    decks = [*world(), frozenset({A1, A2, A3, tied, untied})]  # one deck of package A runs each; only `tied` has a tie to it
+    graph = SynergyGraph(
+        [
+            *GRAPH.edges_among([A1, A2, A3, B1, B2, B3, B4, H]),
+            edge(tied, A2, SynergyKind.SIMILAR_ABILITY, "same effect"),
+        ]
+    )
+    decks = [
+        *world(),
+        frozenset({A1, A2, A3, tied, untied}),
+    ]  # one deck of package A runs each; only `tied` has a tie to it
     result = discover(decks, graph, PARAMS, {}, lambda pid, members, edges: str(pid))
     found = {h.card_number: h for h in result.synergy_cards}
     assert found[tied].decks == 1 and found[tied].share == 1 / 26  # one deck is enough; the score says how rare
     assert untied not in found
+
 
 def test_a_deck_runs_a_package_with_all_but_one_of_four_but_not_with_half() -> None:
     members = [B1, B2, B3, B4]
@@ -112,15 +126,24 @@ def test_core_and_optional_members_and_variants() -> None:
 
 def test_archetypes_are_the_combinations_of_packages_decks_run() -> None:
     result = run()
-    by_packages = {frozenset(a.packages): a for a in result.archetypes}  # a package order is by popularity; the set is the identity
+    by_packages = {
+        frozenset(a.packages): a for a in result.archetypes
+    }  # a package order is by popularity; the set is the identity
     a_id, b_id = PackageId("pkg:GD01-001"), PackageId("pkg:GD02-001")
-    assert {k: v.decks for k, v in by_packages.items()} == {frozenset({a_id}): 20, frozenset({b_id}): 25, frozenset({a_id, b_id}): 5, frozenset(): 10}
+    assert {k: v.decks for k, v in by_packages.items()} == {
+        frozenset({a_id}): 20,
+        frozenset({b_id}): 25,
+        frozenset({a_id, b_id}): 5,
+        frozenset(): 10,
+    }
     only_a = by_packages[frozenset({a_id})]
     assert [r.card_number for r in only_a.synergy_cards] == [H] and only_a.name == "pkg:GD01-001"
     assert by_packages[frozenset()].name == "No package"
     assert sum(a.share for a in result.archetypes) == 1.0
     typical_free = {r.card_number: r.share for r in only_a.free_floating}
-    assert typical_free[O1] == 1.0 and typical_free[S2] == 0.5  # S2 is in exactly half of these decks: typical at the 50% line
+    assert (
+        typical_free[O1] == 1.0 and typical_free[S2] == 0.5
+    )  # S2 is in exactly half of these decks: typical at the 50% line
 
 
 def test_rare_cards_are_counted_not_classified() -> None:
@@ -149,7 +172,11 @@ D1, D2 = N("GD07-001"), N("GD07-002")  # two cards that do the same job as each 
 def duplicate_world() -> tuple[list[frozenset[CardNumber]], SynergyGraph]:
     graph = SynergyGraph([edge(A1, A2), edge(A3, A2), edge(A1, D1, SynergyKind.FUNCTIONAL_EFFECT, "same job"), edge(D1, D2, SynergyKind.FUNCTIONAL_EFFECT, "same job"),
                           edge(A1, D2, SynergyKind.FUNCTIONAL_EFFECT, "same job")])  # fmt: skip
-    decks = [frozenset({A1, A2, A3, D1, D2}) for _ in range(12)] + [frozenset({A1, A2, A3, D1})] + [frozenset({S1}) for _ in range(5)]
+    decks = (
+        [frozenset({A1, A2, A3, D1, D2}) for _ in range(12)]
+        + [frozenset({A1, A2, A3, D1})]
+        + [frozenset({S1}) for _ in range(5)]
+    )
     return decks, graph
 
 
@@ -157,7 +184,13 @@ def test_a_functional_reprint_that_is_played_with_a_package_joins_it() -> None:
     decks, graph = duplicate_world()
     result = discover(decks, graph, PARAMS, {}, lambda pid, members, edges: str(pid))
     (package,) = result.packages
-    assert {m.card_number for m in package.members} == {A1, A2, A3, D1, D2}  # "A strong tie is also an functional reprint"
+    assert {m.card_number for m in package.members} == {
+        A1,
+        A2,
+        A3,
+        D1,
+        D2,
+    }  # "A strong tie is also an functional reprint"
     assert {e.kind.relation.value for e in package.edges} == {"combo", "functional_reprint"}
 
 
@@ -172,10 +205,23 @@ def test_peers_are_reported_as_squads() -> None:
 
 def test_a_chain_of_peers_is_two_squads_not_one() -> None:
     # A1-D1 and D1-D2 are peers but A1-D2 are not: D1 sits in two squads and A1 and D2 never share one.
-    graph = SynergyGraph([edge(A1, A2), edge(A3, A2), edge(A1, D1, SynergyKind.FUNCTIONAL_EFFECT, "same job"), edge(D1, D2, SynergyKind.FUNCTIONAL_EFFECT, "same job")])
-    decks = [frozenset({A1, A2, A3, D1, D2}) for _ in range(12)] + [frozenset({A1, A2, A3, D1})] + [frozenset({S1}) for _ in range(5)]
+    graph = SynergyGraph(
+        [
+            edge(A1, A2),
+            edge(A3, A2),
+            edge(A1, D1, SynergyKind.FUNCTIONAL_EFFECT, "same job"),
+            edge(D1, D2, SynergyKind.FUNCTIONAL_EFFECT, "same job"),
+        ]
+    )
+    decks = (
+        [frozenset({A1, A2, A3, D1, D2}) for _ in range(12)]
+        + [frozenset({A1, A2, A3, D1})]
+        + [frozenset({S1}) for _ in range(5)]
+    )
     result = discover(decks, graph, PARAMS, {}, lambda pid, members, edges: str(pid))
-    assert sorted(sorted(c.card_number for c in g.cards) for g in result.squads) == sorted([sorted([A1, D1]), sorted([D1, D2])])
+    assert sorted(sorted(c.card_number for c in g.cards) for g in result.squads) == sorted(
+        [sorted([A1, D1]), sorted([D1, D2])]
+    )
 
 
 def test_worlds_without_duplicates_report_none() -> None:

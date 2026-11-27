@@ -3,6 +3,7 @@
 The page is read as text lines, not summarized: sections are `Banned Cards`, `Restricted Cards〈N〉`, `Banned pair` (lines `A`, a card, `B`, a card), then the cards
 that match the vanilla-group description. Pure functions; the fetch is in the CLI.
 """
+
 from __future__ import annotations
 
 import re
@@ -23,7 +24,9 @@ class RestrictionsError(Exception):
 
 def page_lines(html: str) -> list[str]:
     text = re.sub(r"<script.*?</script>|<style.*?</style>", " ", html, flags=re.S)
-    text = re.sub(r"<h4[^>]*>", "\n" + HEADING + " ", text)  # section headings are the h4 tags (the navigation buttons repeat their words, so text alone cannot tell them apart)
+    text = re.sub(
+        r"<h4[^>]*>", "\n" + HEADING + " ", text
+    )  # section headings are the h4 tags (the navigation buttons repeat their words, so text alone cannot tell them apart)
     text = re.sub(r"</(p|h\d|div|li)>", "\n", text)
     text = re.sub(r"<[^>]+>", " ", text)
     return [re.sub(r"\s+", " ", line).strip() for line in text.split("\n") if line.strip()]
@@ -87,12 +90,25 @@ def parse_restrictions(html: str) -> tuple[Restrictions, date]:
                     group.append(number)
     if not banned and not limited and not pairs:
         raise RestrictionsError("found no banned, restricted or pair sections: has the page changed?")
-    return Restrictions(banned=tuple(banned), limited=tuple(limited), banned_pairs=tuple(pairs), vanilla_description=description, vanilla_group=tuple(group)), published
+    return Restrictions(
+        banned=tuple(banned),
+        limited=tuple(limited),
+        banned_pairs=tuple(pairs),
+        vanilla_description=description,
+        vanilla_group=tuple(group),
+    ), published
 
 
 def matches_vanilla(card: CardModel) -> bool:
     """A Unit card that is Lv.2 with cost 1, 2 AP, 2 HP and without effects (the vanilla group's description)."""
-    return isinstance(card, UnitCard) and card.level == 2 and card.cost == 1 and card.ap == 2 and card.hp == 2 and not card.text.strip()
+    return (
+        isinstance(card, UnitCard)
+        and card.level == 2
+        and card.cost == 1
+        and card.ap == 2
+        and card.hp == 2
+        and not card.text.strip()
+    )
 
 
 def vanilla_cards(catalog: dict[CardNumber, CardModel]) -> frozenset[CardNumber]:

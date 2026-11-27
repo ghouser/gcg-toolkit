@@ -1,4 +1,5 @@
 """Typed models for the text list's check report and the deck nicknames. See tools/gundam_collection/design.md."""
+
 from __future__ import annotations
 
 from enum import StrEnum

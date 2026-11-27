@@ -1,20 +1,21 @@
 """Packages and archetypes: how decks are built (see tools/gundam_packages/design.md).
 
-    .venv/bin/python -m tools.gundam_packages.cli build                     # GD05 packages + archetypes (default era gd05)
-    .venv/bin/python -m tools.gundam_packages.cli build --source online     # the same analysis on the weighted online example decks
-    .venv/bin/python -m tools.gundam_packages.cli compare                   # tournament vs online: each package's rate in both
-    (every lookup below also takes --source online)
-    .venv/bin/python -m tools.gundam_packages.cli packages                  # packages with core/optional members and variants
-    .venv/bin/python -m tools.gundam_packages.cli archetypes                # package combinations with typical picks
-    .venv/bin/python -m tools.gundam_packages.cli synergy              # cards with a structural tie to a package
-    .venv/bin/python -m tools.gundam_packages.cli package-synergy           # packages that work together, with bridge cards
-    .venv/bin/python -m tools.gundam_packages.cli free                      # free-floating cards (good on their own)
-    .venv/bin/python -m tools.gundam_packages.cli squads                 # cards that do the same job (every pair are peers)
-    .venv/bin/python -m tools.gundam_packages.cli card GD03-056             # one card: its package, archetypes, partners, appearance rates
-    .venv/bin/python -m tools.gundam_packages.cli package "Mikazuki Barbatos"   # one package: appearance rate of every card played with it
-    .venv/bin/python -m tools.gundam_packages.cli drift --from gd05 --to gd05_5   # how the new era changes the packages
-    .venv/bin/python -m tools.gundam_packages.cli report --from gd05 --to gd05_5  # markdown meta report by color combination + adjustments
+.venv/bin/python -m tools.gundam_packages.cli build                     # GD05 packages + archetypes (default era gd05)
+.venv/bin/python -m tools.gundam_packages.cli build --source online     # the same analysis on the weighted online example decks
+.venv/bin/python -m tools.gundam_packages.cli compare                   # tournament vs online: each package's rate in both
+(every lookup below also takes --source online)
+.venv/bin/python -m tools.gundam_packages.cli packages                  # packages with core/optional members and variants
+.venv/bin/python -m tools.gundam_packages.cli archetypes                # package combinations with typical picks
+.venv/bin/python -m tools.gundam_packages.cli synergy              # cards with a structural tie to a package
+.venv/bin/python -m tools.gundam_packages.cli package-synergy           # packages that work together, with bridge cards
+.venv/bin/python -m tools.gundam_packages.cli free                      # free-floating cards (good on their own)
+.venv/bin/python -m tools.gundam_packages.cli squads                 # cards that do the same job (every pair are peers)
+.venv/bin/python -m tools.gundam_packages.cli card GD03-056             # one card: its package, archetypes, partners, appearance rates
+.venv/bin/python -m tools.gundam_packages.cli package "Mikazuki Barbatos"   # one package: appearance rate of every card played with it
+.venv/bin/python -m tools.gundam_packages.cli drift --from gd05 --to gd05_5   # how the new era changes the packages
+.venv/bin/python -m tools.gundam_packages.cli report --from gd05 --to gd05_5  # markdown meta report by color combination + adjustments
 """
+
 from __future__ import annotations
 
 import argparse
@@ -54,7 +55,15 @@ from tools.gundam_packages.models import DataSource, DriftFile, OtherRole, Packa
 from tools.gundam_packages.naming import PackageNamer
 from tools.gundam_packages.rates import compute_rates
 from tools.gundam_packages.report import render_report
-from tools.gundam_packages.store import load_name_overrides, load_packages, load_rates, tracked_folder, write_drift, write_packages, write_rates
+from tools.gundam_packages.store import (
+    load_name_overrides,
+    load_packages,
+    load_rates,
+    tracked_folder,
+    write_drift,
+    write_packages,
+    write_rates,
+)
 from tools.gundam_packages.synergy import build_graph
 
 
@@ -81,7 +90,9 @@ def _loaded(args: argparse.Namespace) -> PackagesFile:
     source = _source(args)
     file = load_packages(source=source)
     if file is None:
-        raise SystemExit(f"no {source.value} packages yet; run `build{' --source online' if source is DataSource.ONLINE else ''}` first")
+        raise SystemExit(
+            f"no {source.value} packages yet; run `build{' --source online' if source is DataSource.ONLINE else ''}` first"
+        )
     return file
 
 
@@ -111,14 +122,25 @@ def _build_online(args: argparse.Namespace) -> int:
     cards = _cards()
     decks, lists_used = online_copy_decks(snapshot, cards)
     now = datetime.now(UTC)
-    file, _ = build_from_decks([frozenset(d) for d in decks], online_window(snapshot, len(decks)), cards, ONLINE_PARAMS,
-                               overrides=load_name_overrides(), generated_at=now, source=DataSource.ONLINE)
+    file, _ = build_from_decks(
+        [frozenset(d) for d in decks],
+        online_window(snapshot, len(decks)),
+        cards,
+        ONLINE_PARAMS,
+        overrides=load_name_overrides(),
+        generated_at=now,
+        source=DataSource.ONLINE,
+    )
     path = write_packages(file)
     rates_path = write_rates(compute_rates(file, decks, now))
-    print(f"online (example decks, {snapshot.fetched_at:%Y-%m-%d}, {snapshot.window_days} days): {lists_used} weighted lists as {len(decks)} online decks "
-          f"(each deck is 0.01% of the field) -> {path}, {rates_path}")
-    print(f"{len(file.packages)} packages, {len(file.package_synergies)} synergistic package pairs, {len(file.synergy_cards)} synergy ties, "
-          f"{len(file.free_floating)} free-floating cards, {len(file.archetypes)} archetypes ({file.rare_cards} cards too rare to classify)")
+    print(
+        f"online (example decks, {snapshot.fetched_at:%Y-%m-%d}, {snapshot.window_days} days): {lists_used} weighted lists as {len(decks)} online decks "
+        f"(each deck is 0.01% of the field) -> {path}, {rates_path}"
+    )
+    print(
+        f"{len(file.packages)} packages, {len(file.package_synergies)} synergistic package pairs, {len(file.synergy_cards)} synergy ties, "
+        f"{len(file.free_floating)} free-floating cards, {len(file.archetypes)} archetypes ({file.rare_cards} cards too rare to classify)"
+    )
     return 0
 
 
@@ -132,14 +154,20 @@ def cmd_build(args: argparse.Namespace) -> int:
         print(f"unknown era {args.era!r} (known: {', '.join(map(str, eras))})", file=sys.stderr)
         return 2
     events = combined_events(load_events_or_fail())
-    file, _ = build_packages(events, cards, era, _tiers(args.tier), overrides=load_name_overrides(), generated_at=datetime.now(UTC))
+    file, _ = build_packages(
+        events, cards, era, _tiers(args.tier), overrides=load_name_overrides(), generated_at=datetime.now(UTC)
+    )
     path = write_packages(file)
     listed, _ = copy_decks(window_events(events, era, _tiers(args.tier)), cards)
     rates_path = write_rates(compute_rates(file, listed, datetime.now(UTC)))
     w = file.window
-    print(f"{era.definition.label} ({w.start} to {w.end or 'today'}): {w.events} events, {w.decks} decks -> {path}, {rates_path}")
-    print(f"{len(file.packages)} packages, {len(file.package_synergies)} synergistic package pairs, {len(file.synergy_cards)} synergy ties, {len(file.free_floating)} free-floating cards, "
-          f"{len(file.archetypes)} archetypes ({file.rare_cards} cards too rare to classify)")
+    print(
+        f"{era.definition.label} ({w.start} to {w.end or 'today'}): {w.events} events, {w.decks} decks -> {path}, {rates_path}"
+    )
+    print(
+        f"{len(file.packages)} packages, {len(file.package_synergies)} synergistic package pairs, {len(file.synergy_cards)} synergy ties, {len(file.free_floating)} free-floating cards, "
+        f"{len(file.archetypes)} archetypes ({file.rare_cards} cards too rare to classify)"
+    )
     return 0
 
 
@@ -165,17 +193,28 @@ def cmd_archetypes(args: argparse.Namespace) -> int:
     for a in file.archetypes[: args.limit]:
         print(f"\n{a.decks:3} decks ({_pct(a.share)})  {a.name}")
         if a.synergy_cards:
-            print("      synergy: " + ", ".join(f"{cards[r.card_number].name} {_pct(r.share)}" for r in a.synergy_cards[:6]))
+            print(
+                "      synergy: "
+                + ", ".join(f"{cards[r.card_number].name} {_pct(r.share)}" for r in a.synergy_cards[:6])
+            )
         if a.free_floating:
-            print("      free floating: " + ", ".join(f"{cards[r.card_number].name} {_pct(r.share)}" for r in a.free_floating[:6]))
+            print(
+                "      free floating: "
+                + ", ".join(f"{cards[r.card_number].name} {_pct(r.share)}" for r in a.free_floating[:6])
+            )
     return 0
 
 
 def cmd_synergy_cards(args: argparse.Namespace) -> int:
     file, cards = _loaded(args), _cards()
     names = {p.id: p.name for p in file.packages}
-    shown = sorted((h for h in file.synergy_cards if h.share >= args.min_share), key=lambda h: (-h.share, names[h.package], h.card_number))
-    print(f"== synergy cards (a tie to the package and in its decks; the score is the share of its decks), {_label(file)}: {len(shown)} ==")
+    shown = sorted(
+        (h for h in file.synergy_cards if h.share >= args.min_share),
+        key=lambda h: (-h.share, names[h.package], h.card_number),
+    )
+    print(
+        f"== synergy cards (a tie to the package and in its decks; the score is the share of its decks), {_label(file)}: {len(shown)} =="
+    )
     for h in shown[: args.limit]:
         ties = ", ".join(sorted({f"{e.kind.value}: {e.detail}" for e in h.edges}))
         print(f"{names[h.package]:26} + {cards[h.card_number].name:28} in {_pct(h.share)} of its decks  ({ties})")
@@ -188,8 +227,10 @@ def cmd_package_synergy(args: argparse.Namespace) -> int:
     colors = {p.id: "/".join(c.value for c in p.colors) for p in file.packages}
     print(f"== synergistic packages (tied, and run together), {_label(file)} ==")
     for s in file.package_synergies[: args.limit]:
-        print(f"\n{_with_colors(names[s.package_a], colors[s.package_a])} + {_with_colors(names[s.package_b], colors[s.package_b])}: {s.decks_both} decks "
-              f"({_pct(s.share_of_a)} of the first's, {_pct(s.share_of_b)} of the second's)")
+        print(
+            f"\n{_with_colors(names[s.package_a], colors[s.package_a])} + {_with_colors(names[s.package_b], colors[s.package_b])}: {s.decks_both} decks "
+            f"({_pct(s.share_of_a)} of the first's, {_pct(s.share_of_b)} of the second's)"
+        )
         if s.edges:
             print("      direct ties: " + ", ".join(sorted({f"{e.kind.value}: {e.detail}" for e in s.edges})))
         for b in s.bridges:
@@ -204,17 +245,24 @@ def cmd_free(args: argparse.Namespace) -> int:
     print(f"== free-floating cards, {_label(file)} ==")
     for f in file.free_floating[: args.limit]:
         goes = ", ".join(f"{names[a.package]} {_pct(a.share)}" for a in f.affinities)
-        print(f"{f.card_number}  {cards[f.card_number].name:30} {_pct(f.deck_share)} of decks" + (f"  (often with: {goes})" if goes else ""))
+        print(
+            f"{f.card_number}  {cards[f.card_number].name:30} {_pct(f.deck_share)} of decks"
+            + (f"  (often with: {goes})" if goes else "")
+        )
     return 0
 
 
 def cmd_squads(args: argparse.Namespace) -> int:
     file, cards = _loaded(args), _cards()
-    print(f"== squads: cards that do the same job, every pair are peers; a card can be in several squads; {_label(file)} (players run some of each) ==")
+    print(
+        f"== squads: cards that do the same job, every pair are peers; a card can be in several squads; {_label(file)} (players run some of each) =="
+    )
     for g in file.squads[: args.limit]:
         print(f"\n{_pct(g.share_with_any)} of decks run at least one")
         for c in g.cards:
-            print(f"    {c.card_number}  {cards[c.card_number].name:32} {_color_of(cards[c.card_number]):7} in {c.decks} decks")
+            print(
+                f"    {c.card_number}  {cards[c.card_number].name:32} {_color_of(cards[c.card_number]):7} in {c.decks} decks"
+            )
     return 0
 
 
@@ -255,11 +303,15 @@ def cmd_pairs(args: argparse.Namespace) -> int:
         quote = priced[n].latest_tcg_price
         return quote.price_cents / 100 if quote is not None else float("inf")
 
-    print(f"   rate = how often decks that run {number} also run it ({_label(rates) if rates else 'no rates built'}); price = TCGPlayer market\n")
+    print(
+        f"   rate = how often decks that run {number} also run it ({_label(rates) if rates else 'no rates built'}); price = TCGPlayer market\n"
+    )
     for c in sorted(found, key=lambda c: (-seen.get(c.number, 0.0), price(c.number), c.number))[: args.limit]:
         cost = price(c.number)
         shown = _rate(seen[c.number]) if c.number in seen else "  not seen with it"
-        print(f"   {c.number}  {c.name:34} {_color_of(c):7} {c.kind.value:8} {shown:>8}  {'$' + format(cost, '.2f') if cost != float('inf') else 'unpriced'}")
+        print(
+            f"   {c.number}  {c.name:34} {_color_of(c):7} {c.kind.value:8} {shown:>8}  {'$' + format(cost, '.2f') if cost != float('inf') else 'unpriced'}"
+        )
     if len(found) > args.limit:
         print(f"   ... and {len(found) - args.limit} more (--limit)")
     if not found:
@@ -277,7 +329,9 @@ def _rate(x: float) -> str:
 def _loaded_rates(args: argparse.Namespace) -> RatesFile:
     rates = load_rates(source=_source(args))
     if rates is None:
-        raise SystemExit(f"no {_source(args).value} rates yet; run `build{' --source online' if _source(args) is DataSource.ONLINE else ''}` first")
+        raise SystemExit(
+            f"no {_source(args).value} rates yet; run `build{' --source online' if _source(args) is DataSource.ONLINE else ''}` first"
+        )
     return rates
 
 
@@ -288,7 +342,10 @@ def _find_package(rates: RatesFile, query: str) -> PackageRates | None:
     if len(found) == 1:
         return found[0]
     known = ", ".join(f"{p.name} [{p.package}]" for p in (found or rates.packages))
-    print(f"{'ambiguous' if found else 'no such'} package {query!r}; {'matches' if found else 'known'}: {known}", file=sys.stderr)
+    print(
+        f"{'ambiguous' if found else 'no such'} package {query!r}; {'matches' if found else 'known'}: {known}",
+        file=sys.stderr,
+    )
     return None
 
 
@@ -311,16 +368,24 @@ def cmd_package(args: argparse.Namespace) -> int:
     print("\nplayed with (rates add up to more than 100% when decks run 3+ packages; each partner is its own view):")
     for w in x.partners:
         few = "  (few decks)" if w.pair_decks < LOW_DECKS else ""
-        print(f"\n  with {names[w.package]}: {w.pair_decks} of {x.package_decks} decks = {_rate(w.combined_rate)} of {x.name}'s decks "
-              f"(joint {_rate(w.joint_rate)} of all){'  [synergistic]' if w.synergistic else ''}{few}")
+        print(
+            f"\n  with {names[w.package]}: {w.pair_decks} of {x.package_decks} decks = {_rate(w.combined_rate)} of {x.name}'s decks "
+            f"(joint {_rate(w.joint_rate)} of all){'  [synergistic]' if w.synergistic else ''}{few}"
+        )
         for c in w.cards:
-            print(f"      {nm(c.card_number):44} {_rate(c.rate_in_combo)} in those decks -> {_rate(c.rate_from_x)} from {x.name}")
+            print(
+                f"      {nm(c.card_number):44} {_rate(c.rate_in_combo)} in those decks -> {_rate(c.rate_from_x)} from {x.name}"
+            )
         for b in w.bridges:
-            print(f"      bridge: {nm(b.card_number):36} {_rate(b.rate_in_combo)} in those decks -> {_rate(b.rate_from_x)} from {x.name}, to {names[w.package]}")
+            print(
+                f"      bridge: {nm(b.card_number):36} {_rate(b.rate_in_combo)} in those decks -> {_rate(b.rate_from_x)} from {x.name}, to {names[w.package]}"
+            )
     print(f"\nother cards in its decks (copies of {4 * x.package_decks} possible), top {args.limit}:")
     for o in x.others[: args.limit]:
         stray = f", a {names[o.belongs_to]} card" if o.belongs_to else ""
-        print(f"  {nm(o.card_number):44} {o.copies:4}/{o.possible:<4} {_rate(o.rate)}  ({o.role.value.replace('_', ' ')}{stray})")
+        print(
+            f"  {nm(o.card_number):44} {o.copies:4}/{o.possible:<4} {_rate(o.rate)}  ({o.role.value.replace('_', ' ')}{stray})"
+        )
     return 0
 
 
@@ -331,7 +396,9 @@ def _named(cards: Mapping[CardNumber, CardModel], number: CardNumber) -> str:
     return f"{cards[number].name} ({number})"
 
 
-def _print_package_view(x: PackageRates, number: CardNumber, rates: RatesFile, cards: Mapping[CardNumber, CardModel], limit: int) -> None:
+def _print_package_view(
+    x: PackageRates, number: CardNumber, rates: RatesFile, cards: Mapping[CardNumber, CardModel], limit: int
+) -> None:
     """Everything played with a package, from its perspective: its own cards, each linked package's cards and bridges, then stand-alone cards."""
     names = {p.package: p.name for p in rates.packages}
     print(f"\n     --- seen from {x.name} ({_rate(x.rate)} of decks; {x.package_decks} of {rates.total_decks}) ---")
@@ -344,12 +411,18 @@ def _print_package_view(x: PackageRates, number: CardNumber, rates: RatesFile, c
     if linked:
         print(f"     linked packages (played together with {x.name}):")
     for w in linked:
-        print(f"       {names[w.package]}: {w.pair_decks} of {x.package_decks} decks = {_rate(w.combined_rate)}{'  [synergistic]' if w.synergistic else ''}")
+        print(
+            f"       {names[w.package]}: {w.pair_decks} of {x.package_decks} decks = {_rate(w.combined_rate)}{'  [synergistic]' if w.synergistic else ''}"
+        )
         for c in sorted(w.cards, key=lambda c: -c.rate_from_x)[:limit]:
             print(f"         {_named(cards, c.card_number):44} {_rate(c.rate_from_x)} from {x.name}")
         for b in w.bridges:
             print(f"         bridge: {_named(cards, b.card_number):36} {_rate(b.rate_from_x)} from {x.name}")
-    for role, title in ((OtherRole.SYNERGY, "stand-alone cards tied to the package (synergy)"), (OtherRole.FREE_FLOATING, "free-floating cards often played with it"), (OtherRole.OTHER, "other cards in its decks")):
+    for role, title in (
+        (OtherRole.SYNERGY, "stand-alone cards tied to the package (synergy)"),
+        (OtherRole.FREE_FLOATING, "free-floating cards often played with it"),
+        (OtherRole.OTHER, "other cards in its decks"),
+    ):
         group = [o for o in x.others if o.role is role and o.card_number != number][:limit]
         if group:
             print(f"     {title}:")
@@ -367,15 +440,22 @@ def _print_card_rates(number: CardNumber, rates: RatesFile, cards: Mapping[CardN
     if owner is not None and owner in by_package:
         x = by_package[owner]
         mine = next(m for m in x.members if m.card_number == number)
-        print(f"  RATES: in package {x.name} ({_rate(x.rate)} of decks: {x.package_decks} of {rates.total_decks}); this card "
-              f"{mine.copies} of {mine.possible} possible copies = {_rate(mine.rate)} ({mine.role.value})")
+        print(
+            f"  RATES: in package {x.name} ({_rate(x.rate)} of decks: {x.package_decks} of {rates.total_decks}); this card "
+            f"{mine.copies} of {mine.possible} possible copies = {_rate(mine.rate)} ({mine.role.value})"
+        )
         _print_package_view(x, number, rates, cards, limit)
         return
-    played = sorted(((o.rate, x, o) for x in rates.packages for o in x.others if o.card_number == number), key=lambda r: (-r[0], r[1].package))
+    played = sorted(
+        ((o.rate, x, o) for x in rates.packages for o in x.others if o.card_number == number),
+        key=lambda r: (-r[0], r[1].package),
+    )
     bridges = [(x, w, b) for x in rates.packages for w in x.partners for b in w.bridges if b.card_number == number]
     print("  RATES: not in a package.")
     for x, w, b in bridges:
-        print(f"     BRIDGE {x.name} + {names[w.package]}: {_rate(b.rate_in_combo)} of the {w.pair_decks} decks that play both -> {_rate(b.rate_from_x)} from {x.name}'s view")
+        print(
+            f"     BRIDGE {x.name} + {names[w.package]}: {_rate(b.rate_in_combo)} of the {w.pair_decks} decks that play both -> {_rate(b.rate_from_x)} from {x.name}'s view"
+        )
     print("     where it is played (copies of the possible, per package):")
     for rate, x, o in played[:8]:
         print(f"       {x.name}'s decks: {o.copies} of {o.possible} = {_rate(rate)} ({o.role.value.replace('_', ' ')})")
@@ -390,17 +470,24 @@ def cmd_compare(args: argparse.Namespace) -> int:
     if tournament is None or online is None or t_rates is None or o_rates is None:
         print("need both: run `build` and `build --source online` first", file=sys.stderr)
         return 2
-    members = {s: {p.id: frozenset(m.card_number for m in p.members) for p in f.packages} for s, f in ((DataSource.TOURNAMENT, tournament), (DataSource.ONLINE, online))}
+    members = {
+        s: {p.id: frozenset(m.card_number for m in p.members) for p in f.packages}
+        for s, f in ((DataSource.TOURNAMENT, tournament), (DataSource.ONLINE, online))
+    }
     pairs, only_t, only_o = match_packages(members[DataSource.TOURNAMENT], members[DataSource.ONLINE])
     t_by = {p.package: p for p in t_rates.packages}
     o_by = {p.package: p for p in o_rates.packages}
     print(f"== the same package in tournament decks ({_label(tournament)}) and in {_label(online)} ==")
     print("   rate = how often the package is played; matched by the cards they share (at least half)\n")
-    print(f"{'package (tournament name / online name)':50} {'tournament':>10} {'online':>8} {'change':>8}  cards shared")
+    print(
+        f"{'package (tournament name / online name)':50} {'tournament':>10} {'online':>8} {'change':>8}  cards shared"
+    )
     for tid, oid, score in sorted(pairs, key=lambda x: -o_by[x[1]].rate):
         tp, op = t_by[tid], o_by[oid]
         names = tp.name if tp.name == op.name else f"{tp.name} / {op.name}"
-        print(f"{names:50} {_rate(tp.rate):>10} {_rate(op.rate):>8} {100 * (op.rate - tp.rate):>+7.1f}  {100 * score:.0f}% same cards")
+        print(
+            f"{names:50} {_rate(tp.rate):>10} {_rate(op.rate):>8} {100 * (op.rate - tp.rate):>+7.1f}  {100 * score:.0f}% same cards"
+        )
     for label, ids, by in (("online only", only_o, o_by), ("tournament only", only_t, t_by)):
         shown = sorted((by[i] for i in ids if i in by), key=lambda p: -p.rate)[: args.limit]
         print(f"\n{label} ({len(ids)} packages):")
@@ -423,7 +510,9 @@ def cmd_card(args: argparse.Namespace) -> int:
         _print_card_rates(number, rates, cards, args.limit)
     for squad in (g for g in file.squads if any(c.card_number == number for c in g.cards)):
         others = ", ".join(_named(cards, c.card_number) for c in squad.cards if c.card_number != number)
-        print(f"  in a squad (does the same job as): {others}  ({_pct(squad.share_with_any)} of decks run at least one)")
+        print(
+            f"  in a squad (does the same job as): {others}  ({_pct(squad.share_with_any)} of decks run at least one)"
+        )
     for p in file.packages:
         member = next((m for m in p.members if m.card_number == number), None)
         if member is not None:
@@ -434,7 +523,9 @@ def cmd_card(args: argparse.Namespace) -> int:
             return 0
     bridges = [(s, b) for s in file.package_synergies for b in s.bridges if b.card_number == number]
     for s, b in bridges:
-        print(f"  BRIDGE between {names[s.package_a]} and {names[s.package_b]}: in {_pct(b.share)} of the decks that run both")
+        print(
+            f"  BRIDGE between {names[s.package_a]} and {names[s.package_b]}: in {_pct(b.share)} of the decks that run both"
+        )
     ties = [h for h in file.synergy_cards if h.card_number == number]
     if ties:
         for h in ties:
@@ -456,8 +547,16 @@ def _drift_for(base: PackagesFile, new_era: Era, cards: dict[CardNumber, CardMod
     events = window_events(combined_events(load_events_or_fail()), new_era, ALL_TIERS)
     decks, not_counted = deck_sets(events, cards)
     graph = build_graph(list(cards.values()))
-    drift = compute_drift(base, decks, make_window(new_era, ALL_TIERS, events, len(decks), not_counted), graph,
-                          introduced_dates(cards, release), card_colors(cards), PackageNamer(cards, load_name_overrides()), datetime.now(UTC))
+    drift = compute_drift(
+        base,
+        decks,
+        make_window(new_era, ALL_TIERS, events, len(decks), not_counted),
+        graph,
+        introduced_dates(cards, release),
+        card_colors(cards),
+        PackageNamer(cards, load_name_overrides()),
+        datetime.now(UTC),
+    )
     return drift, decks
 
 
@@ -465,7 +564,10 @@ def _base_and_new(args: argparse.Namespace, cards: dict[CardNumber, CardModel]) 
     eras = _eras()
     base = load_packages()
     if base is None or str(base.window.era) != args.base:
-        print(f"run `build --era {args.base}` first (packages.json is for era {base.window.era if base else 'none'})", file=sys.stderr)
+        print(
+            f"run `build --era {args.base}` first (packages.json is for era {base.window.era if base else 'none'})",
+            file=sys.stderr,
+        )
         return 2
     try:
         return base, eras[EraId(args.new)]
@@ -502,8 +604,10 @@ def cmd_drift(args: argparse.Namespace) -> int:
     def nm(number: CardNumber) -> str:
         return cards[number].name
 
-    print(f"== drift: {base.window.era} -> {new_era.definition.label}: {drift.new.events} events, {drift.new.decks} decks"
-          f"{'  (LOW SAMPLE)' if drift.new.decks < 100 else ''} ==")
+    print(
+        f"== drift: {base.window.era} -> {new_era.definition.label}: {drift.new.events} events, {drift.new.decks} decks"
+        f"{'  (LOW SAMPLE)' if drift.new.decks < 100 else ''} =="
+    )
     for p in drift.packages:
         extra = ""
         if p.dropped:
@@ -516,11 +620,15 @@ def cmd_drift(args: argparse.Namespace) -> int:
     print("\n  new cards in play:")
     names = {p.id: p.name for p in base.packages}
     for n in drift.new_cards[: args.limit]:
-        print(f"    {n.card_number}  {nm(n.card_number):28} in {n.decks} decks ({_pct(n.deck_share)})  "
-              + (f"goes with {names[n.package]}" if n.package else "free floating so far"))
+        print(
+            f"    {n.card_number}  {nm(n.card_number):28} in {n.decks} decks ({_pct(n.deck_share)})  "
+            + (f"goes with {names[n.package]}" if n.package else "free floating so far")
+        )
     for e in drift.emerging:
-        print(f"\n  EMERGING package{' (low sample)' if e.low_sample else ''}: {e.package.name}: "
-              f"{', '.join(nm(m.card_number) for m in e.package.members)}  (new: {', '.join(nm(c) for c in e.new_cards)})")
+        print(
+            f"\n  EMERGING package{' (low sample)' if e.low_sample else ''}: {e.package.name}: "
+            f"{', '.join(nm(m.card_number) for m in e.package.members)}  (new: {', '.join(nm(c) for c in e.new_cards)})"
+        )
     print(f"\n-> {path}")
     return 0
 
@@ -531,8 +639,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     build = sub.add_parser("build", help="discover packages and archetypes for an era and save them")
     build.add_argument("--era", default="gd05", help="era id (default gd05)")
     build.add_argument("--tier", default="all", choices=["all", "major", "local"])
-    build.add_argument("--source", choices=[s.value for s in DataSource], default="tournament",
-                       help="tournament: an era's events (default); online: the weighted example decks (--era/--tier are ignored)")
+    build.add_argument(
+        "--source",
+        choices=[s.value for s in DataSource],
+        default="tournament",
+        help="tournament: an era's events (default); online: the weighted example decks (--era/--tier are ignored)",
+    )
     build.set_defaults(func=cmd_build)
     for name, func, helptext in (
         ("packages", cmd_packages, "list packages"),
@@ -545,25 +657,44 @@ def main(argv: Sequence[str] | None = None) -> int:
         sp = sub.add_parser(name, help=helptext)
         sp.add_argument("--limit", type=int, default=25)
         if name == "synergy":
-            sp.add_argument("--min-share", type=float, default=0.0, help="only cards in at least this share of the package's decks (default 0)")
-        sp.add_argument("--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)")
+            sp.add_argument(
+                "--min-share",
+                type=float,
+                default=0.0,
+                help="only cards in at least this share of the package's decks (default 0)",
+            )
+        sp.add_argument(
+            "--source",
+            choices=[s.value for s in DataSource],
+            default="tournament",
+            help="which decks (default tournament)",
+        )
         sp.set_defaults(func=func)
     package = sub.add_parser("package", help="one package: appearance rate of every card played with it")
     package.add_argument("package", help="package name (or part of it) or id, e.g. 'Mikazuki Barbatos' or pkg:GD02-054")
     package.add_argument("--limit", type=int, default=20, help="how many other cards to list")
-    package.add_argument("--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)")
+    package.add_argument(
+        "--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)"
+    )
     package.set_defaults(func=cmd_package)
     compare = sub.add_parser("compare", help="each package's rate in tournament decks and online decks, side by side")
     compare.add_argument("--limit", type=int, default=12, help="how many unmatched packages to list on each side")
     compare.set_defaults(func=cmd_compare)
     card = sub.add_parser("card", help="where one card fits: package, archetypes, or free floating")
     card.add_argument("card", help="card number, e.g. GD03-056")
-    card.add_argument("--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)")
+    card.add_argument(
+        "--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)"
+    )
     card.add_argument("--limit", type=int, default=10, help="cards shown per group (default 10)")
     card.set_defaults(func=cmd_card)
-    pairs = sub.add_parser("pairs", help="pairing: the pilots that make a Unit Link, or the Units a pilot Links, with how often decks run them")
+    pairs = sub.add_parser(
+        "pairs",
+        help="pairing: the pilots that make a Unit Link, or the Units a pilot Links, with how often decks run them",
+    )
     pairs.add_argument("card", help="a Unit or pilot card number, e.g. GD01-044")
-    pairs.add_argument("--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)")
+    pairs.add_argument(
+        "--source", choices=[s.value for s in DataSource], default="tournament", help="which decks (default tournament)"
+    )
     pairs.add_argument("--limit", type=int, default=15)
     pairs.set_defaults(func=cmd_pairs)
     drift = sub.add_parser("drift", help="how a later era changes the packages (needs `build` for the base era first)")
@@ -571,7 +702,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     drift.add_argument("--to", dest="new", default="gd05_5")
     drift.add_argument("--limit", type=int, default=15)
     drift.set_defaults(func=cmd_drift)
-    report = sub.add_parser("report", help="write a markdown meta report: decks by color combination and packages, then adjustments in a later era")
+    report = sub.add_parser(
+        "report",
+        help="write a markdown meta report: decks by color combination and packages, then adjustments in a later era",
+    )
     report.add_argument("--from", dest="base", default="gd05")
     report.add_argument("--to", dest="new", default="gd05_5")
     report.add_argument("--out", help="output path (default shared/data/gundam_packages/<from>_meta_report.md)")

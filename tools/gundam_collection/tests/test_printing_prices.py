@@ -1,5 +1,6 @@
 """refresh-prices AC-3: `value`, `buy` (with its Mass Entry export) and `suggest` print the same over a per-printing price snapshot as over the
 old per-card one, and read only the newest per-printing snapshot. The commands run through `main` over the packages fixture dataset."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -13,7 +14,12 @@ from tools.gundam_cards.store import load_catalog_or_fail, load_prices, write_pr
 from tools.gundam_collection import cli as collection_cli
 from tools.gundam_collection.tests.test_data_folders import COLLECTION, tool_data
 
-COMMANDS = (["value"], ["buy", "amuro", "--min-rate", "0"], ["buy", "amuro", "--min-rate", "0", "--export"], ["suggest", "amuro", "aggro", "BW", "--pool", "0"])
+COMMANDS = (
+    ["value"],
+    ["buy", "amuro", "--min-rate", "0"],
+    ["buy", "amuro", "--min-rate", "0", "--export"],
+    ["suggest", "amuro", "aggro", "BW", "--pool", "0"],
+)
 
 
 @pytest.fixture
@@ -42,15 +48,28 @@ def per_printing_snapshot_of_the_per_card_one() -> PrintingPriceFile:
     rows = []
     for price in old.data:
         printing = next(p for p in cards[price.card_number].printings if not p.alt_art)
-        rows.append(PrintingPrice(printing_id=printing.id, price_cents=price.price_cents, product_id=price.product_id, name=price.name,
-                                  set_code=price.set_code, alt_art_level=0, fetched_at=price.fetched_at))
+        rows.append(
+            PrintingPrice(
+                printing_id=printing.id,
+                price_cents=price.price_cents,
+                product_id=price.product_id,
+                name=price.name,
+                set_code=price.set_code,
+                alt_art_level=0,
+                fetched_at=price.fetched_at,
+            )
+        )
     return PrintingPriceFile(generated_at=old.generated_at, source_updated_at=old.source_updated_at, data=tuple(rows))
 
 
-def test_value_buy_buy_export_and_suggest_print_the_same_over_a_per_printing_snapshot(temp: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_value_buy_buy_export_and_suggest_print_the_same_over_a_per_printing_snapshot(
+    temp: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     before = run_all(temp, capsys)
     assert [code for code, _ in before] == [0, 0, 0, 0, 0]
-    assert "$" in before[0][1] and "$" in before[1][1] and "[GD01]" in before[-1][1]  # prices and the Mass Entry names and set codes were in play
+    assert (
+        "$" in before[0][1] and "$" in before[1][1] and "[GD01]" in before[-1][1]
+    )  # prices and the Mass Entry names and set codes were in play
     snapshot = per_printing_snapshot_of_the_per_card_one()
     assert write_printing_prices(snapshot) is not None
     assert run_all(temp, capsys) == before

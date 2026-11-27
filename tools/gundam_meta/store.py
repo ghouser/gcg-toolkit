@@ -7,13 +7,24 @@
 - Raw responses are cached under the tool's own `data/raw/` (`raw_folder()`); the derived `popularity.json` is tracked in
   `shared/data/gundam_meta/` (`tracked_folder()`). Both are under `tool_data_root()` (see `shared/dataset.py`), resolved on every call.
 """
+
 from __future__ import annotations
 
 import json
 from datetime import date, datetime
 from pathlib import Path
 
-from shared.dataset import Kind, NoData, add_snapshot, data_dir, entry_on_day, newest_snapshot, snapshot_paths, tool_data_root, write_atomic
+from shared.dataset import (
+    Kind,
+    NoData,
+    add_snapshot,
+    data_dir,
+    entry_on_day,
+    newest_snapshot,
+    snapshot_paths,
+    tool_data_root,
+    write_atomic,
+)
 from shared.dataset import snapshot_key as snapshot_key
 from tools.gundam_meta.models import (
     DecksSnapshotFile,
@@ -106,8 +117,15 @@ def write_snapshot(snapshot: OnlineRankingSnapshot, out_dir: Path | None = None)
     path = snapshot_path(snapshot.generated_at, out_dir)
     text = pretty(SnapshotFile(data=snapshot).model_dump_json())
     same = snapshot.model_copy(update={"fetched_at": None})
-    return add_snapshot(path.parent, path.stem, text,
-                        lambda old: SnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same) is not None
+    return (
+        add_snapshot(
+            path.parent,
+            path.stem,
+            text,
+            lambda old: SnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same,
+        )
+        is not None
+    )
 
 
 def load_snapshots(out_dir: Path | None = None) -> tuple[OnlineRankingSnapshot, ...]:
@@ -136,11 +154,17 @@ def write_decks_snapshot(snapshot: ExampleDecksSnapshot, out_dir: Path | None = 
     entry is never rewritten). Returns the entry that holds it: the new one, the one of that day, or the identical newest one."""
     path = decks_snapshot_path(snapshot.fetched_at, out_dir)
     same = snapshot.model_copy(update={"fetched_at": None})
-    added = add_snapshot(path.parent, path.stem, pretty(DecksSnapshotFile(data=snapshot).model_dump_json()),
-                         lambda old: DecksSnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same)
+    added = add_snapshot(
+        path.parent,
+        path.stem,
+        pretty(DecksSnapshotFile(data=snapshot).model_dump_json()),
+        lambda old: DecksSnapshotFile.model_validate_json(old).data.model_copy(update={"fetched_at": None}) == same,
+    )
     if added is not None:
         return added
-    kept = entry_on_day(path.parent, path.stem) or newest_snapshot(path.parent)  # nothing added: that day's entry, or the identical newest
+    kept = entry_on_day(path.parent, path.stem) or newest_snapshot(
+        path.parent
+    )  # nothing added: that day's entry, or the identical newest
     assert kept is not None
     return kept
 

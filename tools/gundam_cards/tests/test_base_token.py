@@ -4,6 +4,7 @@ what the real run drops.
 The refresh runs with the fake Bandai of the refresh tests in the per-test temp dataset. Expected values come from the spec: T-037 is
 TYPE Base, no color, 5 HP, and nothing else shown. The export tests run `export` after a real refresh.
 """
+
 from __future__ import annotations
 
 import email.message
@@ -56,7 +57,11 @@ def tracked(tmp_path: Path) -> Path:
 @pytest.fixture
 def site() -> FakeBandai:
     """One stored card once refreshed (GD01-001); each test lists its new cards in the NEW package."""
-    return FakeBandai(pages_folder(), {GD01: ("Newtype Rising [GD01]", ["GD01-001"])}, products=[("Newtype Rising [GD01]", "July 25,2025")])
+    return FakeBandai(
+        pages_folder(),
+        {GD01: ("Newtype Rising [GD01]", ["GD01-001"])},
+        products=[("Newtype Rising [GD01]", "July 25,2025")],
+    )
 
 
 def run(site: FakeBandai, tracked: Path, when: datetime, *, dry_run: bool = False) -> RefreshReport:
@@ -76,7 +81,9 @@ def stored() -> dict[str, CardModel]:
 
 def named(report: RefreshReport, number: str) -> list[str]:
     """Every issue and rejection line of the report that names this card."""
-    return [line for line in format_report(report) if line.startswith((f"  [parse_failure] {number}", f"rejected {number}"))]
+    return [
+        line for line in format_report(report) if line.startswith((f"  [parse_failure] {number}", f"rejected {number}"))
+    ]
 
 
 # ---- AC-1 --------------------------------------------------------------------------------------------------------------------
@@ -127,7 +134,9 @@ def test_a_token_series_base_that_shows_a_color_is_a_base(site: FakeBandai, trac
     ("GD99-001", "UNIT"), ("GD99-002", "PILOT"), ("GD99-003", "COMMAND"), ("GD99-004", "BASE"),
     ("T-041", "UNIT"), ("T-042", "PILOT"), ("T-043", "COMMAND"),
 ])  # fmt: skip
-def test_a_deck_kind_with_no_color_is_left_out_as_today(site: FakeBandai, tracked: Path, number: str, kind: str) -> None:
+def test_a_deck_kind_with_no_color_is_left_out_as_today(
+    site: FakeBandai, tracked: Path, number: str, kind: str
+) -> None:
     new_cards(site, {number: colorless(number, kind)})
     report = run(site, tracked, T1)
 
@@ -147,11 +156,18 @@ def test_a_base_with_an_unknown_color_is_rejected_as_today(site: FakeBandai, tra
     new_cards(site, {number: detail(number, kind="Base", color="Orange", shown={"Lv.": "-", "COST": "-"})})
     report = run(site, tracked, T1)
     assert number not in stored()
-    assert named(report, number) == [f"rejected {number}: unknown color 'Orange'; the base printing: whole card left out"]
+    assert named(report, number) == [
+        f"rejected {number}: unknown color 'Orange'; the base printing: whole card left out"
+    ]
 
 
 # ---- AC-3 --------------------------------------------------------------------------------------------------------------------
-DROPPED = ("GD99-001", "GD99-004", "T-041", "T-044")  # a colorless Unit and non-token Base, a colorless T- Unit, an unknown color
+DROPPED = (
+    "GD99-001",
+    "GD99-004",
+    "T-041",
+    "T-044",
+)  # a colorless Unit and non-token Base, a colorless T- Unit, an unknown color
 ADDED = ("T-037", "T-040")  # the base token and a colored T- Base
 
 
@@ -162,7 +178,9 @@ def predicted_cards(site: FakeBandai) -> None:
     })  # fmt: skip
 
 
-def test_the_dry_run_names_each_card_the_real_run_drops_with_its_reason_and_no_card_it_adds(site: FakeBandai, tracked: Path) -> None:
+def test_the_dry_run_names_each_card_the_real_run_drops_with_its_reason_and_no_card_it_adds(
+    site: FakeBandai, tracked: Path
+) -> None:
     assert run(site, tracked, T1).written
     predicted_cards(site)
     dry = run(site, tracked, T2, dry_run=True)
@@ -249,7 +267,11 @@ def test_the_dry_run_command_with_the_real_fetcher_stores_nothing(
 
     assert cli.main(["refresh", "--dry-run"]) == 0
     out = capsys.readouterr().out
-    assert f"  [parse_failure] GD99-004: {COLOR_REQUIRED}" in out and "T-037:" not in out and "dry run: nothing written" in out
+    assert (
+        f"  [parse_failure] GD99-004: {COLOR_REQUIRED}" in out
+        and "T-037:" not in out
+        and "dry run: nothing written" in out
+    )
     assert every_file(data_dir()) == before and every_file(tool_data_root()) == tool_before
 
 
@@ -269,4 +291,3 @@ def test_a_refreshed_base_token_is_exported_with_its_kind_and_no_color_level_or_
     assert token["kind"] == "base_token" and not {"color", "level", "cost"} & set(token)
     assert {"kind": "base_token", "deck": False} in data["reference"]["kinds"]
     assert "null" not in text
-

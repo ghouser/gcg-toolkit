@@ -5,6 +5,7 @@ Three phases, like `refresh.py`: fetch (only fills the git-ignored raw cache), p
 
     .venv/bin/python -m tools.gundam_cards.cli refresh-prices [--dry-run] [--force] [--allow-anomaly]
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -166,14 +167,24 @@ def why_unpriced(number: CardNumber, products: Sequence[TcgProduct], matched: Ma
 
 
 def plan_report(
-    dump_products: Sequence[TcgProduct], matched: Matched, groups: Collection[str], previous: PrintingPriceFile | None, *,
-    allow_anomaly: bool, dry_run: bool, source_updated_at: datetime,
+    dump_products: Sequence[TcgProduct],
+    matched: Matched,
+    groups: Collection[str],
+    previous: PrintingPriceFile | None,
+    *,
+    allow_anomaly: bool,
+    dry_run: bool,
+    source_updated_at: datetime,
 ) -> PriceReport:
     """The counts, the biggest moves and the guard's verdict, against the newest snapshot."""
     old = {r.printing_id: r for r in previous.data} if previous else {}
     now = {r.printing_id: r for r in matched.rows}
     moves = sorted(
-        (Move(i, old[i].price_cents, r.price_cents) for i, r in now.items() if i in old and old[i].price_cents != r.price_cents),
+        (
+            Move(i, old[i].price_cents, r.price_cents)
+            for i, r in now.items()
+            if i in old and old[i].price_cents != r.price_cents
+        ),
         key=lambda m: (-abs(m.new_cents - m.old_cents), str(m.printing_id)),
     )
     dropped = sum(1 for i in old if i not in now)
@@ -219,7 +230,7 @@ def readable(dump: RawDump) -> bool:
     """Whether a saved dump parses (a cached answer that was garbled is fetched again, not used for ever)."""
     try:
         parse_dump(dump)
-    except (TcgcsvError, ValueError):
+    except TcgcsvError, ValueError:
         return False
     return True
 
@@ -249,16 +260,27 @@ def refresh_prices(
     previous = load_printing_prices()
     last = last_pull(raw_dir)
     recent = last is not None and now - last[0] < PULL_INTERVAL and not force
-    from_saved = recent and (dry_run or allow_anomaly)  # inside 24 hours only a dry run or an override works, from the saved dump
+    from_saved = recent and (
+        dry_run or allow_anomaly
+    )  # inside 24 hours only a dry run or an override works, from the saved dump
     if last is not None and recent and not from_saved:
-        return PriceReport(dry_run=False, skipped=f"the last pull was {last[0]:%Y-%m-%d %H:%M} UTC, within 24 hours: nothing fetched, nothing "
-                           "written (--allow-anomaly writes it from the saved dump if the guard refused it; --force pulls again)")
+        return PriceReport(
+            dry_run=False,
+            skipped=f"the last pull was {last[0]:%Y-%m-%d %H:%M} UTC, within 24 hours: nothing fetched, nothing "
+            "written (--allow-anomaly writes it from the saved dump if the guard refused it; --force pulls again)",
+        )
     dump: RawDump | None = None
-    if last is not None and from_saved:  # inside 24 hours: the saved dump or nothing, never a download (that takes --force)
+    if (
+        last is not None and from_saved
+    ):  # inside 24 hours: the saved dump or nothing, never a download (that takes --force)
         dump = saved_dump(last[1], raw_dir)
         if dump is None or not readable(dump):
-            return PriceReport(dry_run=dry_run, complete=False, failure=f"the saved dump {last[1]} is unreadable or incomplete, and the last pull was within "
-                               "24 hours: nothing fetched, nothing written (rerun with --force to pull again)")
+            return PriceReport(
+                dry_run=dry_run,
+                complete=False,
+                failure=f"the saved dump {last[1]} is unreadable or incomplete, and the last pull was within "
+                "24 hours: nothing fetched, nothing written (rerun with --force to pull again)",
+            )
     try:
         if dump is None:
             updated = fetch_updated(counted)
@@ -273,16 +295,28 @@ def refresh_prices(
     stamp = stamp_of(dump.source_updated_at)
     pulled = pull_time(stamp, raw_dir) or now
     if not dry_run and pull_time(stamp, raw_dir) is None:
-        write_atomic(raw_dir / "tcgcsv" / stamp / MARKER, pulled.isoformat() + "\n")  # a pull happened, whatever the plan says
+        write_atomic(
+            raw_dir / "tcgcsv" / stamp / MARKER, pulled.isoformat() + "\n"
+        )  # a pull happened, whatever the plan says
     matched = match_products(products, catalog, set_codes, pulled)
     groups = {p.group for p in products}
     report = replace(
-        plan_report(products, matched, groups, previous, allow_anomaly=allow_anomaly, dry_run=dry_run, source_updated_at=dump.source_updated_at),
+        plan_report(
+            products,
+            matched,
+            groups,
+            previous,
+            allow_anomaly=allow_anomaly,
+            dry_run=dry_run,
+            source_updated_at=dump.source_updated_at,
+        ),
         requests=counted.requests,
     )
     if dry_run or report.refused:
         return report
-    stored = write_printing_prices(PrintingPriceFile(generated_at=pulled, source_updated_at=dump.source_updated_at, data=matched.rows))
+    stored = write_printing_prices(
+        PrintingPriceFile(generated_at=pulled, source_updated_at=dump.source_updated_at, data=matched.rows)
+    )
     return replace(report, written=True, stored=stored is not None)
 
 
@@ -305,15 +339,25 @@ def format_report(report: PriceReport) -> list[str]:
         *(f"  move {m.printing_id}: {_usd(m.old_cents)} -> {_usd(m.new_cents)}" for m in report.moves),
     ]
     if report.guard_trips:
-        why = [f"{report.dropped} of {report.previous} printings no longer matched (limit {MATCH_DROP_SHARE:.0%})"] if (
-            report.previous and report.dropped / report.previous > MATCH_DROP_SHARE) else []
+        why = (
+            [f"{report.dropped} of {report.previous} printings no longer matched (limit {MATCH_DROP_SHARE:.0%})"]
+            if (report.previous and report.dropped / report.previous > MATCH_DROP_SHARE)
+            else []
+        )
         if report.missing_groups:
             why.append("groups missing from the pull: " + ", ".join(report.missing_groups))
-        lines.append("guard: " + ("refused" if report.refused else "would refuse" if report.dry_run else "overridden") + ": " + "; ".join(why))
+        lines.append(
+            "guard: "
+            + ("refused" if report.refused else "would refuse" if report.dry_run else "overridden")
+            + ": "
+            + "; ".join(why)
+        )
     else:
         lines.append("guard: ok")
     if report.refused:
-        lines.append("refused by the guard, nothing written (rerun with --allow-anomaly to write it from the saved dump, with no new request)")
+        lines.append(
+            "refused by the guard, nothing written (rerun with --allow-anomaly to write it from the saved dump, with no new request)"
+        )
     elif report.dry_run:
         lines.append("dry run: nothing written")
     elif report.stored:
@@ -321,4 +365,3 @@ def format_report(report: PriceReport) -> list[str]:
     else:
         lines.append("no new snapshot (that UTC day is stored already, or the prices are unchanged)")
     return lines
-

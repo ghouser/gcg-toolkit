@@ -1,4 +1,5 @@
 """Model-level guarantees: round trips, determinism, vocabularies."""
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -9,10 +10,21 @@ from pydantic import ValidationError
 
 from shared.basetypes import PilotName, PrintingId, Trait
 from tools.gundam_cards.build import SourcePage, build_card
-from tools.gundam_cards.models import Block, CardModel, CardRecord, CardsFile, Keyword, LinkCondition, PilotNameLink, TraitLink
+from tools.gundam_cards.models import (
+    Block,
+    CardModel,
+    CardRecord,
+    CardsFile,
+    Keyword,
+    LinkCondition,
+    PilotNameLink,
+    TraitLink,
+)
 
 IDS = ["ST01-001", "ST01-010", "ST01-015", "GD05-111", "EB01-076", "T-001", "R-002", "EXR-002", "EXB-002", "GD01-047"]
-TRAITS = frozenset(Trait(t) for t in ("Earth Federation", "White Base Team", "Newtype", "Cyber-Newtype", "G Generation"))
+TRAITS = frozenset(
+    Trait(t) for t in ("Earth Federation", "White Base Team", "Newtype", "Cyber-Newtype", "G Generation")
+)
 
 
 def _cards(page: Callable[[str], SourcePage]) -> list[CardModel]:
@@ -42,7 +54,9 @@ def test_models_reject_extra_fields_and_bad_identifiers(page: Callable[[str], So
         )
     with pytest.raises(ValidationError):
         CardsFile.model_validate_json(
-            '{"schema_version":1,"generated_at":"2026-10-06T00:00:00Z","data":[' + card_json.replace("ST01-001", "nope", 1) + "]}"
+            '{"schema_version":1,"generated_at":"2026-10-06T00:00:00Z","data":['
+            + card_json.replace("ST01-001", "nope", 1)
+            + "]}"
         )
 
 

@@ -10,6 +10,7 @@ The tracked analysis outputs (packages, appearance rates) and the collection are
 
 AC-1 (shared-data-contracts), at the end: the commands of these tools listed there, read or write, do not write the catalog export.
 """
+
 from __future__ import annotations
 
 import re
@@ -61,7 +62,11 @@ DECKS_AT = datetime(2026, 10, 11, 7, 30, tzinfo=UTC)
 
 
 def _cards() -> tuple[Card, ...]:
-    return (unit("GD01-001", "Gundam", link="Amuro Ray", cost=3), pilot("GD01-002", "Amuro Ray"), unit("GD01-003", "Zaku II"))
+    return (
+        unit("GD01-001", "Gundam", link="Amuro Ray", cost=3),
+        pilot("GD01-002", "Amuro Ray"),
+        unit("GD01-003", "Zaku II"),
+    )
 
 
 def _prices() -> PriceFile:
@@ -80,7 +85,16 @@ def _event(source: Source, event_id: str, day: int, decks: tuple[Deck, ...]) -> 
 
 def _deck(n: int, *cards: tuple[str, int]) -> Deck:
     main = tuple(DeckCard(card_number=CardNumber(c), qty=q) for c, q in cards)
-    return Deck(id=DeckId(f"d{n}"), player_name=f"p{n}", placement=n, name=None, available=True, main=main, side=(), unresolved=())
+    return Deck(
+        id=DeckId(f"d{n}"),
+        player_name=f"p{n}",
+        placement=n,
+        name=None,
+        available=True,
+        main=main,
+        side=(),
+        unresolved=(),
+    )
 
 
 def dataset_tree(root: Path) -> Path:
@@ -93,10 +107,19 @@ def dataset_tree(root: Path) -> Path:
     catalog = CardsFile(generated_at=CATALOG_AT, data=_cards(), records=records)
     (cards / "cards.json").write_text(pretty(catalog.model_dump_json()), encoding="utf-8")
     (cards / "traits.json").write_text(TraitsFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
-    (cards / "source_titles.json").write_text(SourceTitlesFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8")
-    (cards / "prices" / f"{snapshot_key(PULLED)}.json").write_text(_prices().model_dump_json(indent=1), encoding="utf-8")
+    (cards / "source_titles.json").write_text(
+        SourceTitlesFile(generated_at=CATALOG_AT, data=()).model_dump_json(), encoding="utf-8"
+    )
+    (cards / "prices" / f"{snapshot_key(PULLED)}.json").write_text(
+        _prices().model_dump_json(indent=1), encoding="utf-8"
+    )
     events = (
-        _event(Source.EGM, "e1", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)), _deck(2, ("GD01-003", 4), ("GD01-001", 2)))),
+        _event(
+            Source.EGM,
+            "e1",
+            3,
+            (_deck(1, ("GD01-001", 4), ("GD01-002", 4)), _deck(2, ("GD01-003", 4), ("GD01-001", 2))),
+        ),
         _event(Source.DUELFRONTIER, "f1", 5, (_deck(1, ("GD01-003", 4)),)),
     )
     for e in events:
@@ -109,7 +132,9 @@ def dataset_tree(root: Path) -> Path:
         cards=(OnlineRankedCard(card_number=CardNumber("GD01-003"), rank=1, games_observed=90, appearance_rate_pct=45.0),
                OnlineRankedCard(card_number=CardNumber("GD01-001"), rank=2, games_observed=20, appearance_rate_pct=10.0)),
     )  # fmt: skip
-    (meta / "online_rankings" / f"{snapshot_key(RANKED)}.json").write_text(pretty(SnapshotFile(data=ranking).model_dump_json()), encoding="utf-8")
+    (meta / "online_rankings" / f"{snapshot_key(RANKED)}.json").write_text(
+        pretty(SnapshotFile(data=ranking).model_dump_json()), encoding="utf-8"
+    )
     (meta / "example_decks" / f"{snapshot_key(DECKS_AT)}.json").write_text(pretty(DecksSnapshotFile(data=example_decks()).model_dump_json()),
                                                                      encoding="utf-8")  # fmt: skip
     return root
@@ -117,7 +142,11 @@ def dataset_tree(root: Path) -> Path:
 
 def example_decks() -> ExampleDecksSnapshot:
     def lst(n: int, share: float, *cards: tuple[str, int]) -> ExampleList:
-        return ExampleList(url=f"https://example.test/list/{n}", cards=tuple(DeckCard(card_number=CardNumber(c), qty=q) for c, q in cards), share=share)
+        return ExampleList(
+            url=f"https://example.test/list/{n}",
+            cards=tuple(DeckCard(card_number=CardNumber(c), qty=q) for c, q in cards),
+            share=share,
+        )
 
     archetypes = (
         ExampleArchetype(slug="gundam", name="Gundam", games=60, sides_analyzed=10,
@@ -138,7 +167,10 @@ def normalized(out: str) -> str:
 def write_collection_file(folder: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """The small fixture collection, as the UI's file, found through GCG_COLLECTION_FILE."""
     path = folder / "collection.json"
-    path.write_text('{"schema_version": 1, "updated_at": "2026-10-01T00:00:00Z", "counts": {"GD01-001": 2, "GD01-002": 1, "GD01-003": 3}}\n', encoding="utf-8")
+    path.write_text(
+        '{"schema_version": 1, "updated_at": "2026-10-01T00:00:00Z", "counts": {"GD01-001": 2, "GD01-002": 1, "GD01-003": 3}}\n',
+        encoding="utf-8",
+    )
     monkeypatch.setenv("GCG_COLLECTION_FILE", str(path))
 
 
@@ -302,16 +334,27 @@ def packages_dataset_tree(root: Path) -> Path:
     Gundam and its pilot are always played together, so the online build finds a package (and the deck and package commands have one
     to name)."""
     ds = dataset_tree(root)
-    gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(update={"start_date": date(2026, 8, 3)})
+    gd05 = _event(Source.EGM, "e0", 3, (_deck(1, ("GD01-001", 4), ("GD01-002", 4)),)).model_copy(
+        update={"start_date": date(2026, 8, 3)}
+    )
     path = ds / "gundam_meta" / "events" / gd05.source.value / f"{gd05.id}.json"
     path.write_text(pretty(EventFile(data=gd05).model_dump_json()), encoding="utf-8")
-    together = ExampleList(url="https://example.test/list/9", share=1.0,
-                           cards=(DeckCard(card_number=CardNumber("GD01-001"), qty=4), DeckCard(card_number=CardNumber("GD01-002"), qty=4)))
-    archetypes = (ExampleArchetype(slug="gundam", name="Gundam", games=60, sides_analyzed=10, lists=(together,)),
-                  example_decks().archetypes[1].model_copy(update={"sides_analyzed": 10}))
+    together = ExampleList(
+        url="https://example.test/list/9",
+        share=1.0,
+        cards=(
+            DeckCard(card_number=CardNumber("GD01-001"), qty=4),
+            DeckCard(card_number=CardNumber("GD01-002"), qty=4),
+        ),
+    )
+    archetypes = (
+        ExampleArchetype(slug="gundam", name="Gundam", games=60, sides_analyzed=10, lists=(together,)),
+        example_decks().archetypes[1].model_copy(update={"sides_analyzed": 10}),
+    )
     newer = example_decks().model_copy(update={"fetched_at": DECKS_AT + timedelta(days=1), "archetypes": archetypes})
     (ds / "gundam_meta" / "example_decks" / f"{snapshot_key(newer.fetched_at)}.json").write_text(
-        pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8")
+        pretty(DecksSnapshotFile(data=newer).model_dump_json()), encoding="utf-8"
+    )
     return ds
 
 
@@ -327,9 +370,17 @@ def sandbox(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     write_collection_file(tmp_path, monkeypatch)
 
     monkeypatch.setattr(meta_cli, "Fetcher", Offline)
-    monkeypatch.setattr(meta_cli, "egm", SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))))
-    synced = duelfrontier.SyncResult(events=(), listed=0, already_stored=0, not_complete_yet=0, waiting_for_results=0, failures=())
-    monkeypatch.setattr(meta_cli, "duelfrontier", SimpleNamespace(list_events=lambda _: (), sync_events=lambda *_, **__: synced))
+    monkeypatch.setattr(
+        meta_cli,
+        "egm",
+        SimpleNamespace(fetch_tournaments=lambda _: ("[]", SimpleNamespace(fetched_at=PULLED, events=[], skipped=[]))),
+    )
+    synced = duelfrontier.SyncResult(
+        events=(), listed=0, already_stored=0, not_complete_yet=0, waiting_for_results=0, failures=()
+    )
+    monkeypatch.setattr(
+        meta_cli, "duelfrontier", SimpleNamespace(list_events=lambda _: (), sync_events=lambda *_, **__: synced)
+    )
     refetched = RedoReport(changed=("egm:e1",), unchanged=(), failures=())
     monkeypatch.setattr(meta_cli, "refetch_egm", lambda *_: refetched)
     monkeypatch.setattr(meta_cli, "refetch_duelfrontier", lambda *_, **__: refetched)
@@ -344,7 +395,11 @@ OTHER_COMMANDS: list[tuple[Main, list[str], int]] = [
     (meta_cli.main, ["sync"], 0),
     (meta_cli.main, ["popularity"], 0),
     (meta_cli.main, ["eras"], 0),
-    (meta_cli.main, ["reparse"], 1),  # runs to the end: the temp raw folder has no saved response for the fixture events, so it reports them failed
+    (
+        meta_cli.main,
+        ["reparse"],
+        1,
+    ),  # runs to the end: the temp raw folder has no saved response for the fixture events, so it reports them failed
     (meta_cli.main, ["refetch", "--source", "egm", "--all"], 0),
     (meta_cli.main, ["refetch", "--source", "duelfrontier", "--all"], 0),
     (meta_cli.main, ["duplicates"], 0),
@@ -380,11 +435,19 @@ OTHER_COMMANDS: list[tuple[Main, list[str], int]] = [
 ]
 
 
-TOOL: dict[Main, str] = {dataset_cli.main: "dataset", meta_cli.main: "meta", packages_cli.main: "packages", collection_cli.main: "collection"}
+TOOL: dict[Main, str] = {
+    dataset_cli.main: "dataset",
+    meta_cli.main: "meta",
+    packages_cli.main: "packages",
+    collection_cli.main: "collection",
+}
 
 
-@pytest.mark.parametrize(("main", "argv", "code"), OTHER_COMMANDS, ids=[f"{TOOL[m]} {' '.join(a)}" for m, a, _ in OTHER_COMMANDS])
-def test_no_command_of_the_other_tools_writes_the_catalog_export(sandbox: Path, main: Main, argv: list[str], code: int) -> None:
+@pytest.mark.parametrize(
+    ("main", "argv", "code"), OTHER_COMMANDS, ids=[f"{TOOL[m]} {' '.join(a)}" for m, a, _ in OTHER_COMMANDS]
+)
+def test_no_command_of_the_other_tools_writes_the_catalog_export(
+    sandbox: Path, main: Main, argv: list[str], code: int
+) -> None:
     assert main(argv) == code
     assert not catalog_export_path().exists()
-

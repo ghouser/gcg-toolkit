@@ -30,10 +30,26 @@ KINDS = {G: CardKind.UNIT, B: CardKind.UNIT, FILLER: CardKind.UNIT, RESOURCE: Ca
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
-def deck(n: int, cards: dict[CardNumber, int], *, side: dict[CardNumber, int] | None = None, available: bool = True, unresolved: tuple[str, ...] = ()) -> Deck:
+def deck(
+    n: int,
+    cards: dict[CardNumber, int],
+    *,
+    side: dict[CardNumber, int] | None = None,
+    available: bool = True,
+    unresolved: tuple[str, ...] = (),
+) -> Deck:
     main = () if not available else tuple(DeckCard(card_number=c, qty=q) for c, q in cards.items())
     sideboard = () if not available else tuple(DeckCard(card_number=c, qty=q) for c, q in (side or {}).items())
-    return Deck(id=DeckId(f"d{n}"), player_name=f"p{n}", placement=n, name=None, available=available, main=main, side=sideboard, unresolved=unresolved)
+    return Deck(
+        id=DeckId(f"d{n}"),
+        player_name=f"p{n}",
+        placement=n,
+        name=None,
+        available=available,
+        main=main,
+        side=sideboard,
+        unresolved=unresolved,
+    )
 
 
 def event(
@@ -51,7 +67,9 @@ def event(
 
 
 def stats(events: list[Event]) -> StatsResult:
-    return compute_stats(events, KINDS, source=Source.DUELFRONTIER, tier=Tier.MAJOR, era=None, start=date(2026, 1, 1), end=None)
+    return compute_stats(
+        events, KINDS, source=Source.DUELFRONTIER, tier=Tier.MAJOR, era=None, start=date(2026, 1, 1), end=None
+    )
 
 
 def test_the_worked_example_from_the_design() -> None:
@@ -104,11 +122,21 @@ def test_source_tier_and_window_filters() -> None:
     egm = event("egm", [deck(1, {FILLER: 50})], source=Source.EGM, event_type=EventType.LARGE_OFFICIAL)
     local = event("local", [deck(1, {FILLER: 50})], event_type=EventType.STORE_CHAMPIONSHIP)
     everything = [mke, old, egm, local]
-    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 1, 1), None)] == ["mke", "old"]
-    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 9, 25), None)] == ["mke"]
-    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 9, 1), date(2026, 9, 25))] == ["old"]  # end is exclusive
+    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 1, 1), None)] == [
+        "mke",
+        "old",
+    ]
+    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 9, 25), None)] == [
+        "mke"
+    ]
+    assert [
+        e.name
+        for e in events_in_window(everything, Source.DUELFRONTIER, Tier.MAJOR, date(2026, 9, 1), date(2026, 9, 25))
+    ] == ["old"]  # end is exclusive
     assert [e.name for e in events_in_window(everything, Source.EGM, Tier.MAJOR, date(2026, 1, 1), None)] == ["egm"]
-    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.LOCAL, date(2026, 1, 1), None)] == ["local"]
+    assert [e.name for e in events_in_window(everything, Source.DUELFRONTIER, Tier.LOCAL, date(2026, 1, 1), None)] == [
+        "local"
+    ]
 
 
 def test_an_empty_window_has_no_cards_and_does_not_divide_by_zero() -> None:
@@ -123,12 +151,23 @@ def test_popularity_covers_started_eras_per_source_and_tier() -> None:
     events = [
         event("august", [deck(1, {G: 50})], day=date(2026, 8, 15)),
         event("october", [deck(1, {B: 50})], day=date(2026, 10, 3)),
-        event("egm-oct", [deck(1, {FILLER: 50})], day=date(2026, 10, 3), source=Source.EGM, event_type=EventType.UNOFFICIAL),
+        event(
+            "egm-oct",
+            [deck(1, {FILLER: 50})],
+            day=date(2026, 10, 3),
+            source=Source.EGM,
+            event_type=EventType.UNOFFICIAL,
+        ),
         event("before-any-era", [deck(1, {G: 50})], day=date(2026, 6, 1)),
     ]
-    snap = SnapshotFile.model_validate_json((FIXTURES / "online_ranking_snapshot.json").read_text(encoding="utf-8")).data
+    snap = SnapshotFile.model_validate_json(
+        (FIXTURES / "online_ranking_snapshot.json").read_text(encoding="utf-8")
+    ).data
     build = build_popularity(events, [snap], KINDS, eras, date(2026, 10, 6), NOW)
-    keys = [("combined" if t.source is None else t.source.value, t.tier.value, str(t.era)) for t in build.popularity.tournaments]
+    keys = [
+        ("combined" if t.source is None else t.source.value, t.tier.value, str(t.era))
+        for t in build.popularity.tournaments
+    ]
     assert keys == [  # ordered by era, then source (combined first), then tier
         ("combined", "major", "gd05"), ("duelfrontier", "major", "gd05"),
         ("combined", "major", "gd05_5"), ("combined", "local", "gd05_5"),

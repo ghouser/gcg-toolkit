@@ -1,4 +1,5 @@
 """Pairing: which pilots go with a Unit and which Units go with a pilot (not the same as same-job replacement)."""
+
 from __future__ import annotations
 
 from collections.abc import Sequence
@@ -24,7 +25,11 @@ def numbers(cards: Sequence[CardModel]) -> set[str]:
 
 
 def test_the_pilots_that_make_a_unit_link_include_aliases_and_pilot_commands() -> None:
-    assert numbers(pilots_for(BIG, CARDS)) == {"GD01-093", "ST12-012", "GD01-112"}  # by name, by alias, and a Command with a Pilot effect
+    assert numbers(pilots_for(BIG, CARDS)) == {
+        "GD01-093",
+        "ST12-012",
+        "GD01-112",
+    }  # by name, by alias, and a Command with a Pilot effect
     assert numbers(pilots_for(SMALL, CARDS)) == {"GD01-093", "ST12-012", "GD01-112"}  # by trait (Cyber-Newtype)
     assert numbers(pilots_for(DELTA_PLUS, CARDS)) == {"ST12-012"}  # only Ple-Twelve is Earth Federation
     assert pilots_for(PLAIN, CARDS) == []  # no Link, no pilot needed

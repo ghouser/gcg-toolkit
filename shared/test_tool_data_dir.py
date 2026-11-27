@@ -5,6 +5,7 @@ folders unchanged. Unset, the folders are the repository's own.
 The commands run for real (`main` with arguments; real fetcher, parsers and writers) over saved fixture pages copied into the temp
 folder, or with only the network faked: `urllib.request.urlopen` serves small saved pages, so the real `Fetcher` writes its cache
 wherever the command points it. After every command, whether it succeeds or fails, the real files are checked."""
+
 from __future__ import annotations
 
 import email.message
@@ -44,7 +45,11 @@ Main = Callable[[Sequence[str] | None], int]
 
 REPO = Path(__file__).resolve().parents[1]
 FIXTURES = REPO / "tools" / "gundam_cards" / "tests" / "fixtures"
-TRACKED = ("shared/data/gundam_cards/sets.json", "shared/data/gundam_cards/restrictions.json", "shared/data/gundam_meta/popularity.json")
+TRACKED = (
+    "shared/data/gundam_cards/sets.json",
+    "shared/data/gundam_cards/restrictions.json",
+    "shared/data/gundam_meta/popularity.json",
+)
 REAL_RAW = (REPO / "tools" / "gundam_cards" / "data" / "raw", REPO / "tools" / "gundam_meta" / "data" / "raw")
 PAGES = ("GD01-005", "GD01-005_p2", "ST01-001", "ST01-001_p5", "R-002")
 
@@ -72,31 +77,48 @@ def tool_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return folder
 
 
-def test_reparse_and_sets_use_only_the_temp_folder(tool_dir: Path, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    detail = tmp_path / "dataset" / "gundam_cards" / "pages" / "detail"  # Bandai's pages are cached in the dataset (safe-refresh)
+def test_reparse_and_sets_use_only_the_temp_folder(
+    tool_dir: Path, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    detail = (
+        tmp_path / "dataset" / "gundam_cards" / "pages" / "detail"
+    )  # Bandai's pages are cached in the dataset (safe-refresh)
     detail.mkdir(parents=True)
     for page in PAGES:
         shutil.copyfile(FIXTURES / f"{page}.html", detail / f"{page}.html")
-    pages = detail.parent  # the cached listings say which cards are real (reparse leaves orphan pages out): one package lists them all
+    pages = (
+        detail.parent
+    )  # the cached listings say which cards are real (reparse leaves orphan pages out): one package lists them all
     (pages / LANDING_KEY).parent.mkdir(parents=True)
     (pages / LANDING_KEY).write_text('<a data-val="616101">Temp Set [GD01]</a>', encoding="utf-8")
     (pages / list_page_key(PackageId("616101"))).parent.mkdir(parents=True)
     (pages / list_page_key(PackageId("616101"))).write_text(
-        "".join(f'<a data-src="detail.php?detailSearch={page}">x</a>' for page in PAGES), encoding="utf-8")
+        "".join(f'<a data-src="detail.php?detailSearch={page}">x</a>' for page in PAGES), encoding="utf-8"
+    )
     gd01 = CardSet(code=SetCode("GD01"), name="Temp Set", kind=SetKind.BOOSTER, bandai_package_id=PackageId("616101"),
                    release_date=date(2025, 7, 25), product_category_raw=None, product_url=None)  # fmt: skip
     sets_path = tool_dir / "shared" / "data" / "gundam_cards" / "sets.json"
     sets_path.parent.mkdir(parents=True)
-    sets_path.write_text(SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=(gd01,)).model_dump_json(), encoding="utf-8")
+    sets_path.write_text(
+        SetsFile(generated_at=datetime(2026, 11, 1, tzinfo=UTC), data=(gd01,)).model_dump_json(), encoding="utf-8"
+    )
     tracked, raw = tracked_bytes(), raw_listing()
 
     assert cards_cli.main(["reparse"]) == 0
-    catalog = CardsFile.model_validate_json((tmp_path / "dataset" / "gundam_cards" / "cards.json").read_text(encoding="utf-8"))
-    assert sorted(str(c.number) for c in catalog.data) == ["GD01-005", "R-002", "ST01-001"]  # built from the temp folder's pages
+    catalog = CardsFile.model_validate_json(
+        (tmp_path / "dataset" / "gundam_cards" / "cards.json").read_text(encoding="utf-8")
+    )
+    assert sorted(str(c.number) for c in catalog.data) == [
+        "GD01-005",
+        "R-002",
+        "ST01-001",
+    ]  # built from the temp folder's pages
     capsys.readouterr()
     assert cards_cli.main(["sets"]) == 0
     rows = capsys.readouterr().out.splitlines()[1:]
-    assert [r.split()[0] for r in rows] == ["GD01"] and "Temp Set" in rows[0]  # the temp folder's sets.json, not the repository's
+    assert [r.split()[0] for r in rows] == ["GD01"] and "Temp Set" in rows[
+        0
+    ]  # the temp folder's sets.json, not the repository's
 
     assert tracked_bytes() == tracked
     assert raw_listing() == raw
@@ -189,7 +211,9 @@ def meta_pages(event_name: str = "Regional Milwaukee 2026") -> dict[str, str]:
              TOURNAMENTS_URL: (META_FIXTURES / "egm_tournaments.json").read_text(encoding="utf-8")}  # fmt: skip
     for player in event["data"]["players"]:
         slug = player["deckSlug"]
-        pages[f"{DF_API}/decks/{slug}?Include=Cards"] = (META_FIXTURES / f"df_deck_{slug}.json").read_text(encoding="utf-8")
+        pages[f"{DF_API}/decks/{slug}?Include=Cards"] = (META_FIXTURES / f"df_deck_{slug}.json").read_text(
+            encoding="utf-8"
+        )
     return pages
 
 
@@ -209,9 +233,16 @@ class Runner:
 def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
     tool_dir: Path, tmp_path: Path, network: dict[str, str], capsys: pytest.CaptureFixture[str]
 ) -> None:
-    raw_dir, tracked_dir = tool_dir / "tools" / "gundam_cards" / "data" / "raw", tool_dir / "shared" / "data" / "gundam_cards"
+    raw_dir, tracked_dir = (
+        tool_dir / "tools" / "gundam_cards" / "data" / "raw",
+        tool_dir / "shared" / "data" / "gundam_cards",
+    )
     pages = tmp_path / "dataset" / "gundam_cards" / "pages"  # Bandai's pages are cached in the dataset (safe-refresh)
-    site = FakeBandai(Path(), {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])}, products=[("Newtype Rising [GD01]", "July 25,2025")])
+    site = FakeBandai(
+        Path(),
+        {GD01: ("Newtype Rising [GD01]", ["GD01-001", "GD01-002"])},
+        products=[("Newtype Rising [GD01]", "July 25,2025")],
+    )
     network.update({**bandai_pages(site), **tcgcsv_pages(), RESTRICTIONS_URL: RESTRICTIONS_PAGE})
     run = Runner(capsys)
 
@@ -232,9 +263,13 @@ def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
 
     run(cards_cli.main, ["sync-tcgplayer"])
     dump = raw_dir / "tcgcsv" / stamp_of(TCGCSV_AT)
-    assert (dump / "groups.json").is_file() and not (dump / "pulled-at.txt").exists()  # saving the raw dump is not a priced pull
+    assert (dump / "groups.json").is_file() and not (
+        dump / "pulled-at.txt"
+    ).exists()  # saving the raw dump is not a priced pull
     (dump / "pulled-at.txt").write_text("2026-11-05T09:30:00+00:00\n", encoding="utf-8")
-    assert "printing_prices/2026-11-05T093000Z.json" in run(cards_cli.main, ["reparse-tcgplayer"])  # the temp folder's dump and its marker
+    assert "printing_prices/2026-11-05T093000Z.json" in run(
+        cards_cli.main, ["reparse-tcgplayer"]
+    )  # the temp folder's dump and its marker
 
     run(cards_cli.main, ["sync-restrictions", "--url", RESTRICTIONS_URL])
     assert (raw_dir / "restrictions" / "temp-folder.html").is_file()
@@ -246,9 +281,14 @@ def test_the_cards_network_commands_read_and_write_only_the_temp_folder(
 def test_the_meta_network_commands_read_and_write_only_the_temp_folder(
     tool_dir: Path, tmp_path: Path, network: dict[str, str], capsys: pytest.CaptureFixture[str]
 ) -> None:
-    dataset_tree(tmp_path / "dataset")  # a catalog, and an EGM event whose raw response is not saved (so `reparse` reports it failed)
+    dataset_tree(
+        tmp_path / "dataset"
+    )  # a catalog, and an EGM event whose raw response is not saved (so `reparse` reports it failed)
     (tool_dir / "shared" / "data" / "gundam_cards").mkdir(parents=True)
-    shutil.copyfile(REPO / "shared" / "data" / "gundam_cards" / "sets.json", tool_dir / "shared" / "data" / "gundam_cards" / "sets.json")
+    shutil.copyfile(
+        REPO / "shared" / "data" / "gundam_cards" / "sets.json",
+        tool_dir / "shared" / "data" / "gundam_cards" / "sets.json",
+    )
     raw_dir = tool_dir / "tools" / "gundam_meta" / "data" / "raw"
     saved = raw_dir / "duelfrontier" / "events" / f"{MKE}.json"
     network.update(meta_pages())
@@ -287,19 +327,23 @@ FAILING: list[tuple[Main, list[str]]] = [
 ]
 
 
-@pytest.mark.parametrize(("main", "argv"), FAILING, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a in FAILING])
+@pytest.mark.parametrize(
+    ("main", "argv"), FAILING, ids=[f"{m.__module__.split('.')[1]} {' '.join(a)}" for m, a in FAILING]
+)
 def test_a_command_that_fails_leaves_the_real_files_unchanged(
     tool_dir: Path, tmp_path: Path, network: dict[str, str], main: Main, argv: list[str]
 ) -> None:
     """The network answers 404 to everything, and the temp dataset's Bandai page cache holds a page that is not a card page."""
-    dataset_tree(tmp_path / "dataset")  # a catalog and events, so each command gets as far as the network or the raw pages
+    dataset_tree(
+        tmp_path / "dataset"
+    )  # a catalog and events, so each command gets as far as the network or the raw pages
     bad = tmp_path / "dataset" / "gundam_cards" / "pages" / detail_page_key(PrintingId("GD01-001"))
     bad.parent.mkdir(parents=True)
     bad.write_text("<html><body>not a card</body></html>", encoding="utf-8")
     tracked, raw = tracked_bytes(), raw_listing()
     try:
         code: int | None = main(argv)
-    except (Exception, SystemExit):  # a fetch failure, or a missing input, that the command lets through
+    except Exception, SystemExit:  # a fetch failure, or a missing input, that the command lets through
         code = None
     assert code != 0
     assert tracked_bytes() == tracked

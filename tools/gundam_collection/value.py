@@ -10,6 +10,7 @@ a threshold or more is in the higher band ("$0.50 and above"). With the default 
 
     under $0.50 | $0.50 to under $1 | $1 to under $5 | $5 to under $10 | $10 or more
 """
+
 from __future__ import annotations
 
 from collections.abc import Mapping
@@ -121,5 +122,8 @@ def analyze(
         line = ValueLine(printing, name, copies, cents)
         grouped[band_index(cents, thresholds)].append(line)
     names_ = labels(thresholds)
-    made = [Band(names_[i], tuple(sorted(g, key=lambda ln: (-ln.total_cents, -ln.unit_cents, ln.printing)))) for i, g in enumerate(grouped)]
+    made = [
+        Band(names_[i], tuple(sorted(g, key=lambda ln: (-ln.total_cents, -ln.unit_cents, ln.printing))))
+        for i, g in enumerate(grouped)
+    ]
     return ValueReport(thresholds, tuple(made), tuple(sorted(unpriced)))

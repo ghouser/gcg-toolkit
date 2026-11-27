@@ -3,6 +3,7 @@
 HP, the size of the effect's number, and cost are ignored (decided 2026-10-08). Y shares a core effect with X (scope included) and a net
 loss of one good-to-have (X's other core effects) is fine. The baseline every Base has is not an effect.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

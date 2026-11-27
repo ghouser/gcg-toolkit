@@ -6,6 +6,7 @@ For one source and tier over a window of events:
 Resources, EX cards and tokens are excluded from both whole and parts (decided by the card catalog's `kind`).
 Private or unreadable decks are not counted. Windows pool all their events: big events weigh more, by design.
 """
+
 from __future__ import annotations
 
 from collections import Counter
@@ -38,13 +39,18 @@ class StatsResult:
     unknown_cards: frozenset[CardNumber]  # in a deck but missing from the card catalog; excluded and reported
 
 
-def events_in_window(events: Iterable[Event], source: Source | None, tier: Tier, start: date, end: date | None) -> list[Event]:
+def events_in_window(
+    events: Iterable[Event], source: Source | None, tier: Tier, start: date, end: date | None
+) -> list[Event]:
     """Events of one tier in [start, end). `source=None` means every source: pass events already run through
     `combined_events` so that an event both sources report is counted once."""
     return [
         e
         for e in events
-        if (source is None or e.source is source) and e.tier is tier and start <= e.start_date and (end is None or e.start_date < end)
+        if (source is None or e.source is source)
+        and e.tier is tier
+        and start <= e.start_date
+        and (end is None or e.start_date < end)
     ]
 
 
@@ -146,7 +152,13 @@ def build_popularity(
         for source in (None, *Source):  # None first: the combined, de-duplicated view
             for tier in (Tier.MAJOR, Tier.LOCAL):
                 result = compute_stats(
-                    combined if source is None else events, kinds, source=source, tier=tier, era=era.id, start=era.start, end=era.end
+                    combined if source is None else events,
+                    kinds,
+                    source=source,
+                    tier=tier,
+                    era=era.id,
+                    start=era.start,
+                    end=era.end,
                 )
                 unknown |= result.unknown_cards
                 if result.stats.events:

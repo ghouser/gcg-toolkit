@@ -3,6 +3,7 @@
 Structure only, never wording: an effect is one of a small closed set of features (damage, draw, bounce...), an effect on *all* Units is its
 own feature (`damage all`), and the main number of a few of them is kept for Commands. See design.md, "Same job".
 """
+
 from __future__ import annotations
 
 import re
@@ -54,7 +55,10 @@ SIZES: dict[str, re.Pattern[str]] = {
     "-AP": re.compile(r"\bAP\s*-(\d+)", re.I),
     "recover": re.compile(r"\brecovers? (\d+)", re.I),
 }
-_ALL_UNITS = re.compile(r"\ball (?:the |of )?(?:enemy |friendly |other |active |rested |damaged |your )*(?:Units?|Bases?)\b|\bto all\b|\beach (?:enemy |friendly )?Unit", re.I)
+_ALL_UNITS = re.compile(
+    r"\ball (?:the |of )?(?:enemy |friendly |other |active |rested |damaged |your )*(?:Units?|Bases?)\b|\bto all\b|\beach (?:enemy |friendly )?Unit",
+    re.I,
+)
 _REMINDER = re.compile(r"\([^()]*\)")
 _TAGS = re.compile(r"^(?:【[^】]*】\s*)*")
 _KEYWORD = re.compile(r"<\s*([A-Za-z][A-Za-z -]*?)\s*\d*\s*>")

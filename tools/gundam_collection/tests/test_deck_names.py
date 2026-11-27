@@ -1,4 +1,5 @@
 """Deck ids, readable unique names, nicknames and lookup."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -18,7 +19,16 @@ def deck(*packages: tuple[str, str], rate: float = 0.05) -> Deck:
     refs = tuple((name, DataSource.TOURNAMENT, PackageId(f"pkg:{anchor}")) for name, anchor in packages)
     anchors = tuple(a for _, a in packages)
     name = " + ".join(n for n, _ in packages)
-    return Deck(name=name, package_refs=refs, rates={DataSource.TOURNAMENT: rate}, low_sample=False, requirements=(), anchors=anchors, id=deck_id(anchors), plain_name=name)
+    return Deck(
+        name=name,
+        package_refs=refs,
+        rates={DataSource.TOURNAMENT: rate},
+        low_sample=False,
+        requirements=(),
+        anchors=anchors,
+        id=deck_id(anchors),
+        plain_name=name,
+    )
 
 
 CARDS: dict[CardNumber, CardModel] = catalog(
@@ -40,14 +50,22 @@ def test_the_same_package_name_for_different_packages_gets_a_color_and_a_unique_
     a = deck(("Mikazuki Barbatos", "GD02-054"), ("Char Aznable", "GD01-026"))
     b = deck(("Mikazuki Barbatos", "GD02-054"), ("Char Aznable", "ST11-001"))
     named = label_decks([a, b], CARDS, {})
-    assert [d.name for d in named] == ["Mikazuki Barbatos + Char Aznable (G)", "Mikazuki Barbatos + Char Aznable (B)"]  # only the colliding name is tagged
+    assert [d.name for d in named] == [
+        "Mikazuki Barbatos + Char Aznable (G)",
+        "Mikazuki Barbatos + Char Aznable (B)",
+    ]  # only the colliding name is tagged
     assert named[0].plain_name == "Mikazuki Barbatos + Char Aznable" and named[0].id == "GD01-026+GD02-054"
-    assert named[0].package_labels == ("Mikazuki Barbatos", "Char Aznable (G)") and named[1].package_labels == ("Mikazuki Barbatos", "Char Aznable (B)")
+    assert named[0].package_labels == ("Mikazuki Barbatos", "Char Aznable (G)") and named[1].package_labels == (
+        "Mikazuki Barbatos",
+        "Char Aznable (B)",
+    )
 
 
 def test_two_decks_that_still_share_a_name_get_the_card_each_is_anchored_on() -> None:
     a = deck(("Char Aznable", "ST11-001"), ("Haman", "GD02-054"))
-    b = deck(("Char Aznable", "ST11-002"), ("Haman", "GD02-054"))  # both blue Char packages: a color cannot tell them apart
+    b = deck(
+        ("Char Aznable", "ST11-002"), ("Haman", "GD02-054")
+    )  # both blue Char packages: a color cannot tell them apart
     named = label_decks([a, b], CARDS, {})
     assert [d.name for d in named] == ["Char Aznable (B) + Haman (Char's Z'Gok)", "Char Aznable (B) + Haman (Acguy)"]
 
@@ -55,11 +73,19 @@ def test_two_decks_that_still_share_a_name_get_the_card_each_is_anchored_on() ->
 def test_a_nickname_replaces_the_name_and_keeps_the_generated_one() -> None:
     a = deck(("Suletta Aerial", "ST13-006"), ("Academy", "GD04-024"))
     named = label_decks([a], CARDS, {a.id: "redletta"})
-    assert named[0].name == "redletta" and named[0].nickname == "redletta" and named[0].plain_name == "Suletta Aerial + Academy"
+    assert (
+        named[0].name == "redletta"
+        and named[0].nickname == "redletta"
+        and named[0].plain_name == "Suletta Aerial + Academy"
+    )
 
 
 def test_lookup_goes_id_then_nickname_then_name_then_words_then_digits() -> None:
-    a = label_decks([deck(("Suletta Aerial", "ST13-006"), ("Academy", "GD04-024")), deck(("Kira Strike Freedom", "GD05-002"))], CARDS, {"GD04-024+ST13-006": "redletta"})
+    a = label_decks(
+        [deck(("Suletta Aerial", "ST13-006"), ("Academy", "GD04-024")), deck(("Kira Strike Freedom", "GD05-002"))],
+        CARDS,
+        {"GD04-024+ST13-006": "redletta"},
+    )
     assert [d.nickname for d in find_decks(a, "GD04-024+ST13-006")] == ["redletta"]  # an id
     assert [d.nickname for d in find_decks(a, "gd04024 st13006")] == ["redletta"]  # any punctuation and case
     assert [d.nickname for d in find_decks(a, "ST13006GD04024")] == ["redletta"]  # any order

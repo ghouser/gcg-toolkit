@@ -4,6 +4,7 @@ Errors make the file unusable (unknown card, bad quantity, a printing the card d
 (the same card on two lines, a zero). Info is worth knowing (a resource card, an unusually large total). Nothing is ever guessed
 or fixed silently: a card number the catalog doesn't know is reported with close matches as suggestions only.
 """
+
 from __future__ import annotations
 
 import difflib
@@ -56,7 +57,9 @@ def check_lines(lines: Iterable[str], catalog: Mapping[CardNumber, CardInfo], fi
     for entry in entries:
         info = catalog.get(entry.card_number)
         if info is None:
-            close = difflib.get_close_matches(entry.card_number, [str(n) for n in catalog], n=MAX_SUGGESTIONS, cutoff=0.7)
+            close = difflib.get_close_matches(
+                entry.card_number, [str(n) for n in catalog], n=MAX_SUGGESTIONS, cutoff=0.7
+            )
             hint = f" (close: {', '.join(f'{n} {catalog[CardNumber(n)].name}' for n in close)})" if close else ""
             found.append(Issue(line=entry.line, severity=Severity.ERROR, code=IssueCode.UNKNOWN_CARD,
                                message=f"{entry.card_number} is not in the catalog{hint}"))  # fmt: skip
@@ -108,7 +111,9 @@ def check_lines(lines: Iterable[str], catalog: Mapping[CardNumber, CardInfo], fi
         issues=tuple(sorted(found, key=lambda i: (i.line or 0, i.code.value, i.message))),
         distinct_cards=len(totals),
         total_copies=sum(totals.values()),
-        by_kind=tuple(KindTotal(kind=k, cards=v[0], copies=v[1]) for k, v in sorted(kinds.items(), key=lambda kv: order[kv[0]])),
+        by_kind=tuple(
+            KindTotal(kind=k, cards=v[0], copies=v[1]) for k, v in sorted(kinds.items(), key=lambda kv: order[kv[0]])
+        ),
     )
 
 

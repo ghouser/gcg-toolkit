@@ -11,6 +11,7 @@ Everything joins on the card number. Pure functions over already-loaded data (no
 - a package is **home** when I own at least `HOME_MIN_OWNED` of its critical copies, **adjacent** when it shares a critical card
   or bridge with a home package, and **new** otherwise.
 """
+
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
@@ -76,7 +77,11 @@ class PackageCoverage:
     @property
     def needs(self) -> tuple[Need, ...]:
         """One row per critical card (all key cards) for the completeness band."""
-        return tuple(Need(s.members[0], s.critical_need, s.critical_have, s.unit_cents, True) for s in self.slots if s.critical_need)
+        return tuple(
+            Need(s.members[0], s.critical_need, s.critical_have, s.unit_cents, True)
+            for s in self.slots
+            if s.critical_need
+        )
 
     @property
     def band(self) -> Band:
@@ -112,7 +117,9 @@ def package_coverage(
 ) -> PackageCoverage:
     """How much of a package's cards I have, slot by slot."""
     by_number = {m.card_number: m for m in package.members}
-    alternatives = slot_alternatives(list(by_number), frozenset(n for n, m in by_number.items() if m.role is Role.OPTIONAL), groups, catalog)
+    alternatives = slot_alternatives(
+        list(by_number), frozenset(n for n, m in by_number.items() if m.role is Role.OPTIONAL), groups, catalog
+    )
     slots: list[Slot] = []
     for n, member in by_number.items():
         found = alternatives[n]

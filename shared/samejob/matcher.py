@@ -1,4 +1,5 @@
 """The Matcher: same-job checks against one set of pilots (a deck's, a package's, or the whole catalog's), with per-card caching."""
+
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
@@ -30,13 +31,23 @@ def pilots_from(cards: Iterable[CardModel]) -> tuple[Pilot, ...]:
 
 def link_traits_of(cards: Iterable[CardModel]) -> frozenset[Trait]:
     """The traits some Unit's Link asks for (the traits that matter when pairing a pilot)."""
-    return frozenset(r.trait for c in cards if isinstance(c, UnitCard) and c.link for r in c.link.any_of if isinstance(r, TraitLink))
+    return frozenset(
+        r.trait for c in cards if isinstance(c, UnitCard) and c.link for r in c.link.any_of if isinstance(r, TraitLink)
+    )
 
 
 def profile(card: CardModel) -> Profile:
     if isinstance(card, CommandCard):
         core, sizes = effects(command_core_text(card.text), grants=True)
-        extras = {n for n, present in (("burst", "【Burst】" in card.text), ("pilot", card.pilot is not None), ("action", "【Action】" in command_core_text(card.text))) if present}
+        extras = {
+            n
+            for n, present in (
+                ("burst", "【Burst】" in card.text),
+                ("pilot", card.pilot is not None),
+                ("action", "【Action】" in command_core_text(card.text)),
+            )
+            if present
+        }
         return Profile(frozenset(), frozenset(core | extras), frozenset(core), sizes, cost=card.cost)
     if isinstance(card, BaseCard):
         core = effect_features(base_core_text(card.text), grants=True)
@@ -89,7 +100,11 @@ class Matcher:
         served = self.served(x)
         if served:
             return (True, "") if served & self.served(y) else (False, "no pilot in the deck satisfies both Links")
-        return (True, "") if set(x.link.any_of) & set(y.link.any_of) else (False, "different Link requirements and no pilot to test")
+        return (
+            (True, "")
+            if set(x.link.any_of) & set(y.link.any_of)
+            else (False, "different Link requirements and no pilot to test")
+        )
 
     def stands_in(self, x: CardModel, y: CardModel) -> Match:
         """Can `y` stand in for `x`? (directional)"""
@@ -112,4 +127,3 @@ class Matcher:
 def stands_in(x: CardModel, y: CardModel, pilots: Sequence[Pilot] = ()) -> Match:
     """Convenience: one check against these pilots."""
     return Matcher(pilots).stands_in(x, y)
-

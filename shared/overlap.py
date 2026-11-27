@@ -1,4 +1,5 @@
 """Matching groups of items across two sets by the items they share (used for packages found in tournament and in online decks)."""
+
 from __future__ import annotations
 
 from collections.abc import Hashable, Mapping
@@ -17,7 +18,12 @@ def match_groups[K: Hashable, L: Hashable, T: Hashable](
     """Pair each group on the left with the one on the right it shares the most items with (best pairs first, each group once, at
     least `minimum`). Returns the pairs, the left keys with no match, and the right keys with no match. Ties break by key, so it is deterministic."""
     candidates = sorted(
-        ((overlap(ml, mr), lk, rk) for lk, ml in left.items() for rk, mr in right.items() if overlap(ml, mr) >= minimum),
+        (
+            (overlap(ml, mr), lk, rk)
+            for lk, ml in left.items()
+            for rk, mr in right.items()
+            if overlap(ml, mr) >= minimum
+        ),
         key=lambda c: (-c[0], str(c[1]), str(c[2])),
     )
     used_left: set[K] = set()

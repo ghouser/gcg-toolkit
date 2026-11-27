@@ -46,7 +46,12 @@ def test_event_list_page() -> None:
 
 def test_regional_with_a_private_deck() -> None:
     event = parse_event(_read("df_event_regional_milwaukee.json"), _decks(PUBLIC_WINNER, PRIVATE, PUBLIC_THIRD), NOW)
-    assert (event.source, str(event.id), event.event_type, event.tier) == (Source.DUELFRONTIER, MKE, EventType.REGIONAL, Tier.MAJOR)
+    assert (event.source, str(event.id), event.event_type, event.tier) == (
+        Source.DUELFRONTIER,
+        MKE,
+        EventType.REGIONAL,
+        Tier.MAJOR,
+    )
     assert (event.name, event.start_date, event.end_date, event.country, event.city, event.players) == (
         "Regional Milwaukee 2026", date(2026, 10, 3), date(2026, 10, 4), "US", "Milwaukee, WI", 500,
     )  # fmt: skip
@@ -55,14 +60,21 @@ def test_regional_with_a_private_deck() -> None:
     winner, private, third = event.decks
     assert (winner.placement, winner.name, winner.available, winner.counted) == (1, "B/P Z'Gok Aggro", True, True)
     assert sum(c.qty for c in winner.main) == 50 and winner.side == ()
-    assert (private.placement, private.available, private.counted, private.main) == (2, False, False, ())  # recorded, not bypassed
+    assert (private.placement, private.available, private.counted, private.main) == (
+        2,
+        False,
+        False,
+        (),
+    )  # recorded, not bypassed
     assert third.available and sum(c.qty for c in third.main) == 50
 
 
 def test_deck_entries_are_aggregated_per_card() -> None:
     event = parse_event(_read("df_event_regional_milwaukee.json"), _decks(PUBLIC_WINNER, PRIVATE, PUBLIC_THIRD), NOW)
     main = {str(c.card_number): c.qty for c in event.decks[0].main}
-    assert main["ST01-015"] == 1 and main["ST02-016"] == 2 and len(main) == len(event.decks[0].main)  # one entry per card
+    assert (
+        main["ST01-015"] == 1 and main["ST02-016"] == 2 and len(main) == len(event.decks[0].main)
+    )  # one entry per card
 
 
 def test_a_missing_deck_response_is_unavailable() -> None:
@@ -75,7 +87,10 @@ def test_world_championship_event_with_a_sideboard() -> None:
     event = parse_event(_read("df_event_wcq_grand_final.json"), _decks(slug), NOW)
     assert (event.event_type, event.tier) == (EventType.WORLD_CHAMPIONSHIP, Tier.MAJOR)  # qualifiers count as major
     deck = event.decks[0]
-    assert (sum(c.qty for c in deck.main), sum(c.qty for c in deck.side)) == (50, 10)  # the sideboard is kept and counted
+    assert (sum(c.qty for c in deck.main), sum(c.qty for c in deck.side)) == (
+        50,
+        10,
+    )  # the sideboard is kept and counted
     assert deck.counted and event.warnings == ()
 
 
@@ -146,7 +161,9 @@ def test_sync_fetches_only_new_complete_events(tmp_path: Path) -> None:
         f"{API}/decks/{PRIVATE}?Include=Cards",
         f"{API}/decks/{PUBLIC_THIRD}?Include=Cards",
     ]  # nothing for the stored event, nothing for the one still running
-    assert (tmp_path / event_key(EventId(MKE))).is_file() and (tmp_path / deck_key(PRIVATE)).is_file()  # raw pages cached
+    assert (tmp_path / event_key(EventId(MKE))).is_file() and (
+        tmp_path / deck_key(PRIVATE)
+    ).is_file()  # raw pages cached
 
 
 def test_nothing_to_fetch_means_no_requests(tmp_path: Path) -> None:

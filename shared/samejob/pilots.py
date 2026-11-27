@@ -6,6 +6,7 @@ trait (a trait some Unit's Link asks for; flavor traits such as Support do not c
 
 This is replacement. *Pairing* (which pilots go with a Unit, which Units with a pilot) is a different association: see design.md.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -41,5 +42,11 @@ def stands_in(m: Matcher, x: CardModel, y: CardModel) -> Match:
     relevant = traits_x & traits_y if m.link_traits is None else traits_x & traits_y & m.link_traits
     if not shared_name and not relevant:
         return Match(Verdict.DIFFERENT, ("no shared name or Link-relevant trait",))
-    standing = Standing.EQUAL if (set(names_x), traits_x) == (set(names_y), traits_y) else Standing.BETTER if set(names_x) <= set(names_y) and traits_x <= traits_y else Standing.TRADE_OFF
+    standing = (
+        Standing.EQUAL
+        if (set(names_x), traits_x) == (set(names_y), traits_y)
+        else Standing.BETTER
+        if set(names_x) <= set(names_y) and traits_x <= traits_y
+        else Standing.TRADE_OFF
+    )
     return Match(Verdict.SAME_JOB, (), standing, True)

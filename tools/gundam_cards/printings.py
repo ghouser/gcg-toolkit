@@ -3,6 +3,7 @@
 - List pages are always refetched (new cards appear in packages).
 - Detail pages are fetched only if not already cached; a cached page is never re-pinged (use `refetch` for that).
 """
+
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
@@ -152,7 +153,9 @@ def refetch_printings(
         path = raw_dir / detail_page_key(printing_id)
         before = path.read_text(encoding="utf-8") if path.is_file() else None
         try:
-            after = fetcher.get_text(DETAIL_URL.format(printing_id), cache_key=detail_page_key(printing_id), force=True).text
+            after = fetcher.get_text(
+                DETAIL_URL.format(printing_id), cache_key=detail_page_key(printing_id), force=True
+            ).text
         except FetchError as e:
             failures.append((printing_id, str(e)))
             continue

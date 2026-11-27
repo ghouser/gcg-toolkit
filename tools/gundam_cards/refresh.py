@@ -14,6 +14,7 @@ until the next run.
 The tracked sets.json is only read; each reviewed set Bandai lacks or shows differently gets one informational report line.
 See .claude/feature-design/refresh-cards.md.
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -62,13 +63,17 @@ class RefreshReport:
     complete: bool  # every listing (and, in a real run, every new detail page) was fetched and readable
     failure: str | None = None  # why the run is incomplete
     provisional: tuple[CardSet, ...] = ()  # packages this run records as provisional
-    packages_with_new: tuple[tuple[str, bool], ...] = ()  # (package label, provisional?) for packages listing new printings
+    packages_with_new: tuple[
+        tuple[str, bool], ...
+    ] = ()  # (package label, provisional?) for packages listing new printings
     new_cards: tuple[CardNumber, ...] = ()
     new_printings: tuple[PrintingId, ...] = ()
     missed: tuple[CardNumber, ...] = ()  # existing cards absent from this run's listings (a first or a second miss)
     marked: tuple[CardNumber, ...] = ()  # of those, the ones on their second miss: marked no longer listed
     changed: tuple[ChangedCard, ...] = ()  # existing cards with any field-level change (see `changed_fields`)
-    orphans: tuple[PrintingId, ...] = ()  # cached detail pages of cards in no listing and not stored: left out of the catalog
+    orphans: tuple[
+        PrintingId, ...
+    ] = ()  # cached detail pages of cards in no listing and not stored: left out of the catalog
     existing: int = 0  # stored cards not marked no longer listed
     guard_trips: bool = False  # the anomaly guard would refuse this run
     refused: bool = False  # ... and no override was given
@@ -113,7 +118,9 @@ def _shape_checked(pages: Sequence[SourcePage]) -> tuple[list[SourcePage], list[
     base_bad = {i.card_number for i in bad if i.variant is None}
     kept = [p for p in pages if p.printing_id not in bad and p.printing_id.card_number not in base_bad]
     rejected = [
-        Rejected(str(i), "; ".join(problems) + ("; the base printing: whole card left out" if i.variant is None else ""))
+        Rejected(
+            str(i), "; ".join(problems) + ("; the base printing: whole card left out" if i.variant is None else "")
+        )
         for i, problems in bad.items()
     ]
     return kept, rejected
@@ -223,7 +230,9 @@ def refresh_catalog(
     sets_build = build_sets(packages, products)
     stored_provisional = load_provisional_sets(out_dir)
     stored_codes = {s.code for s in stored_provisional}
-    provisional = propose_sets(tracked, stored_provisional, tuple(s for s in sets_build.sets if s.bandai_package_id is not None))
+    provisional = propose_sets(
+        tracked, stored_provisional, tuple(s for s in sets_build.sets if s.bandai_package_id is not None)
+    )
     recorded = tuple(s for s in provisional if s.code not in stored_codes)
     new_set = set(new_printings)
     code_of = {s.bandai_package_id: s.code for s in sets_build.sets if s.bandai_package_id is not None}
@@ -259,7 +268,9 @@ def refresh_catalog(
     marked = tuple(r.number for r in active if merged_records[r.number].no_longer_listed)
     rebuilt = {c.number: c for c in merged.data}
     changed = tuple(
-        ChangedCard(r.number, fields) for r in active if (fields := changed_fields(stored_cards[r.number], rebuilt[r.number]))
+        ChangedCard(r.number, fields)
+        for r in active
+        if (fields := changed_fields(stored_cards[r.number], rebuilt[r.number]))
     )
     affected = len(set(missed) | {c.number for c in changed})
     guard_trips = bool(active) and affected / len(active) > ANOMALY_SHARE
@@ -292,7 +303,9 @@ def refresh_catalog(
 
 def orphan_line(orphans: Sequence[PrintingId]) -> str:
     """The report line naming cached pages left out of the catalog because their card is in no listing and not stored."""
-    return f"{len(orphans)} orphan page(s), in no listing and not in the catalog, not added: " + " ".join(map(str, orphans))
+    return f"{len(orphans)} orphan page(s), in no listing and not in the catalog, not added: " + " ".join(
+        map(str, orphans)
+    )
 
 
 def format_report(report: RefreshReport) -> list[str]:
@@ -303,9 +316,14 @@ def format_report(report: RefreshReport) -> list[str]:
     else:
         lines = [
             f"{mode}: {len(report.provisional)} provisional package(s) recorded"
-            + "".join(f"\n  provisional {s.code} {s.name} (released {s.release_date or 'unknown'})" for s in report.provisional),
+            + "".join(
+                f"\n  provisional {s.code} {s.name} (released {s.release_date or 'unknown'})"
+                for s in report.provisional
+            ),
             f"{len(report.packages_with_new)} package(s) with new printings"
-            + "".join(f"\n  {label} ({'provisional' if prov else 'known'})" for label, prov in report.packages_with_new),
+            + "".join(
+                f"\n  {label} ({'provisional' if prov else 'known'})" for label, prov in report.packages_with_new
+            ),
             f"{len(report.new_cards)} new card number(s): {' '.join(map(str, report.new_cards)) or '-'}",
             f"{len(report.new_printings)} new printing(s): {' '.join(map(str, report.new_printings)) or '-'}",
             f"{len(report.missed)} card(s) missed: {' '.join(map(str, report.missed)) or '-'}"

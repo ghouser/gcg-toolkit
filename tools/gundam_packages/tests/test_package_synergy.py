@@ -1,4 +1,5 @@
 """Packages are one color; packages that work together are reported as package synergy, with bridge cards between them."""
+
 from __future__ import annotations
 
 from shared.basetypes import CardNumber
@@ -12,7 +13,13 @@ X1, X2 = N("GD01-001"), N("GD01-002")  # package X (blue)
 Y1, Y2 = N("GD02-001"), N("GD02-002")  # package Y (purple)
 R = N("GD03-001")  # a blue card tied to both X and Y: carried into Y's decks by X
 PARAMS = Params(min_decks=3, mutual_threshold=0.8, run_share=0.75, bridge_share=0.5)
-COLORS: dict[CardNumber, Color | None] = {X1: Color.BLUE, X2: Color.BLUE, Y1: Color.PURPLE, Y2: Color.PURPLE, R: Color.BLUE}
+COLORS: dict[CardNumber, Color | None] = {
+    X1: Color.BLUE,
+    X2: Color.BLUE,
+    Y1: Color.PURPLE,
+    Y2: Color.PURPLE,
+    R: Color.BLUE,
+}
 
 
 def edge(a: CardNumber, b: CardNumber, kind: SynergyKind = SynergyKind.LINK_PILOT, detail: str = "x") -> SynergyEdge:
@@ -21,16 +28,35 @@ def edge(a: CardNumber, b: CardNumber, kind: SynergyKind = SynergyKind.LINK_PILO
 
 def decks() -> list[frozenset[CardNumber]]:
     result = [frozenset({X1, X2, Y1, Y2, R}) for _ in range(20)]  # both packages, with R
-    result += [frozenset({X1, X2, R}) if i < 40 else frozenset({X1, X2}) for i in range(60)]  # X alone: R in 2/3 of these
+    result += [
+        frozenset({X1, X2, R}) if i < 40 else frozenset({X1, X2}) for i in range(60)
+    ]  # X alone: R in 2/3 of these
     result += [frozenset({Y1, Y2}) for _ in range(4)]  # Y without X: never R
     return result
 
 
-def run(graph: SynergyGraph, colors: dict[CardNumber, Color | None] | None = None, world: list[frozenset[CardNumber]] | None = None) -> Discovery:
-    return discover(world if world is not None else decks(), graph, PARAMS, COLORS if colors is None else colors, lambda pid, members, edges: str(pid))
+def run(
+    graph: SynergyGraph,
+    colors: dict[CardNumber, Color | None] | None = None,
+    world: list[frozenset[CardNumber]] | None = None,
+) -> Discovery:
+    return discover(
+        world if world is not None else decks(),
+        graph,
+        PARAMS,
+        COLORS if colors is None else colors,
+        lambda pid, members, edges: str(pid),
+    )
 
 
-BRIDGED = SynergyGraph([edge(X1, X2), edge(Y1, Y2), edge(R, X1, SynergyKind.LINK_TRAIT, "Orb"), edge(R, Y2, SynergyKind.SHARED_KEYWORD, "blocker")])
+BRIDGED = SynergyGraph(
+    [
+        edge(X1, X2),
+        edge(Y1, Y2),
+        edge(R, X1, SynergyKind.LINK_TRAIT, "Orb"),
+        edge(R, Y2, SynergyKind.SHARED_KEYWORD, "blocker"),
+    ]
+)
 
 
 def test_packages_that_run_together_through_a_bridge_card_are_synergistic() -> None:
@@ -44,7 +70,9 @@ def test_packages_that_run_together_through_a_bridge_card_are_synergistic() -> N
 
 def test_a_card_carried_in_by_another_package_is_a_bridge_not_synergy_cards_with_it() -> None:
     result = run(BRIDGED)
-    assert {(h.card_number, h.package) for h in result.synergy_cards} == {(R, PackageId("pkg:GD01-001"))}  # R stands on its own in X's decks only
+    assert {(h.card_number, h.package) for h in result.synergy_cards} == {
+        (R, PackageId("pkg:GD01-001"))
+    }  # R stands on its own in X's decks only
     assert R not in {f.card_number for f in result.free_floating}
 
 

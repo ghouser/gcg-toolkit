@@ -1,4 +1,5 @@
 """Hypothetical decks: an exact 50 from the package core, found lists and plan fit, on a synthetic world with known answers."""
+
 from __future__ import annotations
 
 from shared.basetypes import CardNumber
@@ -16,13 +17,45 @@ BLOCKER = "<Blocker> (Rest this Unit to change the attack target to it.)"
 
 CORE = unit("GD01-001", "Core Unit", level=2, ap=4, hp=2, link="Pilot X", color=Color.RED)
 CORE_PILOT = pilot("GD01-002", "Pilot X", color=Color.RED)
-RUNNERS = [unit(f"GD02-{i:03}", f"Runner {i}", level=2, ap=4, hp=2, text=BREACH if i % 2 else "", color=Color.BLUE if i % 3 else Color.RED) for i in range(1, 15)]
-WALLS = [unit(f"GD03-{i:03}", f"Wall {i}", level=6, ap=2, hp=5, text=BLOCKER + ("\n【Deploy】Draw 1." if i % 2 else ""), color=Color.BLUE) for i in range(1, 9)]
-ANSWERS = [command(f"GD04-{i:03}", f"Answer {i}", text="【Action】Choose 1 enemy Unit. Return it to its owner's hand.", color=Color.BLUE) for i in range(1, 7)]
+RUNNERS = [
+    unit(
+        f"GD02-{i:03}",
+        f"Runner {i}",
+        level=2,
+        ap=4,
+        hp=2,
+        text=BREACH if i % 2 else "",
+        color=Color.BLUE if i % 3 else Color.RED,
+    )
+    for i in range(1, 15)
+]
+WALLS = [
+    unit(
+        f"GD03-{i:03}",
+        f"Wall {i}",
+        level=6,
+        ap=2,
+        hp=5,
+        text=BLOCKER + ("\n【Deploy】Draw 1." if i % 2 else ""),
+        color=Color.BLUE,
+    )
+    for i in range(1, 9)
+]
+ANSWERS = [
+    command(
+        f"GD04-{i:03}",
+        f"Answer {i}",
+        text="【Action】Choose 1 enemy Unit. Return it to its owner's hand.",
+        color=Color.BLUE,
+    )
+    for i in range(1, 7)
+]
 STRANGER = unit("GD05-001", "Needs A Stranger", level=2, ap=4, hp=2, link="Nobody Here", color=Color.RED)
 STRANGER_PILOT = pilot("GD05-002", "Unrelated Pilot", color=Color.RED)
 GREEN = unit("GD05-003", "Green Unit", level=2, ap=4, hp=2, color=Color.GREEN)
-CARDS: dict[CardNumber, CardModel] = catalog(CORE, CORE_PILOT, *RUNNERS, *WALLS, *ANSWERS, STRANGER, STRANGER_PILOT, GREEN)
+CARDS: dict[CardNumber, CardModel] = catalog(
+    CORE, CORE_PILOT, *RUNNERS, *WALLS, *ANSWERS, STRANGER, STRANGER_PILOT, GREEN
+)
 CORE_COPIES = {CORE.number: 4, CORE_PILOT.number: 4}
 
 
@@ -37,7 +70,12 @@ AGGRO_REF = found("Aggro ref", [CORE, CORE_PILOT, *RUNNERS])
 CONTROL_REF = found("Control ref", [CORE, CORE_PILOT, *WALLS, *ANSWERS])
 
 
-def build(plan: Plan = Plan.AGGRO, colors: frozenset[str] = frozenset({"R", "B"}), refs: list[Deck] | None = None, **kw: object) -> object:
+def build(
+    plan: Plan = Plan.AGGRO,
+    colors: frozenset[str] = frozenset({"R", "B"}),
+    refs: list[Deck] | None = None,
+    **kw: object,
+) -> object:
     return build_suggestion(package="Core", core=CORE_COPIES, plan=plan, colors=colors, references=refs if refs is not None else [AGGRO_REF], plan_decks=[],
                             catalog=CARDS, owned=kw.pop("owned", {}), prices=kw.pop("prices", {}), **kw)  # type: ignore[arg-type]  # fmt: skip
 
@@ -55,11 +93,17 @@ def test_only_cards_of_the_chosen_colors_are_used() -> None:
     assert N("GD05-003") not in {p.card for p in sug.picks}  # type: ignore[attr-defined]
 
 
-def test_a_link_is_a_bonus_not_a_gate_a_unit_without_its_pilot_ranks_lower_and_an_unrelated_pilot_is_only_a_stat_bonus() -> None:
+def test_a_link_is_a_bonus_not_a_gate_a_unit_without_its_pilot_ranks_lower_and_an_unrelated_pilot_is_only_a_stat_bonus() -> (
+    None
+):
     sug = build(refs=[found("Ref", [CORE, CORE_PILOT, STRANGER, STRANGER_PILOT, *RUNNERS])])
     chosen = {p.card: p.copies for p in sug.picks}  # type: ignore[attr-defined]
-    assert STRANGER.number not in chosen  # same fit as a runner but its Link has no pilot: a weaker body, so it loses the slot to an equal runner
-    assert chosen.get(STRANGER_PILOT.number, 0) <= 1  # an unrelated pilot pairs with no Linked Unit: at most a single stat-bonus copy
+    assert (
+        STRANGER.number not in chosen
+    )  # same fit as a runner but its Link has no pilot: a weaker body, so it loses the slot to an equal runner
+    assert (
+        chosen.get(STRANGER_PILOT.number, 0) <= 1
+    )  # an unrelated pilot pairs with no Linked Unit: at most a single stat-bonus copy
     pairs, linked, _pilots = sug.pairs  # type: ignore[attr-defined]
     assert pairs >= 4 and linked >= 4  # the core Unit and its 4 pilot copies pair up
 
@@ -71,14 +115,20 @@ def test_a_lone_pilot_copy_with_no_pull_toward_the_plan_is_a_filler_slot_and_is_
     sug = build_suggestion(package="Core", core={CORE.number: 4, CORE_PILOT.number: 4}, plan=Plan.AGGRO, colors=frozenset({"R", "B"}),
                            references=[found("Ref", [CORE, CORE_PILOT, filler, one_link, *RUNNERS])], plan_decks=[], catalog=cards, owned={}, prices={})  # fmt: skip
     chosen = {p.card: p.copies for p in sug.picks}
-    assert chosen.get(filler.number, 0) == 0 or chosen[filler.number] >= 2  # never a single stat-bonus copy picked up on its own
+    assert (
+        chosen.get(filler.number, 0) == 0 or chosen[filler.number] >= 2
+    )  # never a single stat-bonus copy picked up on its own
 
 
 def test_pairs_are_counted_by_pilot_copies_and_the_linked_units_they_satisfy() -> None:
     from tools.gundam_collection.styles import link_pairs
 
     chosen = {CORE.number: 4, CORE_PILOT.number: 3, STRANGER.number: 2, STRANGER_PILOT.number: 2}
-    assert link_pairs(chosen, CARDS) == (3, 6, 5)  # 3 of the 4 core Units get a pilot; the stranger's Link has none; 5 pilot copies in all
+    assert link_pairs(chosen, CARDS) == (
+        3,
+        6,
+        5,
+    )  # 3 of the 4 core Units get a pilot; the stranger's Link has none; 5 pilot copies in all
 
 
 def test_a_partner_package_from_the_reference_decks_comes_in_whole_a_pilot_with_its_units() -> None:
@@ -91,24 +141,52 @@ def test_a_partner_package_from_the_reference_decks_comes_in_whole_a_pilot_with_
         *(Requirement(c.number, Layer.STAPLE, 4, 0.9, ("in 90% of its lists",)) for c in RUNNERS),
     )
     anchors = (str(CORE.number),)
-    ref = Deck(name="Ref", package_refs=(("Ref", T, PackageId(f"pkg:{anchors[0]}")),), rates={T: 0.05}, low_sample=False, requirements=reqs, anchors=anchors, id="x", plain_name="Ref")
-    sug = build_suggestion(package="Core", core=CORE_COPIES, plan=Plan.AGGRO, colors=frozenset({"R", "B"}), references=[ref], plan_decks=[], catalog=cards, owned={}, prices={})
+    ref = Deck(
+        name="Ref",
+        package_refs=(("Ref", T, PackageId(f"pkg:{anchors[0]}")),),
+        rates={T: 0.05},
+        low_sample=False,
+        requirements=reqs,
+        anchors=anchors,
+        id="x",
+        plain_name="Ref",
+    )
+    sug = build_suggestion(
+        package="Core",
+        core=CORE_COPIES,
+        plan=Plan.AGGRO,
+        colors=frozenset({"R", "B"}),
+        references=[ref],
+        plan_decks=[],
+        catalog=cards,
+        owned={},
+        prices={},
+    )
     grouped = {p.card: p.group for p in sug.picks if p.group}
-    assert grouped == {p_unit.number: "Partner Package", p_pilot.number: "Partner Package"}  # the pilot and its Unit, together, labeled with their package
-    assert {p.card: p.copies for p in sug.picks}[p_pilot.number] == 4 and sug.pairs[0] >= 8  # 4 core pairs and 4 partner pairs
+    assert grouped == {
+        p_unit.number: "Partner Package",
+        p_pilot.number: "Partner Package",
+    }  # the pilot and its Unit, together, labeled with their package
+    assert {p.card: p.copies for p in sug.picks}[p_pilot.number] == 4 and sug.pairs[
+        0
+    ] >= 8  # 4 core pairs and 4 partner pairs
 
 
 def test_other_pilots_are_listed_with_the_units_they_would_link_and_the_pairs_they_make_in_the_deck() -> None:
     sug = build()
     options = {o.card: o for o in sug.pilot_options}  # type: ignore[attr-defined]
-    assert STRANGER_PILOT.number in options or CORE_PILOT.number not in options  # pilots in the deck are not offered again
+    assert (
+        STRANGER_PILOT.number in options or CORE_PILOT.number not in options
+    )  # pilots in the deck are not offered again
     assert all(o.card not in {p.card for p in sug.picks} for o in sug.pilot_options)  # type: ignore[attr-defined]
 
 
 def test_other_pilots_are_ranked_by_the_plan_fit_of_the_units_they_link_with_their_stats_added() -> None:
     sug = build()
     fits = [o.fit for o in sug.pilot_options]  # type: ignore[attr-defined]
-    assert fits == sorted(fits, reverse=True) and all(f >= 0 for f in fits)  # best first, whether or not it pairs with anything in the deck yet
+    assert fits == sorted(fits, reverse=True) and all(
+        f >= 0 for f in fits
+    )  # best first, whether or not it pairs with anything in the deck yet
 
 
 def test_an_aggro_request_gives_an_aggro_deck_and_a_control_request_a_control_one() -> None:
@@ -134,7 +212,10 @@ def test_cards_in_no_found_list_are_labeled_novel_and_zero_novelty_only_uses_the
 
 def test_prefer_owned_breaks_near_ties_toward_cards_i_have() -> None:
     sparse = found("Sparse", [CORE, CORE_PILOT])  # nothing known: every pick is fit-ranked, so ties are everywhere
-    tail = {RUNNERS[12].number, RUNNERS[13].number}  # the last two runners: left out of the plain build, which fills in card-number order
+    tail = {
+        RUNNERS[12].number,
+        RUNNERS[13].number,
+    }  # the last two runners: left out of the plain build, which fills in card-number order
     owned = dict.fromkeys(tail, 4)
     plain = build(refs=[sparse], novelty=1.0)
     mine = build(refs=[sparse], novelty=1.0, owned=owned, prefer=Prefer.OWNED)
@@ -148,7 +229,9 @@ def test_prefer_cost_drops_pricey_cards_when_cheaper_ones_fit_equally() -> None:
     prices = dict.fromkeys(expensive, 5000)
     plain = {p.card for p in build(refs=[sparse], novelty=1.0).picks}  # type: ignore[attr-defined]
     cheap = {p.card for p in build(refs=[sparse], novelty=1.0, prices=prices, prefer=Prefer.COST).picks}  # type: ignore[attr-defined]
-    assert expensive <= plain and len(expensive & cheap) < len(expensive)  # the default takes all six; preferring cost leaves some out
+    assert expensive <= plain and len(expensive & cheap) < len(
+        expensive
+    )  # the default takes all six; preferring cost leaves some out
 
 
 def test_the_pool_holds_the_best_cards_not_chosen_and_never_a_card_in_the_deck() -> None:
@@ -161,4 +244,6 @@ def test_the_pool_holds_the_best_cards_not_chosen_and_never_a_card_in_the_deck()
 def test_alignment_rewards_cheap_hard_hitting_units_for_aggro_and_blockers_for_control() -> None:
     runner, wall = card_signals(RUNNERS[0]), card_signals(WALLS[1])
     assert runner is not None and wall is not None
-    assert align(runner, Plan.AGGRO) > 0.5 > align(wall, Plan.AGGRO) and align(wall, Plan.CONTROL) > align(runner, Plan.CONTROL)
+    assert align(runner, Plan.AGGRO) > 0.5 > align(wall, Plan.AGGRO) and align(wall, Plan.CONTROL) > align(
+        runner, Plan.CONTROL
+    )

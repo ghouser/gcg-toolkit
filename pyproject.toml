@@ -12,9 +12,14 @@ warn_required_dynamic_aliases = true
 
 [tool.ruff]
 target-version = "py314"
+line-length = 120
+
+[tool.ruff.format]
+# Python only: the code blocks in Markdown docs are left as written.
+exclude = ["*.md"]
 
 [tool.ruff.lint]
-# Lint only (no formatter): rules that catch bugs, dead code and outdated idioms, not layout.
+# Rules that catch bugs, dead code and outdated idioms, not layout (layout is left to `ruff format`).
 select = [
     "E4", "E7", "E9",  # pycodestyle: imports, statements, syntax errors (not whitespace or line length)
     "F",               # Pyflakes: unused or undefined names and imports

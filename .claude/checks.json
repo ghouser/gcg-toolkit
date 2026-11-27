@@ -5,7 +5,8 @@
   "checks": [
     {"name": "tests", "argv": [".venv/bin/python", "-m", "pytest", "-q"]},
     {"name": "types", "argv": [".venv/bin/python", "-m", "mypy", "tools", "shared"]},
-    {"name": "lint", "argv": [".venv/bin/python", "-m", "ruff", "check", "."]}
+    {"name": "lint", "argv": [".venv/bin/python", "-m", "ruff", "check", "."]},
+    {"name": "format", "argv": [".venv/bin/python", "-m", "ruff", "format", "--check", "."]}
   ],
   "timeout": 1800
 }

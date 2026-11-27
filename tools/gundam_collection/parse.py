@@ -8,6 +8,7 @@ One card per line: a card number and a quantity, in either order. Everything aft
     ST05-004 x2         "x" before or after the quantity is allowed (x2, 2x)
     ST05-006 ?          a placeholder for a quantity still to fill in
 """
+
 from __future__ import annotations
 
 import re
@@ -35,7 +36,9 @@ def parse_line(line_no: int, raw: str) -> Entry | Issue | None:
         return None
     tokens = [t for t in re.split(r"[\s,;]+", text) if t]
     if len(tokens) != 2:
-        return _issue(line_no, IssueCode.BAD_LINE, f"expected a card number and a quantity, got {len(tokens)} part(s): {text!r}")
+        return _issue(
+            line_no, IssueCode.BAD_LINE, f"expected a card number and a quantity, got {len(tokens)} part(s): {text!r}"
+        )
     card_token = next((t for t in tokens if _CARD.fullmatch(t)), None)
     if card_token is None:
         return _issue(line_no, IssueCode.BAD_CARD_NUMBER, f"no card number (like GD05-002) in {text!r}")
@@ -48,10 +51,19 @@ def parse_line(line_no: int, raw: str) -> Entry | Issue | None:
         return Entry(line=line_no, card_number=number, art=art, copies=None)
     q = _QUANTITY.fullmatch(quantity_token)
     if q is None:
-        return _issue(line_no, IssueCode.BAD_QUANTITY, f"{quantity_token!r} is not a quantity (a whole number, or ? for unknown) in {text!r}")
+        return _issue(
+            line_no,
+            IssueCode.BAD_QUANTITY,
+            f"{quantity_token!r} is not a quantity (a whole number, or ? for unknown) in {text!r}",
+        )
     copies = int(q.group("n"))
     if copies == 0:
-        return _issue(line_no, IssueCode.ZERO_COPIES, f"{number}: a quantity of 0; remove the line if you have none", Severity.WARNING)
+        return _issue(
+            line_no,
+            IssueCode.ZERO_COPIES,
+            f"{number}: a quantity of 0; remove the line if you have none",
+            Severity.WARNING,
+        )
     if copies > MAX_QUANTITY:
         return _issue(line_no, IssueCode.BAD_QUANTITY, f"{number}: {copies} is above {MAX_QUANTITY}; probably a typo")
     return Entry(line=line_no, card_number=number, art=art, copies=copies)

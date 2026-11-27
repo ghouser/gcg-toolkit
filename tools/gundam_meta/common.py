@@ -1,4 +1,5 @@
 """Rules shared by every tournament source."""
+
 from __future__ import annotations
 
 from datetime import date, timedelta

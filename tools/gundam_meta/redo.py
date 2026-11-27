@@ -5,6 +5,7 @@
   is suspect (the source corrected something). Both report what actually changed.
 Events are otherwise immutable: a normal sync never touches one already stored.
 """
+
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable
@@ -29,7 +30,9 @@ class RedoReport:
     failures: tuple[tuple[str, str], ...]
 
     def __add__(self, other: RedoReport) -> RedoReport:
-        return RedoReport(self.changed + other.changed, self.unchanged + other.unchanged, self.failures + other.failures)
+        return RedoReport(
+            self.changed + other.changed, self.unchanged + other.unchanged, self.failures + other.failures
+        )
 
 
 EMPTY = RedoReport((), (), ())
@@ -73,7 +76,9 @@ def reparse_duelfrontier(raw_dir: Path, out_dir: Path | None = None) -> RedoRepo
             report += RedoReport((), (), ((f"duelfrontier:{slug}", str(e)[:300]),))
             continue
         label = f"duelfrontier:{slug}"
-        report += RedoReport((label,), (), ()) if _store(event, stored.get(slug), out_dir) else RedoReport((), (label,), ())
+        report += (
+            RedoReport((label,), (), ()) if _store(event, stored.get(slug), out_dir) else RedoReport((), (label,), ())
+        )
     return report
 
 
@@ -121,14 +126,18 @@ def refetch_duelfrontier(
                 f"{duelfrontier.API}/events/{slug}?Include=Players", cache_key=duelfrontier.event_key(slug), force=True
             )
             decks = {
-                d: fetcher.get_text(f"{duelfrontier.API}/decks/{d}?Include=Cards", cache_key=duelfrontier.deck_key(d), force=True).text
+                d: fetcher.get_text(
+                    f"{duelfrontier.API}/decks/{d}?Include=Cards", cache_key=duelfrontier.deck_key(d), force=True
+                ).text
                 for d in duelfrontier.player_deck_slugs(response.text)
             }
             event = duelfrontier.parse_event(response.text, decks, response.fetched_at)
         except (FetchError, ValueError) as e:
             report += RedoReport((), (), ((label, str(e)[:300]),))
             continue
-        report += RedoReport((label,), (), ()) if _store(event, stored.get(slug), out_dir) else RedoReport((), (label,), ())
+        report += (
+            RedoReport((label,), (), ()) if _store(event, stored.get(slug), out_dir) else RedoReport((), (label,), ())
+        )
         if n % 10 == 0 or n == len(todo):
             progress(f"refetched {n}/{len(todo)}")
     return report
@@ -149,7 +158,9 @@ def refetch_egm(
         if event.id not in stored or (ids is not None and event.id not in ids):
             continue
         label = _label(event)
-        report += RedoReport((label,), (), ()) if _store(event, stored[event.id], out_dir) else RedoReport((), (label,), ())
+        report += (
+            RedoReport((label,), (), ()) if _store(event, stored[event.id], out_dir) else RedoReport((), (label,), ())
+        )
     for missing in sorted((ids or frozenset()) - {e.id for e in parsed.events}):
         report += RedoReport((), (), ((f"egm:{missing}", "not in EGM's current list"),))
     return report

@@ -8,6 +8,7 @@ A placeholder is one line:  {{run collection decks --limit 5 | lines=20 | width=
   - a truncated block ends with a "... (N more lines)" marker, so a reader knows it goes on.
 The samples come from the data in this repository, including the collection file; re-run this after the data or a command changes.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -19,7 +20,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PAGES = Path(__file__).resolve().parent
-TOOLS = {"cards": "tools.gundam_cards.cli", "meta": "tools.gundam_meta.cli", "packages": "tools.gundam_packages.cli", "collection": "tools.gundam_collection.cli"}
+TOOLS = {
+    "cards": "tools.gundam_cards.cli",
+    "meta": "tools.gundam_meta.cli",
+    "packages": "tools.gundam_packages.cli",
+    "collection": "tools.gundam_collection.cli",
+}
 RUN = re.compile(r"^\{\{run (?P<body>.+?)\}\}\s*$")
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
@@ -28,7 +34,9 @@ def sample(body: str) -> str:
     command, *options = (part.strip() for part in body.split("|"))
     opts = dict(o.split("=", 1) for o in options)
     tool, *args = shlex.split(command)
-    result = subprocess.run([sys.executable, "-m", TOOLS[tool], *args], cwd=ROOT, capture_output=True, text=True, check=False)
+    result = subprocess.run(
+        [sys.executable, "-m", TOOLS[tool], *args], cwd=ROOT, capture_output=True, text=True, check=False
+    )
     if result.returncode != 0:
         raise SystemExit(f"command failed ({result.returncode}): {command}\n{result.stderr}")
     skip = int(opts.get("skip", 0))

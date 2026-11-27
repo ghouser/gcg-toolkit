@@ -9,6 +9,7 @@ Playable and better also need the **key-card guard**: every key card is owned at
 is capped at Reachable. The cost to the next band is the cheapest set of missing copies that reaches the next threshold: the copies the
 guard forces first, then the cheapest remaining ones (a copy with no price is counted separately, so the cost is a minimum).
 """
+
 from __future__ import annotations
 
 import math
@@ -29,7 +30,14 @@ class Band(StrEnum):
 
 
 BANDS = (Band.PERFECT, Band.COMPLETE, Band.PLAYABLE, Band.REACHABLE, Band.LONG_SHOT, Band.NOT_HAPPENING)  # best first
-THRESHOLDS: dict[Band, float] = {Band.PERFECT: 1.0, Band.COMPLETE: 0.90, Band.PLAYABLE: 0.75, Band.REACHABLE: 0.50, Band.LONG_SHOT: 0.25, Band.NOT_HAPPENING: 0.0}
+THRESHOLDS: dict[Band, float] = {
+    Band.PERFECT: 1.0,
+    Band.COMPLETE: 0.90,
+    Band.PLAYABLE: 0.75,
+    Band.REACHABLE: 0.50,
+    Band.LONG_SHOT: 0.25,
+    Band.NOT_HAPPENING: 0.0,
+}
 GUARDED = (Band.PERFECT, Band.COMPLETE, Band.PLAYABLE)  # bands that need the key-card guard
 KEY_SHARE = 0.5  # a key card needs at least this share of its copies (2 of 4)
 EPSILON = 1e-9
@@ -99,7 +107,10 @@ def cost_to(needs: Sequence[Need], target: Band) -> NextBand:
             if n.need > owned[n.card]:
                 buys[n.card] = buys.get(n.card, 0) + n.need - owned[n.card]
     else:
-        by_price = sorted((n for n in needs if n.need > owned[n.card]), key=lambda n: (n.unit_cents is None, n.unit_cents or 0, n.card))
+        by_price = sorted(
+            (n for n in needs if n.need > owned[n.card]),
+            key=lambda n: (n.unit_cents is None, n.unit_cents or 0, n.card),
+        )
         for n in by_price:
             if have >= wanted:
                 break

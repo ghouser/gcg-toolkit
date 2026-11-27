@@ -5,6 +5,7 @@ The pair is the strongest Link tie among the package's members. The name is the 
 (Master Asia / Master Gundam, Char Aznable / Char's Zaku II) the pilot's full name is used instead, so it never reads "Master
 Master". `names.json` can override any name by package id (nicknames). Duplicate names get the package's colors appended.
 """
+
 from __future__ import annotations
 
 import re
@@ -88,7 +89,9 @@ class PackageNamer:
 
     def _unique(self, name: str, pid: PackageId, members: Sequence[PackageMember]) -> str:
         if name in self._used:
-            colors = sorted({c.value for m in members if (c := getattr(self._cards[m.card_number], "color", None)) is not None})
+            colors = sorted(
+                {c.value for m in members if (c := getattr(self._cards[m.card_number], "color", None)) is not None}
+            )
             name = f"{name} ({'/'.join(colors)})" if colors else name
         if name in self._used:
             name = f"{name} [{pid}]"

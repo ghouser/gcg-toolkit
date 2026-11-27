@@ -1,4 +1,5 @@
 """Tests for shared nominal types."""
+
 from __future__ import annotations
 
 import pytest
@@ -7,7 +8,9 @@ from pydantic import ValidationError
 from shared.basetypes import CardNumber, FrozenModel, PackageId, PilotName, PrintingId, SetCode, SortedFrozenSet, Trait
 
 
-@pytest.mark.parametrize("value", ["GD05-111", "ST01-001", "EB01-076", "R-016", "T-022", "EXB-002", "EXBP-001", "EXRP-001"])
+@pytest.mark.parametrize(
+    "value", ["GD05-111", "ST01-001", "EB01-076", "R-016", "T-022", "EXB-002", "EXBP-001", "EXRP-001"]
+)
 def test_card_numbers_accepted(value: str) -> None:
     assert CardNumber(value) == value
 
@@ -18,7 +21,9 @@ def test_card_numbers_rejected(value: str) -> None:
         CardNumber(value)
 
 
-@pytest.mark.parametrize("value", ["\uff16\uff11\uff16\uff11\uff10\uff15", "\u0666\u0661\u0666\u0661\u0660\u0665", "61610\uff15"])
+@pytest.mark.parametrize(
+    "value", ["\uff16\uff11\uff16\uff11\uff10\uff15", "\u0666\u0661\u0666\u0661\u0660\u0665", "61610\uff15"]
+)
 def test_package_ids_with_non_ascii_digits_rejected(value: str) -> None:
     assert PackageId("616105") == "616105"
     with pytest.raises(ValueError):

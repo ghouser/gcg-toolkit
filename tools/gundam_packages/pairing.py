@@ -4,6 +4,7 @@ Pilots work *with* Units, they do not replace them: a Linked Unit is stronger th
 deck. A pilot is a Pilot card or a Command with a Pilot effect; it satisfies a Link by name (an alias counts: Ple-Twelve is also Marida Cruz)
 or by trait. Pure functions over the card catalog; ranking by how often decks run the pair is done by the caller from the rates.
 """
+
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
@@ -25,14 +26,18 @@ def pilots_for(unit: UnitCard, cards: Iterable[CardModel]) -> list[CardModel]:
 def units_for(pilot: CardModel, cards: Iterable[CardModel]) -> list[UnitCard]:
     """Every Linked Unit the pilot satisfies."""
     names, traits = identity(pilot)
-    return [c for c in cards if isinstance(c, UnitCard) and c.link is not None and c.link.satisfied_by_any(names, traits)]
+    return [
+        c for c in cards if isinstance(c, UnitCard) and c.link is not None and c.link.satisfied_by_any(names, traits)
+    ]
 
 
 def rates_with(rates: RatesFile, number: CardNumber) -> Mapping[CardNumber, float]:
     """How often each card is played in the decks of the package that plays `number` most (its own cards, then everything else in them)."""
     homes: list[tuple[float, PackageRates]] = []
     for package in rates.packages:
-        mine = [m.rate for m in package.members if m.card_number == number] + [o.rate for o in package.others if o.card_number == number]
+        mine = [m.rate for m in package.members if m.card_number == number] + [
+            o.rate for o in package.others if o.card_number == number
+        ]
         if mine:
             homes.append((max(mine), package))
     if not homes:

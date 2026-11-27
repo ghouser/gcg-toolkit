@@ -3,6 +3,7 @@
 Y shares a core effect with X (scope included), its main number is at most 1 lower, its cost at most 1 higher; Burst, a pilot pairing,
 Action timing and X's other core effects are good-to-haves and a net loss of one is fine.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -18,7 +19,11 @@ if TYPE_CHECKING:
 
 def pilot_kept(m: Matcher, x: CommandCard, y: CommandCard) -> bool:
     """Whether y's pilot pairing does what x's does: it serves a Link in the deck that x's pilot serves (or x's serves none)."""
-    mine = [link for link in m.unit_links if link.satisfied_by_any(tuple(PilotName(n) for n in names_of(x)), frozenset(traits_of(x)))]
+    mine = [
+        link
+        for link in m.unit_links
+        if link.satisfied_by_any(tuple(PilotName(n) for n in names_of(x)), frozenset(traits_of(x)))
+    ]
     if not mine:
         return True
     names, traits = tuple(PilotName(n) for n in names_of(y)), frozenset(traits_of(y))
@@ -48,5 +53,11 @@ def stands_in(m: Matcher, x: CommandCard, y: CommandCard) -> Match:
         return Match(Verdict.CLOSE, tuple(reasons), None, True)
     bigger = all(py.sizes.get(n, 0) >= px.sizes.get(n, 0) for n in px.sizes)
     equal = have == px.good and py.sizes == px.sizes and py.cost == px.cost
-    standing = Standing.EQUAL if equal else Standing.BETTER if px.good <= have and bigger and py.cost <= px.cost else Standing.TRADE_OFF
+    standing = (
+        Standing.EQUAL
+        if equal
+        else Standing.BETTER
+        if px.good <= have and bigger and py.cost <= px.cost
+        else Standing.TRADE_OFF
+    )
     return Match(Verdict.SAME_JOB, (), standing, True)

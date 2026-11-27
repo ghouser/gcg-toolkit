@@ -1,18 +1,19 @@
 # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
 """Gundam meta CLI: what's being played online (MobileSuitArena ranking) and at tournaments (DuelFrontier, EGM).
 
-    .venv/bin/python -m tools.gundam_meta.cli sync                      # fetch new data from all sources, rebuild popularity.json
-    .venv/bin/python -m tools.gundam_meta.cli sync --only egm           # or duelfrontier
-    .venv/bin/python -m tools.gundam_meta.cli top-cards --meta major    # most played at major events, current era, all sources combined
-    .venv/bin/python -m tools.gundam_meta.cli top-cards --meta major --source egm   # or duelfrontier, or one source's own view
-    .venv/bin/python -m tools.gundam_meta.cli duplicates                # events both sources report (counted once), with the evidence
-    .venv/bin/python -m tools.gundam_meta.cli top-cards --meta local --era gd05
-    .venv/bin/python -m tools.gundam_meta.cli top-cards --meta msa --bucket core_meta
-    .venv/bin/python -m tools.gundam_meta.cli eras                      # eras with start dates and how much data each has
-    .venv/bin/python -m tools.gundam_meta.cli popularity                # rebuild popularity.json from stored data (no network)
-    .venv/bin/python -m tools.gundam_meta.cli reparse                   # rebuild stored events/snapshots from saved raw responses (no network)
-    .venv/bin/python -m tools.gundam_meta.cli refetch --source duelfrontier --event regional-milwaukee-2026   # re-pull; or --all
+.venv/bin/python -m tools.gundam_meta.cli sync                      # fetch new data from all sources, rebuild popularity.json
+.venv/bin/python -m tools.gundam_meta.cli sync --only egm           # or duelfrontier
+.venv/bin/python -m tools.gundam_meta.cli top-cards --meta major    # most played at major events, current era, all sources combined
+.venv/bin/python -m tools.gundam_meta.cli top-cards --meta major --source egm   # or duelfrontier, or one source's own view
+.venv/bin/python -m tools.gundam_meta.cli duplicates                # events both sources report (counted once), with the evidence
+.venv/bin/python -m tools.gundam_meta.cli top-cards --meta local --era gd05
+.venv/bin/python -m tools.gundam_meta.cli top-cards --meta msa --bucket core_meta
+.venv/bin/python -m tools.gundam_meta.cli eras                      # eras with start dates and how much data each has
+.venv/bin/python -m tools.gundam_meta.cli popularity                # rebuild popularity.json from stored data (no network)
+.venv/bin/python -m tools.gundam_meta.cli reparse                   # rebuild stored events/snapshots from saved raw responses (no network)
+.venv/bin/python -m tools.gundam_meta.cli refetch --source duelfrontier --event regional-milwaukee-2026   # re-pull; or --all
 """
+
 from __future__ import annotations
 
 import argparse
@@ -75,7 +76,12 @@ def _sync_duelfrontier() -> bool:
     fetcher = Fetcher(raw_folder(), user_agent=USER_AGENT)
     listed = duelfrontier.list_events(fetcher)
     result = duelfrontier.sync_events(
-        fetcher, raw_folder(), listed, stored_event_ids(Source.DUELFRONTIER), _today(), progress=lambda m: print(f"  {m}", flush=True)
+        fetcher,
+        raw_folder(),
+        listed,
+        stored_event_ids(Source.DUELFRONTIER),
+        _today(),
+        progress=lambda m: print(f"  {m}", flush=True),
     )
     stored = sum(write_event(e) for e in result.events)
     print(
@@ -102,7 +108,9 @@ def _sync_egm() -> bool:
         f"{stored} stored now, {sum(1 for e in parsed.events if e.id not in stored_ids) - len(new)} not complete yet"
     )
     if held:
-        print(f"  note: {held} new deck(s) have list slots we can't interpret (e.g. 'A:3|B:3'); they are stored but not counted")
+        print(
+            f"  note: {held} new deck(s) have list slots we can't interpret (e.g. 'A:3|B:3'); they are stored but not counted"
+        )
     return True
 
 
@@ -123,10 +131,14 @@ def cmd_popularity(_: argparse.Namespace) -> int:
         print(f"{NoData(Kind.ONLINE_RANKING)}; built from events only", file=sys.stderr)
     build = build_popularity(events, snapshots, catalog.kinds, _eras(), _today(), datetime.now(tz=UTC))
     path = write_popularity(build.popularity)
-    print(f"popularity: {len(build.popularity.tournaments)} tournament window(s), msa={'yes' if build.popularity.msa else 'no'} -> {path}")
+    print(
+        f"popularity: {len(build.popularity.tournaments)} tournament window(s), msa={'yes' if build.popularity.msa else 'no'} -> {path}"
+    )
     if build.unknown_cards:
-        print(f"  warning: {len(build.unknown_cards)} card number(s) in decks are not in the card catalog (excluded): "
-              f"{', '.join(sorted(map(str, build.unknown_cards))[:12])}")
+        print(
+            f"  warning: {len(build.unknown_cards)} card number(s) in decks are not in the card catalog (excluded): "
+            f"{', '.join(sorted(map(str, build.unknown_cards))[:12])}"
+        )
     return 0
 
 
@@ -139,10 +151,14 @@ def _print_tournament_stats(stats: TournamentStats, catalog: Catalog, limit: int
     span = f"{stats.start} to {stats.end or 'today'}"
     who = "all sources combined, de-duplicated" if stats.source is None else stats.source.value
     print(f"\n== {who}, {stats.tier.value} events, {label} ({span}) ==")
-    print(f"   {stats.events} events, {stats.decks} decks counted ({stats.decks_not_counted} private/unreadable), {stats.total_copies} card copies")
+    print(
+        f"   {stats.events} events, {stats.decks} decks counted ({stats.decks_not_counted} private/unreadable), {stats.total_copies} card copies"
+    )
     print(f"   {'#':>3} {'share':>7} {'copies':>6} {'decks':>5}  {'card':9} name")
     for rank, card in enumerate(stats.cards[:limit], start=1):
-        print(f"   {rank:>3} {_percent(card.share)} {card.copies:>6} {card.decks:>5}  {card.card_number:9} {catalog.name(card.card_number)}")
+        print(
+            f"   {rank:>3} {_percent(card.share)} {card.copies:>6} {card.decks:>5}  {card.card_number:9} {catalog.name(card.card_number)}"
+        )
 
 
 def cmd_top_cards(args: argparse.Namespace) -> int:
@@ -154,10 +170,14 @@ def cmd_top_cards(args: argparse.Namespace) -> int:
         msa = msa_stats(max(snapshots, key=lambda s: s.generated_at))
         cards = [c for c in msa.cards if args.bucket is None or c.bucket.value == args.bucket]
         # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
-        print(f"== MobileSuitArena online ranking, {msa.window_start:%Y-%m-%d} to {msa.window_end:%Y-%m-%d}, {msa.games} games ==")
+        print(
+            f"== MobileSuitArena online ranking, {msa.window_start:%Y-%m-%d} to {msa.window_end:%Y-%m-%d}, {msa.games} games =="
+        )
         print(f"   {'#':>3} {'in games':>9}  {'bucket':17} {'card':9} name")
         for card in cards[: args.limit]:
-            print(f"   {card.rank:>3} {card.appearance_rate_pct:>8.1f}%  {card.bucket.value:17} {card.card_number:9} {catalog.name(card.card_number)}")
+            print(
+                f"   {card.rank:>3} {card.appearance_rate_pct:>8.1f}%  {card.bucket.value:17} {card.card_number:9} {catalog.name(card.card_number)}"
+            )
         print(f"   ({len(cards)} cards in this selection)", file=sys.stderr)
         return 0
 
@@ -165,7 +185,11 @@ def cmd_top_cards(args: argparse.Namespace) -> int:
     events = load_events_or_fail()
     if args.since:
         era_id: EraId | None = None
-        start, end, label = date.fromisoformat(args.since), (date.fromisoformat(args.until) if args.until else None), "date range"
+        start, end, label = (
+            date.fromisoformat(args.since),
+            (date.fromisoformat(args.until) if args.until else None),
+            "date range",
+        )
     else:
         eras = _eras()
         try:
@@ -213,9 +237,13 @@ def cmd_refetch(args: argparse.Namespace) -> int:
     stored = [e.id for e in load_events(source=source)]
     ids = stored if args.all else [EventId(e) for e in args.event]
     if source is Source.DUELFRONTIER:
-        report = refetch_duelfrontier(Fetcher(raw_folder(), user_agent=USER_AGENT), raw_folder(), data_out_dir(), ids, progress=print)
+        report = refetch_duelfrontier(
+            Fetcher(raw_folder(), user_agent=USER_AGENT), raw_folder(), data_out_dir(), ids, progress=print
+        )
     else:
-        report = refetch_egm(Fetcher(None, user_agent=USER_AGENT), raw_folder(), data_out_dir(), None if args.all else frozenset(ids))
+        report = refetch_egm(
+            Fetcher(None, user_agent=USER_AGENT), raw_folder(), data_out_dir(), None if args.all else frozenset(ids)
+        )
     code = _print_redo(report)
     if report.changed:
         cmd_popularity(args)
@@ -226,9 +254,11 @@ def cmd_duplicates(_: argparse.Namespace) -> int:
     groups = find_duplicate_groups(load_events_or_fail())
     for g in groups:
         other = g.others[0]
-        print(f"{g.canonical.start_date}  kept {g.canonical.source.value}: {g.canonical.name}\n"
-              f"            also {other.source.value} ({other.start_date}): {other.name}\n"
-              f"            {g.evidence}" + (f"; filled in {len(g.borrowed)} deck(s)" if g.borrowed else ""))
+        print(
+            f"{g.canonical.start_date}  kept {g.canonical.source.value}: {g.canonical.name}\n"
+            f"            also {other.source.value} ({other.start_date}): {other.name}\n"
+            f"            {g.evidence}" + (f"; filled in {len(g.borrowed)} deck(s)" if g.borrowed else "")
+        )
     print(f"{len(groups)} event(s) reported by both sources", file=sys.stderr)
     return 0
 
@@ -243,9 +273,14 @@ def cmd_eras(_: argparse.Namespace) -> int:
     print(f"{'era':8} {'label':8} {'start':11} {'end':11} {'status':9} {'events (df / egm)':20}")
     for era in eras:
         status = "current" if current == era else ("upcoming" if era.start > today else "past")
-        counts = {s: sum(1 for e in events if e.source is s and era.contains(e.start_date) and e.tier is not Tier.OTHER) for s in Source}
-        print(f"{era.id:8} {era.definition.label:8} {era.start!s:11} {era.end or '-'!s:11} {status:9} "
-              f"{counts[Source.DUELFRONTIER]} / {counts[Source.EGM]}")
+        counts = {
+            s: sum(1 for e in events if e.source is s and era.contains(e.start_date) and e.tier is not Tier.OTHER)
+            for s in Source
+        }
+        print(
+            f"{era.id:8} {era.definition.label:8} {era.start!s:11} {era.end or '-'!s:11} {status:9} "
+            f"{counts[Source.DUELFRONTIER]} / {counts[Source.EGM]}"
+        )
     return 0
 
 
@@ -255,19 +290,36 @@ def main(argv: Sequence[str] | None = None) -> int:
     sync = sub.add_parser("sync", help="fetch new data (network), then rebuild popularity.json")
     sync.add_argument("--only", choices=["duelfrontier", "egm"], help="one source (default: all)")
     sync.set_defaults(func=cmd_sync)
-    sub.add_parser("popularity", help="rebuild popularity.json from stored data (no network)").set_defaults(func=cmd_popularity)
+    sub.add_parser("popularity", help="rebuild popularity.json from stored data (no network)").set_defaults(
+        func=cmd_popularity
+    )
     sub.add_parser("eras", help="list eras and how many events each has").set_defaults(func=cmd_eras)
-    sub.add_parser("reparse", help="rebuild stored events/snapshots from the saved raw responses (no network)").set_defaults(func=cmd_reparse)
-    refetch = sub.add_parser("refetch", help="re-pull stored events from a source and replace them if they changed (network)")
+    sub.add_parser(
+        "reparse", help="rebuild stored events/snapshots from the saved raw responses (no network)"
+    ).set_defaults(func=cmd_reparse)
+    refetch = sub.add_parser(
+        "refetch", help="re-pull stored events from a source and replace them if they changed (network)"
+    )
     refetch.add_argument("--source", required=True, choices=[s.value for s in Source])
     refetch.add_argument("--event", action="append", default=[], help="event id (repeatable)")
     refetch.add_argument("--all", action="store_true", help="every stored event of that source")
     refetch.set_defaults(func=cmd_refetch)
-    sub.add_parser("duplicates", help="events both sources report, with the matching evidence (no network)").set_defaults(func=cmd_duplicates)
+    sub.add_parser(
+        "duplicates", help="events both sources report, with the matching evidence (no network)"
+    ).set_defaults(func=cmd_duplicates)
     top = sub.add_parser("top-cards", help="most played cards (no network)")
     # TODO(source-name): committed text should say only "the online ranking"; remove the source name here.
-    top.add_argument("--meta", required=True, choices=["msa", "major", "local"], help="msa = MobileSuitArena online; major/local = tournaments")
-    top.add_argument("--source", choices=["combined", *[s.value for s in Source]], help="default: combined (events both sources report counted once)")
+    top.add_argument(
+        "--meta",
+        required=True,
+        choices=["msa", "major", "local"],
+        help="msa = MobileSuitArena online; major/local = tournaments",
+    )
+    top.add_argument(
+        "--source",
+        choices=["combined", *[s.value for s in Source]],
+        help="default: combined (events both sources report counted once)",
+    )
     top.add_argument("--era", default="current", help="era id (e.g. gd05_5) or 'current' (default)")
     top.add_argument("--since", help="YYYY-MM-DD: use a date range instead of an era")
     top.add_argument("--until", help="YYYY-MM-DD (exclusive); with --since")

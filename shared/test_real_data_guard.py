@@ -3,6 +3,7 @@ catalog export) is refused with a clear error and writes nothing, even when no l
 
 The real `~/.gcg` is never touched here: HOME points at a temp folder, so `~/.gcg` resolves inside it, and the locations are left at
 their defaults, as a test that forgot to redirect them would leave them."""
+
 from __future__ import annotations
 
 import os
@@ -24,6 +25,7 @@ from tools.gundam_meta import store as meta_store
 from tools.gundam_meta.tests.test_store_history import event
 from tools.gundam_packages.tests.helpers import unit
 
+
 @pytest.fixture
 def home(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """A stand-in home folder, with the dataset and the catalog export left at their defaults (under `~/.gcg`)."""
@@ -32,7 +34,11 @@ def home(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setenv("HOME", str(fake))
     monkeypatch.delenv(ENV_VAR)
     monkeypatch.delenv(CATALOG_FILE_VAR)
-    assert Path.home() == fake and data_dir() == fake / ".gcg" / "data" and catalog_export_path() == fake / ".gcg" / "catalog.json"
+    assert (
+        Path.home() == fake
+        and data_dir() == fake / ".gcg" / "data"
+        and catalog_export_path() == fake / ".gcg" / "catalog.json"
+    )
     return fake
 
 
@@ -91,8 +97,12 @@ write_atomic(store.catalog_export_path(), "{}")
 
 def test_outside_a_test_run_the_same_writes_go_through(home: Path) -> None:
     """A separate Python without pytest, its home at the temp folder and the locations at their defaults, writes into `~/.gcg`."""
-    env = {k: v for k, v in os.environ.items() if not k.startswith("GCG_") and k != "PYTEST_CURRENT_TEST"} | {"HOME": str(home)}
-    done = subprocess.run([sys.executable, "-c", WRITE_OUTSIDE_TESTS], cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=False)
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GCG_") and k != "PYTEST_CURRENT_TEST"} | {
+        "HOME": str(home)
+    }
+    done = subprocess.run(
+        [sys.executable, "-c", WRITE_OUTSIDE_TESTS], cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=False
+    )
     assert done.returncode == 0, done.stderr
     assert (home / ".gcg" / "data" / "gundam_cards" / "cards.json").is_file()
     assert (home / ".gcg" / "catalog.json").read_text(encoding="utf-8") == "{}"

@@ -1,4 +1,5 @@
 """Small valid cards for tests (the real catalog is used in test_corpus.py)."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -56,8 +57,18 @@ def unit(number: str, name: str, *, link: str | None = None, link_trait: str | N
     )  # fmt: skip
 
 
-def pilot(number: str, name: str, *, traits: tuple[str, ...] = (), color: Color = Color.BLUE, text: str = "") -> PilotCard:
-    return PilotCard(**_common(number, name, text), color=color, level=3, cost=1, ap_bonus=1, hp_bonus=1, traits=tuple(Trait(t) for t in traits))
+def pilot(
+    number: str, name: str, *, traits: tuple[str, ...] = (), color: Color = Color.BLUE, text: str = ""
+) -> PilotCard:
+    return PilotCard(
+        **_common(number, name, text),
+        color=color,
+        level=3,
+        cost=1,
+        ap_bonus=1,
+        hp_bonus=1,
+        traits=tuple(Trait(t) for t in traits),
+    )
 
 
 def command(number: str, name: str, *, text: str = "", pilot_name: str | None = None, traits: tuple[str, ...] = (),
@@ -72,5 +83,15 @@ def catalog(*cards: CardModel) -> dict[CardNumber, CardModel]:
     return {c.number: c for c in cards}
 
 
-def base(number: str, name: str, *, text: str = "", color: Color = Color.BLUE, level: int = 3, cost: int = 1, hp: int = 5) -> BaseCard:
-    return BaseCard(**_common(number, name, text), color=color, level=level, cost=cost, hp=hp, zones=frozenset({Zone.EARTH}), traits=())
+def base(
+    number: str, name: str, *, text: str = "", color: Color = Color.BLUE, level: int = 3, cost: int = 1, hp: int = 5
+) -> BaseCard:
+    return BaseCard(
+        **_common(number, name, text),
+        color=color,
+        level=level,
+        cost=cost,
+        hp=hp,
+        zones=frozenset({Zone.EARTH}),
+        traits=(),
+    )

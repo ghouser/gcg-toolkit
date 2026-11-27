@@ -1,4 +1,5 @@
 """Tests for the cached, rate-limited fetcher, using a real local HTTP server (no internet)."""
+
 from __future__ import annotations
 
 import socketserver

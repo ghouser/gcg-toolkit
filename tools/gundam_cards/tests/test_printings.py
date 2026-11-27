@@ -1,4 +1,5 @@
 """Printing ids from list pages, and the sync that fetches only what's missing."""
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -73,7 +74,13 @@ def test_sync_fetches_only_missing_pages_and_always_refreshes_lists(tmp_path: Pa
 
     report = sync_printings(fetcher, tmp_path, [ST01, BASIC])
 
-    assert (report.packages, report.listed, report.already_cached, report.fetched, report.failures) == (2, 38, 1, 37, ())
+    assert (report.packages, report.listed, report.already_cached, report.fetched, report.failures) == (
+        2,
+        38,
+        1,
+        37,
+        (),
+    )
     list_calls = [c for c in fetcher.calls if c[0].startswith(LIST_URL.split("{}")[0])]
     assert list_calls == [(LIST_URL.format(ST01.id), True), (LIST_URL.format(BASIC.id), True)]  # lists are forced fresh
     detail_calls = [c for c in fetcher.calls if c not in list_calls]
@@ -131,7 +138,9 @@ def test_no_cache_means_no_packages(tmp_path: Path) -> None:
 def _seed_cache(raw_dir: Path) -> None:
     """A cache like after a sync of ST01 + Basic: landing, list pages, and a stub detail page per printing."""
     (raw_dir / LANDING_KEY).parent.mkdir(parents=True, exist_ok=True)
-    (raw_dir / LANDING_KEY).write_text((FIXTURES / "sets" / "landing.html").read_text(encoding="utf-8"), encoding="utf-8")
+    (raw_dir / LANDING_KEY).write_text(
+        (FIXTURES / "sets" / "landing.html").read_text(encoding="utf-8"), encoding="utf-8"
+    )
     for package in (ST01, BASIC):
         (raw_dir / list_page_key(package.id)).parent.mkdir(parents=True, exist_ok=True)
         (raw_dir / list_page_key(package.id)).write_text(_list_html(package), encoding="utf-8")
@@ -144,9 +153,14 @@ def _seed_cache(raw_dir: Path) -> None:
 def test_select_printings_by_card_package_and_everything(tmp_path: Path) -> None:
     _seed_cache(tmp_path)
     packages = read_packages(tmp_path)
-    assert [str(i) for i in select_printings(tmp_path, packages, card=CardNumber("ST01-001"))] == ["ST01-001", "ST01-001_p1"]
+    assert [str(i) for i in select_printings(tmp_path, packages, card=CardNumber("ST01-001"))] == [
+        "ST01-001",
+        "ST01-001_p1",
+    ]
     assert len(select_printings(tmp_path, packages, package="616001")) == 35  # by Bandai package id
-    assert select_printings(tmp_path, packages, package="ST01") == select_printings(tmp_path, packages, package="616001")  # by set code
+    assert select_printings(tmp_path, packages, package="ST01") == select_printings(
+        tmp_path, packages, package="616001"
+    )  # by set code
     assert len(select_printings(tmp_path, packages)) == 38  # everything that has a cached list page
     assert select_printings(tmp_path, packages, card=CardNumber("GD05-111")) == ()
 
@@ -160,7 +174,9 @@ def test_select_printings_rejects_an_unknown_package(tmp_path: Path) -> None:
 def test_refetch_reports_what_actually_changed(tmp_path: Path) -> None:
     _seed_cache(tmp_path)
     ids = [PrintingId("ST01-001"), PrintingId("ST01-002"), PrintingId("ST01-003")]
-    (tmp_path / detail_page_key(ids[1])).write_text("<html>an older copy</html>", encoding="utf-8")  # Bandai now serves different content
+    (tmp_path / detail_page_key(ids[1])).write_text(
+        "<html>an older copy</html>", encoding="utf-8"
+    )  # Bandai now serves different content
     fetcher = FakeFetcher(tmp_path, fail=frozenset({"ST01-003"}))
 
     report = refetch_printings(fetcher, tmp_path, ids)
@@ -168,7 +184,9 @@ def test_refetch_reports_what_actually_changed(tmp_path: Path) -> None:
     assert report.changed == (ids[1],) and report.unchanged == (ids[0],) and [i for i, _ in report.failures] == [ids[2]]
     assert all(force is True for _, force in fetcher.calls)  # a refetch always bypasses the cache
     assert (tmp_path / detail_page_key(ids[1])).read_text(encoding="utf-8") == "<html>ST01-002</html>"  # replaced
-    assert (tmp_path / detail_page_key(ids[2])).read_text(encoding="utf-8") == "<html>ST01-003</html>"  # a failure leaves the old copy
+    assert (tmp_path / detail_page_key(ids[2])).read_text(
+        encoding="utf-8"
+    ) == "<html>ST01-003</html>"  # a failure leaves the old copy
 
 
 def test_refetching_a_page_with_no_cached_copy_counts_as_changed(tmp_path: Path) -> None:

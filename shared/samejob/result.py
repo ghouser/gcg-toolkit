@@ -1,4 +1,5 @@
 """What a same-job check returns, and the small value types it works with."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -38,7 +39,9 @@ class Pilot:
 @dataclass(frozen=True)
 class Profile:
     critical: frozenset[str]
-    good: frozenset[str]  # Units: good-to-have keywords and effect features. Commands: burst / pilot / action and the core effects. Bases: the effects.
+    good: frozenset[
+        str
+    ]  # Units: good-to-have keywords and effect features. Commands: burst / pilot / action and the core effects. Bases: the effects.
     core: frozenset[str] = frozenset()  # Commands and Bases: the effects of the card's own text
     sizes: dict[str, int] = field(default_factory=dict)  # Commands: the main number of each sized core effect
     ap: int = 0

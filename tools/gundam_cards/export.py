@@ -2,6 +2,7 @@
 
 Pure: built from the stored catalog, the sets and the price snapshots handed in; `store.write_catalog_export` writes it.
 """
+
 from __future__ import annotations
 
 import json
@@ -28,7 +29,9 @@ from tools.gundam_cards.models import (
 )
 
 EXPORT_SCHEMA_VERSION: Literal[1] = 1  # see "Version policy" in docs/catalog-export.md
-_EDITION_BETA = SetCode("BETA")  # teaching copies, never bought or sold: never a card's reference printing (nor, if avoidable, an event printing)
+_EDITION_BETA = SetCode(
+    "BETA"
+)  # teaching copies, never bought or sold: never a card's reference printing (nor, if avoidable, an event printing)
 
 
 class ExportPrinting(FrozenModel):
@@ -60,7 +63,9 @@ class ExportSet(FrozenModel):
     name: str
     kind: SetKind
     release_date: date | None = None
-    provisional: Literal[True] | None = None  # found by a refresh, not yet in the reviewed sets.json; the name is Bandai's
+    provisional: Literal[True] | None = (
+        None  # found by a refresh, not yet in the reviewed sets.json; the name is Bandai's
+    )
 
 
 class ExportKind(FrozenModel):
@@ -98,7 +103,9 @@ def printing_prices(card: CardModel, rows: tuple[CardPrice, ...]) -> dict[Printi
     found: dict[PrintingId, tuple[int, date]] = {}
     for row in rows:
         if row.card_number == card.number:
-            matches = [p for p in card.printings if p.alt_art_level == 0 and not p.link_art and p.set_code == row.set_code]
+            matches = [
+                p for p in card.printings if p.alt_art_level == 0 and not p.link_art and p.set_code == row.set_code
+            ]
             if len(matches) == 1:
                 found[matches[0].id] = (row.price_cents, row.fetched_at.date())
     return found
@@ -108,7 +115,13 @@ def _sets(tracked: tuple[CardSet, ...], provisional: tuple[CardSet, ...]) -> tup
     tracked_codes = {s.code for s in tracked}
     entries = [(s, False) for s in tracked] + [(s, True) for s in provisional if s.code not in tracked_codes]
     return tuple(
-        ExportSet(code=s.code, name=s.name, kind=s.kind, release_date=s.release_date, provisional=True if is_provisional else None)
+        ExportSet(
+            code=s.code,
+            name=s.name,
+            kind=s.kind,
+            release_date=s.release_date,
+            provisional=True if is_provisional else None,
+        )
         for s, is_provisional in sorted(entries, key=lambda e: str(e[0].code))
     )
 
@@ -161,7 +174,9 @@ def build_export(
     printing's set code is not in the reference sets."""
     sets = _sets(tracked_sets, provisional_sets)
     known = {s.code for s in sets}
-    missing = sorted({p.set_code for c in catalog.data for p in c.printings if p.set_code is not None and p.set_code not in known})
+    missing = sorted(
+        {p.set_code for c in catalog.data for p in c.printings if p.set_code is not None and p.set_code not in known}
+    )
     if missing:
         raise MissingSetCodes(tuple(missing))
     unlisted = {r.number for r in catalog.records if r.no_longer_listed}
@@ -173,7 +188,9 @@ def build_export(
     )
     if printing_price_history:  # each printing's own price, from the newest per-printing snapshot: no stopgap
         own = {r.printing_id: (r.price_cents, r.fetched_at.date()) for r in printing_price_history[-1].data}
-        cards = tuple(_card(c, c.number in unlisted, {p.id: own[p.id] for p in c.printings if p.id in own}) for c in catalog.data)
+        cards = tuple(
+            _card(c, c.number in unlisted, {p.id: own[p.id] for p in c.printings if p.id in own}) for c in catalog.data
+        )
     else:  # until the first per-printing snapshot: the per-card snapshots, matched to the card's one printing in the product's set
         rows: dict[CardNumber, list[CardPrice]] = defaultdict(list)
         for snapshot in price_history:

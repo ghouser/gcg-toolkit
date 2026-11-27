@@ -17,7 +17,15 @@ BASE_END, NEW_START = date(2026, 9, 25), date(2026, 9, 25)
 
 
 def window(era: str, decks: int, end: date | None) -> Window:
-    return Window(era=EraId(era), start=date(2026, 7, 24), end=end, tiers=(Tier.MAJOR, Tier.LOCAL), events=1, decks=decks, decks_not_counted=0)
+    return Window(
+        era=EraId(era),
+        start=date(2026, 7, 24),
+        end=end,
+        tiers=(Tier.MAJOR, Tier.LOCAL),
+        events=1,
+        decks=decks,
+        decks_not_counted=0,
+    )
 
 
 def base_file() -> PackagesFile:
@@ -36,7 +44,10 @@ def graph() -> SynergyGraph:
     return SynergyGraph([*edges, *extra])
 
 
-INTRODUCED = {**{n: date(2026, 1, 1) for n in (A1, A2, A3, B1, B2, B3, B4, S1)}, **{n: date(2026, 10, 1) for n in (NEW1, NEW2, NEW3, NEW4)}}
+INTRODUCED = {
+    **{n: date(2026, 1, 1) for n in (A1, A2, A3, B1, B2, B3, B4, S1)},
+    **{n: date(2026, 10, 1) for n in (NEW1, NEW2, NEW3, NEW4)},
+}
 
 
 def new_decks() -> list[frozenset[CardNumber]]:
@@ -49,7 +60,16 @@ def new_decks() -> list[frozenset[CardNumber]]:
 
 def make_drift() -> DriftFile:
     decks = new_decks()
-    return compute_drift(base_file(), decks, window("gd05_5", len(decks), None), graph(), INTRODUCED, {}, lambda pid, m, e: f"new:{pid}", NOW)
+    return compute_drift(
+        base_file(),
+        decks,
+        window("gd05_5", len(decks), None),
+        graph(),
+        INTRODUCED,
+        {},
+        lambda pid, m, e: f"new:{pid}",
+        NOW,
+    )
 
 
 def test_a_new_card_tied_to_a_package_joins_it() -> None:
@@ -89,4 +109,6 @@ def test_introduced_dates_come_from_the_earliest_printing_with_a_known_date() ->
 
 def test_emerging_packages_are_discovered_with_relaxed_thresholds() -> None:
     relaxed = make_drift().params
-    assert relaxed.min_decks == 3 and relaxed.mutual_threshold == PARAMS.mutual_threshold  # only the minimum deck count is relaxed
+    assert (
+        relaxed.min_decks == 3 and relaxed.mutual_threshold == PARAMS.mutual_threshold
+    )  # only the minimum deck count is relaxed

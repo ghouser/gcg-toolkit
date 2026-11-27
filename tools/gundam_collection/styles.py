@@ -20,6 +20,7 @@ advantage (100 minus it). A pure beatdown wants a fast curve and pressure and do
 supply of cards. **Aggro** = 60 or more, **Control** = 38 or less, **Midrange** = everything between (it can play either role).
 Pure functions over the deck's requirements and the card catalog.
 """
+
 from __future__ import annotations
 
 import re
@@ -36,9 +37,15 @@ from tools.gundam_collection.decks import Layer, Requirement
 
 OPTION_WEIGHT = 0.5  # an option card counts half: not every list runs it
 PRESSURE_KEYWORDS = frozenset({Keyword.BREACH, Keyword.SUPPRESSION, Keyword.HIGH_MANEUVER})
-INTERACTION_FEATURES = frozenset({"damage", "damage all", "destroy", "destroy all", "bounce", "-AP", "-AP all", "rest", "rest all", "attack target"})
-HAND_ADD = re.compile(r"\bdraw (?:\d+|x)\b|\badd (?!this card\b)[^.]{0,80}\bto your hand", re.I)  # puts a card in my hand (draw N, add ... to hand)
-CONDITION = re.compile(r"\bif\b(?!\s+you do)|\bwhen\b|\breveal\b|\bamong them\b|\bfrom your trash\b", re.I)  # a condition on getting the card
+INTERACTION_FEATURES = frozenset(
+    {"damage", "damage all", "destroy", "destroy all", "bounce", "-AP", "-AP all", "rest", "rest all", "attack target"}
+)
+HAND_ADD = re.compile(
+    r"\bdraw (?:\d+|x)\b|\badd (?!this card\b)[^.]{0,80}\bto your hand", re.I
+)  # puts a card in my hand (draw N, add ... to hand)
+CONDITION = re.compile(
+    r"\bif\b(?!\s+you do)|\bwhen\b|\breveal\b|\bamong them\b|\bfrom your trash\b", re.I
+)  # a condition on getting the card
 CONDITIONAL_WEIGHT = 0.5
 _TOKEN_STATS = re.compile(r"\bAP(\d+)\W+HP(\d+)")  # a deployed token: [Tallgeese]((OZ)･AP4･HP2)
 _REMINDER = re.compile(r"\([^()]*\)")
@@ -77,7 +84,9 @@ class Style:
     plan: Plan
     beatdown: int  # the axis: 0 pure control .. 100 pure beatdown
     facts: Mapping[str, float]  # the measured numbers behind the ratings
-    links: int = 0  # Link pairs: pilots that can pair with Linked Units (not part of the plan axis: every plan wants them)
+    links: int = (
+        0  # Link pairs: pilots that can pair with Linked Units (not part of the plan axis: every plan wants them)
+    )
 
     @property
     def color_text(self) -> str:
@@ -102,7 +111,9 @@ def link_pairs(chosen: Mapping[CardNumber, int], catalog: Mapping[CardNumber, Ca
     pilots = {c: n for c, n in chosen.items() if is_pilot(catalog[c])}
     left = dict(units)
     pairs = 0
-    for pilot in sorted(pilots, key=lambda p: (sum(left[u] for u in units if satisfies(catalog[u], catalog[p])), p)):  # the most constrained pilot first
+    for pilot in sorted(
+        pilots, key=lambda p: (sum(left[u] for u in units if satisfies(catalog[u], catalog[p])), p)
+    ):  # the most constrained pilot first
         for _ in range(pilots[pilot]):
             target = next((u for u in sorted(units) if left[u] > 0 and satisfies(catalog[u], catalog[pilot])), None)
             if target is not None:
@@ -191,7 +202,9 @@ def card_signals(card: CardModel) -> CardSignals | None:
         return None
     color = color_of(card)
     letter = LETTERS[color.value] if color is not None else None
-    text = base_core_text(card.text) if isinstance(card, BaseCard) else card.text  # a Base's baseline (Shield to hand) is not an effect
+    text = (
+        base_core_text(card.text) if isinstance(card, BaseCard) else card.text
+    )  # a Base's baseline (Shield to hand) is not an effect
     features = effect_features(text, grants=isinstance(card, CommandCard | BaseCard))
     advantage = advantage_weight(text)
     if isinstance(card, UnitCard):
@@ -216,7 +229,9 @@ def card_signals(card: CardModel) -> CardSignals | None:
 
 
 def style_of(
-    requirements: Sequence[Requirement], catalog: Mapping[CardNumber, CardModel], signals: Mapping[CardNumber, CardSignals | None] | None = None
+    requirements: Sequence[Requirement],
+    catalog: Mapping[CardNumber, CardModel],
+    signals: Mapping[CardNumber, CardSignals | None] | None = None,
 ) -> Style:
     """Rate a card table. `signals` (card number -> card_signals) can be given to avoid reading the same card text again and again."""
     units = commands = bases = total = 0.0
@@ -224,7 +239,11 @@ def style_of(
     colored: dict[str, float] = defaultdict(float)
     for r in requirements:
         card = catalog.get(r.card)
-        sig = (signals[r.card] if signals is not None and r.card in signals else card_signals(card)) if card is not None else None
+        sig = (
+            (signals[r.card] if signals is not None and r.card in signals else card_signals(card))
+            if card is not None
+            else None
+        )
         if sig is None:
             continue
         w = r.need * (1.0 if r.layer in (Layer.CORE, Layer.STAPLE) else OPTION_WEIGHT)

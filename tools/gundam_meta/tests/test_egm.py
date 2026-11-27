@@ -61,8 +61,16 @@ def test_a_pipe_marks_the_boundary_between_main_deck_and_sideboard() -> None:
     assert [sum(c.qty for c in d.main) for d in cup.decks] == [50] * 7
     assert [sum(c.qty for c in d.side) for d in cup.decks] == [10] * 7
     first = cup.decks[0]  # "...GD05-042:3,GD02-129:3|GD05-035:3,GD05-112:2,GD04-068:3,GD05-036:1,GD05-128:1"
-    assert {str(c.card_number) for c in first.main} >= {"GD05-042", "GD02-129"} and "GD05-035" not in {str(c.card_number) for c in first.main}
-    assert {str(c.card_number): c.qty for c in first.side} == {"GD05-035": 3, "GD05-112": 2, "GD04-068": 3, "GD05-036": 1, "GD05-128": 1}
+    assert {str(c.card_number) for c in first.main} >= {"GD05-042", "GD02-129"} and "GD05-035" not in {
+        str(c.card_number) for c in first.main
+    }
+    assert {str(c.card_number): c.qty for c in first.side} == {
+        "GD05-035": 3,
+        "GD05-112": 2,
+        "GD04-068": 3,
+        "GD05-036": 1,
+        "GD05-128": 1,
+    }
 
 
 def test_a_boundary_that_does_not_add_up_stays_unresolved() -> None:

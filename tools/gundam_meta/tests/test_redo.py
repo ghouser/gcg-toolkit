@@ -1,4 +1,5 @@
 """Reparse (from saved raw responses, no network) and refetch (from the source), with what each reports as changed."""
+
 from __future__ import annotations
 
 import json
@@ -89,7 +90,9 @@ def test_reparse_egm_uses_the_raw_response_each_event_was_stored_from(tmp_path: 
     write_event(tampered, out, replace=True)
     fixed = reparse_egm(raw, out)
     assert fixed.changed == (f"egm:{events[0].id}",)
-    assert load_events(out, Source.EGM)[0].players == events[0].players or any(e.players == events[0].players for e in load_events(out, Source.EGM))
+    assert load_events(out, Source.EGM)[0].players == events[0].players or any(
+        e.players == events[0].players for e in load_events(out, Source.EGM)
+    )
 
 
 def test_reparse_egm_without_its_raw_response_fails(tmp_path: Path) -> None:
@@ -131,7 +134,9 @@ def test_refetch_duelfrontier_replaces_only_what_changed(tmp_path: Path) -> None
     reparse_duelfrontier(raw, out)
     api = _Api(_df_texts())
     same = refetch_duelfrontier(api, raw, out, [MKE])
-    assert same.unchanged == (f"duelfrontier:{MKE}",) and all(force for _, force in api.calls)  # always bypasses the cache
+    assert same.unchanged == (f"duelfrontier:{MKE}",) and all(
+        force for _, force in api.calls
+    )  # always bypasses the cache
 
     # The source now serves a corrected winning deck (one card swapped): the stored event is replaced.
     corrected = _df_texts()
@@ -174,8 +179,15 @@ def test_refetch_egm_for_chosen_ids_reports_unknown_ones(tmp_path: Path) -> None
     events = egm.parse_tournaments(_read("egm_tournaments.json"), FETCHED).events
     for e in events:
         write_event(e, out)
-    report = refetch_egm(_Api({egm.TOURNAMENTS_URL: _read("egm_tournaments.json")}), tmp_path / "raw", out, frozenset({events[0].id, EventId("gone")}))
-    assert report.unchanged == (f"egm:{events[0].id}",) and report.failures == (("egm:gone", "not in EGM's current list"),)
+    report = refetch_egm(
+        _Api({egm.TOURNAMENTS_URL: _read("egm_tournaments.json")}),
+        tmp_path / "raw",
+        out,
+        frozenset({events[0].id, EventId("gone")}),
+    )
+    assert report.unchanged == (f"egm:{events[0].id}",) and report.failures == (
+        ("egm:gone", "not in EGM's current list"),
+    )
 
 
 def test_same_content_ignores_only_the_fetch_time() -> None:

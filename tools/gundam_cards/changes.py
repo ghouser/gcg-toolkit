@@ -3,6 +3,7 @@
 Reminder-only differences are ignored. What's left are real wording differences: usually the rules being reworded
 (expected), occasionally a translation slip on one printing (worth catching). The tool can't tell which; you can.
 """
+
 from __future__ import annotations
 
 import difflib

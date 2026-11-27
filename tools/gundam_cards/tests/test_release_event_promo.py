@@ -2,6 +2,7 @@
 is PROMO whatever bracketed code the text mentions (AC-1); a card's own set skips such printings (AC-2); PROMO is a known set and
 sets.json is untouched (AC-3); the price matching then matches the booster printing, not the event one (AC-4).
 Fixtures are invented, with the wordings of the spec's examples. Expected values are worked out by hand."""
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -72,7 +73,9 @@ def test_the_event_wording_wins_over_an_ordinary_booster_package_and_a_passing_m
     ("Tournament participants [GD05]", "R", GD05_PACKAGE, "GD05"),
     ("Store tournament prize", "R", "616901", "PROMO"),  # already PROMO through its package
 ])  # fmt: skip
-def test_a_text_naming_no_event_keeps_its_set_code(page: Page, where: str, rarity: str, package: str, expected: str) -> None:
+def test_a_text_naming_no_event_keeps_its_set_code(
+    page: Page, where: str, rarity: str, package: str, expected: str
+) -> None:
     assert built(page, where, rarity, package).set_code == expected
 
 
@@ -83,12 +86,15 @@ def test_the_wording_rule_is_a_pure_text_test() -> None:
 
 # ---- AC-1, AC-3: after reparse and refresh, in cards.json and the export ----------------------------------------------------
 EVENT_LISTED = {
-    "616101": ("Newtype Rising [GD01]", {
-        "GD01-001": "Newtype Rising [GD01]",
-        "GD01-001_p1": "Newtype Rising [GD01] Release Event Commemorative Items for Participants",
-        "GD01-002_p1": "Starter Deck [GD01]/[GD02] Pre-Release Event",  # an event printing alone (no base page: the card is event-only)
-        "GD01-003": "Newtype Rising [GD01]",
-    }),
+    "616101": (
+        "Newtype Rising [GD01]",
+        {
+            "GD01-001": "Newtype Rising [GD01]",
+            "GD01-001_p1": "Newtype Rising [GD01] Release Event Commemorative Items for Participants",
+            "GD01-002_p1": "Starter Deck [GD01]/[GD02] Pre-Release Event",  # an event printing alone (no base page: the card is event-only)
+            "GD01-003": "Newtype Rising [GD01]",
+        },
+    ),
 }
 EXPECTED_PRINTING_CODES = {"GD01-001": "GD01", "GD01-001_p1": "PROMO", "GD01-002_p1": "PROMO", "GD01-003": "GD01"}
 EXPECTED_CARD_CODES = {"GD01-001": "GD01", "GD01-002": "PROMO", "GD01-003": "GD01"}
@@ -128,7 +134,9 @@ def test_a_rebuild_gives_event_printings_promo_in_the_catalog_and_the_export_and
     text = catalog_export_path().read_text(encoding="utf-8")
     exported = CatalogExport.model_validate_json(text)
     known = {s.code for s in exported.reference.sets}
-    assert {p.id: p.set_code for c in exported.cards for p in c.printings} == {PrintingId(k): SetCode(v) for k, v in EXPECTED_PRINTING_CODES.items()}
+    assert {p.id: p.set_code for c in exported.cards for p in c.printings} == {
+        PrintingId(k): SetCode(v) for k, v in EXPECTED_PRINTING_CODES.items()
+    }
     assert {str(c.number): c.set_code for c in exported.cards} == EXPECTED_CARD_CODES
     assert {p.set_code for c in exported.cards for p in c.printings} <= known and "PROMO" in known
 
@@ -156,7 +164,9 @@ def test_a_card_with_a_booster_printing_and_an_event_printing_keeps_the_boosters
 
 
 def test_the_reference_printing_is_chosen_by_kind_not_by_position() -> None:
-    assert card_set_codes(("GD05-042", (event("GD05-042", "PROMO", GD05_EVENT), printing("GD05-042_p1", "GD05")))) == {"GD05-042": "GD05"}
+    assert card_set_codes(("GD05-042", (event("GD05-042", "PROMO", GD05_EVENT), printing("GD05-042_p1", "GD05")))) == {
+        "GD05-042": "GD05"
+    }
     assert card_set_codes(("GD05-042", (printing("GD05-042", "BETA"), event("GD05-042_p1", "PROMO"), printing("GD05-042_p2", "GD05")))) == {
         "GD05-042": "GD05"}  # fmt: skip
 
@@ -171,7 +181,9 @@ def test_a_card_with_only_event_printings_or_beta_and_event_ones_is_promo_and_a_
 
 def test_an_ordinary_promo_package_printing_is_not_an_event_printing_for_the_card_level_rule() -> None:
     prize = printing("GD05-044", "PROMO").model_copy(update={"where_to_get": "Store tournament prize"})
-    assert card_set_codes(("GD05-044", (prize, printing("GD05-044_p1", "GD05")))) == {"GD05-044": "PROMO"}  # first printing, as before
+    assert card_set_codes(("GD05-044", (prize, printing("GD05-044_p1", "GD05")))) == {
+        "GD05-044": "PROMO"
+    }  # first printing, as before
 
 
 # ---- AC-4: the price matching -----------------------------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 `eras.json` (hand-maintained) says which sets anchor each era; start dates come from the card catalog's
 `sets.json` at read time, so nothing here goes stale. Eras don't overlap: an era ends where the next begins.
 """
+
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping, Sequence

@@ -3,6 +3,7 @@
 The refresh logic runs with the fake Bandai of the refresh tests; the commands run through `cli.main` with only the network faked, so the
 real `Fetcher` writes the cache wherever the command points it. Expected values are worked out by hand from the pages each test writes.
 """
+
 from __future__ import annotations
 
 from datetime import UTC, date, datetime
@@ -32,11 +33,16 @@ NINE = ["GD01-001", "GD01-001_p1", *[f"GD01-{n:03}" for n in range(2, 10)]]  # 9
 def page(printing_id: str, *, name: str = "", source_title: str = "-", text: str = "-", faq: str = "") -> str:
     """A detail page the real parser reads, with a source title, card text and an FAQ entry when given."""
     html = detail(printing_id, name=name)
-    html = html.replace('Source Title</dt><dd class="dataTxt">-<', f'Source Title</dt><dd class="dataTxt">{source_title}<')
+    html = html.replace(
+        'Source Title</dt><dd class="dataTxt">-<', f'Source Title</dt><dd class="dataTxt">{source_title}<'
+    )
     html = html.replace('<div class="dataTxt isRegular">-</div>', f'<div class="dataTxt isRegular">{text}</div>')
     if faq:
-        html = html.replace("</body>", f'<h3 class="qaColNum">Q1</h3><p class="qaColDate"><span>July 04, 2025</span> Updated</p>'
-                                       f'<dl><dt class="qaColQuestion">May I?</dt><dd class="qaColAnswer">{faq}</dd></dl></body>')
+        html = html.replace(
+            "</body>",
+            f'<h3 class="qaColNum">Q1</h3><p class="qaColDate"><span>July 04, 2025</span> Updated</p>'
+            f'<dl><dt class="qaColQuestion">May I?</dt><dd class="qaColAnswer">{faq}</dd></dl></body>',
+        )
     return html
 
 
@@ -48,8 +54,15 @@ def cache(printing_id: str, html: str) -> None:
 
 @pytest.fixture
 def tracked(tmp_path: Path) -> Path:
-    gd01 = CardSet(code=SetCode("GD01"), name="Newtype Rising", kind=SetKind.BOOSTER, bandai_package_id=PackageId(GD01),
-                   release_date=date(2025, 7, 25), product_category_raw="BOOSTER PACK", product_url=None)
+    gd01 = CardSet(
+        code=SetCode("GD01"),
+        name="Newtype Rising",
+        kind=SetKind.BOOSTER,
+        bandai_package_id=PackageId(GD01),
+        release_date=date(2025, 7, 25),
+        product_category_raw="BOOSTER PACK",
+        product_url=None,
+    )
     write_tracked_sets((gd01,), T1, tmp_path / "tracked")
     return tmp_path / "tracked"
 
@@ -64,8 +77,12 @@ def site() -> FakeBandai:
     )
 
 
-def run(site: FakeBandai, tracked: Path, when: datetime, *, dry_run: bool = False, allow_anomaly: bool = False) -> RefreshReport:
-    return refresh_catalog(site, site.raw_dir, tracked_dir=tracked, now=when, dry_run=dry_run, allow_anomaly=allow_anomaly)
+def run(
+    site: FakeBandai, tracked: Path, when: datetime, *, dry_run: bool = False, allow_anomaly: bool = False
+) -> RefreshReport:
+    return refresh_catalog(
+        site, site.raw_dir, tracked_dir=tracked, now=when, dry_run=dry_run, allow_anomaly=allow_anomaly
+    )
 
 
 def ten_cards(site: FakeBandai, tracked: Path) -> None:
@@ -84,7 +101,9 @@ def web(monkeypatch: pytest.MonkeyPatch) -> Web:
     return install_web(monkeypatch)
 
 
-FUTURE = FakeBandai(Path(), {"616190": ("Future Pack [GD90]", ["GD90-001"])}, products=[("Future Pack [GD90]", "March 5,2027")])
+FUTURE = FakeBandai(
+    Path(), {"616190": ("Future Pack [GD90]", ["GD90-001"])}, products=[("Future Pack [GD90]", "March 5,2027")]
+)
 OLD = FakeBandai(Path(), {"616191": ("Old Pack [GD91]", ["GD91-001"])}, products=[("Old Pack [GD91]", "May 1,2025")])
 
 
@@ -100,7 +119,9 @@ def checkout_with_an_old_cache(folder: Path) -> dict[str, bytes]:
     returns its files' bytes, to compare after a run."""
     raw = folder / "tools" / "gundam_cards" / "data" / "raw"
     (raw / "detail").mkdir(parents=True)
-    (raw / detail_page_key(PrintingId("GD01-001"))).write_text(detail("GD01-001", name="Old Checkout Name"), encoding="utf-8")
+    (raw / detail_page_key(PrintingId("GD01-001"))).write_text(
+        detail("GD01-001", name="Old Checkout Name"), encoding="utf-8"
+    )
     write_package_list(raw, OLD)
     return {str(p): p.read_bytes() for p in sorted(folder.rglob("*")) if p.is_file()}
 
@@ -118,10 +139,16 @@ def test_two_checkouts_share_the_datasets_page_cache_and_ignore_their_own(
 
     monkeypatch.setenv(TOOL_DATA_VAR, str(checkout_b))
     assert cli.main(["refresh"]) == 0
-    assert sorted(web.detail_requests()) == [DETAIL_URL.format("GD01-001"), DETAIL_URL.format("GD01-002")]  # B's old page not read
+    assert sorted(web.detail_requests()) == [
+        DETAIL_URL.format("GD01-001"),
+        DETAIL_URL.format("GD01-002"),
+    ]  # B's old page not read
     assert cards()["GD01-001"].name == "Card GD01-001"  # Bandai's page, not the checkout's old one
     assert files_of(checkout_b) == old_b  # and the checkout's cache is not changed
-    assert sorted(p.name for p in (tmp_path / "dataset" / "gundam_cards" / "pages" / "detail").iterdir()) == ["GD01-001.html", "GD01-002.html"]
+    assert sorted(p.name for p in (tmp_path / "dataset" / "gundam_cards" / "pages" / "detail").iterdir()) == [
+        "GD01-001.html",
+        "GD01-002.html",
+    ]
 
     web.requested.clear()
     monkeypatch.setenv(TOOL_DATA_VAR, str(tmp_path / "checkout-a"))
@@ -143,7 +170,9 @@ def test_refetch_and_reparse_do_not_read_a_checkouts_old_cache(
     old = checkout_with_an_old_cache(checkout)
     monkeypatch.setenv(TOOL_DATA_VAR, str(checkout))
 
-    assert cli.main(["refetch", "--card", "GD01-001"]) == 2  # the dataset has no package list; the checkout's is not used
+    assert (
+        cli.main(["refetch", "--card", "GD01-001"]) == 2
+    )  # the dataset has no package list; the checkout's is not used
     assert "no cached package list" in capsys.readouterr().err
     assert cli.main(["reparse"]) == 2  # no listings in the dataset to tell cards from orphans: nothing built
     assert "no cached package listings" in capsys.readouterr().err  # the checkout's old detail page is not built
@@ -210,7 +239,10 @@ def test_each_kind_of_field_change_is_counted_and_named(site: FakeBandai, tracke
 
 def test_a_stored_printing_missing_from_the_rebuild_is_a_change(site: FakeBandai, tracked: Path) -> None:
     ten_cards(site, tracked)
-    site.packages[GD01] = ("Newtype Rising [GD01]", [i for i in NINE if i != "GD01-001_p1"])  # no listing names it any more
+    site.packages[GD01] = (
+        "Newtype Rising [GD01]",
+        [i for i in NINE if i != "GD01-001_p1"],
+    )  # no listing names it any more
     (pages_folder() / detail_page_key(PrintingId("GD01-001_p1"))).unlink()  # and a fresh cache has no page for it
     report = run(site, tracked, T2)
     assert report.changed == (ChangedCard(CardNumber("GD01-001"), ("GD01-001_p1 missing",)),) and report.refused

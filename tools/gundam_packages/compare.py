@@ -1,5 +1,6 @@
 """Matching the packages found in two sets of decks (tournament and online) by the cards they share. The matching itself is in
 `shared/overlap.py` (the collection tool needs it too)."""
+
 from __future__ import annotations
 
 from collections.abc import Mapping

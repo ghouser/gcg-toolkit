@@ -1,4 +1,5 @@
 """Sets: package filter + product list -> CardSet, from saved Bandai pages."""
+
 from __future__ import annotations
 
 from datetime import date
@@ -44,7 +45,9 @@ def test_package_filter_is_deduplicated_and_complete() -> None:
 def test_product_list_pages() -> None:
     first, pages = parse_product_list((FIXTURES / "products-1.html").read_text(encoding="utf-8"))
     assert pages == 4 and len(first) == 12
-    assert first[0] == RawProduct("BOOSTER PACK", "Blazing Fist [GD07]", "https://www.gundam-gcg.com/en/products/gd07.html", "January 29,2027")
+    assert first[0] == RawProduct(
+        "BOOSTER PACK", "Blazing Fist [GD07]", "https://www.gundam-gcg.com/en/products/gd07.html", "January 29,2027"
+    )
     assert len(_products()) == 47  # 12 + 12 + 12 + 11, including the uncoded Edition Beta product
 
 
@@ -54,7 +57,11 @@ def test_product_list_pages() -> None:
         ("Freedom Ascension [GD05]", "Freedom Ascension", "GD05"),
         ("Stardust Trails[GD06]", "Stardust Trails", "GD06"),
         ("Accessory and Card Set 01 FIRST COMBAT [EVX-01]", "Accessory and Card Set 01 FIRST COMBAT", "EVX01"),
-        ("Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam GQuuuuuuX- [PC02A]", "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam GQuuuuuuX-", "PC02A"),
+        (
+            "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam GQuuuuuuX- [PC02A]",
+            "Premium Card Collection GUNDAM ASSEMBLE Set -Mobile Suit Gundam GQuuuuuuX-",
+            "PC02A",
+        ),
         ("Official Card Sleeves 02", "Official Card Sleeves 02", None),
     ],
 )
@@ -109,7 +116,12 @@ def test_built_sets_join_packages_with_release_dates() -> None:
     assert {by_code[c].release_date for c in ("ST11", "ST12", "ST13", "ST14")} == {date(2026, 9, 25)}
 
     # Synthetic codes stand in for uncoded packages; those with no product page keep an unknown date.
-    for code, kind in (("PROMO", SetKind.PROMO), ("BETA", SetKind.BETA), ("BASIC", SetKind.OTHER), ("OTHER", SetKind.OTHER)):
+    for code, kind in (
+        ("PROMO", SetKind.PROMO),
+        ("BETA", SetKind.BETA),
+        ("BASIC", SetKind.OTHER),
+        ("OTHER", SetKind.OTHER),
+    ):
         assert by_code[code].kind is kind and by_code[code].bandai_package_id
     assert all(by_code[c].release_date is None for c in ("PROMO", "BASIC", "OTHER"))
 

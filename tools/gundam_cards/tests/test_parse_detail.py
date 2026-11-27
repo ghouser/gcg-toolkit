@@ -1,4 +1,5 @@
 """Parsing one Bandai detail page into the raw boundary structure."""
+
 from __future__ import annotations
 
 from collections.abc import Callable

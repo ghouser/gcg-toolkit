@@ -4,6 +4,7 @@ One request (`/api/tournaments/gundam`, ~600 KB) returns every tournament with i
 encoded in a URL: `...?deck=ST11-001:4,ST11-003:4,...`. Event types: Large Official and Official (small official) are
 the major tier; Unofficial is the local tier. EGM also lists "Total Color Breakdown" rows, which are aggregates, not events.
 """
+
 from __future__ import annotations
 
 import re

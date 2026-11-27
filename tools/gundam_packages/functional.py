@@ -13,6 +13,7 @@ One more tie, kept from the earlier graph: Units with the same set of native rol
 **shared-keyword synergy** whatever their Link, color or stats. A Linked Blocker (Aile Strike) and a plain one (Gundam Lfrith) are not
 peers, but decks run them together as a Blocker package.
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -26,7 +27,15 @@ from tools.gundam_cards.models import CardKind, CardModel, Keyword, UnitCard, co
 from tools.gundam_packages.models import SynergyEdge, SynergyKind
 
 ROLE_KEYWORDS = frozenset(
-    {Keyword.BLOCKER, Keyword.BREACH, Keyword.REPAIR, Keyword.SUPPORT, Keyword.FIRST_STRIKE, Keyword.HIGH_MANEUVER, Keyword.SUPPRESSION}
+    {
+        Keyword.BLOCKER,
+        Keyword.BREACH,
+        Keyword.REPAIR,
+        Keyword.SUPPORT,
+        Keyword.FIRST_STRIKE,
+        Keyword.HIGH_MANEUVER,
+        Keyword.SUPPRESSION,
+    }
 )
 PEER_STAT_SLACK = 1  # Units: AP and HP each within this of each other, both ways
 
@@ -53,7 +62,11 @@ def functional_edges(cards: Sequence[CardModel]) -> list[SynergyEdge]:
             forward, backward = matcher.stands_in(a, b), matcher.stands_in(b, a)
             if kind == "unit":
                 pa, pb = matcher.profile(a), matcher.profile(b)
-                peers = (_same_job(forward) or _same_job(backward)) and abs(pa.ap - pb.ap) <= PEER_STAT_SLACK and abs(pa.hp - pb.hp) <= PEER_STAT_SLACK
+                peers = (
+                    (_same_job(forward) or _same_job(backward))
+                    and abs(pa.ap - pb.ap) <= PEER_STAT_SLACK
+                    and abs(pa.hp - pb.hp) <= PEER_STAT_SLACK
+                )
             elif kind == "pilot":
                 peers = _same_job(forward) or _same_job(backward)
             else:
@@ -62,6 +75,18 @@ def functional_edges(cards: Sequence[CardModel]) -> list[SynergyEdge]:
                 same_color = color_of(a) is not None and color_of(a) == color_of(b)
                 edges.append(SynergyEdge(a=a.number, b=b.number, kind=SynergyKind.FUNCTIONAL_EFFECT if same_color else SynergyKind.SIMILAR_ABILITY,
                                          detail="same job" if same_color else "same job, other color"))  # fmt: skip
-            elif isinstance(a, UnitCard) and isinstance(b, UnitCard) and roles[a.number] and roles[a.number] == roles[b.number]:
-                edges.append(SynergyEdge(a=a.number, b=b.number, kind=SynergyKind.SHARED_KEYWORD, detail="/".join(sorted(k.value for k in roles[a.number]))))
+            elif (
+                isinstance(a, UnitCard)
+                and isinstance(b, UnitCard)
+                and roles[a.number]
+                and roles[a.number] == roles[b.number]
+            ):
+                edges.append(
+                    SynergyEdge(
+                        a=a.number,
+                        b=b.number,
+                        kind=SynergyKind.SHARED_KEYWORD,
+                        detail="/".join(sorted(k.value for k in roles[a.number])),
+                    )
+                )
     return edges

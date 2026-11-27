@@ -1,4 +1,5 @@
 """The collection commands read the collection file (or the text list until it exists) and never write either."""
+
 from __future__ import annotations
 
 import json
@@ -25,7 +26,9 @@ def catalog(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(cli, "load_packages", lambda *a, **k: None)
     monkeypatch.setattr(cli, "load_rates", lambda *a, **k: None)
     first = unit("ST01-001", "Gundam")
-    alternate = first.printings[0].model_copy(update={"id": PrintingId("ST01-001_p5"), "variant": 5, "alt_art_level": 1})
+    alternate = first.printings[0].model_copy(
+        update={"id": PrintingId("ST01-001_p5"), "variant": 5, "alt_art_level": 1}
+    )
     write_catalog(CatalogResult(cards=(first.model_copy(update={"printings": (*first.printings, alternate)}), unit("GD01-001", "Zaku")),
                                 issues=(), trait_vocabulary=frozenset()), NOW)  # fmt: skip
     row = CardPrice(card_number=CardNumber("ST01-001"), price_cents=25, product_id=ProductId(7), fetched_at=NOW)
@@ -34,7 +37,10 @@ def catalog(monkeypatch: pytest.MonkeyPatch) -> None:
 
 def write_file(monkeypatch: pytest.MonkeyPatch, folder: Path, counts: dict[str, object], **top: object) -> Path:
     path = folder / "collection.json"
-    path.write_text(json.dumps({"schema_version": 1, "updated_at": "2026-11-22T00:00:00Z", "counts": counts, **top}), encoding="utf-8")
+    path.write_text(
+        json.dumps({"schema_version": 1, "updated_at": "2026-11-22T00:00:00Z", "counts": counts, **top}),
+        encoding="utf-8",
+    )
     monkeypatch.setenv(ENV_VAR, str(path))
     return path
 
@@ -54,7 +60,9 @@ def test_the_counts_in_the_file_are_what_the_commands_report_as_owned(
     captured = capsys.readouterr()
     assert "owned:  3 copies" in captured.out
     assert "not in the catalog" not in captured.err  # a well-formed file with known ids reports nothing of the kind
-    assert path.read_bytes() == before and [p.name for p in tmp_path.iterdir()] == ["collection.json"]  # unchanged, nothing beside it
+    assert path.read_bytes() == before and [p.name for p in tmp_path.iterdir()] == [
+        "collection.json"
+    ]  # unchanged, nothing beside it
 
 
 def test_a_card_owned_only_as_an_alternate_counts_as_the_card(
@@ -65,10 +73,25 @@ def test_a_card_owned_only_as_an_alternate_counts_as_the_card(
     assert "owned:  1 copies" in capsys.readouterr().out
 
 
-@pytest.mark.parametrize("argv", [["card", "ST01-001"], ["value"], ["coverage"], ["decks"], ["buy", "x"], ["deck", "x"], ["archetypes"], ["suggest", "x"]])
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["card", "ST01-001"],
+        ["value"],
+        ["coverage"],
+        ["decks"],
+        ["buy", "x"],
+        ["deck", "x"],
+        ["archetypes"],
+        ["suggest", "x"],
+    ],
+)
 @pytest.mark.parametrize(
     ("counts", "top", "named"),
-    [({"ST01-001": 1}, {"schema_version": 2}, "schema_version is 2"), ({"ST01-001": 0}, {}, "ST01-001: the count must be 1 or more")],
+    [
+        ({"ST01-001": 1}, {"schema_version": 2}, "schema_version is 2"),
+        ({"ST01-001": 0}, {}, "ST01-001: the count must be 1 or more"),
+    ],
 )
 def test_a_refused_file_stops_every_collection_command_without_the_text_list(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str],
@@ -83,7 +106,9 @@ def test_a_refused_file_stops_every_collection_command_without_the_text_list(
     assert text.read_text(encoding="utf-8") == "ST01-001 5\n"
 
 
-def test_a_file_that_is_not_json_is_refused(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_a_file_that_is_not_json_is_refused(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     path = tmp_path / "collection.json"
     path.write_text("{oops", encoding="utf-8")
     monkeypatch.setenv(ENV_VAR, str(path))
@@ -98,7 +123,9 @@ def test_an_unknown_printing_id_is_named_once_and_the_rest_is_used_without_chang
     assert cli.main(["card", "ST01-001"]) == 0
     captured = capsys.readouterr()
     assert "owned:  2 copies" in captured.out
-    assert [line for line in captured.err.splitlines() if "ST01-001_p9" in line] == ["note: ST01-001_p9 in the collection file is not in the catalog and was left out"]
+    assert [line for line in captured.err.splitlines() if "ST01-001_p9" in line] == [
+        "note: ST01-001_p9 in the collection file is not in the catalog and was left out"
+    ]
     assert captured.err.count("ZZ99-999") == 1
 
 
@@ -138,8 +165,12 @@ def test_import_points_to_the_ui_writes_nothing_and_exits_zero(
     path = write_file(monkeypatch, tmp_path, {"ST01-001": 1})
     assert cli.main(["import"]) == 0
     assert "UI" in capsys.readouterr().out
-    assert path.read_text(encoding="utf-8").count("ST01-001") == 1 and text.read_text(encoding="utf-8") == "ST01-001 2\n"
-    assert sorted(p.name for p in tmp_path.iterdir()) == ["collection.json"] and sorted(p.name for p in text.parent.iterdir()) == ["my_tcg_collection"]
+    assert (
+        path.read_text(encoding="utf-8").count("ST01-001") == 1 and text.read_text(encoding="utf-8") == "ST01-001 2\n"
+    )
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["collection.json"] and sorted(
+        p.name for p in text.parent.iterdir()
+    ) == ["my_tcg_collection"]
 
 
 def test_value_prices_an_owned_alternate_with_no_price_of_its_own_at_its_cards_price(
@@ -157,7 +188,11 @@ def test_value_prices_a_printing_at_its_own_price_when_the_store_gives_one(
 ) -> None:
     # The store's rule (`export.printing_prices`) gives the same cents as the card's price today, so the store is stood in for here:
     # it gives the alternate its own price of $50.00, and the command must use it rather than the card's $0.25.
-    monkeypatch.setattr(cli, "prices_of_printings", lambda card, rows: {PrintingId("ST01-001_p5"): (5000, date(2026, 10, 9))} if card.number == "ST01-001" else {})
+    monkeypatch.setattr(
+        cli,
+        "prices_of_printings",
+        lambda card, rows: {PrintingId("ST01-001_p5"): (5000, date(2026, 10, 9))} if card.number == "ST01-001" else {},
+    )
     write_file(monkeypatch, tmp_path, {"ST01-001": 1, "ST01-001_p5": 2})
     assert cli.main(["value"]) == 0
     out = capsys.readouterr().out

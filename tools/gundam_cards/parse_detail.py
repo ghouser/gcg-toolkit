@@ -3,6 +3,7 @@
 `RawDetail` is the boundary structure: strings exactly as the page shows them (after whitespace/zero-width cleanup),
 no interpretation. Interpretation into typed models happens in `build.py`.
 """
+
 from __future__ import annotations
 
 import re

@@ -3,6 +3,7 @@
 Identifiers are `str` subclasses that validate their format on construction and inside pydantic models, so a
 `CardNumber` can never be passed where a `SetCode` is expected, and a malformed value can't exist at all.
 """
+
 from __future__ import annotations
 
 import re

@@ -2,6 +2,7 @@
 reviewed sets.json (AC-1, AC-2); a rebuild never writes sets.json (AC-4) and the export carries the codes (AC-3, AC-5).
 The commands run through `main` against the in-memory Bandai fake, in the root conftest's temp folders.
 Expected values are worked out by hand from the package map below."""
+
 from __future__ import annotations
 
 import json
@@ -16,7 +17,14 @@ from tools.gundam_cards import cli
 from tools.gundam_cards.build import SourcePage, build_card
 from tools.gundam_cards.export import CatalogExport
 from tools.gundam_cards.models import CardSet, Printing, SetKind, SetsFile
-from tools.gundam_cards.store import catalog_export_path, data_out_dir, load_catalog, load_provisional_sets, pages_folder, tracked_folder
+from tools.gundam_cards.store import (
+    catalog_export_path,
+    data_out_dir,
+    load_catalog,
+    load_provisional_sets,
+    pages_folder,
+    tracked_folder,
+)
 from tools.gundam_cards.tests.test_catalog_refresh import FakeBandai, detail
 
 Page = Callable[[str], SourcePage]
@@ -71,7 +79,9 @@ def test_with_several_packages_the_first_one_the_map_knows_wins(page: Page) -> N
 
 def test_without_a_package_map_the_build_reads_only_the_bracket(page: Page) -> None:
     p = page("ST01-001")
-    source = replace(p, raw=replace(p.raw, fields=dict(p.raw.fields, **{"Where to get it": "-"})), package_ids=(PackageId(GD02),))
+    source = replace(
+        p, raw=replace(p.raw, fields=dict(p.raw.fields, **{"Where to get it": "-"})), package_ids=(PackageId(GD02),)
+    )
     assert build_card([source], TRAITS, NO_DATES).card.printings[0].set_code is None
 
 
@@ -94,14 +104,23 @@ LISTED = {
     BASIC: ("Basic Cards", {"GD01-003_p2": "Included in each starter deck"}),
     PROMO: ("Promotion card", {"GD01-002": "Store tournament prize"}),
     BETA: ("Edition Beta", {"GD01-003_p1": "Edition Beta"}),
-    UNKNOWN: ("Future Pack [GD99]", {"GD99-001": "Launch week giveaway"}),  # sets.json lacks it: the rebuild proposes GD99
+    UNKNOWN: (
+        "Future Pack [GD99]",
+        {"GD99-001": "Launch week giveaway"},
+    ),  # sets.json lacks it: the rebuild proposes GD99
 }
 EXPECTED_PRINTING_CODES = {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-003_p2": "BASIC", "GD01-003_p3": "SC01", "GD01-002": "PROMO",
                            "GD01-003_p1": "BETA", "GD99-001": None}  # fmt: skip
 
 
-KINDS = {"GD01": SetKind.BOOSTER, "GD02": SetKind.BOOSTER, "SC01": SetKind.DECK_BUILD_BOX, "BASIC": SetKind.OTHER,
-         "PROMO": SetKind.PROMO, "BETA": SetKind.BETA}
+KINDS = {
+    "GD01": SetKind.BOOSTER,
+    "GD02": SetKind.BOOSTER,
+    "SC01": SetKind.DECK_BUILD_BOX,
+    "BASIC": SetKind.OTHER,
+    "PROMO": SetKind.PROMO,
+    "BETA": SetKind.BETA,
+}
 
 
 def reviewed_sets() -> tuple[CardSet, ...]:
@@ -152,18 +171,27 @@ def catalog_printing_codes() -> dict[str, str | None]:
 
 
 @pytest.mark.parametrize("how", ["reparse", "refresh"])
-def test_a_rebuild_gives_package_codes_and_leaves_sets_json_byte_identical(tracked: bytes, site: Bandai, how: str) -> None:
+def test_a_rebuild_gives_package_codes_and_leaves_sets_json_byte_identical(
+    tracked: bytes, site: Bandai, how: str
+) -> None:
     rebuild(how)
     assert (tracked_folder() / "sets.json").read_bytes() == tracked
     assert catalog_printing_codes() == EXPECTED_PRINTING_CODES  # GD99-001: a package sets.json lacks gives no code
-    assert {str(s.code) for s in load_provisional_sets()} == {"GD99"}  # the provisional record is what it was before this change
+    assert {str(s.code) for s in load_provisional_sets()} == {
+        "GD99"
+    }  # the provisional record is what it was before this change
 
 
-def test_reparse_reports_the_provisional_sets_as_before(tracked: bytes, site: Bandai, capsys: pytest.CaptureFixture[str]) -> None:
+def test_reparse_reports_the_provisional_sets_as_before(
+    tracked: bytes, site: Bandai, capsys: pytest.CaptureFixture[str]
+) -> None:
     assert cli.main(["sync"]) == 0
     capsys.readouterr()
     assert cli.main(["reparse"]) == 0
-    assert f"7 sets on Bandai's list, 1 provisional -> {data_out_dir() / 'provisional_sets.json'}" in capsys.readouterr().out.splitlines()
+    assert (
+        f"7 sets on Bandai's list, 1 provisional -> {data_out_dir() / 'provisional_sets.json'}"
+        in capsys.readouterr().out.splitlines()
+    )
 
 
 def test_with_no_sets_json_the_rebuild_gives_only_bracketed_codes_and_creates_none(site: Bandai) -> None:
@@ -187,4 +215,10 @@ def test_the_export_after_a_rebuild_is_valid_and_carries_the_new_codes(tracked: 
     card_codes = {c["number"]: c.get("set_code") for c in data["cards"]}
     assert {c for c in [*printing_codes.values(), *card_codes.values()] if c is not None} <= known
     assert printing_codes == EXPECTED_PRINTING_CODES
-    assert card_codes == {"GD01-001": "GD01", "GD02-001": "GD02", "GD01-002": "PROMO", "GD01-003": "BASIC", "GD99-001": None}
+    assert card_codes == {
+        "GD01-001": "GD01",
+        "GD02-001": "GD02",
+        "GD01-002": "PROMO",
+        "GD01-003": "BASIC",
+        "GD99-001": None,
+    }

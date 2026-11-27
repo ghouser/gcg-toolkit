@@ -13,6 +13,7 @@ Identifying a product needs its rarity: a trailing `+` or `++` on the rarity mar
 by `price_refresh.match_products` (set, card number and art tier); a card's price is its cheapest non-alt-art printing's price in the newest
 per-printing snapshot.
 """
+
 from __future__ import annotations
 
 import json
@@ -43,7 +44,9 @@ class TcgcsvError(Exception):
 
 
 class IssueKind(StrEnum):
-    UNKNOWN_RARITY = "unknown_rarity"  # a rarity we have no mapping for (the product is treated as a normal printing, reported)
+    UNKNOWN_RARITY = (
+        "unknown_rarity"  # a rarity we have no mapping for (the product is treated as a normal printing, reported)
+    )
     BAD_NUMBER = "bad_number"  # a `Number` that is not shaped like a card number (the product is not matched)
     NUMBER_NOT_IN_CATALOG = "number_not_in_catalog"  # a card number the catalog does not have
     NULL_PRICE = "null_price"  # a price row with no market price (ignored)
@@ -121,17 +124,29 @@ def fetch_updated(fetcher: TextFetcher) -> datetime:
     return parse_updated(fetcher.get_text(f"{BASE_URL}/last-updated.txt").text)
 
 
-def fetch_dump(fetcher: TextFetcher, source_updated_at: datetime, *, force: bool = False, progress: Callable[[str], None] | None = None) -> RawDump:
+def fetch_dump(
+    fetcher: TextFetcher,
+    source_updated_at: datetime,
+    *,
+    force: bool = False,
+    progress: Callable[[str], None] | None = None,
+) -> RawDump:
     """Every group's products and prices. Cached under the dump's own folder, so the same dump is never fetched twice (`force` re-pulls)."""
     stamp = stamp_of(source_updated_at)
-    groups_text = fetcher.get_text(f"{BASE_URL}/tcgplayer/{CATEGORY_ID}/groups", cache_key=f"{stamp}/groups.json", force=force).text
+    groups_text = fetcher.get_text(
+        f"{BASE_URL}/tcgplayer/{CATEGORY_ID}/groups", cache_key=f"{stamp}/groups.json", force=force
+    ).text
     groups = TypeAdapter(tuple[_Group, ...]).validate_json(json.dumps(_results(groups_text)))
     products: dict[int, str] = {}
     prices: dict[int, str] = {}
     for i, group in enumerate(groups, start=1):
         base = f"{BASE_URL}/tcgplayer/{CATEGORY_ID}/{group.groupId}"
-        products[group.groupId] = fetcher.get_text(f"{base}/products", cache_key=f"{stamp}/{group.groupId}_products.json", force=force).text
-        prices[group.groupId] = fetcher.get_text(f"{base}/prices", cache_key=f"{stamp}/{group.groupId}_prices.json", force=force).text
+        products[group.groupId] = fetcher.get_text(
+            f"{base}/products", cache_key=f"{stamp}/{group.groupId}_products.json", force=force
+        ).text
+        prices[group.groupId] = fetcher.get_text(
+            f"{base}/prices", cache_key=f"{stamp}/{group.groupId}_prices.json", force=force
+        ).text
         if progress is not None:
             progress(f"{i}/{len(groups)} {group.abbreviation or group.name}")
     return RawDump(source_updated_at, groups_text, products, prices)
@@ -179,7 +194,9 @@ def parse_dump(dump: RawDump) -> tuple[tuple[TcgProduct, ...], tuple[Issue, ...]
         unknown_kinds: dict[int, str] = {}
         for row in rows:
             if row.subTypeName not in PRICE_KINDS:
-                issues.append(Issue(IssueKind.UNKNOWN_PRICE_KIND, f"{label} product {row.productId}: {row.subTypeName!r}"))
+                issues.append(
+                    Issue(IssueKind.UNKNOWN_PRICE_KIND, f"{label} product {row.productId}: {row.subTypeName!r}")
+                )
                 unknown_kinds.setdefault(row.productId, row.subTypeName)
                 continue
             if row.marketPrice is None:
@@ -226,7 +243,14 @@ def card_prices_from_printings(file: PrintingPriceFile) -> PriceFile:
         generated_at=file.generated_at,
         source_updated_at=file.source_updated_at,
         data=tuple(
-            CardPrice(card_number=n, price_cents=r.price_cents, product_id=r.product_id, name=r.name, set_code=r.set_code, fetched_at=r.fetched_at)
+            CardPrice(
+                card_number=n,
+                price_cents=r.price_cents,
+                product_id=r.product_id,
+                name=r.name,
+                set_code=r.set_code,
+                fetched_at=r.fetched_at,
+            )
             for n, r in sorted(cheapest.items())
         ),
     )
